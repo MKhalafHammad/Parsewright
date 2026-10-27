@@ -14,7 +14,7 @@ dependencies = [
     "uvicorn[standard]>=0.54",
     "pydantic>=2.14",
     "psycopg[binary]>=3.3",
-    "splunk-sdk>=3.0",
+    "splunk-sdk>=2.1",  # 3.x requires Python 3.13
     "openai>=3.39",
     "regex>=2026.9",
 ]

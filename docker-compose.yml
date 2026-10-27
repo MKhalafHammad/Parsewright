@@ -1,0 +1,80 @@
+# Parsewright local stack. Every secret comes from .env (see .env.example).
+# Published to the host (127.0.0.1 only): Splunk Web and the web UI.
+# Internal only: Splunk management port 8089 and PostgreSQL.
+name: parsewright
+
+services:
+  splunk:
+    image: splunk/splunk:10.6.1
+    # The image runs as the unprivileged "ansible" user and starts splunkd as "splunk".
+    environment:
+      SPLUNK_START_ARGS: ${SPLUNK_START_ARGS:?set SPLUNK_START_ARGS in .env to accept the Splunk license}
+      SPLUNK_GENERAL_TERMS: ${SPLUNK_GENERAL_TERMS:?set SPLUNK_GENERAL_TERMS in .env to accept the Splunk General Terms}
+      SPLUNK_PASSWORD: ${SPLUNK_PASSWORD:?set SPLUNK_PASSWORD in .env}
+    ports:
+      - "127.0.0.1:${SPLUNK_WEB_PORT:-8000}:8000"
+    volumes:
+      - splunk-etc:/opt/splunk/etc
+      - splunk-var:/opt/splunk/var
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:17.11-alpine
+    # The entrypoint drops to the unprivileged "postgres" user. No ports: internal only.
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:?set POSTGRES_DB in .env}
+      POSTGRES_USER: ${POSTGRES_USER:?set POSTGRES_USER in .env}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+
+  # Planned: engine/Dockerfile and web/Dockerfile (non-root) land with the first
+  # runnable code. Until then these services sit behind the "app" profile, so
+  # `make up` starts Splunk and PostgreSQL only.
+  engine:
+    profiles: ["app"]
+    build: ./engine
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      SPLUNK_HOST: splunk
+      SPLUNK_PORT: "8089"
+      SPLUNK_SEARCH_TOKEN: ${SPLUNK_SEARCH_TOKEN:?set SPLUNK_SEARCH_TOKEN in .env}
+      SPLUNK_DEPLOY_TOKEN: ${SPLUNK_DEPLOY_TOKEN:?set SPLUNK_DEPLOY_TOKEN in .env}
+      SPLUNK_DRIFT_TOKEN: ${SPLUNK_DRIFT_TOKEN:?set SPLUNK_DRIFT_TOKEN in .env}
+      LLM_API_KEY: ${LLM_API_KEY:?set LLM_API_KEY in .env}
+      LLM_BASE_URL: ${LLM_BASE_URL:?set LLM_BASE_URL in .env}
+      LLM_MODEL: ${LLM_MODEL:?set LLM_MODEL in .env}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      splunk:
+        condition: service_healthy
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+
+  web:
+    profiles: ["app"]
+    build: ./web
+    environment:
+      ENGINE_URL: http://engine:8080
+    ports:
+      - "127.0.0.1:${WEB_PORT:-3000}:3000"
+    depends_on:
+      - engine
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+
+volumes:
+  splunk-etc:
+  splunk-var:
+  pgdata:

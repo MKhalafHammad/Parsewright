@@ -19,6 +19,9 @@ dependencies = [
     "regex>=2026.9",
 ]
 
+[project.scripts]
+parsewright = "parsewright.cli:main"
+
 [project.optional-dependencies]
 dev = [
     "pytest>=9.1",
@@ -39,7 +42,7 @@ target-version = "py312"
 select = ["E", "F", "W", "I", "B", "UP", "S", "BLE", "RUF"]
 
 [tool.ruff.lint.per-file-ignores]
-"**/tests/**" = ["S101"]
+"**/tests/**" = ["S101", "S106"]  # asserts; fake placeholder tokens
 
 [tool.bandit]
 exclude_dirs = ["tests"]

@@ -17,7 +17,7 @@ Parsewright turns raw sample logs into a tested, CIM-compliant Splunk add-on (TA
 engine/parsewright/  api orchestrator agents tools guardrails validator ta_builder ledger cim_spec generator
 engine/tests/        engine tests
 web/                 Next.js UI
-docs/                design.md, threat-model.md
+docs/                design.md, build-plan.md (phases + status), threat-model.md, lab-findings.md
 scripts/             repo tooling (commit-msg hook)
 tests/               repo tooling tests
 .claude/agents/      subagents: engine, agents-ai, splunk, frontend, qa, appsec (read-only)

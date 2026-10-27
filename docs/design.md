@@ -620,6 +620,8 @@ parsewright/
 
 ### Open questions
 
+Phase 1 tracks these, plus five questions about the REST deploy, ingest and config-check paths, with test steps and results in [lab-findings.md](lab-findings.md). Answers are recorded here as they land.
+
 - Does the Meta Model API support `response_format` JSON schemas, or should each agent output be a forced tool call?
 - What exactly is "contributor mode"? Default to standard mode until confirmed.
 - Do index-time settings apply to the next oneshot right after a reload on the lab's Splunk version?

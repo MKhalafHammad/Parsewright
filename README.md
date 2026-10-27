@@ -56,6 +56,7 @@ The model is set only through environment variables (`LLM_BASE_URL`, `LLM_MODEL`
 | Feature | Status |
 | --- | --- |
 | Repository foundation: CI, secret scanning, commit hooks, Docker stack (Splunk + PostgreSQL) | **Built** |
+| Threat model and lab probes for the Meta Model API and Splunk ([docs/lab-findings.md](docs/lab-findings.md)) | **Built** (lab results pending) |
 | Synthetic log generator with truth manifests (JSON, key=value, syslog, CSV) | Planned |
 | Profiler agent and human profile review | Planned |
 | Index-time, Extraction and CIM mapper agents with retry loops | Planned |
@@ -99,6 +100,8 @@ The model is set only through environment variables (`LLM_BASE_URL`, `LLM_MODEL`
    | `SPLUNK_GENERAL_TERMS` | Yes | Accepts the Splunk General Terms (Splunk 10.x) | `--accept-sgt-current-at-splunk-com` |
    | `SPLUNK_PASSWORD` | Yes | Splunk `admin` password, 8+ characters | `changeme-to-a-long-password` |
    | `SPLUNK_WEB_PORT` | No | Host port for Splunk Web (default 8000) | `8000` |
+   | `SPLUNK_HOST` | Yes (engine, CLI, probes) | Splunk REST host (`splunk` inside Docker) | `splunk.example.com` |
+   | `SPLUNK_PORT` | Yes | Splunk REST port | `8089` |
    | `SPLUNK_SEARCH_TOKEN` | Yes (engine, planned) | Token for the search-only service account | `your-parsewright-search-token-here` |
    | `SPLUNK_DEPLOY_TOKEN` | Yes (engine, planned) | Token for the deploy service account | `your-parsewright-deploy-token-here` |
    | `SPLUNK_DRIFT_TOKEN` | Yes (engine, planned) | Token for the drift read-only account | `your-parsewright-drift-token-here` |
@@ -188,7 +191,7 @@ CI runs `make lint`, `make test` and `make security` on every pull request (not 
 │   │   ├── api/             FastAPI routes and the SSE stream (planned)
 │   │   ├── orchestrator/    deterministic state machine, budgets, workers (planned)
 │   │   ├── agents/          Muse Spark agents: prompt + schema each (planned)
-│   │   ├── tools/           Splunk client, search guard, test_regex (planned)
+│   │   ├── tools/           lab probes (built); Splunk client, search guard, test_regex (planned)
 │   │   ├── guardrails/      conf allowlist, btool, regex safety (planned)
 │   │   ├── validator/       fixed SPL checks per stage (planned)
 │   │   ├── ta_builder/      escaping conf writer, versions, .tgz packaging (planned)
@@ -197,7 +200,7 @@ CI runs `make lint`, `make test` and `make security` on every pull request (not 
 │   │   └── generator/       synthetic logs + truth manifests; fixtures/ (planned)
 │   └── tests/               engine tests
 ├── web/                     Next.js + shadcn/ui UI (planned)
-├── docs/                    design.md (source of truth), threat-model.md
+├── docs/                    design.md (source of truth), build-plan.md, threat-model.md, lab-findings.md
 ├── scripts/                 repo tooling (commit-msg hook)
 ├── tests/                   repo tooling tests
 ├── .claude/                 project settings and subagents for Claude Code
@@ -223,7 +226,7 @@ CI runs `make lint`, `make test` and `make security` on every pull request (not 
 
 Parsewright is being built during the **Meta Global AI Developer Hackathon** (building period Oct 27 – Nov 4, 2026), "Build for Your World" track. All code in this repository is written during the event, starting with the first commit on Oct 27, 2026. Only synthetic logs are used. The demo will show only features built during the event.
 
-Built so far: the project foundation (this commit). This section is updated as features land.
+Built so far: the project foundation, the threat model and the lab probes. Progress per phase is tracked in the Status table of [docs/build-plan.md](docs/build-plan.md).
 
 ## Limitations and roadmap
 

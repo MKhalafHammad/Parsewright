@@ -156,7 +156,7 @@ A run goes from upload to an approved `.tgz` in eight steps; steps 4 to 6 each r
 1. **Generate:** the stage's agent gets its curated context and returns its config (schema-validated).
 2. **Gate:** guardrails check it: key allowlist, `btool check`, regex safety, scope.
 3. **Deploy:** write the new TA version to `/opt/splunk/etc/apps/TA-*/default/` via REST under its test identity (see Test identity) and reload configs (no restart). *(2026-10-27: done by installing the complete `.tgz` through the `apps/local` endpoint with `update=true`, from a shared packages folder; never through the `configs/conf-*` endpoints. See [lab-findings.md](lab-findings.md#q6-deploy-path), Q6.)*
-4. **Ingest:** oneshot the samples into a fresh index, `pw_<run>_<stage>_<attempt>`, then wait until the event count is stable. *(2026-10-27: ingest posts the samples to `receivers/simple`, not oneshot. A newly installed sourcetype's index-time settings apply to the very next ingest with no reload or restart. See [lab-findings.md](lab-findings.md), Q3 and Q8.)*
+4. **Ingest:** oneshot the samples into a fresh index, `pw_<run>_<stage>_<attempt>`, then wait until the event count is stable. *(2026-10-27: ingest posts the samples to `receivers/simple`, not oneshot. A newly installed sourcetype's index-time settings apply to the very next ingest with no reload or restart. All test ingests go to **one shared index**, `PARSEWRIGHT_TEST_INDEX` (for example `pw_test`), created once by an admin. The engine never creates or deletes indexes. Each attempt has its own sourcetype (see Test identity), and every Validator search filters on that exact sourcetype, so attempts and jobs never mix. See [lab-findings.md](lab-findings.md), Q3, Q8 and Q9.)*
 5. **Validate:** run that stage's fixed SPL checks, plus a quick regression re-run of earlier stages' checks.
 6. **Decide:** pass moves to the next stage; fail returns to the same agent with evidence (expected, actual, up to 3 failing events).
 
@@ -181,9 +181,11 @@ Every test deploy runs under a separate app name and a separate sourcetype name,
 | Item | Production name | Test name |
 | --- | --- | --- |
 | App | `TA-parsewright-fortinet-fortigate` | `TA-parsewright-fortinet-fortigate__test_<job>` |
-| Sourcetype (every stanza, eventtype and search in the copy) | `fortinet:fortigate:traffic` | `fortinet:fortigate:traffic__test_<job>` |
+| Sourcetype (every stanza, eventtype and search in the copy) | `fortinet:fortigate:traffic` | `fortinet:fortigate:traffic__test_<job>_a<attempt>` |
 | Generic sourcetype for routing tests | `syslog` | `syslog__test_<job>` |
 | Transforms | `parsewright_<job>_…` | Same prefix plus `__test` |
+
+*(2026-10-27: the sourcetype also carries the attempt number, `__test_<job>_a<attempt>`. Every attempt is then a new sourcetype, which is the case the lab proved applies without a reload (Q3). It also separates attempts inside the one shared test index.)*
 
 **Applies to** new builds and parser updates alike: samples are ingested into the test index with the test sourcetype, and test apps are removed with the job's other test resources.
 

@@ -153,7 +153,7 @@ Updated at the end of every phase.
 ### Acceptance criteria
 - `parsewright run engine/parsewright/generator/fixtures/<sample>.json` exits 0 against the lab and prints `index-time: PASS (event count 60/60)`.
 - During the run, Splunk shows the app `TA-parsewright-<vendor>-<product>__test_<job>` and the sourcetype `<st>__test_<job>`. The real names never appear.
-- The data lands in an index named `pw_<job>_indextime_<attempt>`, and its count equals the manifest's.
+- The data lands in the shared test index (`PARSEWRIGHT_TEST_INDEX`) under the sourcetype `<st>__test_<job>_a<attempt>`, and its count for that sourcetype equals the manifest's.
 - Unit tests:
   - the conf writer rejects a value containing `\n` or `\r`;
   - the TA-name pattern rejects `../x`, `A-B` and `x y`;

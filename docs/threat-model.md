@@ -225,6 +225,7 @@ The tables above are the mapping: every design.md Must row appears with its phas
 | R5 | `git commit --no-verify` skips the commit-msg and gitleaks hooks locally | CI runs gitleaks over full history; CLAUDE.md forbids `--no-verify` | If contributors join |
 | R6 | Python regex differs from Splunk PCRE, so `test_regex` can pass a regex Splunk handles differently | Splunk's own Validator run stays the real proof | — |
 | R7 | Hosted model sees sample content | Synthetic logs only in the hackathon; on-prem mode and masking for real logs | When real logs are used |
+| R8 | The deploy role needs `admin_all_objects` to install apps from a path (lab-findings Q9), so the deploy token is near-admin: it can change any Splunk object and write into any index | Token lives only in the orchestrator process, never with an agent, prompt, web process or ledger; code validates every app name and `pw_` ingest target before each call; the engine never creates or deletes indexes; lab-only account | Before any non-lab Splunk; look for a narrower install path |
 
 ## Review history
 

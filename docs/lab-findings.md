@@ -14,7 +14,7 @@
 | Q6 | Deploy path: install a package, or write stanzas over REST? | `probe_install` + decision | Answered 2026-10-27 | A: package install via `apps/local`; `update=true` is a full replace |
 | Q7 | How to run `btool check` without shell access to Splunk | Decision | Pending OWNER | |
 | Q8 | Ingest path: does `receivers/simple` apply line breaking and timestamps? | `probe_splunk` + `probe_install` | Answered 2026-10-27 | `receivers/simple` |
-| Q9 | Which capabilities does the deploy role need? | `probe_splunk` + manual | Partly answered 2026-10-27: ingest needs `edit_tcp`; app-install trim pending Q6 test | |
+| Q9 | Which capabilities does the deploy role need? | `probe_splunk` + `probe_install` | Answered 2026-10-27 | `admin_all_objects`, `edit_tcp`, `install_apps`; one shared test index, no `indexes_edit` |
 | Q10 | CIM add-on installed, `pw_*` in the CIM index macros | Manual lab step | Pending OWNER | |
 
 ## Lab setup (OWNER ACTION, once)
@@ -220,10 +220,34 @@ The design says to "write the new TA version to `/opt/splunk/etc/apps/TA-*/defau
   ```
   - **Search token:** it has its own role only and none of the listed capabilities. Searching outside `pw_*` and `_internal` returns 0 events. The role was created with no inheritance, not inheriting `user` as the lab setup above first said, and new users were created without the default `user` role.
   - **Ingest:** without `edit_tcp` the deploy token's `receivers/simple` post was refused with **HTTP 403**. With `edit_tcp`, 3 lines were indexed. **`edit_tcp` is required.**
-  - **App install (2026-10-27):** install, update and uninstall work with `admin_all_objects`, `edit_tcp`, `install_apps` and `rest_apps_management`, as shown in Q6's result. The trim is pending: remove `admin_all_objects` first, since it is close to full admin, then `rest_apps_management`, re-running `scripts/probe.sh install` after each.
-  - **Not yet tested: creating indexes.** The design ingests each attempt into a fresh index, `pw_<run>_<stage>_<attempt>`. Creating an index over REST needs `indexes_edit`, which the deploy role does not have. Every probe so far used the pre-created `pw_probe`. Decide before Phase 2: grant `indexes_edit`, or pre-create one index per job.
+  - **App install (2026-10-27):** install, update and uninstall work with `admin_all_objects`, `edit_tcp`, `install_apps` and `rest_apps_management`, as shown in Q6's result.
+  - **Trim, step 1: `admin_all_objects` is required.** With it removed, `install_apps` alone was not enough. Installing from a path on the host was refused:
+    ```
+    install v1 with deploy token: refused HTTP 403
+    ```
+  - **Indexes:** with `indexes_edit` granted, the deploy token could create a `pw_` index, and the search token was refused (403). Even with `admin_all_objects`, though, the deploy token **could not delete** one (403). An engine that creates one index per attempt, as the design first said, would leave hundreds of indexes behind. Two empty probe indexes were left this way. A later index listing no longer showed them, so nothing was left to remove.
+  - **Trim, step 2:** with `rest_apps_management` and `indexes_edit` both removed, the full install probe still passed against the shared `pw_test` index:
+    ```
+    deploy token: user=parsewright_deploy roles=['parsewright_deploy'] notable_caps=['admin_all_objects', 'edit_tcp', 'install_apps']
+    test index: pw_test (exists: True)
+    install with search token: refused HTTP 403 (good)
+    install v1 with deploy token: ok
+    ingest right after install, no reload: 3 events (expect 3: LINE_BREAKER applied), _time matches TIME_FORMAT+TZ
+    after v2: v1 stanza present=False, v2 stanza present=True (full replace)
+    install probe: PASS
+    ```
   - The probe now reports a rejected token's shape (length, part count, user, expiry) without printing it. A pasted-twice deploy token was found this way.
-- **Decision:** the final capability list is recorded after the Q6 install test and the trim.
+- **Decision (2026-10-27, OWNER):**
+  - **One shared test index:** `PARSEWRIGHT_TEST_INDEX`, for example `pw_test`.
+    - An admin creates it once. The engine never creates or deletes indexes, so `indexes_edit` is **removed** from the deploy role.
+    - Each job and attempt is identified by its sourcetype, `<st>__test_<job>_a<attempt>`.
+    - Every Validator search filters on that exact sourcetype. Phase 4 adds an adversarial test that fails if any Validator search lacks the filter.
+    - Code still rejects any ingest target that isn't a `pw_` index.
+  - **Size, not age, limits the index.** Set a size cap (`maxTotalDataSizeMB`), not an age-based retention (`frozenTimePeriodInSecs`). Sample events carry historical timestamps, so an age-based limit could freeze them before the Validator reads them.
+  - **Final deploy role:** `admin_all_objects`, `edit_tcp`, `install_apps`, with allowed indexes `pw_*`. It is near-admin, as the warning above expected, and accepted for the lab because:
+    - the token lives only in the orchestrator process;
+    - code checks every app name (`TA-parsewright-…__test_…`) and every ingest target (`pw_`) before any call;
+    - the threat model lists it as a residual risk.
 
 ## Q10. CIM add-on and index macros
 

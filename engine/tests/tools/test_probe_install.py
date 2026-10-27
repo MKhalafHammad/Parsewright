@@ -9,6 +9,7 @@ from parsewright.tools.probes.probe_install import (
     build_package,
     expected_epochs,
     packages_dir,
+    shared_index,
 )
 
 
@@ -51,3 +52,15 @@ def test_packages_dir_must_exist(monkeypatch, tmp_path):
         packages_dir()
     monkeypatch.setenv("PARSEWRIGHT_PACKAGES_DIR", str(tmp_path))
     assert packages_dir() == tmp_path.resolve()
+
+
+@pytest.mark.parametrize("raw", ["", "main", "pw", "pw_x OR index=main", "_internal"])
+def test_test_index_must_be_a_pw_index(monkeypatch, raw):
+    monkeypatch.setenv("PARSEWRIGHT_TEST_INDEX", raw)
+    with pytest.raises(ValueError):
+        shared_index()
+
+
+def test_test_index_accepts_pw_name(monkeypatch):
+    monkeypatch.setenv("PARSEWRIGHT_TEST_INDEX", "pw_test")
+    assert shared_index() == "pw_test"

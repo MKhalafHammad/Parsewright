@@ -1,10 +1,12 @@
 """Probe the add-on install path (Q6), index-time settings after install (Q3) and the deploy
 role's install capabilities (Q9).
 
-Installs a throwaway test add-on, ingests into pw_probe only, then uninstalls it.
+Installs a throwaway test add-on, ingests into the shared PARSEWRIGHT_TEST_INDEX only,
+then uninstalls it.
 Never prints tokens.
 Run: python -m parsewright.tools.probes.probe_install
      (reads SPLUNK_HOST, SPLUNK_PORT, SPLUNK_SEARCH_TOKEN, SPLUNK_DEPLOY_TOKEN,
+      PARSEWRIGHT_TEST_INDEX: the shared pw_ test index, created once by an admin,
       PARSEWRIGHT_PACKAGES_DIR: a directory on the Splunk host that splunkd can read)
 """
 
@@ -22,7 +24,6 @@ from splunklib.binding import HTTPError
 from splunklib.results import JSONResultsReader
 
 from parsewright.tools.probes.probe_splunk import (
-    PROBE_INDEX,
     connect,
     count,
     require_pw_index,
@@ -82,6 +83,11 @@ def packages_dir() -> Path:
     return path
 
 
+def shared_index() -> str:
+    """The one shared pw_ index all test ingests go to; attempts differ by sourcetype."""
+    return require_pw_index(os.environ.get("PARSEWRIGHT_TEST_INDEX", ""))
+
+
 def build_package(dest: Path, version: str, props: str) -> Path:
     """Write a complete test add-on .tgz into dest and return its path."""
     files = {
@@ -127,9 +133,9 @@ def reload_props(service) -> str:
     return "ok"
 
 
-def ingest_and_check(search, deploy, label: str) -> bool:
+def ingest_and_check(search, deploy, index: str, label: str) -> bool:
     """Send a;b;c under the v1 sourcetype and check line breaking and timestamps."""
-    index = require_pw_index(PROBE_INDEX)
+    index = require_pw_index(index)
     source = f"parsewright_probe_{uuid.uuid4().hex[:8]}"
     body = ";".join(f"probe {c} ts={s}" for c, s in zip("abc", STAMPS, strict=True))
     deploy.indexes[index].submit(body, sourcetype=SOURCETYPE_V1, source=source)
@@ -173,10 +179,15 @@ def main() -> int:
     dest = packages_dir()
     v1 = build_package(dest, "0.0.1", PROPS_V1)
     v2 = build_package(dest, "0.0.2", PROPS_V2)
+    # One shared index, created once by an admin; the engine never creates or deletes indexes.
+    index = shared_index()
+    print(f"test index: {index} (exists: {index in deploy.indexes})")
+    installed = False
     ok = True
     try:
         refused = install(search, v1)
         ok &= refused != "ok"
+        installed = refused == "ok"
         verdict = "good" if refused != "ok" else "SECURITY FAIL: search token can install apps"
         print(f"install with search token: {refused} ({verdict})")
 
@@ -185,12 +196,13 @@ def main() -> int:
         if result != "ok":
             print("stopping: the deploy role cannot install apps (Q9)")
             return 1
+        installed = True
         print(f"v1 stanza present after install: {stanza_present(deploy, SOURCETYPE_V1)}")
 
-        applied = ingest_and_check(search, deploy, "ingest right after install, no reload")
+        applied = ingest_and_check(search, deploy, index, "ingest right after install, no reload")
         if not applied:
             print(f"reload conf-props: {reload_props(deploy)}")
-            applied = ingest_and_check(search, deploy, "ingest after reload")
+            applied = ingest_and_check(search, deploy, index, "ingest after reload")
         ok &= applied
 
         result = install(deploy, v2)
@@ -203,11 +215,12 @@ def main() -> int:
         )
         ok &= result == "ok" and replaced
     finally:
-        try:
-            deploy.delete(f"apps/local/{APP}")
-            print("cleanup: test add-on uninstalled")
-        except HTTPError as e:
-            print(f"cleanup: uninstall refused HTTP {e.status}; remove {APP} by hand")
+        if installed:
+            try:
+                deploy.delete(f"apps/local/{APP}")
+                print("cleanup: test add-on uninstalled")
+            except HTTPError as e:
+                print(f"cleanup: uninstall refused HTTP {e.status}; remove {APP} by hand")
         for package in (v1, v2):
             package.unlink(missing_ok=True)
 

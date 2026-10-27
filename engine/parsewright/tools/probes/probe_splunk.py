@@ -54,6 +54,8 @@ def token_shape(token: str) -> str:
 
     The signature (the secret part) is never decoded or printed.
     """
+    if not token:
+        return "empty: the variable is set but has no value"
     notes = [f"length={len(token)}"]
     if token != token.strip():
         notes.append("has leading/trailing whitespace")
@@ -67,10 +69,16 @@ def token_shape(token: str) -> str:
         claims = json.loads(base64.urlsafe_b64decode(padded))
     except (ValueError, binascii.Error):
         return ", ".join([*notes, "payload not decodable: copied wrong?"])
+    if not isinstance(claims, dict):
+        return ", ".join([*notes, "payload is not a JSON object: copied wrong?"])
     notes.append(f"user={claims.get('sub')}")
     if "exp" in claims:
-        left = int(claims["exp"]) - int(time.time())
-        notes.append("EXPIRED" if left <= 0 else f"expires in {left // 3600}h")
+        try:
+            left = int(claims["exp"]) - int(time.time())
+        except (TypeError, ValueError):
+            notes.append("expiry not a number")
+        else:
+            notes.append("EXPIRED" if left <= 0 else f"expires in {left // 3600}h")
     return ", ".join(notes)
 
 

@@ -5,6 +5,7 @@ Run: python -m parsewright.tools.probes.probe_llm  (reads LLM_API_KEY, LLM_BASE_
 
 import json
 import os
+import re
 import sys
 
 import openai
@@ -68,19 +69,27 @@ def try_json_object(client, model: str):
     return resp, resp.choices[0].message.content
 
 
-def redact(text: str) -> str:
-    """Cut to a short line and remove the API key if a server error echoes it."""
+# Long runs of key-like characters: catches a masked, partial or encoded key a server echoes.
+KEYLIKE = re.compile(r"[A-Za-z0-9_\-.]{24,}")
+
+
+def redact(text: str, limit: int = 200) -> str:
+    """Remove the API key and key-like runs from the whole text, then cut to one short line.
+
+    Redacting before cutting means a key that crosses the cut cannot leak its first part.
+    """
     key = os.environ.get("LLM_API_KEY", "")
     if key:
         text = text.replace(key, "[redacted]")
-    return " ".join(text.split())[:200]
+    text = KEYLIKE.sub("[redacted]", text)
+    return " ".join(text.split())[:limit]
 
 
 def describe_reply(resp, text) -> str:
     """Why a reply failed validation: stop reason, length and the start of the text."""
     finish = getattr(resp.choices[0], "finish_reason", None)
     text = text or ""
-    return f"finish_reason={finish} chars={len(text)} starts={redact(repr(text[:120]))}"
+    return f"finish_reason={finish} chars={len(text)} starts={redact(repr(text), 120)}"
 
 
 def describe_error(e: Exception) -> str:

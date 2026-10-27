@@ -64,3 +64,31 @@ def test_test_index_must_be_a_pw_index(monkeypatch, raw):
 def test_test_index_accepts_pw_name(monkeypatch):
     monkeypatch.setenv("PARSEWRIGHT_TEST_INDEX", "pw_test")
     assert shared_index() == "pw_test"
+
+
+def test_packages_dir_rejects_symlink(monkeypatch, tmp_path):
+    real = tmp_path / "real"
+    real.mkdir()
+    link = tmp_path / "link"
+    link.symlink_to(real)
+    monkeypatch.setenv("PARSEWRIGHT_PACKAGES_DIR", str(link))
+    with pytest.raises(ValueError, match="not a link"):
+        packages_dir()
+
+
+def test_packages_dir_rejects_group_or_world_writable(monkeypatch, tmp_path):
+    loose = tmp_path / "loose"
+    loose.mkdir()
+    loose.chmod(0o777)
+    monkeypatch.setenv("PARSEWRIGHT_PACKAGES_DIR", str(loose))
+    with pytest.raises(ValueError, match="writable"):
+        packages_dir()
+
+
+def test_build_package_never_writes_through_a_planted_symlink(tmp_path):
+    target = tmp_path / "target"
+    target.write_text("untouched")
+    first = build_package(tmp_path, "0.0.1", PROPS_V1)
+    second = build_package(tmp_path, "0.0.1", PROPS_V1)
+    assert first != second  # fresh name every build, so nothing pre-planted is reused
+    assert target.read_text() == "untouched"

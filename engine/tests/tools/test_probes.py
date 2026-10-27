@@ -6,7 +6,7 @@ from types import SimpleNamespace
 import openai
 import pytest
 
-from parsewright.tools.probes.probe_llm import probe
+from parsewright.tools.probes.probe_llm import probe, redact
 from parsewright.tools.probes.probe_splunk import require_pw_index, token_shape
 
 USAGE = SimpleNamespace(prompt_tokens=10, completion_tokens=3)
@@ -117,3 +117,28 @@ def test_token_shape_flags_expired_quoted_and_truncated_tokens():
     assert "quote" in token_shape('"' + fake_jwt({"sub": "u"}) + '"')
     assert "whitespace" in token_shape(fake_jwt({"sub": "u"}) + " ")
     assert "not a JWT" in token_shape("abc.def")
+
+
+def test_redact_runs_before_the_cut(monkeypatch):
+    key = "sk-" + "a" * 40
+    monkeypatch.setenv("LLM_API_KEY", key)
+    text = "x" * 110 + key
+    out = redact(text, 120)
+    assert "sk-aaa" not in out and "aaaa" not in out
+
+
+def test_redact_masks_partial_or_masked_keys(monkeypatch):
+    monkeypatch.setenv("LLM_API_KEY", "sk-" + "b" * 40)
+    out = redact("invalid key sk-bbbbbbbbbbbbbbbbbbbbbbbbbbbb... (truncated)")
+    assert "bbbbbbbbbbbbbbbbbbbbbbbb" not in out
+
+
+def test_token_shape_edge_cases():
+    assert "empty" in token_shape("")
+    assert "not a JSON object" in token_shape(fake_jwt_raw("[1, 2]"))
+    assert "expiry not a number" in token_shape(fake_jwt({"sub": "u", "exp": "soon"}))
+
+
+def fake_jwt_raw(payload: str) -> str:
+    b64 = base64.urlsafe_b64encode(payload.encode()).decode().rstrip("=")
+    return f"eyJhbGciOiJIUzUxMiJ9.{b64}.sig"

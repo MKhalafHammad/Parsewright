@@ -12,6 +12,7 @@ Run: python -m parsewright.tools.probes.probe_install
 
 import io
 import os
+import stat
 import sys
 import tarfile
 import time
@@ -73,13 +74,22 @@ def expected_epochs() -> list[int]:
 
 
 def packages_dir() -> Path:
+    """The packages folder: absolute, a real directory (not a symlink), owned by this user and
+    not group- or world-writable, so nobody else can swap a package before splunkd reads it."""
     raw = os.environ.get("PARSEWRIGHT_PACKAGES_DIR", "")
     path = Path(raw)
     if not raw or not path.is_absolute():
         raise ValueError("PARSEWRIGHT_PACKAGES_DIR must be an absolute path")
-    path = path.resolve()
-    if not path.is_dir():
-        raise ValueError(f"PARSEWRIGHT_PACKAGES_DIR does not exist: {path}")
+    try:
+        st = os.lstat(path)
+    except FileNotFoundError:
+        raise ValueError(f"PARSEWRIGHT_PACKAGES_DIR does not exist: {path}") from None
+    if stat.S_ISLNK(st.st_mode) or not stat.S_ISDIR(st.st_mode):
+        raise ValueError(f"PARSEWRIGHT_PACKAGES_DIR must be a real directory, not a link: {path}")
+    if st.st_uid != os.geteuid():
+        raise ValueError(f"PARSEWRIGHT_PACKAGES_DIR must be owned by the engine user: {path}")
+    if st.st_mode & 0o022:
+        raise ValueError(f"PARSEWRIGHT_PACKAGES_DIR must not be group- or world-writable: {path}")
     return path
 
 
@@ -89,20 +99,24 @@ def shared_index() -> str:
 
 
 def build_package(dest: Path, version: str, props: str) -> Path:
-    """Write a complete test add-on .tgz into dest and return its path."""
+    """Write a complete test add-on .tgz into dest under a fresh name and return its path.
+
+    O_EXCL and O_NOFOLLOW refuse to write through a planted file or symlink.
+    """
     files = {
         "default/app.conf": APP_CONF.format(version=version),
         "default/props.conf": props,
         "metadata/default.meta": DEFAULT_META,
     }
-    out = dest / f"{APP}-{version}.tgz"
-    with tarfile.open(out, "w:gz") as tar:
+    out = dest / f"{APP}-{version}-{uuid.uuid4().hex[:8]}.tgz"
+    fd = os.open(out, os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW, 0o644)
+    os.fchmod(fd, 0o644)  # splunkd runs as another user and must read it; ignore the umask
+    with os.fdopen(fd, "wb") as raw, tarfile.open(fileobj=raw, mode="w:gz") as tar:
         for rel, text in files.items():
             data = text.encode()
             info = tarfile.TarInfo(f"{APP}/{rel}")
             info.size, info.mode, info.mtime = len(data), 0o644, int(time.time())
             tar.addfile(info, io.BytesIO(data))
-    out.chmod(0o644)  # splunkd runs as another user and must read it
     return out
 
 

@@ -9,7 +9,7 @@ Updated at the end of every phase.
 | # | Phase | Target date | Status | Date completed |
 | --- | --- | --- | --- | --- |
 | 0 | Repository foundation | Oct 27 | Done | Oct 27 |
-| 1 | Threat model and lab verification | Oct 27 | In progress: code and docs done, OWNER lab runs pending | |
+| 1 | Threat model and lab verification | Oct 27 | Done | Oct 27 |
 | 2 | Walking skeleton (JSON, CLI, end to end) | Oct 28 | Not started | |
 | 3 | Extraction, CIM mapper, full Validator, generator | Oct 29–30 | Not started | |
 | 4 | Guardrails, adversarial suite, workflow integrity | Oct 31 | Not started | |
@@ -26,7 +26,7 @@ Updated at the end of every phase.
 - **Order is priority.** A working product exists after Phase 2; each later phase is an addition. If time runs out, cut from the bottom, except Phase 10, which is fixed on Nov 3 and is never cut.
 - **Phases 8 and 9 have no date.** They run only if an earlier phase finishes a day early.
 - **Nov 4 is reserved.** The only work that day is the demo video and the submission form. No code changes after Nov 3 except a fix for a demo-breaking bug.
-- **One phase = one branch and one pull request.** CI must be green. The owner merges, and the Status table is updated in the same PR.
+- **One phase = one pull request from `dev` into `main`.** CI must be green. The owner merges, and the Status table is updated in the same PR.
 - **Non-negotiables apply from Phase 2, not Phase 4.** CLAUDE.md requires them from the first deploy, so Phase 2 already contains minimal versions of:
   - the escaping conf writer;
   - the test identity;
@@ -102,7 +102,7 @@ Updated at the end of every phase.
 - **Meta credits:** claim the $150 credits, set the spend limit on the billing page, and put `LLM_API_KEY` in `.env`.
 - **Run the probes:** run both scripts and paste the output into `docs/lab-findings.md`. If you'd rather, give me the output and I'll write it in.
 - **Decide** deploy path A or B, the `btool` approach, and four agents or three.
-- **GitHub:** set `main` as the default branch and turn on branch protection and private vulnerability reporting.
+- **GitHub:** set `main` as the default branch and turn on branch protection and private vulnerability reporting. *(2026-10-27: branch protection skipped by the owner. The owner still merges every PR from `dev`, and CI runs on each PR, but nothing on GitHub enforces it.)*
 
 ### Appsec review focus
 - Completeness of the threat model, especially:
@@ -149,6 +149,20 @@ Updated at the end of every phase.
 - **Validator:** `validator/index_time.py` runs one check, the event count from `| tstats count`, polling until two reads in a row match.
 - **Orchestrator:** `orchestrator/run.py` runs Profile → (auto-approved review) → Index-time, retrying up to 5 times with evidence. Its state lives in memory; PostgreSQL arrives in Phase 5.
 - **CLI:** `parsewright run <file>`, a `[project.scripts]` entry, prints the stage, attempt, check result and evidence.
+
+### Carried over from Phase 1 (lab findings and appsec review)
+- **Deploy:** install the complete `.tgz` through `apps/local` with `update=true` (Q6).
+  - The packages folder is checked: a real directory, owned by the engine user, not group- or world-writable.
+  - Packages are written with `O_EXCL|O_NOFOLLOW` under a unique name, and the SHA-256 is re-checked just before install (T5.9).
+  - The package file allowlist arrives now, not in Phase 4 (T2.2, T3.4).
+  - The install and delete helpers assert the app-name pattern and the package path before every call (T7.4).
+- **Ingest:**
+  - `receivers/simple` into the one shared `PARSEWRIGHT_TEST_INDEX` (Q8, Q9).
+  - The sourcetype is `<st>__test_<job>_a<attempt>`, and before ingest the code asserts it has 0 events, else bumps the attempt number (T4.5).
+  - No reload is needed (Q3); keep one `conf-props` reload only as a logged safety net.
+- **LLM client:** uses `response_format` with a strict JSON schema, and `max_tokens` leaves headroom for reasoning (Q1). Hitting the cap counts as bad output.
+- **Agent `run_search`:** code owns the base search (`search index=<test index> sourcetype=<own attempt>`); the agent appends only a `|` pipeline (T1.2).
+- **Gate:** the index-time key allowlist with typed values and bounds. A post-ingest `_internal` warning check fails closed (Q7, T2.11).
 
 ### Acceptance criteria
 - `parsewright run engine/parsewright/generator/fixtures/<sample>.json` exits 0 against the lab and prints `index-time: PASS (event count 60/60)`.

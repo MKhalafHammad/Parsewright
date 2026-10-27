@@ -154,7 +154,7 @@ A run goes from upload to an approved `.tgz` in eight steps; steps 4 to 6 each r
 ### Inner loop for every stage attempt
 
 1. **Generate:** the stage's agent gets its curated context and returns its config (schema-validated).
-2. **Gate:** guardrails check it: key allowlist, `btool check`, regex safety, scope.
+2. **Gate:** guardrails check it: key allowlist, `btool check`, regex safety, scope. *(2026-10-27: `btool check` is replaced by a key allowlist with typed values and bounds, run before deploy, plus a post-install check: any splunkd warning about the test add-on fails the attempt, and the warning becomes evidence. splunkd does not warn about unknown or misspelled keys at runtime, so the allowlist is the only syntax control; the post-install check catches parsing warnings. No shell, sidecar or Docker socket. See [lab-findings.md](lab-findings.md), Q7.)*
 3. **Deploy:** write the new TA version to `/opt/splunk/etc/apps/TA-*/default/` via REST under its test identity (see Test identity) and reload configs (no restart). *(2026-10-27: done by installing the complete `.tgz` through the `apps/local` endpoint with `update=true`, from a shared packages folder; never through the `configs/conf-*` endpoints. See [lab-findings.md](lab-findings.md#q6-deploy-path), Q6.)*
 4. **Ingest:** oneshot the samples into a fresh index, `pw_<run>_<stage>_<attempt>`, then wait until the event count is stable. *(2026-10-27: ingest posts the samples to `receivers/simple`, not oneshot. A newly installed sourcetype's index-time settings apply to the very next ingest with no reload or restart. All test ingests go to **one shared index**, `PARSEWRIGHT_TEST_INDEX` (for example `pw_test`), created once by an admin. The engine never creates or deletes indexes. Each attempt has its own sourcetype (see Test identity), and every Validator search filters on that exact sourcetype, so attempts and jobs never mix. See [lab-findings.md](lab-findings.md), Q3, Q8 and Q9.)*
 5. **Validate:** run that stage's fixed SPL checks, plus a quick regression re-run of earlier stages' checks.
@@ -469,7 +469,7 @@ An AI with write access to Splunk is a risk, so every agent output passes a dete
 | No `[default]`, no broad `[source::...]` or `[host::*]` | Changing parsing for all data | Must |
 | CSV lookups inside the TA only | External lookups that run scripts | Must |
 | Routing exception: a `TRANSFORMS-` on a generic stanza only with `DEST_KEY = MetaData:Sourcetype`, and 0 misrouted events in the negative test | Any other change to a shared stanza | Must |
-| `btool check` before deploy | Syntax errors | Must |
+| ~~`btool check` before deploy~~ Key allowlist with typed values before deploy, plus a post-install splunkd-warning check that fails closed: any warning about the test add-on fails the attempt *(2026-10-27, Q7)* | Syntax errors, unknown or mistyped keys | Must |
 | Regex catastrophic-backtracking test | Stalling the parsing pipeline | Must |
 
 ### TA builder
@@ -479,7 +479,7 @@ An AI with write access to Splunk is a risk, so every agent output passes a dete
 | Reject newlines in values; one escaping conf writer | A value injecting a new stanza such as `[script://…]` | Must |
 | Names match `^[a-z0-9_:-]+$`; code adds the fixed prefix `TA-parsewright-` and the pattern applies only to the vendor and product parts; resolved paths must stay inside the TA folder | Path traversal out of the app | Must |
 | Package file allowlist: `default/`, `metadata/`, `lookups/` (CSV), `README`, `app.conf` | `bin/` scripts, `appserver/static` JavaScript in Splunk Web | Must |
-| Prefix every transform `parsewright_<job>_`; collision check via `btool` | Overriding another app's global transform name | Must |
+| Prefix every transform `parsewright_<job>_`; collision check ~~via `btool`~~ by reading existing transform names over REST (`configs/conf-transforms`) before deploy *(2026-10-27, Q7)* | Overriding another app's global transform name | Must |
 | TA named `TA-parsewright-<vendor>-<product>`; refuse if the name exists | Overwriting (and later deleting) a Splunkbase vendor TA | Must |
 
 ### Validator integrity (no gaming)
@@ -510,7 +510,7 @@ An AI with write access to Splunk is a risk, so every agent output passes a dete
 | Per-job and daily byte caps on test ingestion | Test data consuming the Splunk license | Must |
 | Size-limited test indexes; cleanup after the job, only of indexes the job recorded creating | Disk exhaustion; deleting resources that existed before | Must |
 | Code rejects any ingest target not starting with `pw_` | Test data landing in a real index | Must |
-| Search command allowlist (`search`, `stats`, `tstats`, `eval`, `where`, `table`, `fieldsummary`, `head`, …), 50 rows, short timeout | `delete`, `collect`, `dbxquery`, `loadjob`, custom commands, other apps' lookups | Must |
+| Search command allowlist (`search`, `stats`, `tstats`, `eval`, `where`, `table`, `fieldsummary`, `head`, …), 50 rows, short timeout. *(2026-10-27: with one shared test index, code owns the base search: an agent supplies only a `|` pipeline appended to `search index=<test index> sourcetype=<own attempt sourcetype>`, and commands that start a new result set are blocked for agents: `tstats`, `metadata`, `metasearch`, `datamodel`, `from`, `inputlookup`, `union`, `append*`, `join`, `multisearch`, `set`. `tstats` stays available to the Validator's fixed SPL only. Threat T1.2.)* | `delete`, `collect`, `dbxquery`, `loadjob`, custom commands, other apps' lookups, reading other jobs' samples | Must |
 | Rollback removes every TA file, routing transforms included, and re-runs the negative routing test | A leftover rename transform still affecting production | Must |
 
 ### Workflow integrity
@@ -519,7 +519,7 @@ An AI with write access to Splunk is a risk, so every agent output passes a dete
 | --- | --- | --- |
 | Approval bound to the SHA-256 of the exact `.tgz`; promotion deploys only that hash; any later change needs re-approval | A TA modified between validation, approval and deploy | Must |
 | State transitions enforced in the database (`UPDATE … WHERE status = 'awaiting_approval'`) | Skipping validation or approval; replayed approve or promote requests | Must |
-| Before ingesting, check the attempt's test index is empty, else recreate it | Duplicate events after a retried ingest failing the count check | Must |
+| ~~Before ingesting, check the attempt's test index is empty, else recreate it~~ Before ingesting, assert the attempt's sourcetype has 0 events in the shared test index, else bump the attempt number; never reuse a sourcetype, including on resume *(2026-10-27, T4.5)* | Duplicate events after a retried ingest failing the count check | Must |
 | On resume after a crash or timeout, read the installed TA version from Splunk and compare hashes before redeploying | Acting on an ambiguous deploy outcome | Must |
 | Adversarial regression suite (`nullQueue`, newline injection, path traversal, injected log lines, constant-value gaming) run on every change | Old bypasses returning | Must |
 | Ledger records model version, Validator version, CIM spec hash and artifact hash per run | Results that cannot be reproduced | Should |
@@ -600,7 +600,7 @@ parsewright/
 ├── orchestrator/     state machine, budgets, routing
 ├── agents/           profiler, index_time, extraction, cim_mapper (prompt + schema each)
 ├── tools/            splunk client, search guard, regex test
-├── guardrails/       conf key allowlist, btool, regex safety
+├── guardrails/       conf key allowlist, post-install warning check, regex safety
 ├── validator/        fixed checks per stage
 ├── ta_builder/       writes TA files, versions, packages .tgz
 ├── ledger/           PostgreSQL models (jobs, ledger)
@@ -625,7 +625,7 @@ parsewright/
 Phase 1 tracks these, plus five questions about the REST deploy, ingest and config-check paths, with test steps and results in [lab-findings.md](lab-findings.md). Answers are recorded here as they land.
 
 - Does the Meta Model API support `response_format` JSON schemas, or should each agent output be a forced tool call? *(2026-10-27: answered. `response_format` with a strict JSON schema works and is the mode every agent uses. The model reasons before answering, so output caps must leave room for it. See [lab-findings.md](lab-findings.md#q1-structured-output-from-the-meta-model-api), Q1.)*
-- What exactly is "contributor mode"? Default to standard mode until confirmed.
+- What exactly is "contributor mode"? Default to standard mode until confirmed. *(2026-10-27: answered. On the Meta Model API it means calling a model's contributor-mode variant: discounted usage, but Meta may train on the content, and confidential data is not allowed. Parsewright uses standard mode; a variant is allowed only for synthetic-only dev runs. See [lab-findings.md](lab-findings.md), Q2.)*
 - Do index-time settings apply to the next oneshot right after a reload on the lab's Splunk version? *(2026-10-27: answered for a new sourcetype. They apply to the next `receivers/simple` ingest right after install, with no reload. See [lab-findings.md](lab-findings.md), Q3.)*
-- Edge cases in scope: multiple event types per file, multi-line events, missing timezone, epoch timestamps, CSV headers (`INDEXED_EXTRACTIONS`)?
-- Four agents, or merge Extraction and CIM mapper into three?
+- Edge cases in scope: multiple event types per file, multi-line events, missing timezone, epoch timestamps, CSV headers (`INDEXED_EXTRACTIONS`)? *(2026-10-27: decided. In: multiple event types, missing timezone, epoch timestamps. Stretch: multi-line. Out: CSV `INDEXED_EXTRACTIONS`; CSV stays supported at search time. See [lab-findings.md](lab-findings.md), Q4.)*
+- Four agents, or merge Extraction and CIM mapper into three? *(2026-10-27: decided. Keep four, for focused context, single-owner failure routing, and no CIM gaming through extractions. Merging is the fallback only if Phase 3 runs late. See [lab-findings.md](lab-findings.md), Q5.)*

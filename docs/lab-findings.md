@@ -7,15 +7,15 @@
 | Q | Question | Answered by | Status | Decision |
 | --- | --- | --- | --- | --- |
 | Q1 | Does the Meta Model API support `response_format` JSON schemas, or do we need a forced tool call? | `probe_llm` | Answered 2026-10-27 | `response_format` with a strict JSON schema |
-| Q2 | What is "contributor mode"? | Meta docs / hackathon guide | Pending OWNER | |
+| Q2 | What is "contributor mode"? | Meta docs | Answered 2026-10-27 | Standard mode; contributor variant only for synthetic-only dev runs, if ever |
 | Q3 | Do index-time settings apply to the next ingest right after a reload? | `probe_install` | Answered 2026-10-27 for a new sourcetype; changed settings on the same sourcetype untested | Applied right after install, no reload or restart needed |
-| Q4 | Which edge cases are in scope? | Decision | Pending OWNER | |
-| Q5 | Four agents, or merge Extraction and CIM mapper into three? | Decision | Pending OWNER | |
+| Q4 | Which edge cases are in scope? | Decision | Decided 2026-10-27 | In: multiple event types, missing TZ, epoch. Stretch: multi-line. Out: CSV `INDEXED_EXTRACTIONS` |
+| Q5 | Four agents, or merge Extraction and CIM mapper into three? | Decision | Decided 2026-10-27 | Four agents |
 | Q6 | Deploy path: install a package, or write stanzas over REST? | `probe_install` + decision | Answered 2026-10-27 | A: package install via `apps/local`; `update=true` is a full replace |
-| Q7 | How to run `btool check` without shell access to Splunk | Decision | Pending OWNER | |
+| Q7 | How to run `btool check` without shell access to Splunk | Decision | Decided 2026-10-27 | Option 1: allowlist + typed values before deploy, fail on any splunkd warning after install |
 | Q8 | Ingest path: does `receivers/simple` apply line breaking and timestamps? | `probe_splunk` + `probe_install` | Answered 2026-10-27 | `receivers/simple` |
 | Q9 | Which capabilities does the deploy role need? | `probe_splunk` + `probe_install` | Answered 2026-10-27 | `admin_all_objects`, `edit_tcp`, `install_apps`; one shared test index, no `indexes_edit` |
-| Q10 | CIM add-on installed, `pw_*` in the CIM index macros | Manual lab step | Pending OWNER | |
+| Q10 | CIM add-on installed, `pw_*` in the CIM index macros | Manual lab step + search-token check | Done 2026-10-27 | Lab prerequisite met |
 
 ## Lab setup (OWNER ACTION, once)
 
@@ -83,8 +83,17 @@ Both probes print only usernames, roles, capability names, counts and pass/fail 
 
 - **Why it matters:** design.md says to default to standard mode until this is confirmed.
 - **How:** read the Meta Model API docs or the hackathon guide (OWNER, since it needs your account).
-- **Result:**
-- **Decision:** standard mode unless the result says otherwise.
+- **Result (2026-10-27, from Meta's docs, read by the owner):**
+  - In contributor mode, Meta may use the content sent and received (prompts, files, context and model responses) to train future Meta models. In exchange, usage is discounted.
+  - On the Meta Model API it is not a setting: you call a model's **contributor-mode variant** instead of the standard model. The variant's name is on the docs page "How do I use Contributor mode on Meta Model API?", not yet read.
+  - It is unavailable to accounts with Zero Data Retention.
+  - The terms forbid sending sensitive, confidential or personal information to these discounted services. Use cases with personal information must use standard services.
+- **Decision:**
+  - **Parsewright uses standard mode.** Its input is customers' logs, which are confidential by nature, and the design's on-prem mode exists so logs never leave the network.
+  - The default `LLM_MODEL` names the standard model.
+  - A contributor-mode variant may be set through `LLM_MODEL` **only for runs on synthetic fixtures**, for example to stretch the hackathon credits. Never with real logs.
+  - Never in on-prem mode, and never as the default.
+  - The README states this when it documents `LLM_MODEL`.
 
 ## Q3. Index-time settings after a reload
 
@@ -125,12 +134,22 @@ The candidates from design.md:
   - **In scope:** multiple event types per file, missing timezone and epoch timestamps. They are cheap with the generator and demo well; "missing TZ" is the classic +3 h error.
   - **Stretch:** multi-line events.
   - **Defer:** CSV with `INDEXED_EXTRACTIONS`, because it is index-time structured parsing with different rules. Keep CSV via search-time `REPORT-`/`DELIMS` instead.
-- **Decision (OWNER):**
+- **Decision (OWNER, 2026-10-27):** the recommendation above.
+  - **In scope:** multiple event types per file, missing timezone and epoch timestamps (seconds and milliseconds).
+    - Each gets a generator fixture with a truth manifest.
+    - Each gets Validator checks: per-event-type field coverage, and `_time` compared with the manifest's epochs.
+    - A missing timezone is flagged by the Profiler for the human to confirm at profile review.
+  - **Stretch:** multi-line events, only if Phase 3 finishes early.
+  - **Out:** CSV with `INDEXED_EXTRACTIONS`. CSV is still supported through search-time `REPORT-`/`DELIMS`.
+  - The README lists the out-of-scope and stretch cases as "planned".
 
 ## Q5. Four agents or three
 
 - **Recommendation:** keep four, as the design has them. Separate context and ownership are what make failure routing and "agents never grade themselves" clear. Merging saves one prompt but blurs which agent owns a failing check. Revisit only if Phase 3 runs late.
-- **Decision (OWNER):**
+- **Decision (OWNER, 2026-10-27):** **keep four agents**: Profiler, Index-time, Extraction and CIM mapper.
+  - **Accuracy:** each agent's context stays focused, so the CIM mapper never sees regex attempts and Extraction never sees the CIM spec. A failing check routes to exactly one owner.
+  - **Safety:** the agent that maps to CIM cannot rewrite extractions to game a CIM check.
+  - **Fallback:** merging Extraction and CIM mapper stays the documented fallback only if Phase 3 runs late.
 
 ## Q6. Deploy path
 
@@ -180,7 +199,19 @@ The design says to "write the new TA version to `/opt/splunk/etc/apps/TA-*/defau
   2. **A minimal sidecar in the Splunk container**, exposing only "run `btool check` for app X". It is more moving parts and a new attack surface.
 - **Recommendation:** option 1, but only if it **fails closed**: any splunkd warning or error about the test app after reload fails the attempt. The writer plus allowlist cover what `btool check` catches for the keys we allow (unknown keys, bad stanzas), and Splunk's own warnings after reload catch the rest.
 - **If chosen:** the same PR must update design.md (the "`btool check` before deploy" Must row) and threat T2.11's control text.
-- **Decision (OWNER):**
+- **Decision (OWNER, 2026-10-27):** **option 1.**
+  - **Before deploy:** the escaping writer makes malformed stanzas impossible. The gate checks every key against an allowlist with typed values and bounds, so unknown, misspelled or out-of-scope keys are rejected before Splunk sees them.
+  - **After install and ingest:** a fixed Validator search over `_internal` (`log_level IN (WARN, ERROR)`, `component` from the parsing pipeline, mentioning the attempt's sourcetype or app, during the ingest window) plus `/services/messages`. Any hit fails the attempt; so does an error or timeout of the check itself (fail closed). The message is passed to the owning agent as evidence.
+  - **Limit (appsec review):** splunkd does not warn at runtime about unknown or misspelled props keys; only btool does. So the allowlist is the **only** syntax control, and must reject every key not on it. The post-install check catches parsing problems such as timestamp and line-breaking warnings.
+  - **Transform collisions:** the transform-name collision check, which the design also did with btool, becomes a REST read of existing transform names (`configs/conf-transforms`) before deploy.
+  - **Ruled out:** a sidecar and the Docker socket. Neither adds a shell path to the engine.
+  - **Why:**
+    - it covers what btool catches for the allowed keys, more strictly, since it blocks before deploy;
+    - it adds no attack surface;
+    - it works the same on the lab and in the judges' Docker setup;
+    - the allowlist is a Must guardrail anyway.
+  - **Revisit:** add a sidecar only if Phase 2–3 runs find a config error that Splunk accepts silently and the allowlist misses.
+  - **Phasing:** the allowlist starts in Phase 2 with the index-time keys, and grows in Phases 3 and 4.
 
 ## Q8. Ingest path
 
@@ -255,5 +286,16 @@ The design says to "write the new TA version to `/opt/splunk/etc/apps/TA-*/defau
   1. Install the Splunk Common Information Model add-on from Splunkbase.
   2. In its setup, or under Settings → Advanced search → Search macros, add `pw_*` to `cim_Authentication_indexes`, `cim_Network_Traffic_indexes` and `cim_Web_indexes`.
   3. Verify with `| tstats summariesonly=false count from datamodel=Authentication where index=pw_probe`, which should run without error (count 0 is fine).
-- **Result:**
+- **Result (2026-10-27):** the owner installed the CIM add-on and edited the macros. Checked with the **search token**:
+  ```
+  cim_Authentication_indexes: definition='(index=pw*)'
+  cim_Network_Traffic_indexes: definition='(index=pw*)'
+  cim_Web_indexes: definition='(index=pw*)'
+  datamodel Authentication on pw_test: ran ok, count=0
+  datamodel Network_Traffic on pw_test: ran ok, count=0
+  datamodel Web on pw_test: ran ok, count=0
+  ```
+  - The search role can read the macros and run all three data models.
+  - The macros say `pw*`, not `pw_*`, so they would also match a non-test index whose name starts with `pw`. That is harmless for Parsewright, because the search role can only see `pw_*` anyway, but `pw_*` is the exact form.
+  - Phase 10's bootstrap script writes `(index=pw_*)`.
 - **Decision:** none needed; this is a lab prerequisite. Phase 10's bootstrap script automates it for judges.

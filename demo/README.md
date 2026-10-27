@@ -1,0 +1,21 @@
+# demo
+
+Repeatable scripts for the moments shown in the 3-minute demo video. Each "RECORD THIS" note in a phase summary (see CLAUDE.md, "Build log and demo moments") gets a script here. That way the moment can be re-run and recorded at any time, not only on the day it first worked.
+
+## Conventions
+
+- One script per moment, numbered in demo order: `NN_short_name.sh`, for example `01_fix_loop.sh`.
+- Each script:
+  - uses only synthetic fixtures from `engine/parsewright/generator/fixtures/`;
+  - reads all configuration from `.env`;
+  - never prints tokens or keys.
+- Scripts write only to `pw_` test indexes and `__test_<job>` apps, like the rest of Parsewright, and clean up what they create.
+- The top of each script states what it shows, its prerequisites (lab running, tokens set) and roughly how long it takes.
+
+## Moments
+
+| Script | Moment | Phase | Status |
+| --- | --- | --- | --- |
+| — | None yet: Phase 0 (repository foundation) produced nothing for the demo video | 0 | — |
+
+The likely moments for the remaining phases are marked "RECORD THIS (likely)" in [docs/build-plan.md](../docs/build-plan.md). They are added to this table when the phase produces them.

@@ -69,3 +69,15 @@ A change is done when:
 4. No secret, real log or internal name is added (gitleaks clean, reviewed by the `appsec` subagent for security-relevant changes).
 5. README marks anything not yet built as "planned".
 6. The commit follows the commit rules above.
+
+## Build log and demo moments
+- At the end of every phase, append an entry to docs/build-log.md:
+  date, phase, what was built (2–4 bullets), test results, and anything
+  cut or deferred. Factual, no marketing. Never mention real company,
+  client or employer names.
+- When a phase produces something worth showing in the demo video
+  (first agent fix loop, first green CIM check, guardrail blocking an
+  attack, parallel jobs, drift auto-fix), add a "RECORD THIS" note in the
+  phase summary with the exact command to reproduce it.
+- Every RECORD THIS moment gets a repeatable script in demo/
+  (e.g. demo/01_fix_loop.sh) so it can be re-run and recorded at any time.

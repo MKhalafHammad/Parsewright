@@ -117,6 +117,9 @@ Updated at the end of every phase.
 - `feat: add lab and model API probes`
 - `docs: record lab findings and design decisions`
 
+### RECORD THIS (likely)
+- None expected. Threat model and lab probes are groundwork, not demo material.
+
 ### If late, cut
 - Write the threat model at table level only, without prose. Never skip questions 1–4: Phase 2 cannot deploy without them.
 
@@ -177,6 +180,9 @@ Updated at the end of every phase.
 - `feat: add Splunk client with scoped deploy and pw_ ingest`
 - `feat: add Profiler and Index-time agents`
 - `feat: add parsewright run CLI for the index-time stage`
+
+### RECORD THIS (likely)
+- **First agent fix loop.** An Index-time attempt fails a Validator check, the agent gets the evidence and the next attempt passes, with stages and attempts printed by the CLI. Planned script: `demo/01_fix_loop.sh` (`parsewright run` on a fixture whose first proposal is likely to miss, such as a missing timezone).
 
 ### If late, cut
 - Profile review UI-equivalent prompts (auto-approve only).
@@ -253,6 +259,9 @@ Updated at the end of every phase.
 - `feat: add Extraction agent, test_regex and search guard`
 - `feat: add CIM mapper agent and pinned CIM spec`
 - `feat: add full Validator checks and CIM scoring`
+
+### RECORD THIS (likely)
+- **First green CIM check.** All three stages pass with the three CIM numbers printed. The holdout line reads "learned from ~200 lines, passed on the full file". Planned script: `demo/02_cim_green.sh`.
 
 ### If late, cut, in this order
 1. CSV, or whatever format has `INDEXED_EXTRACTIONS` issues.
@@ -336,6 +345,9 @@ This is the main appsec phase; review everything above, especially:
 - `security: bind approval to package hash and enforce transitions`
 - `test: add adversarial regression suite`
 
+### RECORD THIS (likely)
+- **Guardrail blocking an attack.** A log line carries an injected instruction, and the gate blocks the resulting proposal with its reason, so nothing is deployed. Also: `EVAL-action = "success"` constant gaming caught. Planned script: `demo/03_guardrail_block.sh`.
+
 ### If late, cut
 - Should items only: the literal-value regex flag and the high-risk second confirmation.
 - Never cut a Must item.
@@ -413,6 +425,9 @@ This is the main appsec phase; review everything above, especially:
 - `feat: add FastAPI routes and ledger event stream`
 - `chore: add engine Dockerfile`
 
+### RECORD THIS (likely)
+- **Parallel jobs.** Four fixture files dropped at once, four jobs running in parallel, one pausing for profile review while the others continue. Optional: kill a worker and watch another resume the job. Planned script: `demo/04_parallel_jobs.sh`.
+
 ### If late, cut
 - The drop folder (upload only).
 - Correct-a-mapping (approve or reject only).
@@ -464,6 +479,9 @@ This is the main appsec phase; review everything above, especially:
 - `feat: add profile review and approval report`
 - `chore: add web Dockerfile`
 
+### RECORD THIS (likely)
+- **Approval report.** Raw vs parsed side by side with highlights, the mapping table and CIM scores, then approve and download the `.tgz`. Also shows a `<script>` log line rendered as plain text. Planned script: `demo/05_approval_report.sh` (seeds a finished job, then opens the UI).
+
 ### If late, cut
 1. Fall back to Streamlit for the whole UI (one day). If staying on Next.js, keep only Profile review and Approval report; the run board becomes a list.
 2. Drop the config diffs in the live view.
@@ -507,6 +525,9 @@ This is the main appsec phase; review everything above, especially:
 - `feat: add TA registry and update job`
 - `feat: add patch mode with old and new format regression`
 
+### RECORD THIS (likely)
+- **Parser update.** A "firmware v2" fixture breaks the TA. Diagnose spends 0 tokens and only the failing stage is patched, after which the old and new formats both pass. Planned script: `demo/06_parser_update.sh`.
+
 ### If late, cut
 - The whole phase. It becomes a roadmap item in the README.
 
@@ -549,6 +570,9 @@ This is the main appsec phase; review everything above, especially:
 ### Suggested commits
 - `feat: add drift alerts, collector and analyst`
 
+### RECORD THIS (likely)
+- **Drift auto-fix.** The generator switches format at minute 2, the alert fires, and an update job waits for approval with no human action. Planned script: `demo/07_drift_autofix.sh`.
+
 ### If late, cut
 - The whole phase. It stays in the roadmap.
 
@@ -585,6 +609,9 @@ This is the main appsec phase; review everything above, especially:
 
 ### Suggested commits
 - `feat: add routing stage for shared syslog feeds`
+
+### RECORD THIS (likely)
+- **Mixed-feed routing.** One syslog feed with four vendors is split into four sourcetypes, with 0 events misrouted. Planned script: `demo/08_mixed_feed_routing.sh`.
 
 ### If late, cut
 - The whole phase.
@@ -640,6 +667,9 @@ This is the main appsec phase; review everything above, especially:
 ### Suggested commits
 - `chore: add one-command judge setup`
 - `docs: complete README and add demo script`
+
+### RECORD THIS (likely)
+- None new. This phase strings the existing `demo/` scripts into `docs/demo-script.md` and rehearses them.
 
 ### If late, cut
 - The screenshot polish.

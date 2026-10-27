@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
+  "includeCoAuthoredBy": false,
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:docs.splunk.com)",
+      "WebFetch(domain:help.splunk.com)",
+      "WebFetch(domain:dev.splunk.com)",
+      "WebFetch(domain:fastapi.tiangolo.com)",
+      "WebFetch(domain:docs.pydantic.dev)",
+      "WebFetch(domain:www.postgresql.org)",
+      "WebFetch(domain:nextjs.org)",
+      "WebFetch(domain:ui.shadcn.com)"
+    ],
+    "deny": [
+      "Read(**/.env)",
+      "Read(**/.env.local)",
+      "Read(**/.env.*.local)",
+      "Read(**/.env.development)",
+      "Read(**/.env.production)",
+      "Read(**/.env.test)",
+      "Bash(rm -rf:*)",
+      "Bash(rm -fr:*)",
+      "Bash(git push --force:*)",
+      "Bash(git config:*)",
+      "Bash(curl:*)",
+      "Bash(wget:*)"
+    ]
+  }
+}

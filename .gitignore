@@ -1,0 +1,68 @@
+# --- Secrets: never commit ---
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.token
+.splunkrc
+splunk_token*
+*credentials*.json
+*credentials*.yaml
+*credentials*.yml
+
+# --- Claude Code local overrides ---
+.claude/settings.local.json
+CLAUDE.local.md
+
+# --- Data: real logs and uploads never enter the repo ---
+data/
+uploads/
+samples/real/
+
+# --- Build outputs and generated TA packages ---
+build/
+dist/
+*.egg-info/
+*.tgz
+out/
+
+# --- Logs ---
+logs/
+*.log
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# --- Node / Next.js ---
+node_modules/
+.next/
+next-env.d.ts
+*.tsbuildinfo
+
+# --- Docker volumes (compose uses named volumes; these catch bind mounts) ---
+volumes/
+pgdata/
+postgres-data/
+splunk-data/
+splunk-etc/
+splunk-var/
+
+# --- OS / editors ---
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Synthetic fixtures are the one exception: their logs and .tgz are committed.
+!**/generator/fixtures/**

@@ -7,6 +7,7 @@ Run: python -m parsewright.tools.probes.probe_splunk
 
 import json
 import os
+import re
 import sys
 import time
 
@@ -29,7 +30,8 @@ INTERESTING = {
 
 
 def require_pw_index(index: str) -> str:
-    if not index.startswith("pw_"):
+    # Full match, not a prefix check: the name is also interpolated into SPL.
+    if not re.fullmatch(r"pw_[a-z0-9_-]+", index):
         raise ValueError(f"refusing to ingest into {index!r}: test indexes must start with pw_")
     return index
 
@@ -72,11 +74,12 @@ def main() -> int:
     index = require_pw_index(PROBE_INDEX)
     tstats = f"| tstats count where index={index}"
     print(f"search {index}: count={count(search, tstats)} (should run without error)")
+    other = "| tstats count where index=* NOT index=pw_* NOT index=_internal"
     try:
-        audit = count(search, "| tstats count where index=_audit")
-        print(f"search _audit: count={audit} (expect 0: role must not see non-pw_ indexes)")
+        hidden = count(search, other)
+        print(f"search other indexes: count={hidden} (expect 0: only pw_* and _internal visible)")
     except HTTPError as e:
-        print(f"search _audit: refused HTTP {e.status} (good)")
+        print(f"search other indexes: refused HTTP {e.status} (good)")
 
     before = count(search, tstats)
     lines = "\n".join(f"probe line {i} ts={int(time.time())}" for i in range(3))

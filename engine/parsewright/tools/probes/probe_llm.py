@@ -23,6 +23,7 @@ def try_response_format(client, model: str):
     resp = client.chat.completions.create(
         model=model,
         messages=PROMPT,
+        max_tokens=50,
         response_format={
             "type": "json_schema",
             "json_schema": {"name": "answer", "schema": SCHEMA, "strict": True},
@@ -36,6 +37,7 @@ def try_forced_tool(client, model: str):
     resp = client.chat.completions.create(
         model=model,
         messages=PROMPT,
+        max_tokens=50,
         tools=[{"type": "function", "function": {"name": "answer", "parameters": SCHEMA}}],
         tool_choice={"type": "function", "function": {"name": "answer"}},
     )

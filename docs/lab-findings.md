@@ -29,7 +29,7 @@
    - **`parsewright_deploy`**
      - Inherits nothing.
      - Start with the capabilities in Q9's expectation and trim them after the probe.
-     - Allowed indexes: `pw_*`.
+     - Allowed indexes: `pw_*`. This limits only what the role can search. Splunk does not limit which index a role can **write** to; see Q9.
    - **`parsewright_drift`**
      - Inherits `user`.
      - Read-only.
@@ -49,12 +49,15 @@ set -a; . ./.env; set +a          # load .env into this shell only
 Against the Docker stack, port 8089 is not published to your machine (by design). Run the Splunk probe inside the Compose network instead:
 
 ```bash
-docker run --rm --network parsewright_default --env-file .env -e SPLUNK_HOST=splunk \
-  -v "$PWD/engine:/engine" -w /engine python:3.12-slim \
-  sh -c "pip install -q . && python -m parsewright.tools.probes.probe_splunk"
+docker run --rm --network parsewright_default \
+  -e SPLUNK_HOST=splunk -e SPLUNK_PORT -e SPLUNK_SEARCH_TOKEN -e SPLUNK_DEPLOY_TOKEN \
+  -e PYTHONPATH=/engine -v "$PWD/engine:/engine:ro" python:3.12-slim \
+  sh -c "pip install -q splunk-sdk==2.1.1 && python -m parsewright.tools.probes.probe_splunk"
 ```
 
-Both probes print only usernames, roles, capability names, counts and pass/fail lines; they never print tokens or prompts. Paste their output under **Result** below.
+This passes only the two tokens the probe needs (exported by the `set -a` line above), never the whole `.env` with the admin and database passwords. It also mounts the source read-only.
+
+Both probes print only usernames, roles, capability names, counts and pass/fail lines; they never print tokens or prompts. Paste their output under **Result** below. **Remove any hostname or IP first**: error messages can name the lab VM.
 
 ## Q1. Structured output from the Meta Model API
 
@@ -127,7 +130,8 @@ The design says to "write the new TA version to `/opt/splunk/etc/apps/TA-*/defau
 - **Options:**
   1. **Local check in the engine:** the escaping writer guarantees syntax. The gate checks keys and values against an allowlist of known settings with valid types. Then the deploy reload's messages are read back through REST (`/services/messages`, splunkd warnings on `_internal`).
   2. **A minimal sidecar in the Splunk container**, exposing only "run `btool check` for app X". It is more moving parts and a new attack surface.
-- **Recommendation:** option 1. The writer plus allowlist cover what `btool check` catches for the keys we allow (unknown keys, bad stanzas), and Splunk's own warnings after reload catch the rest. Record the deviation from the design's "`btool check` before deploy" in design.md.
+- **Recommendation:** option 1, but only if it **fails closed**: any splunkd warning or error about the test app after reload fails the attempt. The writer plus allowlist cover what `btool check` catches for the keys we allow (unknown keys, bad stanzas), and Splunk's own warnings after reload catch the rest.
+- **If chosen:** the same PR must update design.md (the "`btool check` before deploy" Must row) and threat T2.11's control text.
 - **Decision (OWNER):**
 
 ## Q8. Ingest path
@@ -148,6 +152,12 @@ The design says to "write the new TA version to `/opt/splunk/etc/apps/TA-*/defau
   - ingest rights into `pw_*` (index access, plus `edit_tcp` for `receivers/simple`).
 
   The search token must have none of these.
+- **Warning:** with `install_apps` and `edit_tcp`, the deploy token is effectively an admin token.
+  - It can install an app that contains scripts, which runs code on the Splunk host.
+  - It can write into any index (for example `receivers/simple?index=main`). Role index settings do not restrict writes.
+  - Therefore:
+    - the `pw_` check in code is the only guard on the ingest target (T5.1);
+    - the deploy token lives only in the orchestrator process. It must never reach an agent, a prompt, the web process or the ledger.
 - **Result** (final capability list):
 - **Decision:**
 

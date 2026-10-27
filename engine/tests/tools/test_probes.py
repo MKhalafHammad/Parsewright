@@ -39,7 +39,20 @@ def test_invalid_output_counts_as_failure():
     assert probe(client, "m") == "none"
 
 
-@pytest.mark.parametrize("index", ["main", "pw", "_internal", "PW_x", "xpw_probe"])
+@pytest.mark.parametrize(
+    "index",
+    [
+        "main",
+        "pw",
+        "pw_",
+        "pw_*",
+        "pw_x | delete",
+        "pw_x OR index=main",
+        "_internal",
+        "PW_x",
+        "xpw_probe",
+    ],
+)
 def test_rejects_non_pw_index(index):
     with pytest.raises(ValueError):
         require_pw_index(index)

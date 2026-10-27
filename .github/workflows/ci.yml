@@ -1,8 +1,12 @@
 name: CI
 
 on:
-  push:
   pull_request:
+
+# A new push to the same PR cancels the run still in progress.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read

@@ -166,7 +166,7 @@ brew install gitleaks          # or: go install github.com/zricethezav/gitleaks/
 pipx install semgrep           # kept out of the project venv to avoid dependency clashes
 ```
 
-CI runs `make lint`, `make test` and `make security` on every push and pull request. Any failure fails the build.
+CI runs `make lint`, `make test` and `make security` on every pull request (not on plain branch pushes). Any failure fails the build.
 
 ## Security
 

@@ -156,7 +156,7 @@ A run goes from upload to an approved `.tgz` in eight steps; steps 4 to 6 each r
 1. **Generate:** the stage's agent gets its curated context and returns its config (schema-validated).
 2. **Gate:** guardrails check it: key allowlist, `btool check`, regex safety, scope.
 3. **Deploy:** write the new TA version to `/opt/splunk/etc/apps/TA-*/default/` via REST under its test identity (see Test identity) and reload configs (no restart). *(2026-10-27: done by installing the complete `.tgz` through the `apps/local` endpoint with `update=true`, from a shared packages folder; never through the `configs/conf-*` endpoints. See [lab-findings.md](lab-findings.md#q6-deploy-path), Q6.)*
-4. **Ingest:** oneshot the samples into a fresh index, `pw_<run>_<stage>_<attempt>`, then wait until the event count is stable.
+4. **Ingest:** oneshot the samples into a fresh index, `pw_<run>_<stage>_<attempt>`, then wait until the event count is stable. *(2026-10-27: ingest posts the samples to `receivers/simple`, not oneshot. A newly installed sourcetype's index-time settings apply to the very next ingest with no reload or restart. See [lab-findings.md](lab-findings.md), Q3 and Q8.)*
 5. **Validate:** run that stage's fixed SPL checks, plus a quick regression re-run of earlier stages' checks.
 6. **Decide:** pass moves to the next stage; fail returns to the same agent with evidence (expected, actual, up to 3 failing events).
 
@@ -624,6 +624,6 @@ Phase 1 tracks these, plus five questions about the REST deploy, ingest and conf
 
 - Does the Meta Model API support `response_format` JSON schemas, or should each agent output be a forced tool call? *(2026-10-27: answered. `response_format` with a strict JSON schema works and is the mode every agent uses. The model reasons before answering, so output caps must leave room for it. See [lab-findings.md](lab-findings.md#q1-structured-output-from-the-meta-model-api), Q1.)*
 - What exactly is "contributor mode"? Default to standard mode until confirmed.
-- Do index-time settings apply to the next oneshot right after a reload on the lab's Splunk version?
+- Do index-time settings apply to the next oneshot right after a reload on the lab's Splunk version? *(2026-10-27: answered for a new sourcetype. They apply to the next `receivers/simple` ingest right after install, with no reload. See [lab-findings.md](lab-findings.md), Q3.)*
 - Edge cases in scope: multiple event types per file, multi-line events, missing timezone, epoch timestamps, CSV headers (`INDEXED_EXTRACTIONS`)?
 - Four agents, or merge Extraction and CIM mapper into three?

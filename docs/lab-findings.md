@@ -8,12 +8,12 @@
 | --- | --- | --- | --- | --- |
 | Q1 | Does the Meta Model API support `response_format` JSON schemas, or do we need a forced tool call? | `probe_llm` | Answered 2026-10-27 | `response_format` with a strict JSON schema |
 | Q2 | What is "contributor mode"? | Meta docs / hackathon guide | Pending OWNER | |
-| Q3 | Do index-time settings apply to the next ingest right after a reload? | Manual lab step | Pending OWNER run | |
+| Q3 | Do index-time settings apply to the next ingest right after a reload? | `probe_install` | Answered 2026-10-27 for a new sourcetype; changed settings on the same sourcetype untested | Applied right after install, no reload or restart needed |
 | Q4 | Which edge cases are in scope? | Decision | Pending OWNER | |
 | Q5 | Four agents, or merge Extraction and CIM mapper into three? | Decision | Pending OWNER | |
-| Q6 | Deploy path: install a package, or write stanzas over REST? | Manual lab step + decision | Decided; lab test pending | A: package install via `apps/local` |
+| Q6 | Deploy path: install a package, or write stanzas over REST? | `probe_install` + decision | Answered 2026-10-27 | A: package install via `apps/local`; `update=true` is a full replace |
 | Q7 | How to run `btool check` without shell access to Splunk | Decision | Pending OWNER | |
-| Q8 | Ingest path: does `receivers/simple` apply line breaking and timestamps? | `probe_splunk` | Partly answered 2026-10-27: line breaking yes; custom sourcetype settings pending Q3 | `receivers/simple` (provisional) |
+| Q8 | Ingest path: does `receivers/simple` apply line breaking and timestamps? | `probe_splunk` + `probe_install` | Answered 2026-10-27 | `receivers/simple` |
 | Q9 | Which capabilities does the deploy role need? | `probe_splunk` + manual | Partly answered 2026-10-27: ingest needs `edit_tcp`; app-install trim pending Q6 test | |
 | Q10 | CIM add-on installed, `pw_*` in the CIM index macros | Manual lab step | Pending OWNER | |
 
@@ -96,8 +96,21 @@ Both probes print only usernames, roles, capability names, counts and pass/fail 
   4. Count. **3 events** means the reload applied index-time settings; **1 event** means it didn't.
   5. Repeat with a `TIME_FORMAT`/`TZ` change and compare `_time`.
 - **Expectation:** on a standalone instance a props reload is picked up by new inputs. Needs proof on this Splunk version (10.6.1 in Docker).
-- **Result:**
+- **How it was tested:** `scripts/probe.sh install` (`probe_install`), not the manual steps above. Run against the owner's standalone lab Splunk, not the Docker image.
+  1. It installs a test add-on whose sourcetype has `LINE_BREAKER = (;)`, `TIME_PREFIX = ts=`, `TIME_FORMAT = %Y-%m-%d %H:%M:%S` and `TZ = Pacific/Chatham`. The +13:45 zone means a correct `_time` cannot come from the server's own zone.
+  2. It posts `a;b;c`, each event with a timestamp, through `receivers/simple` straight after the install, without reloading.
+  3. It checks that there are 3 events and that `_time` exactly equals the expected epochs.
+  4. Only if that fails does it reload `conf-props` and retry.
+- **Result (2026-10-27):**
+  ```
+  ingest right after install, no reload: 3 events (expect 3: LINE_BREAKER applied), _time matches TIME_FORMAT+TZ
+  ```
+  Index-time settings from a newly installed add-on apply to the very next ingest. Neither a reload nor a restart was needed, so the reload fallback never ran.
+- **Not yet tested:** changing the settings of a sourcetype that already exists, by reinstalling with `update=true` under the same sourcetype name. The probe's v2 used a new sourcetype name.
 - **Decision:**
+  - The inner loop is install, then ingest, with no restart.
+  - Each attempt uses its own sourcetype name, so every attempt is the tested "new sourcetype" case. The attempt number goes into the `__test_<job>` suffix, for example `<st>__test_<job>_a<n>`.
+  - Phase 2 keeps one reload call (`configs/conf-props/_reload`) as a safety net, used only if the event count is wrong, and logs when it was needed.
 
 ## Q4. Edge cases in scope
 
@@ -135,15 +148,28 @@ The design says to "write the new TA version to `/opt/splunk/etc/apps/TA-*/defau
   1. Install a trivial `TA-parsewright-acme-probe__test_probe.tgz` with `parsewright_deploy`'s token, then confirm it appears in `apps/local`.
   2. Try the same with the search token, which must be refused.
   3. Reinstall with `update=true` from a package whose `default/props.conf` has a different set of stanzas, then confirm the installed app holds exactly the new package's stanzas: a full replace, not a merge.
-- **Result:**
+- **Result (2026-10-27):** `scripts/probe.sh install`, which builds the packages in `PARSEWRIGHT_PACKAGES_DIR` (owned by the engine user, mode 755, readable by `splunk`):
+  ```
+  install with search token: refused HTTP 403 (good)
+  install v1 with deploy token: ok
+  v1 stanza present after install: True
+  reinstall v2 with update=true: ok
+  after v2: v1 stanza present=False, v2 stanza present=True (full replace)
+  cleanup: test add-on uninstalled
+  install probe: PASS
+  ```
+  - The search token cannot install apps.
+  - The deploy token installs from a path on the Splunk host.
+  - `update=true` **replaces** the add-on's config instead of merging it, so a stanza dropped from a later package really disappears. This confirms the "always build the complete package" rule below.
+  - The deploy token can also uninstall the test add-on.
 - **Decision (OWNER, 2026-10-27):** **A, package install.**
   - Each attempt installs the complete add-on as a `.tgz` through `apps/local` with `update=true`, using the deploy token.
   - All agent-proposed stanzas are written by the escaping conf writer into `default/*.conf` inside the package. Nothing is written over the `configs/conf-*` endpoints, so `local/` is never touched.
   - The TA builder regenerates the full package on every attempt, with the stanzas from every stage so far, never a delta. `update=true` replaces `default/` as a whole, so a partial package would drop earlier stages' stanzas.
   - Packages reach Splunk through a dedicated shared folder, `/opt/parsewright/packages`, mounted read-write in `engine` and read-only in `splunk`, holding only `.tgz` files. On the VM, a copy step puts them at the same path.
   - Follow-ups:
-    - Phase 2 adds the shared volume to `docker-compose.yml`.
-    - The verify steps above confirm the full-replace behaviour on 10.6.1.
+    - Phase 2 adds the shared volume to `docker-compose.yml` for the Docker lab.
+    - On a Splunk running directly on the host, `PARSEWRIGHT_PACKAGES_DIR` is a plain directory: `/opt/parsewright/packages`, owned by the engine user, mode 755. Not `/tmp`, where any user could plant a package.
 
 ## Q7. `btool check` without shell access
 
@@ -166,7 +192,8 @@ The design says to "write the new TA version to `/opt/splunk/etc/apps/TA-*/defau
   receivers/simple: posted 3 lines, indexed 3 events (line breaking applied)
   ```
   This proves the default line breaking runs on this path. It does not yet prove that a **custom** test sourcetype's `LINE_BREAKER`, `TIME_FORMAT` and `TZ` apply right after a reload. That is Q3's test on this same path, after the first add-on install (Q6).
-- **Decision (provisional):** ingest uses `receivers/simple`, with the samples in the POST body, so ingest needs no shared volume. It becomes final when Q3's test passes on this path. If it fails, fall back to `data/inputs/oneshot` from the Q6 packages volume.
+- **Result, custom sourcetype (2026-10-27):** Q3's `probe_install` run used this same path. A test sourcetype's own `LINE_BREAKER`, `TIME_FORMAT` and `TZ` were applied: 3 events with exact `_time` values. See Q3.
+- **Decision:** ingest uses `receivers/simple`, with the samples in the POST body, so ingest needs no shared volume. `data/inputs/oneshot` is not used.
 
 ## Q9. Deploy role capabilities
 
@@ -193,7 +220,8 @@ The design says to "write the new TA version to `/opt/splunk/etc/apps/TA-*/defau
   ```
   - **Search token:** it has its own role only and none of the listed capabilities. Searching outside `pw_*` and `_internal` returns 0 events. The role was created with no inheritance, not inheriting `user` as the lab setup above first said, and new users were created without the default `user` role.
   - **Ingest:** without `edit_tcp` the deploy token's `receivers/simple` post was refused with **HTTP 403**. With `edit_tcp`, 3 lines were indexed. **`edit_tcp` is required.**
-  - **App install:** not tested yet. `admin_all_objects`, `install_apps` and `rest_apps_management` stay until Q6's install test, then are removed one at a time. `admin_all_objects` goes first, since it is close to full admin.
+  - **App install (2026-10-27):** install, update and uninstall work with `admin_all_objects`, `edit_tcp`, `install_apps` and `rest_apps_management`, as shown in Q6's result. The trim is pending: remove `admin_all_objects` first, since it is close to full admin, then `rest_apps_management`, re-running `scripts/probe.sh install` after each.
+  - **Not yet tested: creating indexes.** The design ingests each attempt into a fresh index, `pw_<run>_<stage>_<attempt>`. Creating an index over REST needs `indexes_edit`, which the deploy role does not have. Every probe so far used the pre-created `pw_probe`. Decide before Phase 2: grant `indexes_edit`, or pre-create one index per job.
   - The probe now reports a rejected token's shape (length, part count, user, expiry) without printing it. A pasted-twice deploy token was found this way.
 - **Decision:** the final capability list is recorded after the Q6 install test and the trim.
 

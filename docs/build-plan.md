@@ -9,7 +9,7 @@ Updated at the end of every phase.
 | # | Phase | Target date | Status | Date completed |
 | --- | --- | --- | --- | --- |
 | 0 | Repository foundation | Oct 27 | Done | Oct 27 |
-| 1 | Threat model and lab verification | Oct 27 | Not started | |
+| 1 | Threat model and lab verification | Oct 27 | In progress: code and docs done, OWNER lab runs pending | |
 | 2 | Walking skeleton (JSON, CLI, end to end) | Oct 28 | Not started | |
 | 3 | Extraction, CIM mapper, full Validator, generator | Oct 29–30 | Not started | |
 | 4 | Guardrails, adversarial suite, workflow integrity | Oct 31 | Not started | |

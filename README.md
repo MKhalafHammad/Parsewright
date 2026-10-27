@@ -99,6 +99,8 @@ The model is set only through environment variables (`LLM_BASE_URL`, `LLM_MODEL`
    | `SPLUNK_GENERAL_TERMS` | Yes | Accepts the Splunk General Terms (Splunk 10.x) | `--accept-sgt-current-at-splunk-com` |
    | `SPLUNK_PASSWORD` | Yes | Splunk `admin` password, 8+ characters | `changeme-to-a-long-password` |
    | `SPLUNK_WEB_PORT` | No | Host port for Splunk Web (default 8000) | `8000` |
+   | `SPLUNK_HOST` | Yes (engine, CLI, probes) | Splunk REST host (`splunk` inside Docker) | `splunk.example.com` |
+   | `SPLUNK_PORT` | Yes | Splunk REST port | `8089` |
    | `SPLUNK_SEARCH_TOKEN` | Yes (engine, planned) | Token for the search-only service account | `your-parsewright-search-token-here` |
    | `SPLUNK_DEPLOY_TOKEN` | Yes (engine, planned) | Token for the deploy service account | `your-parsewright-deploy-token-here` |
    | `SPLUNK_DRIFT_TOKEN` | Yes (engine, planned) | Token for the drift read-only account | `your-parsewright-drift-token-here` |

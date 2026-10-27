@@ -66,3 +66,37 @@ One entry per completed phase, appended at the end of the phase (see CLAUDE.md, 
 
 **RECORD THIS**
 - None. Groundwork, as planned.
+
+## 2026-10-27 — Phase 2: Walking skeleton (JSON, CLI, end to end)
+
+**Built**
+- **`parsewright run <file>`:** profiles a log, proposes index-time settings, and installs them as a test add-on (`TA-parsewright-<vendor>-<product>__test_<job>`, sourcetype `<st>__test_<job>_a<n>`). It ingests into the shared `pw_test` index and runs the Validator, retrying with evidence up to 5 times.
+- **Safety core:**
+  - the one escaping conf writer (newlines, continuation backslashes and control characters rejected);
+  - naming rules;
+  - packaging with a file allowlist, `O_EXCL|O_NOFOLLOW` and SHA-256 re-checked before install;
+  - the index-time key allowlist with typed, bounded values;
+  - a Splunk client that asserts app names, the packages path and `pw_` targets before every deploy-token call.
+- **Agents:** the LLM client (strict JSON schema, 8k output cap for reasoning, token ceiling, bad-output retry cap of 2, logs passed as delimited data), the Profiler and the Index-time agent.
+- **Validator:** event count, timestamp accuracy against the truth manifest, and splunkd parser warnings, which fail closed. Two synthetic JSON fixtures with truth manifests, one with offsets and one in Tokyo time without.
+
+**Test results**
+- `pytest`: 149 passed, all with fake Splunk and fake model clients. pre-commit and bandit clean.
+- `appsec` review: no Critical or High. All 3 Medium and 5 Low findings were fixed, each with an adversarial test:
+  - raw splunkd lines no longer reach the model, only fixed summaries;
+  - `--tz` is validated as an IANA zone and passed as delimited data;
+  - the warning check waits for `_internal` to catch up and also reads `/services/messages`;
+  - regexes are timed over the samples and stress inputs to catch catastrophic backtracking (T2.10, brought forward from Phase 4);
+  - one-liners: replies with no usage still count against the token ceiling; tag escaping is case-insensitive; control characters are escaped in previews; `::` is refused in sourcetypes; `.env` is read from the repo root.
+- After the fixes, the lab run passed again on attempt 1: 60/60 events, 12,907 tokens.
+- **Lab, `acme_vpn.json`:** `index-time: PASS (event count 60/60, attempt 1)`, with every `_time` exact and 0 parser warnings, in 30 s and 13,957 tokens. During the run, Splunk showed only the `__test_` app, and the real sourcetype name had 0 events.
+- **Lab, `acme_vpn_notz.json`:** attempt 1 set `TZ = UTC` and failed with "60/60 events wrong; most common offset +32400 s". Attempt 2 set `TZ = Asia/Tokyo` and passed 60/60, using 18,988 tokens.
+
+**Cut or deferred**
+- Agent `run_search` (code-owned base search, T1.2) moved to Phase 3. Phase 2 agents use Validator evidence only.
+- Profile review is auto-approved only; the human review comes with the UI. State is in memory; PostgreSQL comes in Phase 5.
+- No "timestamp fallback" check (`_indextime` vs `_time`): the manifest-based accuracy check covers it for synthetic data.
+- Infra errors are not retried with backoff yet; an unrecoverable Splunk error ends the run.
+
+**RECORD THIS**
+- **First agent fix loop:** `demo/01_fix_loop.sh`, about 1 minute and ~20k tokens. TZ = UTC is caught as +32400 s; attempt 2 sets Asia/Tokyo and passes.

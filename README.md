@@ -5,7 +5,7 @@ From raw sample logs to a tested, CIM-compliant Splunk add-on, verified by Splun
 [![CI](https://github.com/MKhalafHammad/Parsewright/actions/workflows/ci.yml/badge.svg)](https://github.com/MKhalafHammad/Parsewright/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-> **Status:** early development. This README separates what is **built** from what is **planned**. Right now the repository holds the project foundation (rules, safety tooling, CI, Docker stack for Splunk and PostgreSQL). The engine and UI are planned.
+> **Status:** early development. This README separates what is **built** from what is **planned**. Right now the repository holds the project foundation and a working CLI that builds and tests the **index-time** stage of a TA against a real Splunk (Phase 2). Extraction, CIM mapping, the job queue and the UI are planned.
 
 ## Demo
 
@@ -56,14 +56,16 @@ The model is set only through environment variables (`LLM_BASE_URL`, `LLM_MODEL`
 | Feature | Status |
 | --- | --- |
 | Repository foundation: CI, secret scanning, commit hooks, Docker stack (Splunk + PostgreSQL) | **Built** |
-| Threat model and lab probes for the Meta Model API and Splunk ([docs/lab-findings.md](docs/lab-findings.md)) | **Built** (lab results pending) |
-| Synthetic log generator with truth manifests (JSON, key=value, syslog, CSV) | Planned |
-| Profiler agent and human profile review | Planned |
-| Index-time, Extraction and CIM mapper agents with retry loops | Planned |
-| Guardrail gate (key allowlist, btool, regex safety, scope) | Planned |
-| Validator with fixed SPL checks (Authentication, Network_Traffic, Web) | Planned |
-| TA builder and `.tgz` packaging with hash-bound approval | Planned |
-| CLI: `parsewright run <file>` | Planned |
+| Threat model and lab probes for the Meta Model API and Splunk ([docs/lab-findings.md](docs/lab-findings.md)) | **Built** (all lab questions answered) |
+| Synthetic log generator with truth manifests | **Built** for JSON; key=value, syslog, CSV planned |
+| Profiler agent | **Built** (profile review is auto-approved; the human review screen is planned) |
+| Index-time agent with a retry loop fed by Validator evidence | **Built** |
+| Extraction and CIM mapper agents | Planned |
+| Guardrail gate | **Built** for index-time keys (allowlist with typed, bounded values); search-time keys, regex safety and scope planned |
+| Validator: index-time checks (event count, timestamp accuracy, parser warnings) | **Built** |
+| Validator: extraction and CIM checks (Authentication, Network_Traffic, Web) | Planned |
+| TA builder: escaping conf writer, test identity, `.tgz` packaging with a file allowlist and SHA-256 | **Built** (hash-bound approval planned) |
+| CLI: `parsewright run <file>` (index-time stage) | **Built** |
 | Web UI: run board, live run view, profile review, approval report | Planned |
 | Parallel jobs (PostgreSQL queue, worker pool) | Planned |
 | Routing for shared syslog feeds | Planned (stretch) |
@@ -93,7 +95,7 @@ The model is set only through environment variables (`LLM_BASE_URL`, `LLM_MODEL`
 
    | Variable | Required | Description | Example placeholder |
    | --- | --- | --- | --- |
-   | `LLM_API_KEY` | Yes (engine, planned) | Meta Model API key | `your-meta-api-key-here` |
+   | `LLM_API_KEY` | Yes (CLI) | Meta Model API key | `your-meta-api-key-here` |
    | `LLM_BASE_URL` | Yes | OpenAI-compatible endpoint | `https://api.meta.ai/v1` |
    | `LLM_MODEL` | Yes | Model name | `muse-spark-1.3` |
    | `SPLUNK_START_ARGS` | Yes | Accepts the Splunk license | `--accept-license` |
@@ -102,9 +104,12 @@ The model is set only through environment variables (`LLM_BASE_URL`, `LLM_MODEL`
    | `SPLUNK_WEB_PORT` | No | Host port for Splunk Web (default 8000) | `8000` |
    | `SPLUNK_HOST` | Yes (engine, CLI, probes) | Splunk REST host (`splunk` inside Docker) | `splunk.example.com` |
    | `SPLUNK_PORT` | Yes | Splunk REST port | `8089` |
-   | `SPLUNK_SEARCH_TOKEN` | Yes (engine, planned) | Token for the search-only service account | `your-parsewright-search-token-here` |
-   | `SPLUNK_DEPLOY_TOKEN` | Yes (engine, planned) | Token for the deploy service account | `your-parsewright-deploy-token-here` |
+   | `SPLUNK_SEARCH_TOKEN` | Yes (CLI) | Token for the search-only service account | `your-parsewright-search-token-here` |
+   | `SPLUNK_DEPLOY_TOKEN` | Yes (CLI) | Token for the deploy service account | `your-parsewright-deploy-token-here` |
    | `SPLUNK_DRIFT_TOKEN` | Yes (engine, planned) | Token for the drift read-only account | `your-parsewright-drift-token-here` |
+   | `PARSEWRIGHT_PACKAGES_DIR` | Yes (CLI) | Folder for `.tgz` packages, readable by splunkd, owned by you, mode 755 | `/opt/parsewright/packages` |
+   | `PARSEWRIGHT_TEST_INDEX` | Yes (CLI) | The one shared test index; must start with `pw_` | `pw_test` |
+   | `PARSEWRIGHT_RUN_TOKEN_CEILING` | No | Token ceiling per run (default 300000) | `300000` |
    | `POSTGRES_DB` | Yes | Database name | `parsewright` |
    | `POSTGRES_USER` | Yes | Database user | `parsewright` |
    | `POSTGRES_PASSWORD` | Yes | Database password | `changeme-to-a-long-password` |
@@ -119,10 +124,11 @@ The model is set only through environment variables (`LLM_BASE_URL`, `LLM_MODEL`
 5. Open the UIs:
    - Splunk Web: http://localhost:8000. Log in as `admin` with your `SPLUNK_PASSWORD`. The first start takes a few minutes.
    - Parsewright UI: http://localhost:3000 _(planned)_
-6. Run a first job with the bundled synthetic sample _(planned)_:
+6. Run a first job with the bundled synthetic sample (index-time stage):
    ```bash
-   parsewright run engine/parsewright/generator/fixtures/<sample>.log
+   .venv/bin/parsewright run engine/parsewright/generator/fixtures/acme_vpn.json --vendor acme --product vpn
    ```
+   It profiles the log, proposes index-time settings, installs them as a test add-on, ingests the file into the test index and runs the Validator, retrying with evidence up to 5 times. Expect `index-time: PASS (event count 60/60, attempt 1)`. Options: `--tz` (logs' timezone), `--keep` (leave the test add-on installed).
 
 ## Configuration
 
@@ -189,15 +195,15 @@ CI runs `make lint`, `make test` and `make security` on every pull request (not 
 ├── engine/                  Python backend (package: parsewright)
 │   ├── parsewright/
 │   │   ├── api/             FastAPI routes and the SSE stream (planned)
-│   │   ├── orchestrator/    deterministic state machine, budgets, workers (planned)
-│   │   ├── agents/          Muse Spark agents: prompt + schema each (planned)
-│   │   ├── tools/           lab probes (built); Splunk client, search guard, test_regex (planned)
-│   │   ├── guardrails/      conf allowlist, btool, regex safety (planned)
-│   │   ├── validator/       fixed SPL checks per stage (planned)
-│   │   ├── ta_builder/      escaping conf writer, versions, .tgz packaging (planned)
+│   │   ├── orchestrator/    index-time run loop (built); full state machine, workers (planned)
+│   │   ├── agents/          LLM client, Profiler, Index-time (built); Extraction, CIM mapper (planned)
+│   │   ├── tools/           lab probes, Splunk client (built); search guard, test_regex (planned)
+│   │   ├── guardrails/      index-time key allowlist (built); search-time keys, regex safety (planned)
+│   │   ├── validator/       index-time checks (built); extraction and CIM checks (planned)
+│   │   ├── ta_builder/      escaping conf writer, naming, .tgz packaging (built)
 │   │   ├── ledger/          PostgreSQL job queue and ledger (planned)
 │   │   ├── cim_spec/        pinned CIM required fields and allowed values (planned)
-│   │   └── generator/       synthetic logs + truth manifests; fixtures/ (planned)
+│   │   └── generator/       synthetic JSON logs + truth manifests; fixtures/ (built)
 │   └── tests/               engine tests
 ├── web/                     Next.js + shadcn/ui UI (planned)
 ├── docs/                    design.md (source of truth), build-plan.md, threat-model.md, lab-findings.md

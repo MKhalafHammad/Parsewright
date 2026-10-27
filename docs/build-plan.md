@@ -10,7 +10,7 @@ Updated at the end of every phase.
 | --- | --- | --- | --- | --- |
 | 0 | Repository foundation | Oct 27 | Done | Oct 27 |
 | 1 | Threat model and lab verification | Oct 27 | Done | Oct 27 |
-| 2 | Walking skeleton (JSON, CLI, end to end) | Oct 28 | Not started | |
+| 2 | Walking skeleton (JSON, CLI, end to end) | Oct 28 | Done | Oct 27 |
 | 3 | Extraction, CIM mapper, full Validator, generator | Oct 29–30 | Not started | |
 | 4 | Guardrails, adversarial suite, workflow integrity | Oct 31 | Not started | |
 | 5 | Job queue, workers, ledger, FastAPI, event stream | Nov 1 | Not started | |
@@ -161,7 +161,7 @@ Updated at the end of every phase.
   - The sourcetype is `<st>__test_<job>_a<attempt>`, and before ingest the code asserts it has 0 events, else bumps the attempt number (T4.5).
   - No reload is needed (Q3); keep one `conf-props` reload only as a logged safety net.
 - **LLM client:** uses `response_format` with a strict JSON schema, and `max_tokens` leaves headroom for reasoning (Q1). Hitting the cap counts as bad output.
-- **Agent `run_search`:** code owns the base search (`search index=<test index> sourcetype=<own attempt>`); the agent appends only a `|` pipeline (T1.2).
+- **Agent `run_search`:** code owns the base search (`search index=<test index> sourcetype=<own attempt>`); the agent appends only a `|` pipeline (T1.2). *(Moved to Phase 3: in Phase 2 the agents get Validator evidence and no search tool.)*
 - **Gate:** the index-time key allowlist with typed values and bounds. A post-ingest `_internal` warning check fails closed (Q7, T2.11).
 
 ### Acceptance criteria

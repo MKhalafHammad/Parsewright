@@ -16,6 +16,6 @@ Repeatable scripts for the moments shown in the 3-minute demo video. Each "RECOR
 
 | Script | Moment | Phase | Status |
 | --- | --- | --- | --- |
-| — | None yet: Phase 0 (repository foundation) produced nothing for the demo video | 0 | — |
+| `01_fix_loop.sh` | First agent fix loop: TZ = UTC is caught as a +32400 s offset, attempt 2 sets Asia/Tokyo and passes | 2 | Recorded in the lab, Oct 27 |
 
 The likely moments for the remaining phases are marked "RECORD THIS (likely)" in [docs/build-plan.md](../docs/build-plan.md). They are added to this table when the phase produces them.

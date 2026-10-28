@@ -38,7 +38,7 @@ def test_extraction_builds_props_and_transforms():
     [
         (ext(extracts=[Extract(name="x", regex=r"(?<user>\S+)\n[script://x]")]), "match"),
         (ext(extracts=[Extract(name="x", regex=r"for (\S+)")]), "named groups"),
-        (ext(extracts=[Extract(name="x", regex=r"(?<user>zzz)")]), "matches none"),
+        (ext(extracts=[Extract(name="x", regex=r"(?<user>z{3}\d+)")]), "matches none"),
         (ext(extracts=[Extract(name="x", regex=r"(?<sourcetype>\S+)")]), "not an allowed field"),
         (ext(extracts=[Extract(name="X Y", regex=r"(?<user>\S+)")]), "must match"),
         (ext(extracts=[Extract(name="x", regex=r"(?<user>(a+)+)$")]), "slow|backtracking"),

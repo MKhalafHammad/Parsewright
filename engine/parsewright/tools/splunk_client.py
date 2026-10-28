@@ -15,7 +15,7 @@ import splunklib.client as client
 from splunklib.results import JSONResultsReader
 
 from parsewright.config import Settings
-from parsewright.ta_builder.naming import require_pw_index, require_test_app
+from parsewright.ta_builder.naming import require_pw_index, require_real_app, require_test_app
 from parsewright.ta_builder.package import Package, packages_dir, sha256
 
 # Names interpolated into SPL must be plain: test sourcetypes are [a-z0-9_:-] only.
@@ -65,16 +65,54 @@ class SplunkClient:
 
     # --- deploy token -------------------------------------------------------------------
 
-    def install(self, pkg: Package) -> None:
-        """Install or replace a test app from the packages folder, after re-checking its hash."""
-        require_test_app(pkg.app)
+    def install(self, pkg: Package, promotion: bool = False) -> None:
+        """Install or replace an app from the packages folder, after re-checking its hash.
+
+        Only test apps, except during promotion, which installs the approved real-name TA.
+        """
+        (require_real_app if promotion else require_test_app)(pkg.app)
         root = packages_dir(self.packages).resolve()
         path = pkg.path.resolve()
         if path.parent != root:
             raise ValueError(f"package {path} is outside PARSEWRIGHT_PACKAGES_DIR")
         if sha256(path) != pkg.sha256:
             raise SplunkError("package changed after it was built; refusing to install (T5.9)")
-        self.deploy.post("apps/local", name=str(path), filename=True, update=True)
+        # update=False on promotion: Splunk itself refuses to overwrite an existing app (M3).
+        self.deploy.post("apps/local", name=str(path), filename=True, update=not promotion)
+
+    def app_exists(self, app: str) -> bool:
+        try:
+            self.deploy.get(f"apps/local/{app}")
+        except binding.HTTPError as e:
+            if e.status == 404:
+                return False
+            raise
+        return True
+
+    def props_exist(self, sourcetype: str) -> bool:
+        """Does any app (or Splunk's own defaults) already define props for this sourcetype?"""
+        try:
+            self.search.get(f"configs/conf-props/{spl_name(sourcetype)}", owner="nobody", app="-")
+        except binding.HTTPError as e:
+            if e.status == 404:
+                return False
+            raise
+        return True
+
+    def transforms_exist(self, names: list[str]) -> list[str]:
+        """Existing transform names among `names`, over REST (the collision check, Q7)."""
+        found = []
+        for name in names:
+            try:
+                self.search.get(
+                    f"configs/conf-transforms/{spl_name(name)}", owner="nobody", app="-"
+                )
+            except binding.HTTPError as e:
+                if e.status == 404:
+                    continue
+                raise
+            found.append(name)
+        return found
 
     def uninstall(self, app: str) -> None:
         require_test_app(app)
@@ -86,12 +124,14 @@ class SplunkClient:
 
     def ingest(self, index: str, sourcetype: str, body: str, source: str) -> None:
         """Post raw data through receivers/simple (Q8). Only pw_ indexes are accepted (T5.1)."""
+        # Validate before touching the near-admin deploy token at all.
+        index, sourcetype, source = require_pw_index(index), spl_name(sourcetype), spl_name(source)
         self.deploy.post(
             "receivers/simple",
             body=body.encode("utf-8"),
-            index=require_pw_index(index),
-            sourcetype=spl_name(sourcetype),
-            source=spl_name(source),
+            index=index,
+            sourcetype=sourcetype,
+            source=source,
             # A fixed synthetic host: otherwise Splunk records the sender's address, which
             # would put the lab's real IP into events, evidence and prompts.
             host=INGEST_HOST,
@@ -105,10 +145,11 @@ class SplunkClient:
         )
         return [r for r in JSONResultsReader(stream) if isinstance(r, dict)]
 
-    def count(self, index: str, sourcetype: str) -> int:
+    def count(self, index: str, sourcetype: str, source: str | None = None) -> int:
+        by_source = f" source={spl_name(source)}" if source else ""
         rows = self._rows(
             f"| tstats count where index={require_pw_index(index)} "
-            f"sourcetype={spl_name(sourcetype)}"
+            f"sourcetype={spl_name(sourcetype)}{by_source}"
         )
         return int(rows[0].get("count", 0)) if rows else 0
 

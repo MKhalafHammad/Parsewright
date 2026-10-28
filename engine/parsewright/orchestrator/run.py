@@ -17,8 +17,10 @@ from parsewright import cim_spec
 from parsewright.agents import cim_mapper, extraction, index_time, profiler
 from parsewright.agents.llm import BadOutput, LLMClient
 from parsewright.agents.profiler import LogProfile
-from parsewright.guardrails import search_time
+from parsewright.guardrails import conf_gate, search_time
 from parsewright.guardrails.index_time import GuardrailBlock, gate
+from parsewright.orchestrator import promote
+from parsewright.orchestrator.caps import IngestCapExceeded, IngestCaps
 from parsewright.ta_builder import package
 from parsewright.ta_builder.naming import require_pw_index, test_app, test_sourcetype
 from parsewright.tools.splunk_client import SplunkClient, ingest_source
@@ -80,7 +82,7 @@ def _regressed(check, stage: str):
 
 
 class Run:
-    def __init__(self, path, llm, splunk, index, packages_dir, out, max_attempts):
+    def __init__(self, path, llm, splunk, index, packages_dir, out, max_attempts, caps):
         self.path, self.llm, self.splunk, self.out = path, llm, splunk, out
         self.index, self.packages_dir, self.max_attempts = index, packages_dir, max_attempts
         self.text = path.read_text(encoding="utf-8")
@@ -97,6 +99,9 @@ class Run:
         self.scores: list = []
         self.prof: LogProfile
         self.app = ""
+        self.caps: IngestCaps = caps
+        self.checked_transforms: set[str] = set()
+        self.last_pkg: package.Package | None = None
 
     # --- shared ------------------------------------------------------------------------
 
@@ -116,10 +121,16 @@ class Run:
         ):
             if stanzas:
                 confs[conf] = stanzas
+        conf_gate.check(confs, self.job, sourcetype)  # final gate on exactly what is written
+        new = sorted(set(confs.get("transforms", {})) - self.checked_transforms)
+        if new and (taken := self.splunk.transforms_exist(new)):  # collision check (Q7)
+            raise GuardrailBlock(f"transform names already exist in Splunk: {', '.join(taken)}")
+        self.checked_transforms |= set(new)
         self.version += 1
         pkg = package.build(self.packages_dir, self.app, f"0.0.{self.version}", confs)
         self.built.append(pkg.path)
         self.splunk.install(pkg)
+        self.last_pkg = pkg
 
     def propose(self, stage: str, make: Callable, check: Callable):
         """One proposal through the gate, or (None, None), recorded in history, if refused."""
@@ -157,6 +168,7 @@ class Run:
             if self.splunk.count(self.index, st):  # never reuse a sourcetype (T4.5)
                 raise RuntimeError(f"sourcetype {st} already has events in {self.index}")
             since = time.time() - 60  # sourcetype is unique per attempt: a wide window is safe
+            self.caps.reserve(len(self.text.encode("utf-8")))  # per-job and daily caps (T5.2)
             self.splunk.ingest(self.index, st, self.text, ingest_source(self.path))
             report = index_validator.validate(
                 self.splunk, self.index, st, self.manifest, since, self.app
@@ -196,6 +208,9 @@ class Run:
     def cim_stage(self) -> bool:
         models = [m for m in self.prof.cim_targets if m in cim_spec.ROOT] or list(cim_spec.ROOT)
         fields = self.field_values()
+        # Provenance uses the field names Splunk actually extracted, not the model's profile
+        # (a profile could declare a field named "if" and make a constant look sourced).
+        extracted = {line.split(" (", 1)[0] for line in fields.splitlines()}
         for attempt in range(1, self.max_attempts + 1):
             self.tick()
             self.out(f"cim attempt {attempt}: models {', '.join(models)}")
@@ -204,7 +219,7 @@ class Run:
                 lambda models=models: cim_mapper.propose(
                     self.llm, self.prof, fields, models, self.history["cim"]
                 ),
-                lambda p: search_time.cim(p, self.st, self.job),
+                lambda p: search_time.cim(p, self.st, self.job, extracted),
             )
             if cim is None:
                 continue
@@ -283,8 +298,11 @@ def run(
     keep: bool = False,
     max_attempts: int = MAX_ATTEMPTS,
     stages: tuple[str, ...] = STAGES,
+    runs_dir: Path | None = None,
+    caps: IngestCaps | None = None,
 ) -> RunResult:
-    r = Run(path, llm, splunk, require_pw_index(test_index), packages_dir, out, max_attempts)
+    caps = caps or IngestCaps(runs_dir, job_mb=20, daily_mb=500)
+    r = Run(path, llm, splunk, require_pw_index(test_index), packages_dir, out, max_attempts, caps)
     out(f"job {r.job}: {path.name}, {r.manifest['event_count']} events in the manifest")
     r.prof = profiler.profile(llm, r.samples, timezone, vendor, product)
     out(
@@ -323,7 +341,19 @@ def run(
             )
             for s in r.scores:
                 out(s.line())
-    except BudgetExhausted as e:
+            if runs_dir is not None and r.last_pkg is not None and stages == STAGES:
+                promote.record_passed_run(
+                    runs_dir,
+                    r.job,
+                    r.last_pkg,
+                    vendor=r.prof.vendor,
+                    product=r.prof.product,
+                    sourcetype=r.prof.sourcetype,
+                    test_sourcetype=r.st,
+                    sample=path,
+                )
+                out(f"awaiting approval: parsewright approve {r.job} --sha256 {r.last_pkg.sha256}")
+    except (BudgetExhausted, IngestCapExceeded) as e:
         result.failed_stage = "budget"
         out(f"budget: {e}")
     finally:

@@ -193,3 +193,19 @@ def test_built_in_fields_are_not_extraction_checks():
         set(),
     )
     assert r.passed
+
+
+def test_constant_gaming_is_flagged_even_past_the_gate():
+    # EVAL-action = if(1==1,"success","x") is not a literal, so the gate lets it through;
+    # the Validator still sees one value where the source has two.
+    events = [
+        ev(t, "authentication", {"result": r}, {"action": r, "user": "alice"})
+        for t, r in zip(range(100, 1300, 100), ["success", "failure"] * 6, strict=True)
+    ]
+    rows = [
+        {"t": str(e["epoch"]), "Authentication.action": "success", "Authentication.user": "alice"}
+        for e in events
+    ]
+    report, _ = cim.validate({"Authentication": rows}, {"Authentication": {}}, manifest_of(events))
+    evidence = report.evidence()
+    assert "constant values" in evidence and "action is always 'success'" in evidence

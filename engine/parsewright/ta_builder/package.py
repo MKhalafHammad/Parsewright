@@ -3,25 +3,26 @@
 Threats: T2.2, T3.4 (file allowlist), T5.9 (packages folder and swap between build and install).
 """
 
+import gzip
 import hashlib
 import io
 import os
 import re
 import stat
 import tarfile
-import time
 import uuid
 from dataclasses import dataclass
 from pathlib import Path
 
 from parsewright.ta_builder.conf_writer import write_conf
-from parsewright.ta_builder.naming import require_test_app
+from parsewright.ta_builder.naming import require_real_app, require_test_app
 
 # Package file allowlist: parsing config and metadata only; no bin/, no appserver/.
 ALLOWED_FILES = re.compile(
     r"default/(app|props|transforms|eventtypes|tags)\.conf|metadata/default\.meta|"
     r"lookups/[a-z0-9_]+\.csv|README(\.md)?"
 )
+MTIME = 1_700_000_000  # fixed member mtime for reproducible packages
 DEFAULT_META = {"": {"access": "read : [ * ], write : [ admin ]", "export": "system"}}
 
 
@@ -66,6 +67,16 @@ def build(
     writer; the archive is created with O_EXCL|O_NOFOLLOW under a fresh name.
     """
     require_test_app(app)
+    return _write(dest, app, version, confs)
+
+
+def build_promoted(dest: Path, app: str, version: str, confs: dict) -> Package:
+    """The real-name package for promotion: same writer, allowlist and file safety."""
+    require_real_app(app)
+    return _write(dest, app, version, confs)
+
+
+def _write(dest: Path, app: str, version: str, confs: dict) -> Package:
     for name in confs:
         if not ALLOWED_FILES.fullmatch(f"default/{name}.conf"):
             raise ValueError(f"file default/{name}.conf is not on the package allowlist")
@@ -76,11 +87,17 @@ def build(
     out = packages_dir(dest) / f"{app}-{version}-{uuid.uuid4().hex[:8]}.tgz"
     fd = os.open(out, os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW, 0o644)
     os.fchmod(fd, 0o644)  # splunkd runs as another user and must read it
-    with os.fdopen(fd, "wb") as raw, tarfile.open(fileobj=raw, mode="w:gz") as tar:
+    # Deterministic bytes (fixed mtimes, sorted members): the same files give the same hash,
+    # so a promoted package can be rebuilt and checked.
+    with (
+        os.fdopen(fd, "wb") as raw,
+        gzip.GzipFile(fileobj=raw, mode="wb", mtime=0) as gz,
+        tarfile.open(fileobj=gz, mode="w") as tar,
+    ):
         for rel, text in sorted(files.items()):
             data = text.encode()
             info = tarfile.TarInfo(f"{app}/{rel}")
-            info.size, info.mode, info.mtime = len(data), 0o644, int(time.time())
+            info.size, info.mode, info.mtime = len(data), 0o644, MTIME
             tar.addfile(info, io.BytesIO(data))
     return Package(path=out, app=app, sha256=sha256(out))
 

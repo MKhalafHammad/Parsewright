@@ -88,6 +88,7 @@ ALLOWED: dict[str, Callable[[str], str]] = {
     "MAX_TIMESTAMP_LOOKAHEAD": _int(1, 128),
     "TZ": _tz,
     "TRUNCATE": _int(256, 100_000),  # 0 (unlimited) is refused: giant events (design bounds)
+    "MAX_EVENTS": _int(1, 2000),  # lines per multi-line event; 0 (unlimited) is refused
 }
 REQUIRED = ("SHOULD_LINEMERGE", "LINE_BREAKER", "TIME_FORMAT")
 

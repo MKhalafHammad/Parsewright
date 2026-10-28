@@ -16,7 +16,11 @@ ENV_KEYS = (
     "PARSEWRIGHT_PACKAGES_DIR",
     "PARSEWRIGHT_TEST_INDEX",
     "PARSEWRIGHT_RUN_TOKEN_CEILING",
+    "PARSEWRIGHT_RUNS_DIR",
+    "PARSEWRIGHT_JOB_INGEST_MB",
+    "PARSEWRIGHT_DAILY_INGEST_MB",
 )
+REPO = Path(__file__).resolve().parents[2]
 KEY_LINE = re.compile(r"[A-Z][A-Z0-9_]*")
 
 
@@ -53,6 +57,9 @@ class Settings:
     packages_dir: Path
     test_index: str
     run_token_ceiling: int
+    runs_dir: Path = REPO / ".runs"
+    job_ingest_mb: float = 20
+    daily_ingest_mb: float = 500
 
     @classmethod
     def from_env(cls) -> "Settings":
@@ -67,6 +74,9 @@ class Settings:
             packages_dir=Path(_require("PARSEWRIGHT_PACKAGES_DIR")),
             test_index=_require("PARSEWRIGHT_TEST_INDEX"),
             run_token_ceiling=int(os.environ.get("PARSEWRIGHT_RUN_TOKEN_CEILING", "300000")),
+            runs_dir=Path(os.environ.get("PARSEWRIGHT_RUNS_DIR") or REPO / ".runs"),
+            job_ingest_mb=float(os.environ.get("PARSEWRIGHT_JOB_INGEST_MB", "20")),
+            daily_ingest_mb=float(os.environ.get("PARSEWRIGHT_DAILY_INGEST_MB", "500")),
         )
 
     def __repr__(self) -> str:  # never print tokens or keys

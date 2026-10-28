@@ -86,6 +86,24 @@ def validate_model(
         )
     )
 
+    constants = []
+    for f in in_source:
+        have = {get(e["epoch"], f) for e in truth if f in e["cim"]} - UNMAPPED
+        want = {e["cim"][f] for e in truth if f in e["cim"]}
+        if len(truth) >= 10 and len(have) == 1 and len(want) > 1:
+            constants.append(
+                f"{f} is always {next(iter(have))!r} but the source has {len(want)} values"
+            )
+    checks.append(
+        Check(
+            f"{model}: constant values",
+            not constants,
+            "no CIM field fixed to one value where the source varies",
+            f"{len(constants)} constant fields" if constants else "none",
+            constants[:MAX_EXAMPLES],
+        )
+    )
+
     out_of_set = []
     for f, allowed in cim_spec.expected_values(model).items():
         seen = Counter(v for t in by_t if (v := get(t, f)) not in UNMAPPED and v not in allowed)

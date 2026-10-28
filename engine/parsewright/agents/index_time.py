@@ -10,7 +10,7 @@ Propose props.conf index-time settings so that Splunk splits the raw data into e
 per log record and sets _time to each record's true timestamp.
 
 You may set only: SHOULD_LINEMERGE, LINE_BREAKER, TIME_PREFIX, TIME_FORMAT,
-MAX_TIMESTAMP_LOOKAHEAD, TZ, TRUNCATE. Anything else is rejected.
+MAX_TIMESTAMP_LOOKAHEAD, TZ, TRUNCATE, MAX_EVENTS. Anything else is rejected.
 - LINE_BREAKER is a PCRE regex whose first capturing group is the text discarded between
   events, e.g. ([\\r\\n]+) for one event per line.
 - TIME_PREFIX is a regex matching the text right before the timestamp.

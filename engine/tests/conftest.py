@@ -91,17 +91,29 @@ class FakeSplunk:
         self.ingested: list[tuple[str, str]] = []
         self.data: dict[str, list[tuple[int, str]]] = {}
 
-    def install(self, pkg):
+    def install(self, pkg, promotion=False):
         self.installed.append(pkg)
 
     def uninstall(self, app):
         self.uninstalled.append(app)
 
+    def transforms_exist(self, names):
+        return [n for n in names if n in getattr(self, "existing_transforms", set())]
+
+    def props_exist(self, sourcetype):
+        return sourcetype in getattr(self, "existing_props", set())
+
+    def app_exists(self, app):
+        return app in getattr(self, "existing_apps", set())
+
     def ingest(self, index, sourcetype, body, source):
         self.ingested.append((index, sourcetype))
-        self.data[sourcetype] = self.per_attempt.pop(0)
+        if self.per_attempt:
+            self.data[sourcetype] = self.per_attempt.pop(0)
+        else:  # e.g. the promotion smoke test: one event per line
+            self.data[sourcetype] = [(0, ln) for ln in body.splitlines() if ln]
 
-    def count(self, index, sourcetype):
+    def count(self, index, sourcetype, source=None):
         return len(self.data.get(sourcetype, []))
 
     def wait_stable(self, index, sourcetype):

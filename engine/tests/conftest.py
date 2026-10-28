@@ -149,7 +149,7 @@ def _test_dsn() -> str | None:
         return dsn
     load_env_file(REPO / ".env")
     try:
-        url = urlsplit(database_url())
+        url = urlsplit(database_url(admin=True))  # tests migrate and reset tables
     except RuntimeError:
         return None
     return urlunsplit(url._replace(path="/parsewright_test"))

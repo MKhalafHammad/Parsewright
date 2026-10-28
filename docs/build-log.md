@@ -195,3 +195,56 @@ One entry per completed phase, appended at the end of the phase (see CLAUDE.md, 
 
 **RECORD THIS**
 - **Guardrail blocking an attack:** `demo/03_guardrail_block.sh`, a few minutes and ~70k tokens.
+
+## 2026-10-28 — Phase 5: Job queue, workers, PostgreSQL ledger, FastAPI, live event stream
+
+**Built**
+- **PostgreSQL** (`ledger/`):
+  - jobs and an append-only ledger: triggers refuse `UPDATE`/`DELETE`/`TRUNCATE`, and each insert sends a `NOTIFY`;
+  - a daily usage table and the kill switch;
+  - plain SQL migrations;
+  - the engine connects as the limited `parsewright_app` role (`SELECT`/`INSERT` on the ledger only); the owner account is used only by `parsewright migrate`.
+- **Queue and workers:**
+  - claims with `FOR UPDATE SKIP LOCKED`, a 2-minute lease and heartbeats;
+  - checkpoints after the profile, every attempt and every passed stage, so a crashed job resumes on another worker and never reuses a sourcetype;
+  - a job waiting for profile review is released;
+  - a cluster-wide advisory lock for Splunk writes, two LLM slots, the daily token budget and the kill switch;
+  - approved jobs are promoted by a worker;
+  - `parsewright serve` runs the API with a worker pool that restarts dead workers, and workers exit if `serve` dies.
+- **API** (FastAPI):
+  - upload checks: bounded `.gz`, no archives, binary or non-UTF-8, at least 50 events, at most 10,000-character lines, a validated manifest, and a token estimate capped at the run ceiling;
+  - duplicate detection;
+  - runs, profile confirm, approve/reject, `.tgz` download, and an SSE stream from `LISTEN/NOTIFY`;
+  - CSRF header and Origin check, CORS, TrustedHost, security headers, body-size cap and a cap on streams.
+- **CLI, Docker and CI:**
+  - the CLI shares the queue (`run`, `status`, `approve`, `promote`, `worker`, `serve`, `kill`, `migrate`), and `run --local` keeps the database-free mode;
+  - `engine/Dockerfile` (non-root); compose `migrate` and `engine` services with `cap_drop: ALL` and a read-only root filesystem;
+  - a PostgreSQL service container in CI.
+
+**Test results**
+- `pytest`: 354 passed, 32 of them against real PostgreSQL. They cover:
+  - 20 jobs on 4 workers, never claimed twice;
+  - crash and resume from the checkpoint, with the crashed worker fenced off;
+  - the ledger refusing `UPDATE`/`DELETE`/`TRUNCATE`, and the app role refused even `DISABLE TRIGGER`;
+  - the upload refusals (bomb, multi-member `.gz`, tar, tar.gz, zip, binary, Latin-1, too few events, symlinks);
+  - duplicates pointing to the existing job;
+  - approve refused unless `awaiting_approval`;
+  - the event stream delivering a transition within 2 s;
+  - CSRF.
+- pre-commit, bandit and pip-audit clean.
+- **Lab, `demo/04_parallel_jobs.sh`:**
+  - four fixtures were uploaded at once and four workers ran them in parallel;
+  - the SSH job paused for profile review while the other three continued, then resumed on confirm and recovered from a CIM failure with one backtrack;
+  - all four reached `awaiting_approval` in about 5 minutes (332k tokens in total).
+- **Lab, approve and promote through the API:** a wrong hash refused (409), the replay a no-op; a worker promoted `TA-parsewright-acme-fwdemo` (smoke 20/20); the download served the promoted `.tgz`; the ledger shows one claim to build and one to promote.
+- **Lab, after the fixes:** a cross-site upload was refused (403) and the same-origin upload was detected as a duplicate. Killing `serve` with SIGKILL left no orphaned workers.
+- `appsec`: one High (CSRF) and six Medium, plus ten Low; all fixed with tests except the hashed dependency lock (T9.6, Phase 10).
+
+**Cut or deferred**
+- Uploads need the generator's truth manifest; manifest-free validation of real logs is planned.
+- Correct-a-mapping in review: only approve and reject.
+- Docker: `docker compose up` (engine, Splunk, PostgreSQL, `/health`) is written but not yet run, because this session cannot use Docker. The compose Splunk also needs the Phase 10 bootstrap (tokens, `pw_test`, CIM macros) before the engine can use it.
+- No login: the API is localhost-only (R1), and the compose network can reach it (R10).
+
+**RECORD THIS**
+- **Parallel jobs:** `demo/04_parallel_jobs.sh` with `parsewright serve --workers 4` running, several minutes and ~330k tokens.

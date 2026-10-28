@@ -65,10 +65,11 @@ The model is set only through environment variables (`LLM_BASE_URL`, `LLM_MODEL`
 | Validator: index-time checks (event count, timestamp accuracy, parser warnings) | **Built** |
 | Validator: extraction and CIM checks (Authentication, Network_Traffic, Web) with the three-number CIM score | **Built** |
 | TA builder: escaping conf writer, test identity, reproducible `.tgz` packaging with a file allowlist and SHA-256 | **Built** |
-| Approval and promotion: `parsewright approve <job> --sha256 …` (hash-bound, replay-safe), `parsewright promote <job>` (deterministic rename to real names, both hashes linked, refuses existing TAs and sourcetypes, smoke test) | **Built** (state in run records; PostgreSQL in Phase 5) |
+| Approval and promotion: `parsewright approve <job> --sha256 …` (hash-bound, replay-safe), `parsewright promote <job>` (deterministic rename to real names, both hashes linked, refuses existing TAs and sourcetypes, smoke test) | **Built** |
 | CLI: `parsewright run <file>` (all three stages) | **Built** |
 | Web UI: run board, live run view, profile review, approval report | Planned |
-| Parallel jobs (PostgreSQL queue, worker pool) | Planned |
+| Parallel jobs: PostgreSQL queue (`FOR UPDATE SKIP LOCKED`, leases, heartbeats, crash resume), append-only ledger, worker pool with a global Splunk-write lock, LLM slots, daily token budget and kill switch | **Built** |
+| HTTP API: upload (content checks, duplicates), runs, profile review, approve/reject, `.tgz` download, live server-sent events; `parsewright serve` | **Built** (no login: localhost only, residual risk R1) |
 | Routing for shared syslog feeds | Planned (stretch) |
 | Parser updates and drift monitoring | Planned (stretch) |
 
@@ -195,14 +196,14 @@ CI runs `make lint`, `make test` and `make security` on every pull request (not 
 .
 ├── engine/                  Python backend (package: parsewright)
 │   ├── parsewright/
-│   │   ├── api/             FastAPI routes and the SSE stream (planned)
-│   │   ├── orchestrator/    three-stage run loop (built); PostgreSQL state machine, workers (planned)
+│   │   ├── api/             FastAPI routes, upload checks and the SSE stream (built)
+│   │   ├── orchestrator/    three-stage run loop, workers, approval and promotion (built)
 │   │   ├── agents/          LLM client, Profiler, Index-time, Extraction, CIM mapper (built)
 │   │   ├── tools/           lab probes, Splunk client, search guard, test_regex (built)
 │   │   ├── guardrails/      index-time and search-time gates (built); full adversarial suite (planned)
 │   │   ├── validator/       index-time, extraction and CIM checks (built)
 │   │   ├── ta_builder/      escaping conf writer, naming, .tgz packaging (built)
-│   │   ├── ledger/          PostgreSQL job queue and ledger (planned)
+│   │   ├── ledger/          PostgreSQL job queue and append-only ledger (built)
 │   │   ├── cim_spec/        CIM 8.7.0 required fields and allowed values, pinned from Splunk_SA_CIM (built)
 │   │   └── generator/       synthetic logs in four formats + truth manifests; fixtures/ (built)
 │   └── tests/               engine tests

@@ -19,5 +19,6 @@ Repeatable scripts for the moments shown in the 3-minute demo video. Each "RECOR
 | `01_fix_loop.sh` | First agent fix loop: TZ = UTC is caught as a +32400 s offset, attempt 2 sets Asia/Tokyo and passes | 2 | Recorded in the lab, Oct 27 |
 | `02_cim_green.sh [vpn\|fw\|ssh\|proxy]` | First green CIM check: all three stages, the holdout line and the three CIM numbers | 3 | All four fixtures green in the lab, Oct 28 |
 | `03_guardrail_block.sh` | Prompt-injection log; a simulated compromised model's CIM proposal blocked by the gate, a subtler constant caught by the Validator, then the real model recovers | 4 | Recorded in the lab, Oct 28 (the real model ignored the injection; the attacker proposals are simulated and labelled) |
+| `04_parallel_jobs.sh` | Four uploads at once, four workers in parallel; one pauses for profile review while the others continue, then resumes on confirm | 5 | Recorded in the lab, Oct 28: all four reached awaiting approval in ~5 min |
 
 The likely moments for the remaining phases are marked "RECORD THIS (likely)" in [docs/build-plan.md](../docs/build-plan.md). They are added to this table when the phase produces them.

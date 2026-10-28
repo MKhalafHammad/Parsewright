@@ -13,7 +13,7 @@ Updated at the end of every phase.
 | 2 | Walking skeleton (JSON, CLI, end to end) | Oct 28 | Done | Oct 27 |
 | 3 | Extraction, CIM mapper, full Validator, generator | Oct 29–30 | Done | Oct 28 |
 | 4 | Guardrails, adversarial suite, workflow integrity | Oct 31 | Done | Oct 28 |
-| 5 | Job queue, workers, ledger, FastAPI, event stream | Nov 1 | Not started | |
+| 5 | Job queue, workers, ledger, FastAPI, event stream | Nov 1 | Done (owner: `docker compose up` check pending) | Oct 28 |
 | 6 | Next.js UI (four screens) | Nov 2 | Not started | |
 | 7 | Parser updates | Nov 3 (morning, only if ahead) | Not started | |
 | 8 | Drift pipeline (stretch) | Unscheduled | Not started | |

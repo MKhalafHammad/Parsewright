@@ -17,4 +17,4 @@ case "${1:-vpn}" in
   proxy) args=("$fixtures/acme_proxy.csv" --vendor acme --product proxy) ;;
   *) echo "usage: demo/02_cim_green.sh [vpn|fw|ssh|proxy]" >&2; exit 2 ;;
 esac
-exec .venv/bin/parsewright run "${args[@]}"
+exec .venv/bin/parsewright run --local "${args[@]}"

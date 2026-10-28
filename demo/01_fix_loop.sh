@@ -9,5 +9,5 @@
 # The model may get TZ right on the first try; then simply run it again.
 set -euo pipefail
 cd "$(dirname "$0")/.."
-exec .venv/bin/parsewright run engine/parsewright/generator/fixtures/acme_vpn_notz.json \
+exec .venv/bin/parsewright run --local engine/parsewright/generator/fixtures/acme_vpn_notz.json \
   --vendor acme --product vpn

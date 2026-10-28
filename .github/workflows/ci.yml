@@ -47,7 +47,13 @@ jobs:
           echo "$(go env GOPATH)/bin" >> "$GITHUB_PATH"
           pipx install semgrep==1.182.1
 
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: "24"
+
       - run: make setup
+      - name: Install the browser for the end-to-end tests
+        run: cd web && npx playwright install --with-deps chromium
       - run: make lint
       - run: make test
       - run: make security

@@ -60,7 +60,7 @@ services:
     restart: "no"
 
   # The engine (API + worker pool), non-root, no Docker socket, no capabilities, read-only
-  # root filesystem. The web UI (Phase 6) still sits behind the "app" profile.
+  # root filesystem.
   engine:
     build: ./engine
     ports:
@@ -94,16 +94,21 @@ services:
     restart: unless-stopped
 
   web:
-    profiles: ["app"]
     build: ./web
     environment:
       ENGINE_URL: http://engine:8080
+      # The browser reaches the UI only by these names (DNS-rebinding guard, threat T8.5).
+      ALLOWED_HOSTS: localhost:${WEB_PORT:-3000},127.0.0.1:${WEB_PORT:-3000}
+      WEB_ORIGINS: http://localhost:${WEB_PORT:-3000},http://127.0.0.1:${WEB_PORT:-3000}
     ports:
       - "127.0.0.1:${WEB_PORT:-3000}:3000"
     depends_on:
       - engine
     security_opt:
       - no-new-privileges:true
+    cap_drop: [ALL]
+    read_only: true
+    tmpfs: [/tmp]
     restart: unless-stopped
 
 volumes:

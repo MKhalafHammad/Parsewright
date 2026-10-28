@@ -11,6 +11,7 @@ setup:
 	$(BIN)/pip install --upgrade pip
 	$(BIN)/pip install -e 'engine[dev]'
 	$(BIN)/pre-commit install
+	cd web && npm ci
 
 up:
 	docker compose up -d
@@ -23,15 +24,16 @@ logs:
 
 test:
 	$(BIN)/pytest engine/tests tests
+	cd web && npm run build && npm run test:e2e
 
 lint:
 	$(BIN)/pre-commit run --all-files
+	cd web && npm run lint && npm run typecheck
 
 # Needs semgrep and gitleaks on PATH (see README, "Running tests and security checks").
-# shortcut: web/ has no package.json until the UI phase; drop the npm guard once web/package-lock.json exists.
 security:
 	$(BIN)/bandit -c engine/pyproject.toml -r engine scripts
 	semgrep scan --config p/default --error --metrics=off --quiet
 	$(BIN)/pip-audit --skip-editable
-	@if [ -f web/package-lock.json ]; then cd web && npm audit --audit-level=moderate; else echo "npm audit: skipped (no web/package-lock.json yet)"; fi
+	cd web && npm audit --audit-level=moderate
 	gitleaks git --redact --verbose .

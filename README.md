@@ -67,7 +67,7 @@ The model is set only through environment variables (`LLM_BASE_URL`, `LLM_MODEL`
 | TA builder: escaping conf writer, test identity, reproducible `.tgz` packaging with a file allowlist and SHA-256 | **Built** |
 | Approval and promotion: `parsewright approve <job> --sha256 …` (hash-bound, replay-safe), `parsewright promote <job>` (deterministic rename to real names, both hashes linked, refuses existing TAs and sourcetypes, smoke test) | **Built** |
 | CLI: `parsewright run <file>` (all three stages) | **Built** |
-| Web UI: run board, live run view, profile review, approval report | Planned |
+| Web UI (Next.js): job board with upload, live run view, profile review, approval report (raw vs parsed with highlights, mapping, CIM scores, configs, approve/reject, `.tgz` download) | **Built** |
 | Parallel jobs: PostgreSQL queue (`FOR UPDATE SKIP LOCKED`, leases, heartbeats, crash resume), append-only ledger, worker pool with a global Splunk-write lock, LLM slots, daily token budget and kill switch | **Built** |
 | HTTP API: upload (content checks, duplicates), runs, profile review, approve/reject, `.tgz` download, live server-sent events; `parsewright serve` | **Built** (no login: localhost only, residual risk R1) |
 | Routing for shared syslog feeds | Planned (stretch) |
@@ -125,7 +125,7 @@ The model is set only through environment variables (`LLM_BASE_URL`, `LLM_MODEL`
    `make up` currently starts Splunk and PostgreSQL. The engine and web services are defined behind the `app` profile and start once their code exists (planned).
 5. Open the UIs:
    - Splunk Web: http://localhost:8000. Log in as `admin` with your `SPLUNK_PASSWORD`. The first start takes a few minutes.
-   - Parsewright UI: http://localhost:3000 _(planned)_
+   - Parsewright UI: http://localhost:3000
 6. Run a first job with the bundled synthetic sample (index-time stage):
    ```bash
    .venv/bin/parsewright run engine/parsewright/generator/fixtures/acme_vpn.json --vendor acme --product vpn
@@ -207,7 +207,7 @@ CI runs `make lint`, `make test` and `make security` on every pull request (not 
 │   │   ├── cim_spec/        CIM 8.7.0 required fields and allowed values, pinned from Splunk_SA_CIM (built)
 │   │   └── generator/       synthetic logs in four formats + truth manifests; fixtures/ (built)
 │   └── tests/               engine tests
-├── web/                     Next.js + shadcn/ui UI (planned)
+├── web/                     Next.js + shadcn/ui UI (built)
 ├── docs/                    design.md (source of truth), build-plan.md, threat-model.md, lab-findings.md
 ├── scripts/                 repo tooling (commit-msg hook)
 ├── tests/                   repo tooling tests

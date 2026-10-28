@@ -248,3 +248,44 @@ One entry per completed phase, appended at the end of the phase (see CLAUDE.md, 
 
 **RECORD THIS**
 - **Parallel jobs:** `demo/04_parallel_jobs.sh` with `parsewright serve --workers 4` running, several minutes and ~330k tokens.
+
+## 2026-10-28 — Phase 6: Next.js UI (four screens)
+
+**Built**
+- **Screens** (Next.js 16, React 19, Tailwind, shadcn-style components):
+  - the job board with upload, refreshed every 3 s;
+  - the live run view: a stepper and the ledger timeline over SSE (`EventSource`, capped at 500 rows);
+  - profile review: vendor, product, sourcetype and time zone, editable before the run continues;
+  - the approval report: CIM scores, raw events beside parsed fields with highlights, the mapping table, the exact `.conf` files, the holdout counts, download, and approve/reject behind a second confirmation that names the package hash.
+- **Report data from the engine** (`orchestrator/report.py`): saved when a run passes. Raw and parsed values come from the same search row; highlight offsets are computed in the engine, non-overlapping and in UTF-16 (what the browser counts), so the UI only turns `(start, end, field)` into `<mark>` elements.
+- **Safety:**
+  - the browser talks only to the Next.js server. `/api/engine/*` forwards an allowlist of engine paths, refuses encoded separators and dot segments, requires the CSRF header and an allowed Origin for actions, follows no redirects, and forwards only a few headers;
+  - `proxy.ts` refuses unknown `Host` headers (DNS rebinding) and sets a per-request CSP nonce with `strict-dynamic`, so no `'unsafe-inline'` scripts;
+  - log text is rendered only as React text. ESLint fails on `dangerouslySetInnerHTML`, `innerHTML`, `outerHTML`, `insertAdjacentHTML`, `document.write`, `srcDoc`, `eval` and `new Function`.
+- **Packaging:** `web/Dockerfile` (standalone output, non-root, multi-stage); the compose `web` service with `cap_drop: ALL` and a read-only root filesystem; CI installs Node 24 and Playwright's Chromium; `make setup`, `lint`, `test` and `security` cover `web/`.
+
+**Test results**
+- Playwright, 8 passed, against the standalone `server.js` the Dockerfile runs:
+  - XSS: a `<script>` and `<img onerror>` payload in log text, field values, the timeline, the `.conf` view, the board and profile review renders as text, with no dialog and no injected element;
+  - the keyboard-only flow (upload, confirm the profile, approve with its second confirmation) in tab order;
+  - the live view showing a ledger event within 2 s;
+  - the proxy: an unknown Host refused (421) on pages and the API, cross-site and header-less actions refused (403) with a positive control, encoded and dot-segment paths refused, security headers and a fresh nonce on every page.
+- `pytest`: 357 passed (3 new for the report: highlights, UTF-16 offsets, raw and fields from one row).
+- ESLint, `tsc --strict` and pre-commit clean; `npm audit`: 0 vulnerabilities.
+- **Lab, `demo/05_approval_report.sh`:** the injected VPN fixture (its last event ends with `<script>alert(document.cookie)</script>`) ran to `awaiting_approval` with a full report: 15 events with highlights, 8 mapping rows, Authentication 4/4 and Network_Traffic 7/7. In the browser the script line shows as text. Live checks: a rebinding `Host` got 421, a header-less POST through the proxy got 403, and the CSP carried a nonce.
+- `appsec`: one High (DNS rebinding, T8.5) and one Medium (`'unsafe-inline'` scripts), plus Lows; all fixed with tests.
+
+**Also found and fixed**
+- A Phase 5 test reset the `parsewright_app` password. PostgreSQL roles are server-wide, so this broke the running engine (500s). The test now uses `SET ROLE` and touches no password; the role was restored with `parsewright migrate`.
+- Next.js 16.4.0 had critical advisories, so it is pinned to the patched 16.4.3: a deliberate exception to the two-week version rule.
+- The e2e server first ran `next start`, which Next does not support with `output: "standalone"`. It now runs `server.js`, as Docker does.
+
+**Cut or deferred**
+- Correct-a-mapping in review: only approve and reject (as in Phase 5).
+- The board polls every 3 s rather than using a jobs stream.
+- No login: the UI is localhost-only, protected by the Host and Origin allowlists.
+- The web container has not been built here (this session cannot use Docker); it is part of the Phase 10 `docker compose up` check.
+- Node 24.22.0 was installed under `~/.local/node` on the build host (checksum verified); the browser tests needed Chromium's system libraries and fonts.
+
+**RECORD THIS**
+- **Approval report with an injected log line shown as text:** `demo/05_approval_report.sh` with `parsewright serve` and the web UI running, then open the printed `http://localhost:3000/runs/<job>` URL. Show the raw-versus-parsed highlights, the CIM scores, then the approve confirmation naming the hash.

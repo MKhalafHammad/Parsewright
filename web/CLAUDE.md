@@ -2,7 +2,7 @@
 
 Root rules in [../CLAUDE.md](../CLAUDE.md) apply. Design: [../docs/design.md](../docs/design.md), section "Platform and UI".
 
-Status: planned. The UI is built after the engine loop works end to end.
+Status: built (Phase 6): four screens, the /api/engine proxy and proxy.ts (Host allowlist, CSP nonce).
 
 ## Language and tooling
 - TypeScript (strict), Next.js App Router, shadcn/ui components on Tailwind.

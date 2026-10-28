@@ -10,6 +10,7 @@ import json
 import time
 import uuid
 from collections.abc import Callable
+from contextlib import AbstractContextManager, nullcontext
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -53,6 +54,10 @@ DEFAULT_FIELDS = {
 
 class BudgetExhausted(Exception):
     pass
+
+
+class RunAborted(Exception):
+    """The worker lost its lease or the kill switch is on: stop without touching anything."""
 
 
 @dataclass
@@ -102,13 +107,41 @@ class Run:
         self.caps: IngestCaps = caps
         self.checked_transforms: set[str] = set()
         self.last_pkg: package.Package | None = None
+        self.lock: Callable[[], AbstractContextManager] = nullcontext  # Splunk writes
+        self.checkpoint: Callable[[dict], None] = lambda state: None
+        self.abort: Callable[[], str | None] = lambda: None
+        self.stage_index = 0
+
+    def state(self) -> dict:
+        """Everything needed to resume after a crash (design "Operation never stops")."""
+        return {
+            "profile": self.prof.model_dump(),
+            "stage_index": self.stage_index,
+            "attempts": self.attempts,  # persisted, so a resumed run never reuses a sourcetype
+            "st": self.st,
+            "confs": self.confs,
+            "history": self.history,
+            "version": self.version,
+        }
+
+    def restore(self, state: dict) -> None:
+        self.prof = LogProfile.model_validate(state["profile"])
+        self.stage_index = state.get("stage_index", 0)
+        self.attempts = state.get("attempts", 0)
+        self.st = state.get("st", "")
+        self.confs = state.get("confs", self.confs)
+        self.history = {s: state.get("history", {}).get(s, []) for s in STAGES}
+        self.version = state.get("version", 0)
 
     # --- shared ------------------------------------------------------------------------
 
     def tick(self) -> None:
+        if reason := self.abort():
+            raise RunAborted(reason)
         if time.monotonic() - self.started > WALL_CLOCK_S:
             raise BudgetExhausted("15-minute wall clock reached")
         self.attempts += 1
+        self.checkpoint(self.state())  # before any Splunk write of this attempt
 
     def deploy(self, sourcetype: str, index_settings: dict, ext: dict, cim: dict) -> None:
         """Build and install the complete add-on: every stage's stanzas so far (Q6)."""
@@ -129,7 +162,8 @@ class Run:
         self.version += 1
         pkg = package.build(self.packages_dir, self.app, f"0.0.{self.version}", confs)
         self.built.append(pkg.path)
-        self.splunk.install(pkg)
+        with self.lock():  # one Splunk write at a time across all workers
+            self.splunk.install(pkg)
         self.last_pkg = pkg
 
     def propose(self, stage: str, make: Callable, check: Callable):
@@ -169,7 +203,8 @@ class Run:
                 raise RuntimeError(f"sourcetype {st} already has events in {self.index}")
             since = time.time() - 60  # sourcetype is unique per attempt: a wide window is safe
             self.caps.reserve(len(self.text.encode("utf-8")))  # per-job and daily caps (T5.2)
-            self.splunk.ingest(self.index, st, self.text, ingest_source(self.path))
+            with self.lock():
+                self.splunk.ingest(self.index, st, self.text, ingest_source(self.path))
             report = index_validator.validate(
                 self.splunk, self.index, st, self.manifest, since, self.app
             )
@@ -300,25 +335,54 @@ def run(
     stages: tuple[str, ...] = STAGES,
     runs_dir: Path | None = None,
     caps: IngestCaps | None = None,
+    job: str | None = None,
+    state: dict | None = None,
+    checkpoint: Callable[[dict], None] | None = None,
+    review: bool = False,
+    lock: Callable[[], AbstractContextManager] | None = None,
+    abort: Callable[[], str | None] | None = None,
+    record: Callable[..., None] | None = None,
 ) -> RunResult:
+    """review=True pauses after profiling (status "profile_review") until a human confirms;
+    state resumes a checkpointed run; record replaces the file run record (database mode)."""
     caps = caps or IngestCaps(runs_dir, job_mb=20, daily_mb=500)
     r = Run(path, llm, splunk, require_pw_index(test_index), packages_dir, out, max_attempts, caps)
+    r.job = job or r.job
+    r.lock, r.abort = lock or nullcontext, abort or (lambda: None)
+    r.checkpoint = checkpoint or (lambda s: None)
     out(f"job {r.job}: {path.name}, {r.manifest['event_count']} events in the manifest")
-    r.prof = profiler.profile(llm, r.samples, timezone, vendor, product)
-    out(
-        f"profile: {r.prof.format}, {r.prof.vendor}/{r.prof.product}, sourcetype "
-        f"{r.prof.sourcetype}, timestamp {r.prof.timestamp_example!r}, tz in timestamp: "
-        f"{r.prof.timezone_in_timestamp}, fields {len(r.prof.fields)}, CIM {r.prof.cim_targets}"
-    )
-    out("profile review: auto-approved")
+    if state and state.get("profile"):
+        r.restore(state)
+        if review:  # crashed between the profile checkpoint and the review pause (appsec L4)
+            out("profile review: waiting for a human")
+            return RunResult(job=r.job, status="profile_review", attempts=0, tokens=llm.used)
+        out(f"resumed at stage {r.stage_index + 1}/{len(stages)} after {r.attempts} attempts")
+    else:
+        r.prof = profiler.profile(llm, r.samples, timezone, vendor, product)
+        out(
+            f"profile: {r.prof.format}, {r.prof.vendor}/{r.prof.product}, sourcetype "
+            f"{r.prof.sourcetype}, timestamp {r.prof.timestamp_example!r}, tz in timestamp: "
+            f"{r.prof.timezone_in_timestamp}, fields {len(r.prof.fields)}, CIM {r.prof.cim_targets}"
+        )
+        r.checkpoint(r.state())
+        if review:
+            out("profile review: waiting for a human")
+            return RunResult(job=r.job, status="profile_review", attempts=0, tokens=llm.used)
+        out("profile review: auto-approved")
     r.app = test_app(r.prof.vendor, r.prof.product, r.job)
+    if state and state.get("profile"):
+        with r.lock():  # a crashed attempt may have left this job's own test app installed
+            splunk.uninstall(r.app)
     result = RunResult(job=r.job, status="stage_failed", attempts=0, tokens=0, app=r.app)
     funcs = {"index-time": r.index_stage, "extraction": r.extraction_stage, "cim": r.cim_stage}
     try:
-        i = 0
+        i = r.stage_index
         while i < len(stages):
+            r.stage_index = i
             if funcs[stages[i]]():
                 i += 1
+                r.stage_index = i
+                r.checkpoint(r.state())
                 continue
             out(f"{stages[i]}: FAIL after {max_attempts} attempts")
             if i > 0 and not result.backtracked:
@@ -341,7 +405,18 @@ def run(
             )
             for s in r.scores:
                 out(s.line())
-            if runs_dir is not None and r.last_pkg is not None and stages == STAGES:
+            if record is not None and r.last_pkg is not None and stages == STAGES:
+                record(
+                    r.job,
+                    r.last_pkg,
+                    vendor=r.prof.vendor,
+                    product=r.prof.product,
+                    sourcetype=r.prof.sourcetype,
+                    test_sourcetype=r.st,
+                    sample=path,
+                )
+                out(f"awaiting approval: sha256 {r.last_pkg.sha256}")
+            elif runs_dir is not None and r.last_pkg is not None and stages == STAGES:
                 promote.record_passed_run(
                     runs_dir,
                     r.job,

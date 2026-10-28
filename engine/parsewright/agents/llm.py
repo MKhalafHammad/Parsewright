@@ -8,6 +8,8 @@ stage's attempt budget (design "Failure handling").
 import copy
 import json
 import re
+from collections.abc import Callable
+from contextlib import AbstractContextManager, nullcontext
 from typing import Any
 
 import openai
@@ -59,6 +61,10 @@ class LLMClient:
         self.model = settings.llm_model
         self.ceiling = settings.run_token_ceiling
         self.used = 0
+        # Worker hooks: guard wraps each model call (kill switch, daily budget, LLM slot);
+        # on_usage records the tokens of each call.
+        self.guard: Callable[[], AbstractContextManager] = nullcontext
+        self.on_usage: Callable[[int], None] = lambda n: None
         self._client = client or openai.OpenAI(
             api_key=settings.llm_api_key, base_url=settings.llm_base_url, timeout=timeout
         )
@@ -79,15 +85,21 @@ class LLMClient:
         for _ in range(1 + BAD_OUTPUT_RETRIES):
             if self.used >= self.ceiling:
                 raise TokenCeilingExceeded(f"run token ceiling {self.ceiling} reached")
-            resp = self._client.chat.completions.create(
-                model=self.model,
-                messages=[{"role": "system", "content": system}, {"role": "user", "content": user}],
-                max_tokens=max_tokens,
-                response_format=fmt,
-            )
+            with self.guard():
+                resp = self._client.chat.completions.create(
+                    model=self.model,
+                    messages=[
+                        {"role": "system", "content": system},
+                        {"role": "user", "content": user},
+                    ],
+                    max_tokens=max_tokens,
+                    response_format=fmt,
+                )
             usage = getattr(resp, "usage", None)
             # No usage reported: assume the worst, so the ceiling still holds (T6.6).
-            self.used += (usage.prompt_tokens + usage.completion_tokens) if usage else max_tokens
+            n = (usage.prompt_tokens + usage.completion_tokens) if usage else max_tokens
+            self.used += n
+            self.on_usage(n)
             choice = resp.choices[0]
             if getattr(choice, "finish_reason", None) == "length":
                 problem = "reply cut off at the output token cap"

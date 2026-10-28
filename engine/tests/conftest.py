@@ -134,3 +134,65 @@ class FakeSplunk:
 @pytest.fixture
 def manifest() -> dict:
     return json.loads((FIXTURES / "acme_vpn.manifest.json").read_text())
+
+
+# --- PostgreSQL (Phase 5): a separate test database, skipped if unreachable ------------------
+
+
+def _test_dsn() -> str | None:
+    import os
+    from urllib.parse import urlsplit, urlunsplit
+
+    from parsewright.config import REPO, database_url, load_env_file
+
+    if dsn := os.environ.get("PARSEWRIGHT_TEST_DSN"):
+        return dsn
+    load_env_file(REPO / ".env")
+    try:
+        url = urlsplit(database_url())
+    except RuntimeError:
+        return None
+    return urlunsplit(url._replace(path="/parsewright_test"))
+
+
+@pytest.fixture(scope="session")
+def pg_dsn():
+    from urllib.parse import urlsplit, urlunsplit
+
+    import psycopg
+
+    from parsewright.ledger import store as db
+
+    dsn = _test_dsn()
+    if not dsn:
+        pytest.skip("no PostgreSQL configured")
+    admin = urlunsplit(urlsplit(dsn)._replace(path="/postgres"))
+    try:
+        with psycopg.connect(admin, autocommit=True, connect_timeout=3) as conn:
+            if not conn.execute(
+                "SELECT 1 FROM pg_database WHERE datname = 'parsewright_test'"
+            ).fetchone():
+                conn.execute("CREATE DATABASE parsewright_test")
+    except psycopg.OperationalError:
+        pytest.skip("PostgreSQL not reachable")
+    with db.connect(dsn) as conn:
+        db.migrate(conn)
+    return dsn
+
+
+@pytest.fixture
+def pg(pg_dsn):
+    """A Store on the test database, emptied of jobs first (the ledger is append-only, so its
+    rows are removed by dropping the trigger only inside this test helper)."""
+    from parsewright.ledger import store as db
+
+    conn = db.connect(pg_dsn)
+    with conn.transaction():
+        conn.execute("ALTER TABLE ledger DISABLE TRIGGER ledger_no_update")
+        conn.execute("ALTER TABLE ledger DISABLE TRIGGER ledger_no_truncate")
+        conn.execute("TRUNCATE ledger, jobs, usage")
+        conn.execute("ALTER TABLE ledger ENABLE TRIGGER ledger_no_update")
+        conn.execute("ALTER TABLE ledger ENABLE TRIGGER ledger_no_truncate")
+        conn.execute("UPDATE settings SET value = 'false'::jsonb WHERE key = 'kill_switch'")
+    yield db.Store(conn)
+    conn.close()

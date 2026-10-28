@@ -38,7 +38,8 @@ class Report:
 
     @property
     def passed(self) -> bool:
-        return all(c.passed for c in self.checks)
+        # No checks is not a pass: an empty report must never move a run forward (M1).
+        return bool(self.checks) and all(c.passed for c in self.checks)
 
     def evidence(self) -> str:
         """Failed checks as text for the owning agent: expected, actual, up to 3 events."""

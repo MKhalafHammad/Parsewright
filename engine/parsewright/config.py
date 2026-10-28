@@ -4,6 +4,7 @@ import os
 import re
 from dataclasses import dataclass
 from pathlib import Path
+from urllib.parse import quote
 
 ENV_KEYS = (
     "LLM_API_KEY",
@@ -19,6 +20,14 @@ ENV_KEYS = (
     "PARSEWRIGHT_RUNS_DIR",
     "PARSEWRIGHT_JOB_INGEST_MB",
     "PARSEWRIGHT_DAILY_INGEST_MB",
+    "DATABASE_URL",
+    "POSTGRES_HOST",
+    "POSTGRES_PORT",
+    "POSTGRES_DB",
+    "POSTGRES_USER",
+    "POSTGRES_PASSWORD",
+    "POSTGRES_APP_PASSWORD",
+    "MIGRATE_DATABASE_URL",
 )
 REPO = Path(__file__).resolve().parents[2]
 KEY_LINE = re.compile(r"[A-Z][A-Z0-9_]*")
@@ -36,6 +45,28 @@ def load_env_file(path: Path) -> None:
         key = key.strip()
         if sep and key in ENV_KEYS and KEY_LINE.fullmatch(key) and key not in os.environ:
             os.environ[key] = value.strip()
+
+
+def database_url(admin: bool = False) -> str:
+    """The engine's connection: the limited parsewright_app role when POSTGRES_APP_PASSWORD is
+    set (it cannot alter or truncate the ledger); the owner account for migrations (admin=True).
+
+    DATABASE_URL (app) and MIGRATE_DATABASE_URL (admin) override, as inside docker-compose.
+    """
+    override = os.environ.get("MIGRATE_DATABASE_URL" if admin else "DATABASE_URL")
+    if override:
+        return override
+    app_password = os.environ.get("POSTGRES_APP_PASSWORD", "")
+    if admin or not app_password:
+        user, password = _require("POSTGRES_USER"), _require("POSTGRES_PASSWORD")
+    else:
+        user, password = "parsewright_app", app_password
+    host = os.environ.get("POSTGRES_HOST", "127.0.0.1")
+    port = os.environ.get("POSTGRES_PORT", "55432")
+    return (
+        f"postgresql://{quote(user, safe='')}:{quote(password, safe='')}@{host}:{port}/"
+        f"{quote(_require('POSTGRES_DB'), safe='')}"
+    )
 
 
 def _require(name: str) -> str:

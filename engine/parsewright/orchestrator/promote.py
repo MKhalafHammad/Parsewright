@@ -54,8 +54,75 @@ def runs_root(runs_dir: Path) -> Path:
     return package.packages_dir(runs_dir.resolve())
 
 
-def _dir(runs_dir: Path, job: str) -> Path:
-    return runs_root(runs_dir) / require_job(job)
+# Each status may only be reached from these (database mode enforces it in the UPDATE).
+PREVIOUS = {
+    AWAITING: ("running",),
+    APPROVED: (AWAITING,),
+    PROMOTING: (APPROVED, PROMOTING),
+    DONE: (PROMOTING,),
+    SMOKE_FAILED: (PROMOTING,),
+    FAILED: (PROMOTING,),
+}
+
+
+class PgRecords:
+    """Run records in PostgreSQL (jobs.status + jobs.record); artifacts stay in the runs folder.
+
+    Every save is UPDATE ... WHERE status = <an allowed previous status> with the row count
+    checked, inside a SELECT ... FOR UPDATE transaction: the database enforces the transitions.
+    """
+
+    def __init__(self, conn, runs_dir: Path, worker: str | None = None):
+        self.conn, self.runs_dir, self.worker = conn, runs_dir, worker
+        self._tx: list = []
+
+    def dir(self, job: str) -> Path:
+        d = runs_root(self.runs_dir) / require_job(job)
+        d.mkdir(mode=0o700, exist_ok=True)
+        return d
+
+    def load(self, job: str) -> dict:
+        row = self.conn.execute("SELECT status, record FROM jobs WHERE id = %s", (job,)).fetchone()
+        if row is None:
+            raise TransitionRefused(f"no job {job}")
+        return {**row["record"], "status": row["status"]}
+
+    def save(self, job: str, record: dict) -> None:
+        from psycopg.types.json import Jsonb
+
+        new = record["status"]
+        allowed = [*PREVIOUS.get(new, ()), new]
+        sql = (
+            "UPDATE jobs SET record = %s, status = %s, updated_at = now()"
+            " WHERE id = %s AND status = ANY(%s)"
+        )
+        params: list = [
+            Jsonb({k: v for k, v in record.items() if k != "status"}),
+            new,
+            job,
+            allowed,
+        ]
+        if new == AWAITING and self.worker:
+            sql += " AND worker_id = %s"
+            params.append(self.worker)
+        if self.conn.execute(sql, params).rowcount != 1:
+            raise TransitionRefused(f"job {job} cannot move to {new} from its current status")
+        self.conn.execute(
+            "INSERT INTO ledger (job_id, event, data) VALUES (%s, %s, %s)",
+            (job, "record", Jsonb({"status": new})),
+        )
+
+    @contextmanager
+    def locked(self, job: str) -> Iterator[None]:
+        with self.conn.transaction():
+            self.conn.execute("SELECT id FROM jobs WHERE id = %s FOR UPDATE", (job,))
+            yield
+
+
+def _dir(runs, job: str) -> Path:
+    if isinstance(runs, PgRecords):
+        return runs.dir(job)
+    return runs_root(runs) / require_job(job)
 
 
 def _write_nofollow(path: Path, data: bytes) -> None:
@@ -67,17 +134,25 @@ def _write_nofollow(path: Path, data: bytes) -> None:
     os.replace(tmp, path)  # atomic: a crash leaves the old or the new file, never half
 
 
-def load(runs_dir: Path, job: str) -> dict:
+def load(runs_dir, job: str) -> dict:
+    if isinstance(runs_dir, PgRecords):
+        return runs_dir.load(job)
     return json.loads((_dir(runs_dir, job) / "record.json").read_text(encoding="utf-8"))
 
 
-def _save(runs_dir: Path, job: str, record: dict) -> None:
+def _save(runs_dir, job: str, record: dict) -> None:
+    if isinstance(runs_dir, PgRecords):
+        return runs_dir.save(job, record)
     body = json.dumps(record, indent=1, sort_keys=True).encode("utf-8")
     _write_nofollow(_dir(runs_dir, job) / "record.json", body)
 
 
 @contextmanager
-def _locked(runs_dir: Path, job: str) -> Iterator[None]:
+def _locked(runs_dir, job: str) -> Iterator[None]:
+    if isinstance(runs_dir, PgRecords):
+        with runs_dir.locked(job):
+            yield
+        return
     fd = os.open(_dir(runs_dir, job) / ".lock", os.O_WRONLY | os.O_CREAT | os.O_NOFOLLOW, 0o600)
     try:
         fcntl.flock(fd, fcntl.LOCK_EX)
@@ -115,7 +190,7 @@ def record_passed_run(
 ) -> dict:
     """Keep the exact passing test package and record the run as awaiting approval."""
     d = _dir(runs_dir, job)
-    d.mkdir(mode=0o700)
+    d.mkdir(mode=0o700, exist_ok=isinstance(runs_dir, PgRecords))
     data = test_pkg.path.read_bytes()
     if hashlib.sha256(data).hexdigest() != test_pkg.sha256:
         raise RuntimeError("kept test package does not match the validated one")
@@ -183,11 +258,13 @@ def promote(
     test_index: str,
     caps: IngestCaps | None = None,
     out: Callable[[str], None] = print,
+    start: str = APPROVED,
 ) -> dict:
+    """start=PROMOTING when a worker has already claimed the approved job (database mode)."""
     with _locked(runs_dir, job):
         record = load(runs_dir, job)
-        if record["status"] != APPROVED:
-            raise TransitionRefused(f"run is {record['status']}, not {APPROVED}")
+        if record["status"] != start:
+            raise TransitionRefused(f"run is {record['status']}, not {start}")
         _validated(record)
         data = (_dir(runs_dir, job) / "test.tgz").read_bytes()  # the only read of the package
         actual = hashlib.sha256(data).hexdigest()

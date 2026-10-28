@@ -191,7 +191,7 @@ Every test deploy runs under a separate app name and a separate sourcetype name,
 
 **Applies to** new builds and parser updates alike: samples are ingested into the test index with the test sourcetype, and test apps are removed with the job's other test resources.
 
-**At promotion.** Code, never the agent, renames the tested package back to the real names. The rename is deterministic, but the final file differs from the tested one, so the ledger records both hashes linked by the rename, approval covers the pair, and a smoke test runs right after promotion.
+**At promotion.** Code, never the agent, renames the tested package back to the real names. The rename is deterministic, but the final file differs from the tested one, so the ledger records both hashes linked by the rename, approval covers the pair, and a smoke test runs right after promotion. *(2026-10-28: the human approves the test package's hash. Promotion derives the real package by code from exactly those approved bytes. Packages are built reproducibly, so the promoted hash is deterministic for that input. Both hashes are recorded and linked.)*
 
 ## Uploads
 

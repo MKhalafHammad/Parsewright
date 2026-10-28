@@ -216,6 +216,51 @@ The tables above are the mapping: every design.md Must row appears with its phas
 | 9 | T2.13, T5.5 (routing) |
 | 10 | T9.3, T9.6, T9.7 |
 
+### Must rows and their tests (Phase 4 acceptance)
+
+Every Must row of design.md "Guardrails and security", with the test that proves it. "Adv." is `engine/tests/adversarial/test_adversarial.py`; other paths are under `engine/tests/`. Rows whose code belongs to a later phase name that phase. `make test` and CI run all of them.
+
+| Must row (design.md) | Test | Status |
+| --- | --- | --- |
+| Key allowlist: parsing keys only | Adv. `test_conf_gate_blocks_forbidden_props`, `test_conf_files_outside_the_allowlist`; `guardrails/test_gate_index_time.py::test_unknown_keys_are_blocked` | Built |
+| Block `DEST_KEY = queue` / `nullQueue` | Adv. `test_conf_gate_blocks_forbidden_props`, `test_report_cannot_chain_into_a_foreign_or_metadata_transform` | Built |
+| Block `_TCP_ROUTING`, `_MetaData:Index` | Adv. `test_conf_gate_blocks_forbidden_props`, `test_report_cannot_chain_…` | Built |
+| Block `INGEST_EVAL`, `SEDCMD-` | Adv. `test_conf_gate_blocks_forbidden_props` (with case, fullwidth and zero-width variants) | Built |
+| Bounds on `TRUNCATE`, `MAX_EVENTS`, `MAX_TIMESTAMP_LOOKAHEAD` | `guardrails/test_gate_index_time.py::test_bad_values_are_blocked` | Built |
+| `EVAL-`/`FIELDALIAS-` may not target core fields | Adv. `test_conf_gate_blocks_forbidden_props`, `test_final_gate_rechecks_values` (every `AS`/`ASNEW` target); `guardrails/test_gate_search_time.py::test_cim_blocks` | Built |
+| No `[default]`, broad `[source::]`, `[host::*]` | Adv. `test_conf_gate_blocks_broad_or_foreign_stanzas`, `test_default_or_non_sourcetype_stanzas_never_promote`, `test_promotion_refuses_an_existing_sourcetype` (no merging into `syslog`, `json` or another app's sourcetype) | Built |
+| CSV lookups inside the TA only | Adv. `test_conf_gate_blocks_forbidden_props` (`LOOKUP-` refused: Parsewright writes no lookups yet, so none can point outside the TA) | Built (stricter) |
+| Routing exception on generic stanzas | — | Phase 9 (stretch); `TRANSFORMS-` refused outright until then |
+| Key allowlist with typed values + fail-closed post-install warning check (replaces btool) | `guardrails/test_gate_index_time.py`; `validator/test_validator_index_time.py::test_warning_check_fails_closed`, `test_warning_check_error_fails_the_attempt` | Built |
+| Regex catastrophic-backtracking test | `guardrails/test_gate_index_time.py::test_catastrophic_backtracking_is_blocked`; `guardrails/test_gate_search_time.py::test_extraction_blocks`; `tools/test_search_guard_and_regex.py::test_regex_tool_times_out_instead_of_hanging` | Built |
+| Reject newlines; one escaping writer | Adv. `test_newline_injection_cannot_add_a_stanza`; `ta_builder/test_ta_builder.py::test_writer_rejects_*` | Built |
+| Names `^[a-z0-9_:-]+$`, fixed prefix, paths stay inside the TA | Adv. `test_path_traversal_in_vendor_or_product`; `ta_builder/test_ta_builder.py::test_ta_name_rejects_bad_parts` | Built |
+| Package file allowlist | `ta_builder/test_ta_builder.py::test_package_refuses_files_off_the_allowlist`; Adv. `test_conf_files_outside_the_allowlist` | Built |
+| Transform prefix `parsewright_<job>_` + collision check over REST | Adv. `test_report_cannot_chain_…`, `test_transform_collision_stops_the_deploy` | Built |
+| Refuse an existing TA name | Adv. `test_existing_ta_name_is_never_overwritten`; promotion installs with `update=false`, so Splunk itself refuses an existing app even under concurrent promotions | Built |
+| Constant CIM value flag; CIM fields trace to a source field or approved constant | Adv. `test_constant_action_is_blocked`, `test_cim_value_must_trace_to_a_source_field`, `test_eval_cannot_detect_the_test_environment`; `validator/test_validator_search_time.py::test_constant_gaming_is_flagged_even_past_the_gate` | Built |
+| Manifest value checks and provenance in review | `validator/test_validator_search_time.py` (per-event values against the manifest) | Built (review display: Phase 6) |
+| Agents have no file tools; builder writes only inside the TA | `ta_builder/test_ta_builder.py::test_package_contents_and_hash` (fixed member names); agents return schema objects only | Built |
+| Logs, form fields, search results passed as data | Adv. `test_injected_instruction_stays_inside_the_data_block`, `test_what_an_injected_model_would_propose_is_blocked`; `agents/test_agents.py::test_samples_are_delimited_data`, `test_timezone_form_field_cannot_carry_instructions`; `validator/…::test_raw_splunkd_lines_never_reach_the_agent` | Built |
+| Schema validation of every tool-call argument | `agents/test_agents.py::test_malformed_output_is_retried_then_rejected` (every agent reply is a strict schema) | Built (no agent tool calls yet) |
+| Cap decompressed size; single-file `.gz` | — | Phase 5 (upload intake) |
+| Content-based file checks (text, UTF-8) | — | Phase 5 (upload intake) |
+| Per-job and daily ingest byte caps | Adv. `test_ingest_caps_per_job_and_per_day`, `test_tampered_daily_total_fails_closed`; the promotion smoke ingest counts too | Built |
+| Size-limited test index; cleanup only of indexes the job created | One shared, admin-created, size-capped index; the engine creates and deletes no indexes (Q9) | Built (by design) |
+| Code rejects ingest targets not starting with `pw_` | Adv. `test_ingest_outside_pw_is_refused`; `tools/test_splunk_client.py::test_ingest_refuses_non_pw_indexes` | Built |
+| Search command allowlist, 50 rows, code-owned base search | Adv. `test_forbidden_search_commands`; `tools/test_search_guard_and_regex.py` | Built |
+| Rollback removes every TA file | — | Phase 5 (reject flow); `uninstall` of the test app runs after every run |
+| Approval bound to the `.tgz` SHA-256 | Adv. `test_approval_needs_the_exact_hash`, `test_one_changed_byte_after_approval_blocks_promotion`; promotion hashes and renames the same bytes (one read), and packages are reproducible (`test_packages_are_reproducible`) | Built |
+| State transitions enforced | Adv. `test_replayed_approve_is_a_no_op`, `test_promotion_without_approval_is_refused`, `test_forged_record_names_are_rechecked`, `test_runs_folder_must_be_private` (private runs folder, O_NOFOLLOW writes, names re-checked) | Built for other users; a same-user forgery is residual risk R9 until PostgreSQL in Phase 5 |
+| Sourcetype has 0 events before ingest; never reused | `orchestrator/test_run.py::test_leftover_events_are_never_reused`, `test_fix_loop_feeds_evidence_back` | Built |
+| On resume, compare installed and recorded hashes | — | Phase 5 (resume exists only with the job queue) |
+| Adversarial suite on every change | This table; `engine/tests/adversarial/` in `make test` and CI | Built |
+| Timeouts everywhere; max 10 tool calls per attempt | `agents/llm.py` and `splunk_client.connect` timeouts; per-run wall clock (`orchestrator/test_run.py`) | Built (agents make no tool calls yet, so the 10-call cap has nothing to count) |
+| Test identity; rename at promotion with both hashes and a smoke test | Adv. `test_rename_restores_real_names_only`, `test_promotion_succeeds_with_real_names_both_hashes_and_smoke` | Built |
+| Secrets: `.env` ignored, `.env.example`, secret scan | pre-commit and CI gitleaks | Built (Phase 0) |
+| No credentials in prompts; redaction | `tools/test_probes.py::test_failure_output_redacts_api_key`; `Settings.__repr__`; tokens never passed to agents | Built |
+| Log text rendered only as escaped text | — | Phase 6 (UI) |
+
 ## Residual risks
 
 | ID | Risk | Why accepted | Revisit |
@@ -228,6 +273,7 @@ The tables above are the mapping: every design.md Must row appears with its phas
 | R6 | Python regex differs from Splunk PCRE, so `test_regex` can pass a regex Splunk handles differently | Splunk's own Validator run stays the real proof | — |
 | R7 | Hosted model sees sample content | Synthetic logs only in the hackathon; on-prem mode and masking for real logs | When real logs are used |
 | R8 | The deploy role needs `admin_all_objects` to install apps from a path (lab-findings Q9), so the deploy token is near-admin: a stolen token means code execution as the splunk user on the Splunk host (any app install, scripted inputs), writes into any index and deletion of any app | Token lives only in the orchestrator process, never with an agent, prompt, web process or ledger; short token expiry; these limit what the engine does, not what a stolen token can do. Code validates every app name and package path (T7.4, T5.9) and `pw_` ingest target before each call; the engine never creates or deletes indexes; lab-only account | Before any non-lab Splunk; look for a narrower install path |
+| R9 | Until Phase 5, run state is a JSON record in a private runs folder; a process running as the engine user could forge a record (for example mark a run approved) | The folder must be owned by the engine user and not group or world writable; writes are O_NOFOLLOW and atomic; promotion re-checks every name and the package hash; anyone running as the engine user already holds the deploy token | Phase 5 moves state to PostgreSQL with enforced transitions |
 
 ## Review history
 
@@ -237,3 +283,4 @@ The tables above are the mapping: every design.md Must row appears with its phas
 | Oct 27, 2026 (2nd) | appsec subagent | Review of the lab decisions and probes. No Critical. **High H1:** the shared test index removed per-job search scoping, so code now owns the base search and blocks result-set-starting commands (T1.2). **Medium:** cross-job config in the shared index (T5.8 added); stale rows after the shared-index decision (T4.5, T5.3, T5.4, diagram fixed); near-admin deploy token impact understated (T7.4, R8 rewritten; package allowlist moved to Phase 2); packages folder unmodeled (T5.9 added; probe now refuses symlinks, foreign owners, loose modes and writes with `O_EXCL\|O_NOFOLLOW`). **Low, all fixed:** `probe.sh` no longer sources `.env` and passes only each probe's keys; redaction runs before the cut and masks key-like runs; `token_shape` edge cases; the post-install check source is defined (T2.11) |
 | Oct 27, 2026 (Phase 2) | appsec subagent | Review of the Phase 2 code. No Critical or High. Medium, all fixed: splunkd `_internal` text reached the model, so only fixed summaries now go to it (T1.2); the `--tz` form value is validated and delimited (T1.4); the warning check could pass before `_internal` caught up, and the regex backtracking check was missing (T2.10, T2.11, now in Phase 2). Low, all fixed: usage-free replies and the token ceiling (T6.6); case-insensitive tag escaping; control characters in previews; `::` in sourcetypes; `.env` read from the repo root |
 | Oct 28, 2026 (Phase 3) | appsec subagent | Review of the Phase 3 code. **High H1, fixed:** a backslash-escaped quote in an eventtype filter broke the code-written sourcetype anchor, so one job's eventtype could tag other jobs' events (T5.8). Backslashes are now refused, with an adversarial test using the confirmed payload. **Medium, fixed:** the search guard skipped escaped characters outside quotes and did not track single quotes; `lookup()` and quoted backticks passed (T1.2). **Low, fixed:** `_`-prefixed field names (`_KEY_`/`_VAL_` dynamic groups); length check before running a regex; one total ReDoS budget per call and a cap of 20 items per proposal; `EXTRACT … in <field>`; C1 and U+2028/2029 controls in the conf writer. Clean: conf injection, data delimiting, no lab host or IP reaches a prompt, fixtures synthetic only |
+| Oct 28, 2026 (Phase 4) | appsec subagent | Main review. **High, both fixed:** H1, a model-chosen sourcetype `default` became `[default]` at promotion, so `require_sourcetype` now refuses it, the final gate re-checks it, and promotion refuses any sourcetype that already has props in Splunk. H2, an EVAL that detects the test environment (`index`, `sourcetype`, `host`, `now()`, `_indextime`, `random()`) now blocks in both gates. **Medium, all fixed:** M1, hash and rename now use the same bytes (one read); M2, private runs folder, O_NOFOLLOW writes, smoke sample copied at record time and record names re-checked (R9 added for same-user forgery); M3, promotion installs with `update=false`; M4, eventtype filters may not name environment fields at all (not just with `=`); M5, the final gate re-types values, checks every alias target, checks the whole eventtype anchor, and narrows transform keys. **Low, fixed:** test app must be gone before promotion; smoke ingest counted in the caps; failures recorded (`promotion_failed`, `smoke_failed`); provenance from Splunk's field names only; the literal-regex flag documented as advisory. Packages are now reproducible |

@@ -61,10 +61,11 @@ The model is set only through environment variables (`LLM_BASE_URL`, `LLM_MODEL`
 | Profiler agent | **Built** (profile review is auto-approved; the human review screen is planned) |
 | Index-time agent with a retry loop fed by Validator evidence | **Built** |
 | Extraction and CIM mapper agents with retry loops, regression re-runs and one backtrack | **Built** |
-| Guardrail gate: index-time and search-time keys, regex backtracking, eventtype anchoring, CIM field and tag allowlists | **Built** (full adversarial suite planned, Phase 4) |
+| Guardrails: stage gates plus a final gate over the whole package (allowlisted keys after Unicode normalisation, no forbidden keys, no foreign stanzas, eventtype anchoring, CIM provenance, environment-independent EVALs), with an adversarial suite of 90+ attacks | **Built** |
 | Validator: index-time checks (event count, timestamp accuracy, parser warnings) | **Built** |
 | Validator: extraction and CIM checks (Authentication, Network_Traffic, Web) with the three-number CIM score | **Built** |
-| TA builder: escaping conf writer, test identity, `.tgz` packaging with a file allowlist and SHA-256 | **Built** (hash-bound approval planned) |
+| TA builder: escaping conf writer, test identity, reproducible `.tgz` packaging with a file allowlist and SHA-256 | **Built** |
+| Approval and promotion: `parsewright approve <job> --sha256 …` (hash-bound, replay-safe), `parsewright promote <job>` (deterministic rename to real names, both hashes linked, refuses existing TAs and sourcetypes, smoke test) | **Built** (state in run records; PostgreSQL in Phase 5) |
 | CLI: `parsewright run <file>` (all three stages) | **Built** |
 | Web UI: run board, live run view, profile review, approval report | Planned |
 | Parallel jobs (PostgreSQL queue, worker pool) | Planned |

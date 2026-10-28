@@ -5,7 +5,7 @@ From raw sample logs to a tested, CIM-compliant Splunk add-on, verified by Splun
 [![CI](https://github.com/MKhalafHammad/Parsewright/actions/workflows/ci.yml/badge.svg)](https://github.com/MKhalafHammad/Parsewright/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-> **Status:** early development. This README separates what is **built** from what is **planned**. Right now the repository holds the project foundation and a working CLI that builds and tests the **index-time** stage of a TA against a real Splunk (Phase 2). Extraction, CIM mapping, the job queue and the UI are planned.
+> **Status:** early development. This README separates what is **built** from what is **planned**. Right now the repository holds a working CLI that builds a TA through all three stages (index-time, extraction, CIM mapping), each checked by a real Splunk, on JSON, key=value, syslog and CSV logs (Phases 2–3). The job queue, the web UI and promotion are planned.
 
 ## Demo
 
@@ -57,15 +57,15 @@ The model is set only through environment variables (`LLM_BASE_URL`, `LLM_MODEL`
 | --- | --- |
 | Repository foundation: CI, secret scanning, commit hooks, Docker stack (Splunk + PostgreSQL) | **Built** |
 | Threat model and lab probes for the Meta Model API and Splunk ([docs/lab-findings.md](docs/lab-findings.md)) | **Built** (all lab questions answered) |
-| Synthetic log generator with truth manifests | **Built** for JSON; key=value, syslog, CSV planned |
+| Synthetic log generator with truth manifests (JSON, key=value, syslog, CSV) | **Built** |
 | Profiler agent | **Built** (profile review is auto-approved; the human review screen is planned) |
 | Index-time agent with a retry loop fed by Validator evidence | **Built** |
-| Extraction and CIM mapper agents | Planned |
-| Guardrail gate | **Built** for index-time keys (allowlist with typed, bounded values); search-time keys, regex safety and scope planned |
+| Extraction and CIM mapper agents with retry loops, regression re-runs and one backtrack | **Built** |
+| Guardrail gate: index-time and search-time keys, regex backtracking, eventtype anchoring, CIM field and tag allowlists | **Built** (full adversarial suite planned, Phase 4) |
 | Validator: index-time checks (event count, timestamp accuracy, parser warnings) | **Built** |
-| Validator: extraction and CIM checks (Authentication, Network_Traffic, Web) | Planned |
+| Validator: extraction and CIM checks (Authentication, Network_Traffic, Web) with the three-number CIM score | **Built** |
 | TA builder: escaping conf writer, test identity, `.tgz` packaging with a file allowlist and SHA-256 | **Built** (hash-bound approval planned) |
-| CLI: `parsewright run <file>` (index-time stage) | **Built** |
+| CLI: `parsewright run <file>` (all three stages) | **Built** |
 | Web UI: run board, live run view, profile review, approval report | Planned |
 | Parallel jobs (PostgreSQL queue, worker pool) | Planned |
 | Routing for shared syslog feeds | Planned (stretch) |
@@ -128,7 +128,7 @@ The model is set only through environment variables (`LLM_BASE_URL`, `LLM_MODEL`
    ```bash
    .venv/bin/parsewright run engine/parsewright/generator/fixtures/acme_vpn.json --vendor acme --product vpn
    ```
-   It profiles the log, proposes index-time settings, installs them as a test add-on, ingests the file into the test index and runs the Validator, retrying with evidence up to 5 times. Expect `index-time: PASS (event count 60/60, attempt 1)`. Options: `--tz` (logs' timezone), `--keep` (leave the test add-on installed).
+   It profiles the log, then runs three stages (index-time, extraction, CIM mapping). Each stage installs the add-on under its test identity, and the Validator checks it in Splunk, retrying with evidence up to 5 times. It ends with the holdout line and the three CIM numbers per data model, for example `CIM Authentication: required fields 4/4 passed, available fields mapped 4/4, not in source 2`. Other fixtures: `demo/02_cim_green.sh vpn|fw|ssh|proxy`. Options: `--tz` (logs' timezone), `--keep` (leave the test add-on installed), `--stages`.
 
 ## Configuration
 
@@ -195,15 +195,15 @@ CI runs `make lint`, `make test` and `make security` on every pull request (not 
 ├── engine/                  Python backend (package: parsewright)
 │   ├── parsewright/
 │   │   ├── api/             FastAPI routes and the SSE stream (planned)
-│   │   ├── orchestrator/    index-time run loop (built); full state machine, workers (planned)
-│   │   ├── agents/          LLM client, Profiler, Index-time (built); Extraction, CIM mapper (planned)
-│   │   ├── tools/           lab probes, Splunk client (built); search guard, test_regex (planned)
-│   │   ├── guardrails/      index-time key allowlist (built); search-time keys, regex safety (planned)
-│   │   ├── validator/       index-time checks (built); extraction and CIM checks (planned)
+│   │   ├── orchestrator/    three-stage run loop (built); PostgreSQL state machine, workers (planned)
+│   │   ├── agents/          LLM client, Profiler, Index-time, Extraction, CIM mapper (built)
+│   │   ├── tools/           lab probes, Splunk client, search guard, test_regex (built)
+│   │   ├── guardrails/      index-time and search-time gates (built); full adversarial suite (planned)
+│   │   ├── validator/       index-time, extraction and CIM checks (built)
 │   │   ├── ta_builder/      escaping conf writer, naming, .tgz packaging (built)
 │   │   ├── ledger/          PostgreSQL job queue and ledger (planned)
-│   │   ├── cim_spec/        pinned CIM required fields and allowed values (planned)
-│   │   └── generator/       synthetic JSON logs + truth manifests; fixtures/ (built)
+│   │   ├── cim_spec/        CIM 8.7.0 required fields and allowed values, pinned from Splunk_SA_CIM (built)
+│   │   └── generator/       synthetic logs in four formats + truth manifests; fixtures/ (built)
 │   └── tests/               engine tests
 ├── web/                     Next.js + shadcn/ui UI (planned)
 ├── docs/                    design.md (source of truth), build-plan.md, threat-model.md, lab-findings.md

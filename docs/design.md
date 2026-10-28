@@ -104,6 +104,8 @@ Four core Muse Spark agents, plus an optional Router for shared feeds and a Drif
 
 The TA files on disk are the source of truth: each attempt reads them fresh rather than relying on the agent's memory of what it wrote.
 
+*(2026-10-28, Phase 3: agents get this context prepared by code rather than calling `run_search` themselves. Forced tool calls returned HTTP 400 on the Meta Model API in Phase 1, and prepared context covers the table above. `run_search` (code-owned base search, command allowlist, 50 rows) and `test_regex` are built and tested. `test_regex` runs inside the gate: an `EXTRACT-` regex that matches none of the sample events is blocked, with that reason sent back to the agent. Search-time stages reuse the events indexed by the passing index-time attempt and only reinstall the add-on, so they cost no ingest.)*
+
 ### Tools per agent
 
 | Agent | `run_search` (read-only, scoped) | `test_regex` (local) | Deploy, reload, ingest |
@@ -215,7 +217,7 @@ Each job takes sample logs from one log source, raw as the source writes them, p
 | Current sourcetype (e.g. `syslog`, `fw01-2`) | Test data is ingested exactly as production receives it |
 | Shared feed? | Yes runs the Routing stage |
 
-**Holdout test.** The agents see about 200 lines picked to cover each event type; the Validator ingests the full file. The parser is proven on events the model never saw ("learned from 200 lines, passed on 8,000").
+**Holdout test.** *(2026-10-28: the sample is the first 200 events in time order; the generator's event types are mixed throughout, so every type is covered. The CIM mapper's field values come from a `fieldsummary` over those same 200 events, so the holdout stays unseen.)* The agents see about 200 lines picked to cover each event type; the Validator ingests the full file. The parser is proven on events the model never saw ("learned from 200 lines, passed on 8,000").
 
 **Drop folder.** Each new subfolder is one job: the log files plus an optional `job.yaml` with the form fields. Symlinks are never followed.
 
@@ -446,7 +448,7 @@ The Validator is code plus fixed SPL, no AI: it runs searches through the Splunk
 | Allowed values | e.g. `Authentication.action` not in success, failure, unknown | Zero events |
 | Child datasets | Failures land in e.g. `Failed_Authentication` | Counts match manifest categories |
 
-**CIM scoring rule (no Vladiator-style false failures):** a field counts as missing only if CIM expects it *and* the source contains it. The report shows three numbers: required fields passed, available fields mapped, and fields not in the source (informational, no penalty). Required-field lists per dataset are pinned from the CIM documentation in `cim_spec/`, not chosen by the model.
+**CIM scoring rule (no Vladiator-style false failures):** a field counts as missing only if CIM expects it *and* the source contains it. The report shows three numbers: required fields passed, available fields mapped, and fields not in the source (informational, no penalty). Required-field lists per dataset are pinned from the CIM documentation in `cim_spec/`, not chosen by the model. *(2026-10-28: pinned from the lab's Splunk_SA_CIM 8.7.0 data model definitions, which carry each field's `recommended` flag and `expected_values`, by `python -m parsewright.cim_spec.pin`; Splunk's docs site refuses automated fetches. Required = the root dataset's recommended fields. Data model rows are read with `| datamodel <Model> <Dataset> search | search sourcetype=<attempt>`: the model's output has no `index` field, so the attempt's unique sourcetype is the filter.)*
 
 **Lab prerequisite:** include `pw_*` in the CIM index macros (e.g. `cim_Authentication_indexes`) on the lab instance, or CIM checks fail falsely.
 

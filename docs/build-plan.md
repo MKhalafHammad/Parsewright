@@ -11,7 +11,7 @@ Updated at the end of every phase.
 | 0 | Repository foundation | Oct 27 | Done | Oct 27 |
 | 1 | Threat model and lab verification | Oct 27 | Done | Oct 27 |
 | 2 | Walking skeleton (JSON, CLI, end to end) | Oct 28 | Done | Oct 27 |
-| 3 | Extraction, CIM mapper, full Validator, generator | Oct 29–30 | Not started | |
+| 3 | Extraction, CIM mapper, full Validator, generator | Oct 29–30 | Done | Oct 28 |
 | 4 | Guardrails, adversarial suite, workflow integrity | Oct 31 | Not started | |
 | 5 | Job queue, workers, ledger, FastAPI, event stream | Nov 1 | Not started | |
 | 6 | Next.js UI (four screens) | Nov 2 | Not started | |

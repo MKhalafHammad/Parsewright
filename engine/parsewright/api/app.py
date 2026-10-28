@@ -417,6 +417,7 @@ def _public(row: dict, detail: bool = False) -> dict:
                 "sha256_promoted",
                 "smoke",
                 "events",
+                "report",
             )
         }
     return out

@@ -21,6 +21,7 @@ from parsewright.agents.profiler import LogProfile
 from parsewright.guardrails import conf_gate, search_time
 from parsewright.guardrails.index_time import GuardrailBlock, gate
 from parsewright.orchestrator import promote
+from parsewright.orchestrator import report as report_mod
 from parsewright.orchestrator.caps import IngestCapExceeded, IngestCaps
 from parsewright.ta_builder import package
 from parsewright.ta_builder.naming import require_pw_index, test_app, test_sourcetype
@@ -302,6 +303,29 @@ class Run:
         earlier = self.extraction_report(skip=targets)
         return Report(report.checks + [_regressed(c, "extraction") for c in earlier.checks])
 
+    def report(self) -> dict:
+        """The approval report's data, from the passing attempt's indexed events."""
+        cim_props = {
+            k: v
+            for k, v in self.confs["cim"].get("props", {}).items()
+            if k.startswith(("EVAL-", "FIELDALIAS-"))
+        }
+        extracted = [f.name for f in self.prof.fields] + [k.split("-", 1)[1] for k in cim_props]
+        try:
+            rows = self.splunk.report_rows(self.index, self.st, report_mod.MAX_EVENTS)
+        except Exception as e:  # noqa: BLE001 - a report problem must not fail a passing run
+            self.out(f"report: could not read events ({type(e).__name__}); recorded without one")
+            return {}
+        return report_mod.build(
+            rows,
+            list(dict.fromkeys(extracted)),
+            cim_props,
+            self.scores,
+            self.last_pkg,
+            len(self.samples),
+            self.manifest["event_count"],
+        )
+
     def field_values(self) -> str:
         """Extracted fields with real values from the sample events, for the CIM mapper."""
         lines = []
@@ -414,6 +438,7 @@ def run(
                     sourcetype=r.prof.sourcetype,
                     test_sourcetype=r.st,
                     sample=path,
+                    report=r.report(),
                 )
                 out(f"awaiting approval: sha256 {r.last_pkg.sha256}")
             elif runs_dir is not None and r.last_pkg is not None and stages == STAGES:

@@ -187,6 +187,7 @@ def record_passed_run(
     sourcetype: str,
     test_sourcetype: str,
     sample: Path,
+    report: dict | None = None,
 ) -> dict:
     """Keep the exact passing test package and record the run as awaiting approval."""
     d = _dir(runs_dir, job)
@@ -207,6 +208,7 @@ def record_passed_run(
         "test_app": test_pkg.app,
         "app": ta_name(vendor, product),
         "sha256_test": test_pkg.sha256,
+        "report": report or {},
     }
     _validated(record)
     _event(record, "validated", sha256=test_pkg.sha256)

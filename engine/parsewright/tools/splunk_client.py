@@ -183,6 +183,13 @@ class SplunkClient:
             "| eval t=floor(_time) | fields - _* | table t *"
         )
 
+    def report_rows(self, index: str, sourcetype: str, first: int) -> list[dict]:
+        """The first events with their raw text and parsed fields in the same row."""
+        return self._rows(
+            f"search index={require_pw_index(index)} sourcetype={spl_name(sourcetype)} "
+            f"| sort 0 _time | head {int(first)} | eval t=floor(_time) | table t _raw *"
+        )
+
     def field_summary(self, index: str, sourcetype: str, first: int) -> list[dict]:
         """fieldsummary over the first `first` events by time: the sample the agents saw."""
         return self._rows(

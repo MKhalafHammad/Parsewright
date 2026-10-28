@@ -1,0 +1,8111 @@
+{
+ "source": "acme_fw.log",
+ "synthetic": true,
+ "notes": "key=value, epoch milliseconds",
+ "true_timezone": "offset or UTC in each timestamp",
+ "event_count": 300,
+ "epochs": [
+  1792483219,
+  1792483240,
+  1792483286,
+  1792483332,
+  1792483386,
+  1792483443,
+  1792483502,
+  1792483516,
+  1792483560,
+  1792483577,
+  1792483622,
+  1792483634,
+  1792483692,
+  1792483709,
+  1792483753,
+  1792483802,
+  1792483816,
+  1792483827,
+  1792483834,
+  1792483871,
+  1792483928,
+  1792483944,
+  1792483994,
+  1792484015,
+  1792484019,
+  1792484049,
+  1792484060,
+  1792484116,
+  1792484162,
+  1792484203,
+  1792484206,
+  1792484226,
+  1792484282,
+  1792484294,
+  1792484302,
+  1792484360,
+  1792484413,
+  1792484467,
+  1792484526,
+  1792484580,
+  1792484599,
+  1792484654,
+  1792484685,
+  1792484735,
+  1792484765,
+  1792484776,
+  1792484829,
+  1792484888,
+  1792484907,
+  1792484932,
+  1792484989,
+  1792485006,
+  1792485040,
+  1792485100,
+  1792485151,
+  1792485189,
+  1792485228,
+  1792485258,
+  1792485303,
+  1792485329,
+  1792485388,
+  1792485418,
+  1792485461,
+  1792485484,
+  1792485528,
+  1792485538,
+  1792485563,
+  1792485618,
+  1792485659,
+  1792485713,
+  1792485756,
+  1792485775,
+  1792485822,
+  1792485853,
+  1792485891,
+  1792485933,
+  1792485983,
+  1792485994,
+  1792486025,
+  1792486071,
+  1792486120,
+  1792486151,
+  1792486188,
+  1792486202,
+  1792486223,
+  1792486238,
+  1792486252,
+  1792486288,
+  1792486313,
+  1792486332,
+  1792486358,
+  1792486390,
+  1792486409,
+  1792486450,
+  1792486470,
+  1792486498,
+  1792486557,
+  1792486568,
+  1792486607,
+  1792486641,
+  1792486679,
+  1792486697,
+  1792486736,
+  1792486754,
+  1792486813,
+  1792486828,
+  1792486875,
+  1792486901,
+  1792486912,
+  1792486919,
+  1792486949,
+  1792486993,
+  1792487036,
+  1792487068,
+  1792487095,
+  1792487098,
+  1792487147,
+  1792487177,
+  1792487235,
+  1792487240,
+  1792487257,
+  1792487269,
+  1792487303,
+  1792487357,
+  1792487404,
+  1792487460,
+  1792487491,
+  1792487534,
+  1792487553,
+  1792487566,
+  1792487615,
+  1792487644,
+  1792487694,
+  1792487752,
+  1792487771,
+  1792487830,
+  1792487881,
+  1792487935,
+  1792487960,
+  1792487975,
+  1792488023,
+  1792488080,
+  1792488123,
+  1792488149,
+  1792488185,
+  1792488233,
+  1792488278,
+  1792488289,
+  1792488349,
+  1792488397,
+  1792488438,
+  1792488456,
+  1792488505,
+  1792488539,
+  1792488555,
+  1792488613,
+  1792488655,
+  1792488660,
+  1792488700,
+  1792488747,
+  1792488787,
+  1792488792,
+  1792488817,
+  1792488857,
+  1792488906,
+  1792488945,
+  1792488969,
+  1792488983,
+  1792489004,
+  1792489019,
+  1792489032,
+  1792489085,
+  1792489131,
+  1792489169,
+  1792489179,
+  1792489239,
+  1792489256,
+  1792489269,
+  1792489276,
+  1792489306,
+  1792489350,
+  1792489391,
+  1792489429,
+  1792489483,
+  1792489520,
+  1792489567,
+  1792489572,
+  1792489603,
+  1792489658,
+  1792489682,
+  1792489726,
+  1792489734,
+  1792489770,
+  1792489773,
+  1792489784,
+  1792489806,
+  1792489816,
+  1792489845,
+  1792489867,
+  1792489887,
+  1792489926,
+  1792489967,
+  1792490014,
+  1792490021,
+  1792490054,
+  1792490090,
+  1792490116,
+  1792490173,
+  1792490229,
+  1792490234,
+  1792490237,
+  1792490260,
+  1792490284,
+  1792490296,
+  1792490330,
+  1792490368,
+  1792490405,
+  1792490441,
+  1792490496,
+  1792490529,
+  1792490546,
+  1792490591,
+  1792490607,
+  1792490628,
+  1792490682,
+  1792490687,
+  1792490714,
+  1792490749,
+  1792490797,
+  1792490810,
+  1792490860,
+  1792490872,
+  1792490891,
+  1792490921,
+  1792490967,
+  1792491022,
+  1792491079,
+  1792491095,
+  1792491114,
+  1792491144,
+  1792491184,
+  1792491202,
+  1792491227,
+  1792491279,
+  1792491297,
+  1792491337,
+  1792491358,
+  1792491388,
+  1792491404,
+  1792491448,
+  1792491473,
+  1792491503,
+  1792491508,
+  1792491531,
+  1792491559,
+  1792491591,
+  1792491599,
+  1792491606,
+  1792491657,
+  1792491662,
+  1792491703,
+  1792491706,
+  1792491750,
+  1792491802,
+  1792491824,
+  1792491839,
+  1792491870,
+  1792491903,
+  1792491941,
+  1792491968,
+  1792491992,
+  1792491998,
+  1792492019,
+  1792492055,
+  1792492085,
+  1792492096,
+  1792492108,
+  1792492166,
+  1792492172,
+  1792492182,
+  1792492208,
+  1792492263,
+  1792492276,
+  1792492292,
+  1792492314,
+  1792492336,
+  1792492377,
+  1792492404,
+  1792492425,
+  1792492430,
+  1792492455,
+  1792492466,
+  1792492475,
+  1792492501,
+  1792492535,
+  1792492566,
+  1792492606,
+  1792492665,
+  1792492705,
+  1792492735
+ ],
+ "events": [
+  {
+   "epoch": 1792483219,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.90",
+    "sport": "64436",
+    "dst": "203.0.113.137",
+    "dport": "53",
+    "bytes": "84657",
+    "rule": "r11",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.90",
+    "src_port": "64436",
+    "dest": "203.0.113.137",
+    "dest_port": "53",
+    "bytes": "84657",
+    "rule": "r11",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792483240,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "192.0.2.231",
+    "sport": "10837",
+    "dst": "203.0.113.2",
+    "dport": "53",
+    "bytes": "125607",
+    "rule": "r24",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "192.0.2.231",
+    "src_port": "10837",
+    "dest": "203.0.113.2",
+    "dest_port": "53",
+    "bytes": "125607",
+    "rule": "r24",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792483286,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.89",
+    "sport": "48103",
+    "dst": "203.0.113.68",
+    "dport": "80",
+    "bytes": "62639",
+    "rule": "r34",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.89",
+    "src_port": "48103",
+    "dest": "203.0.113.68",
+    "dest_port": "80",
+    "bytes": "62639",
+    "rule": "r34",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792483332,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "198.51.100.50",
+    "sport": "4577",
+    "dst": "203.0.113.147",
+    "dport": "53",
+    "bytes": "30303",
+    "rule": "r40",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "198.51.100.50",
+    "src_port": "4577",
+    "dest": "203.0.113.147",
+    "dest_port": "53",
+    "bytes": "30303",
+    "rule": "r40",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792483386,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "192.0.2.242",
+    "sport": "27012",
+    "dst": "203.0.113.137",
+    "dport": "443",
+    "bytes": "39120",
+    "rule": "r35",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "192.0.2.242",
+    "src_port": "27012",
+    "dest": "203.0.113.137",
+    "dest_port": "443",
+    "bytes": "39120",
+    "rule": "r35",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792483443,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.67",
+    "sport": "62084",
+    "dst": "203.0.113.23",
+    "dport": "53",
+    "bytes": "43846",
+    "rule": "r1",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.67",
+    "src_port": "62084",
+    "dest": "203.0.113.23",
+    "dest_port": "53",
+    "bytes": "43846",
+    "rule": "r1",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792483502,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.135",
+    "sport": "22889",
+    "dst": "203.0.113.184",
+    "dport": "123",
+    "bytes": "42144",
+    "rule": "r40",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.135",
+    "src_port": "22889",
+    "dest": "203.0.113.184",
+    "dest_port": "123",
+    "bytes": "42144",
+    "rule": "r40",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792483516,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.236",
+    "sport": "7228",
+    "dst": "203.0.113.196",
+    "dport": "443",
+    "bytes": "106427",
+    "rule": "r25",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.236",
+    "src_port": "7228",
+    "dest": "203.0.113.196",
+    "dest_port": "443",
+    "bytes": "106427",
+    "rule": "r25",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792483560,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.100",
+    "sport": "30527",
+    "dst": "203.0.113.69",
+    "dport": "443",
+    "bytes": "1022",
+    "rule": "r34",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.100",
+    "src_port": "30527",
+    "dest": "203.0.113.69",
+    "dest_port": "443",
+    "bytes": "1022",
+    "rule": "r34",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792483577,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.137",
+    "sport": "15859",
+    "dst": "203.0.113.67",
+    "dport": "80",
+    "bytes": "98359",
+    "rule": "r27",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.137",
+    "src_port": "15859",
+    "dest": "203.0.113.67",
+    "dest_port": "80",
+    "bytes": "98359",
+    "rule": "r27",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792483622,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.215",
+    "sport": "18158",
+    "dst": "203.0.113.196",
+    "dport": "80",
+    "bytes": "120927",
+    "rule": "r38",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.215",
+    "src_port": "18158",
+    "dest": "203.0.113.196",
+    "dest_port": "80",
+    "bytes": "120927",
+    "rule": "r38",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792483634,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "198.51.100.50",
+    "sport": "32225",
+    "dst": "203.0.113.197",
+    "dport": "80",
+    "bytes": "7677",
+    "rule": "r37",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "198.51.100.50",
+    "src_port": "32225",
+    "dest": "203.0.113.197",
+    "dest_port": "80",
+    "bytes": "7677",
+    "rule": "r37",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792483692,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "192.0.2.124",
+    "sport": "9234",
+    "dst": "203.0.113.211",
+    "dport": "53",
+    "bytes": "1503",
+    "rule": "r38",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "192.0.2.124",
+    "src_port": "9234",
+    "dest": "203.0.113.211",
+    "dest_port": "53",
+    "bytes": "1503",
+    "rule": "r38",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792483709,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "192.0.2.79",
+    "sport": "35193",
+    "dst": "203.0.113.21",
+    "dport": "53",
+    "bytes": "56237",
+    "rule": "r28",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "192.0.2.79",
+    "src_port": "35193",
+    "dest": "203.0.113.21",
+    "dest_port": "53",
+    "bytes": "56237",
+    "rule": "r28",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792483753,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "192.0.2.246",
+    "sport": "10422",
+    "dst": "203.0.113.137",
+    "dport": "443",
+    "bytes": "40362",
+    "rule": "r4",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "192.0.2.246",
+    "src_port": "10422",
+    "dest": "203.0.113.137",
+    "dest_port": "443",
+    "bytes": "40362",
+    "rule": "r4",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792483802,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.238",
+    "sport": "32906",
+    "dst": "203.0.113.193",
+    "dport": "53",
+    "bytes": "24685",
+    "rule": "r16",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.238",
+    "src_port": "32906",
+    "dest": "203.0.113.193",
+    "dest_port": "53",
+    "bytes": "24685",
+    "rule": "r16",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792483816,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "198.51.100.136",
+    "sport": "30475",
+    "dst": "203.0.113.130",
+    "dport": "443",
+    "bytes": "57847",
+    "rule": "r39",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "198.51.100.136",
+    "src_port": "30475",
+    "dest": "203.0.113.130",
+    "dest_port": "443",
+    "bytes": "57847",
+    "rule": "r39",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792483827,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.135",
+    "sport": "60928",
+    "dst": "203.0.113.180",
+    "dport": "53",
+    "bytes": "26377",
+    "rule": "r24",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.135",
+    "src_port": "60928",
+    "dest": "203.0.113.180",
+    "dest_port": "53",
+    "bytes": "26377",
+    "rule": "r24",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792483834,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.239",
+    "sport": "45677",
+    "dst": "203.0.113.120",
+    "dport": "443",
+    "bytes": "59462",
+    "rule": "r19",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.239",
+    "src_port": "45677",
+    "dest": "203.0.113.120",
+    "dest_port": "443",
+    "bytes": "59462",
+    "rule": "r19",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792483871,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.66",
+    "sport": "48616",
+    "dst": "203.0.113.183",
+    "dport": "80",
+    "bytes": "27451",
+    "rule": "r4",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.66",
+    "src_port": "48616",
+    "dest": "203.0.113.183",
+    "dest_port": "80",
+    "bytes": "27451",
+    "rule": "r4",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792483928,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "192.0.2.157",
+    "sport": "51816",
+    "dst": "203.0.113.189",
+    "dport": "123",
+    "bytes": "93463",
+    "rule": "r25",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "192.0.2.157",
+    "src_port": "51816",
+    "dest": "203.0.113.189",
+    "dest_port": "123",
+    "bytes": "93463",
+    "rule": "r25",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792483944,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "198.51.100.207",
+    "sport": "5441",
+    "dst": "203.0.113.147",
+    "dport": "123",
+    "bytes": "138278",
+    "rule": "r18",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "198.51.100.207",
+    "src_port": "5441",
+    "dest": "203.0.113.147",
+    "dest_port": "123",
+    "bytes": "138278",
+    "rule": "r18",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792483994,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.98",
+    "sport": "45826",
+    "dst": "203.0.113.173",
+    "dport": "443",
+    "bytes": "98443",
+    "rule": "r38",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.98",
+    "src_port": "45826",
+    "dest": "203.0.113.173",
+    "dest_port": "443",
+    "bytes": "98443",
+    "rule": "r38",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792484015,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.197",
+    "sport": "54373",
+    "dst": "203.0.113.123",
+    "dport": "53",
+    "bytes": "117426",
+    "rule": "r25",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.197",
+    "src_port": "54373",
+    "dest": "203.0.113.123",
+    "dest_port": "53",
+    "bytes": "117426",
+    "rule": "r25",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792484019,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "198.51.100.124",
+    "sport": "6261",
+    "dst": "203.0.113.145",
+    "dport": "443",
+    "bytes": "56549",
+    "rule": "r1",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "198.51.100.124",
+    "src_port": "6261",
+    "dest": "203.0.113.145",
+    "dest_port": "443",
+    "bytes": "56549",
+    "rule": "r1",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792484049,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "192.0.2.137",
+    "sport": "14638",
+    "dst": "203.0.113.84",
+    "dport": "123",
+    "bytes": "147259",
+    "rule": "r19",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "192.0.2.137",
+    "src_port": "14638",
+    "dest": "203.0.113.84",
+    "dest_port": "123",
+    "bytes": "147259",
+    "rule": "r19",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792484060,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "192.0.2.53",
+    "sport": "8421",
+    "dst": "203.0.113.162",
+    "dport": "80",
+    "bytes": "17601",
+    "rule": "r36",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "192.0.2.53",
+    "src_port": "8421",
+    "dest": "203.0.113.162",
+    "dest_port": "80",
+    "bytes": "17601",
+    "rule": "r36",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792484116,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.161",
+    "sport": "2051",
+    "dst": "203.0.113.55",
+    "dport": "80",
+    "bytes": "48614",
+    "rule": "r4",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.161",
+    "src_port": "2051",
+    "dest": "203.0.113.55",
+    "dest_port": "80",
+    "bytes": "48614",
+    "rule": "r4",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792484162,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "192.0.2.60",
+    "sport": "44241",
+    "dst": "203.0.113.112",
+    "dport": "123",
+    "bytes": "21211",
+    "rule": "r32",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "192.0.2.60",
+    "src_port": "44241",
+    "dest": "203.0.113.112",
+    "dest_port": "123",
+    "bytes": "21211",
+    "rule": "r32",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792484203,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "192.0.2.29",
+    "sport": "4419",
+    "dst": "203.0.113.14",
+    "dport": "80",
+    "bytes": "24053",
+    "rule": "r28",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "192.0.2.29",
+    "src_port": "4419",
+    "dest": "203.0.113.14",
+    "dest_port": "80",
+    "bytes": "24053",
+    "rule": "r28",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792484206,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.108",
+    "sport": "19476",
+    "dst": "203.0.113.77",
+    "dport": "123",
+    "bytes": "74227",
+    "rule": "r18",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.108",
+    "src_port": "19476",
+    "dest": "203.0.113.77",
+    "dest_port": "123",
+    "bytes": "74227",
+    "rule": "r18",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792484226,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "192.0.2.25",
+    "sport": "11554",
+    "dst": "203.0.113.215",
+    "dport": "53",
+    "bytes": "31356",
+    "rule": "r17",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "192.0.2.25",
+    "src_port": "11554",
+    "dest": "203.0.113.215",
+    "dest_port": "53",
+    "bytes": "31356",
+    "rule": "r17",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792484282,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "192.0.2.207",
+    "sport": "7589",
+    "dst": "203.0.113.57",
+    "dport": "53",
+    "bytes": "129306",
+    "rule": "r29",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "192.0.2.207",
+    "src_port": "7589",
+    "dest": "203.0.113.57",
+    "dest_port": "53",
+    "bytes": "129306",
+    "rule": "r29",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792484294,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "udp",
+    "src": "192.0.2.12",
+    "sport": "28555",
+    "dst": "203.0.113.181",
+    "dport": "80",
+    "bytes": "125263",
+    "rule": "r15",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "udp",
+    "src": "192.0.2.12",
+    "src_port": "28555",
+    "dest": "203.0.113.181",
+    "dest_port": "80",
+    "bytes": "125263",
+    "rule": "r15",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792484302,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.85",
+    "sport": "1157",
+    "dst": "203.0.113.216",
+    "dport": "123",
+    "bytes": "23192",
+    "rule": "r7",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.85",
+    "src_port": "1157",
+    "dest": "203.0.113.216",
+    "dest_port": "123",
+    "bytes": "23192",
+    "rule": "r7",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792484360,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.115",
+    "sport": "47304",
+    "dst": "203.0.113.4",
+    "dport": "53",
+    "bytes": "136503",
+    "rule": "r9",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.115",
+    "src_port": "47304",
+    "dest": "203.0.113.4",
+    "dest_port": "53",
+    "bytes": "136503",
+    "rule": "r9",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792484413,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.90",
+    "sport": "2287",
+    "dst": "203.0.113.39",
+    "dport": "443",
+    "bytes": "95035",
+    "rule": "r22",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.90",
+    "src_port": "2287",
+    "dest": "203.0.113.39",
+    "dest_port": "443",
+    "bytes": "95035",
+    "rule": "r22",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792484467,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.192",
+    "sport": "49659",
+    "dst": "203.0.113.50",
+    "dport": "80",
+    "bytes": "147760",
+    "rule": "r11",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.192",
+    "src_port": "49659",
+    "dest": "203.0.113.50",
+    "dest_port": "80",
+    "bytes": "147760",
+    "rule": "r11",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792484526,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "198.51.100.242",
+    "sport": "51478",
+    "dst": "203.0.113.15",
+    "dport": "53",
+    "bytes": "128987",
+    "rule": "r27",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "198.51.100.242",
+    "src_port": "51478",
+    "dest": "203.0.113.15",
+    "dest_port": "53",
+    "bytes": "128987",
+    "rule": "r27",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792484580,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "192.0.2.210",
+    "sport": "53431",
+    "dst": "203.0.113.40",
+    "dport": "53",
+    "bytes": "104421",
+    "rule": "r26",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "192.0.2.210",
+    "src_port": "53431",
+    "dest": "203.0.113.40",
+    "dest_port": "53",
+    "bytes": "104421",
+    "rule": "r26",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792484599,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.234",
+    "sport": "6292",
+    "dst": "203.0.113.110",
+    "dport": "80",
+    "bytes": "105167",
+    "rule": "r11",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.234",
+    "src_port": "6292",
+    "dest": "203.0.113.110",
+    "dest_port": "80",
+    "bytes": "105167",
+    "rule": "r11",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792484654,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.201",
+    "sport": "36177",
+    "dst": "203.0.113.119",
+    "dport": "123",
+    "bytes": "37532",
+    "rule": "r36",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.201",
+    "src_port": "36177",
+    "dest": "203.0.113.119",
+    "dest_port": "123",
+    "bytes": "37532",
+    "rule": "r36",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792484685,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.143",
+    "sport": "16831",
+    "dst": "203.0.113.186",
+    "dport": "123",
+    "bytes": "11782",
+    "rule": "r32",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.143",
+    "src_port": "16831",
+    "dest": "203.0.113.186",
+    "dest_port": "123",
+    "bytes": "11782",
+    "rule": "r32",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792484735,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.231",
+    "sport": "13520",
+    "dst": "203.0.113.109",
+    "dport": "123",
+    "bytes": "104991",
+    "rule": "r40",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.231",
+    "src_port": "13520",
+    "dest": "203.0.113.109",
+    "dest_port": "123",
+    "bytes": "104991",
+    "rule": "r40",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792484765,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.113",
+    "sport": "50442",
+    "dst": "203.0.113.198",
+    "dport": "123",
+    "bytes": "14989",
+    "rule": "r26",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.113",
+    "src_port": "50442",
+    "dest": "203.0.113.198",
+    "dest_port": "123",
+    "bytes": "14989",
+    "rule": "r26",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792484776,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "udp",
+    "src": "198.51.100.57",
+    "sport": "13560",
+    "dst": "203.0.113.206",
+    "dport": "123",
+    "bytes": "53699",
+    "rule": "r3",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "udp",
+    "src": "198.51.100.57",
+    "src_port": "13560",
+    "dest": "203.0.113.206",
+    "dest_port": "123",
+    "bytes": "53699",
+    "rule": "r3",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792484829,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "192.0.2.179",
+    "sport": "48475",
+    "dst": "203.0.113.5",
+    "dport": "123",
+    "bytes": "105463",
+    "rule": "r33",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "192.0.2.179",
+    "src_port": "48475",
+    "dest": "203.0.113.5",
+    "dest_port": "123",
+    "bytes": "105463",
+    "rule": "r33",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792484888,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.222",
+    "sport": "33288",
+    "dst": "203.0.113.246",
+    "dport": "123",
+    "bytes": "117432",
+    "rule": "r6",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.222",
+    "src_port": "33288",
+    "dest": "203.0.113.246",
+    "dest_port": "123",
+    "bytes": "117432",
+    "rule": "r6",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792484907,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "192.0.2.16",
+    "sport": "12635",
+    "dst": "203.0.113.182",
+    "dport": "80",
+    "bytes": "29859",
+    "rule": "r2",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "192.0.2.16",
+    "src_port": "12635",
+    "dest": "203.0.113.182",
+    "dest_port": "80",
+    "bytes": "29859",
+    "rule": "r2",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792484932,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "198.51.100.180",
+    "sport": "31527",
+    "dst": "203.0.113.240",
+    "dport": "123",
+    "bytes": "9440",
+    "rule": "r27",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "198.51.100.180",
+    "src_port": "31527",
+    "dest": "203.0.113.240",
+    "dest_port": "123",
+    "bytes": "9440",
+    "rule": "r27",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792484989,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "192.0.2.52",
+    "sport": "35492",
+    "dst": "203.0.113.71",
+    "dport": "80",
+    "bytes": "38764",
+    "rule": "r10",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "192.0.2.52",
+    "src_port": "35492",
+    "dest": "203.0.113.71",
+    "dest_port": "80",
+    "bytes": "38764",
+    "rule": "r10",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792485006,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.46",
+    "sport": "12092",
+    "dst": "203.0.113.145",
+    "dport": "123",
+    "bytes": "50941",
+    "rule": "r32",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.46",
+    "src_port": "12092",
+    "dest": "203.0.113.145",
+    "dest_port": "123",
+    "bytes": "50941",
+    "rule": "r32",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792485040,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.155",
+    "sport": "31671",
+    "dst": "203.0.113.184",
+    "dport": "53",
+    "bytes": "16991",
+    "rule": "r39",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.155",
+    "src_port": "31671",
+    "dest": "203.0.113.184",
+    "dest_port": "53",
+    "bytes": "16991",
+    "rule": "r39",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792485100,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "192.0.2.100",
+    "sport": "13607",
+    "dst": "203.0.113.135",
+    "dport": "53",
+    "bytes": "7256",
+    "rule": "r25",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "192.0.2.100",
+    "src_port": "13607",
+    "dest": "203.0.113.135",
+    "dest_port": "53",
+    "bytes": "7256",
+    "rule": "r25",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792485151,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "192.0.2.185",
+    "sport": "53736",
+    "dst": "203.0.113.228",
+    "dport": "443",
+    "bytes": "37467",
+    "rule": "r29",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "192.0.2.185",
+    "src_port": "53736",
+    "dest": "203.0.113.228",
+    "dest_port": "443",
+    "bytes": "37467",
+    "rule": "r29",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792485189,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "192.0.2.226",
+    "sport": "35321",
+    "dst": "203.0.113.36",
+    "dport": "53",
+    "bytes": "132140",
+    "rule": "r28",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "192.0.2.226",
+    "src_port": "35321",
+    "dest": "203.0.113.36",
+    "dest_port": "53",
+    "bytes": "132140",
+    "rule": "r28",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792485228,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.103",
+    "sport": "52016",
+    "dst": "203.0.113.159",
+    "dport": "443",
+    "bytes": "75213",
+    "rule": "r29",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.103",
+    "src_port": "52016",
+    "dest": "203.0.113.159",
+    "dest_port": "443",
+    "bytes": "75213",
+    "rule": "r29",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792485258,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.28",
+    "sport": "16433",
+    "dst": "203.0.113.196",
+    "dport": "80",
+    "bytes": "69299",
+    "rule": "r2",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.28",
+    "src_port": "16433",
+    "dest": "203.0.113.196",
+    "dest_port": "80",
+    "bytes": "69299",
+    "rule": "r2",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792485303,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "198.51.100.246",
+    "sport": "40714",
+    "dst": "203.0.113.56",
+    "dport": "53",
+    "bytes": "33551",
+    "rule": "r28",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "198.51.100.246",
+    "src_port": "40714",
+    "dest": "203.0.113.56",
+    "dest_port": "53",
+    "bytes": "33551",
+    "rule": "r28",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792485329,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.62",
+    "sport": "46380",
+    "dst": "203.0.113.252",
+    "dport": "123",
+    "bytes": "71131",
+    "rule": "r7",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.62",
+    "src_port": "46380",
+    "dest": "203.0.113.252",
+    "dest_port": "123",
+    "bytes": "71131",
+    "rule": "r7",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792485388,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.10",
+    "sport": "2879",
+    "dst": "203.0.113.225",
+    "dport": "53",
+    "bytes": "19874",
+    "rule": "r8",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.10",
+    "src_port": "2879",
+    "dest": "203.0.113.225",
+    "dest_port": "53",
+    "bytes": "19874",
+    "rule": "r8",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792485418,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "198.51.100.22",
+    "sport": "49934",
+    "dst": "203.0.113.159",
+    "dport": "123",
+    "bytes": "149911",
+    "rule": "r30",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "198.51.100.22",
+    "src_port": "49934",
+    "dest": "203.0.113.159",
+    "dest_port": "123",
+    "bytes": "149911",
+    "rule": "r30",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792485461,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "192.0.2.120",
+    "sport": "63806",
+    "dst": "203.0.113.131",
+    "dport": "443",
+    "bytes": "145033",
+    "rule": "r23",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "192.0.2.120",
+    "src_port": "63806",
+    "dest": "203.0.113.131",
+    "dest_port": "443",
+    "bytes": "145033",
+    "rule": "r23",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792485484,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.228",
+    "sport": "40039",
+    "dst": "203.0.113.105",
+    "dport": "80",
+    "bytes": "89441",
+    "rule": "r10",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.228",
+    "src_port": "40039",
+    "dest": "203.0.113.105",
+    "dest_port": "80",
+    "bytes": "89441",
+    "rule": "r10",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792485528,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.147",
+    "sport": "39242",
+    "dst": "203.0.113.40",
+    "dport": "443",
+    "bytes": "130068",
+    "rule": "r19",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.147",
+    "src_port": "39242",
+    "dest": "203.0.113.40",
+    "dest_port": "443",
+    "bytes": "130068",
+    "rule": "r19",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792485538,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.209",
+    "sport": "7802",
+    "dst": "203.0.113.51",
+    "dport": "123",
+    "bytes": "79214",
+    "rule": "r3",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.209",
+    "src_port": "7802",
+    "dest": "203.0.113.51",
+    "dest_port": "123",
+    "bytes": "79214",
+    "rule": "r3",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792485563,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.79",
+    "sport": "1551",
+    "dst": "203.0.113.116",
+    "dport": "53",
+    "bytes": "111852",
+    "rule": "r34",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.79",
+    "src_port": "1551",
+    "dest": "203.0.113.116",
+    "dest_port": "53",
+    "bytes": "111852",
+    "rule": "r34",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792485618,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.122",
+    "sport": "43051",
+    "dst": "203.0.113.157",
+    "dport": "53",
+    "bytes": "84748",
+    "rule": "r1",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.122",
+    "src_port": "43051",
+    "dest": "203.0.113.157",
+    "dest_port": "53",
+    "bytes": "84748",
+    "rule": "r1",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792485659,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "198.51.100.243",
+    "sport": "11903",
+    "dst": "203.0.113.121",
+    "dport": "443",
+    "bytes": "10030",
+    "rule": "r19",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "198.51.100.243",
+    "src_port": "11903",
+    "dest": "203.0.113.121",
+    "dest_port": "443",
+    "bytes": "10030",
+    "rule": "r19",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792485713,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.1",
+    "sport": "45818",
+    "dst": "203.0.113.234",
+    "dport": "123",
+    "bytes": "13221",
+    "rule": "r24",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.1",
+    "src_port": "45818",
+    "dest": "203.0.113.234",
+    "dest_port": "123",
+    "bytes": "13221",
+    "rule": "r24",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792485756,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "192.0.2.43",
+    "sport": "26163",
+    "dst": "203.0.113.193",
+    "dport": "80",
+    "bytes": "78514",
+    "rule": "r33",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "192.0.2.43",
+    "src_port": "26163",
+    "dest": "203.0.113.193",
+    "dest_port": "80",
+    "bytes": "78514",
+    "rule": "r33",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792485775,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.53",
+    "sport": "12092",
+    "dst": "203.0.113.6",
+    "dport": "53",
+    "bytes": "64633",
+    "rule": "r15",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.53",
+    "src_port": "12092",
+    "dest": "203.0.113.6",
+    "dest_port": "53",
+    "bytes": "64633",
+    "rule": "r15",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792485822,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "198.51.100.92",
+    "sport": "56184",
+    "dst": "203.0.113.204",
+    "dport": "443",
+    "bytes": "3090",
+    "rule": "r1",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "198.51.100.92",
+    "src_port": "56184",
+    "dest": "203.0.113.204",
+    "dest_port": "443",
+    "bytes": "3090",
+    "rule": "r1",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792485853,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.194",
+    "sport": "37080",
+    "dst": "203.0.113.243",
+    "dport": "80",
+    "bytes": "36319",
+    "rule": "r7",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.194",
+    "src_port": "37080",
+    "dest": "203.0.113.243",
+    "dest_port": "80",
+    "bytes": "36319",
+    "rule": "r7",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792485891,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.224",
+    "sport": "21638",
+    "dst": "203.0.113.101",
+    "dport": "443",
+    "bytes": "16959",
+    "rule": "r28",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.224",
+    "src_port": "21638",
+    "dest": "203.0.113.101",
+    "dest_port": "443",
+    "bytes": "16959",
+    "rule": "r28",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792485933,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.167",
+    "sport": "32612",
+    "dst": "203.0.113.59",
+    "dport": "80",
+    "bytes": "27683",
+    "rule": "r5",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.167",
+    "src_port": "32612",
+    "dest": "203.0.113.59",
+    "dest_port": "80",
+    "bytes": "27683",
+    "rule": "r5",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792485983,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.30",
+    "sport": "45440",
+    "dst": "203.0.113.86",
+    "dport": "53",
+    "bytes": "90827",
+    "rule": "r26",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.30",
+    "src_port": "45440",
+    "dest": "203.0.113.86",
+    "dest_port": "53",
+    "bytes": "90827",
+    "rule": "r26",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792485994,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "192.0.2.49",
+    "sport": "9144",
+    "dst": "203.0.113.152",
+    "dport": "53",
+    "bytes": "85932",
+    "rule": "r27",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "192.0.2.49",
+    "src_port": "9144",
+    "dest": "203.0.113.152",
+    "dest_port": "53",
+    "bytes": "85932",
+    "rule": "r27",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792486025,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.177",
+    "sport": "5968",
+    "dst": "203.0.113.108",
+    "dport": "443",
+    "bytes": "148829",
+    "rule": "r27",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.177",
+    "src_port": "5968",
+    "dest": "203.0.113.108",
+    "dest_port": "443",
+    "bytes": "148829",
+    "rule": "r27",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792486071,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "192.0.2.67",
+    "sport": "32454",
+    "dst": "203.0.113.76",
+    "dport": "53",
+    "bytes": "139368",
+    "rule": "r10",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "192.0.2.67",
+    "src_port": "32454",
+    "dest": "203.0.113.76",
+    "dest_port": "53",
+    "bytes": "139368",
+    "rule": "r10",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792486120,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "udp",
+    "src": "192.0.2.91",
+    "sport": "1875",
+    "dst": "203.0.113.168",
+    "dport": "443",
+    "bytes": "93295",
+    "rule": "r27",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "udp",
+    "src": "192.0.2.91",
+    "src_port": "1875",
+    "dest": "203.0.113.168",
+    "dest_port": "443",
+    "bytes": "93295",
+    "rule": "r27",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792486151,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.191",
+    "sport": "8065",
+    "dst": "203.0.113.133",
+    "dport": "80",
+    "bytes": "104418",
+    "rule": "r33",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.191",
+    "src_port": "8065",
+    "dest": "203.0.113.133",
+    "dest_port": "80",
+    "bytes": "104418",
+    "rule": "r33",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792486188,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.156",
+    "sport": "44811",
+    "dst": "203.0.113.184",
+    "dport": "123",
+    "bytes": "107517",
+    "rule": "r32",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.156",
+    "src_port": "44811",
+    "dest": "203.0.113.184",
+    "dest_port": "123",
+    "bytes": "107517",
+    "rule": "r32",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792486202,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.104",
+    "sport": "30438",
+    "dst": "203.0.113.145",
+    "dport": "123",
+    "bytes": "1946",
+    "rule": "r24",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.104",
+    "src_port": "30438",
+    "dest": "203.0.113.145",
+    "dest_port": "123",
+    "bytes": "1946",
+    "rule": "r24",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792486223,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.211",
+    "sport": "64264",
+    "dst": "203.0.113.73",
+    "dport": "80",
+    "bytes": "98269",
+    "rule": "r19",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.211",
+    "src_port": "64264",
+    "dest": "203.0.113.73",
+    "dest_port": "80",
+    "bytes": "98269",
+    "rule": "r19",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792486238,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.223",
+    "sport": "3896",
+    "dst": "203.0.113.222",
+    "dport": "443",
+    "bytes": "22735",
+    "rule": "r10",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.223",
+    "src_port": "3896",
+    "dest": "203.0.113.222",
+    "dest_port": "443",
+    "bytes": "22735",
+    "rule": "r10",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792486252,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.194",
+    "sport": "57537",
+    "dst": "203.0.113.167",
+    "dport": "443",
+    "bytes": "7863",
+    "rule": "r31",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.194",
+    "src_port": "57537",
+    "dest": "203.0.113.167",
+    "dest_port": "443",
+    "bytes": "7863",
+    "rule": "r31",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792486288,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.46",
+    "sport": "28763",
+    "dst": "203.0.113.147",
+    "dport": "443",
+    "bytes": "108927",
+    "rule": "r7",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.46",
+    "src_port": "28763",
+    "dest": "203.0.113.147",
+    "dest_port": "443",
+    "bytes": "108927",
+    "rule": "r7",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792486313,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.243",
+    "sport": "52989",
+    "dst": "203.0.113.67",
+    "dport": "53",
+    "bytes": "2434",
+    "rule": "r2",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.243",
+    "src_port": "52989",
+    "dest": "203.0.113.67",
+    "dest_port": "53",
+    "bytes": "2434",
+    "rule": "r2",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792486332,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.107",
+    "sport": "30765",
+    "dst": "203.0.113.61",
+    "dport": "80",
+    "bytes": "86863",
+    "rule": "r7",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.107",
+    "src_port": "30765",
+    "dest": "203.0.113.61",
+    "dest_port": "80",
+    "bytes": "86863",
+    "rule": "r7",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792486358,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.135",
+    "sport": "39219",
+    "dst": "203.0.113.21",
+    "dport": "123",
+    "bytes": "14255",
+    "rule": "r29",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.135",
+    "src_port": "39219",
+    "dest": "203.0.113.21",
+    "dest_port": "123",
+    "bytes": "14255",
+    "rule": "r29",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792486390,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "udp",
+    "src": "198.51.100.17",
+    "sport": "21425",
+    "dst": "203.0.113.230",
+    "dport": "443",
+    "bytes": "53673",
+    "rule": "r8",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "udp",
+    "src": "198.51.100.17",
+    "src_port": "21425",
+    "dest": "203.0.113.230",
+    "dest_port": "443",
+    "bytes": "53673",
+    "rule": "r8",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792486409,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.251",
+    "sport": "3436",
+    "dst": "203.0.113.155",
+    "dport": "443",
+    "bytes": "116025",
+    "rule": "r11",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.251",
+    "src_port": "3436",
+    "dest": "203.0.113.155",
+    "dest_port": "443",
+    "bytes": "116025",
+    "rule": "r11",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792486450,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "198.51.100.128",
+    "sport": "18045",
+    "dst": "203.0.113.198",
+    "dport": "123",
+    "bytes": "138411",
+    "rule": "r27",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "198.51.100.128",
+    "src_port": "18045",
+    "dest": "203.0.113.198",
+    "dest_port": "123",
+    "bytes": "138411",
+    "rule": "r27",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792486470,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.220",
+    "sport": "22146",
+    "dst": "203.0.113.69",
+    "dport": "53",
+    "bytes": "21941",
+    "rule": "r32",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.220",
+    "src_port": "22146",
+    "dest": "203.0.113.69",
+    "dest_port": "53",
+    "bytes": "21941",
+    "rule": "r32",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792486498,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "192.0.2.211",
+    "sport": "23639",
+    "dst": "203.0.113.109",
+    "dport": "123",
+    "bytes": "53414",
+    "rule": "r25",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "192.0.2.211",
+    "src_port": "23639",
+    "dest": "203.0.113.109",
+    "dest_port": "123",
+    "bytes": "53414",
+    "rule": "r25",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792486557,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "192.0.2.195",
+    "sport": "59281",
+    "dst": "203.0.113.123",
+    "dport": "53",
+    "bytes": "87075",
+    "rule": "r18",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "192.0.2.195",
+    "src_port": "59281",
+    "dest": "203.0.113.123",
+    "dest_port": "53",
+    "bytes": "87075",
+    "rule": "r18",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792486568,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.20",
+    "sport": "37144",
+    "dst": "203.0.113.159",
+    "dport": "53",
+    "bytes": "80026",
+    "rule": "r16",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.20",
+    "src_port": "37144",
+    "dest": "203.0.113.159",
+    "dest_port": "53",
+    "bytes": "80026",
+    "rule": "r16",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792486607,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.19",
+    "sport": "9419",
+    "dst": "203.0.113.142",
+    "dport": "123",
+    "bytes": "127889",
+    "rule": "r14",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.19",
+    "src_port": "9419",
+    "dest": "203.0.113.142",
+    "dest_port": "123",
+    "bytes": "127889",
+    "rule": "r14",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792486641,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.4",
+    "sport": "34180",
+    "dst": "203.0.113.28",
+    "dport": "80",
+    "bytes": "77396",
+    "rule": "r20",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.4",
+    "src_port": "34180",
+    "dest": "203.0.113.28",
+    "dest_port": "80",
+    "bytes": "77396",
+    "rule": "r20",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792486679,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "udp",
+    "src": "192.0.2.188",
+    "sport": "30282",
+    "dst": "203.0.113.207",
+    "dport": "123",
+    "bytes": "26069",
+    "rule": "r19",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "udp",
+    "src": "192.0.2.188",
+    "src_port": "30282",
+    "dest": "203.0.113.207",
+    "dest_port": "123",
+    "bytes": "26069",
+    "rule": "r19",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792486697,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.60",
+    "sport": "32860",
+    "dst": "203.0.113.225",
+    "dport": "443",
+    "bytes": "125136",
+    "rule": "r34",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.60",
+    "src_port": "32860",
+    "dest": "203.0.113.225",
+    "dest_port": "443",
+    "bytes": "125136",
+    "rule": "r34",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792486736,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.37",
+    "sport": "45009",
+    "dst": "203.0.113.48",
+    "dport": "443",
+    "bytes": "143045",
+    "rule": "r34",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.37",
+    "src_port": "45009",
+    "dest": "203.0.113.48",
+    "dest_port": "443",
+    "bytes": "143045",
+    "rule": "r34",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792486754,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.11",
+    "sport": "22011",
+    "dst": "203.0.113.70",
+    "dport": "123",
+    "bytes": "93366",
+    "rule": "r15",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.11",
+    "src_port": "22011",
+    "dest": "203.0.113.70",
+    "dest_port": "123",
+    "bytes": "93366",
+    "rule": "r15",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792486813,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.73",
+    "sport": "22272",
+    "dst": "203.0.113.144",
+    "dport": "53",
+    "bytes": "100213",
+    "rule": "r12",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.73",
+    "src_port": "22272",
+    "dest": "203.0.113.144",
+    "dest_port": "53",
+    "bytes": "100213",
+    "rule": "r12",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792486828,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "192.0.2.34",
+    "sport": "63967",
+    "dst": "203.0.113.230",
+    "dport": "123",
+    "bytes": "123161",
+    "rule": "r17",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "192.0.2.34",
+    "src_port": "63967",
+    "dest": "203.0.113.230",
+    "dest_port": "123",
+    "bytes": "123161",
+    "rule": "r17",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792486875,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "udp",
+    "src": "192.0.2.22",
+    "sport": "46583",
+    "dst": "203.0.113.15",
+    "dport": "53",
+    "bytes": "70044",
+    "rule": "r31",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "udp",
+    "src": "192.0.2.22",
+    "src_port": "46583",
+    "dest": "203.0.113.15",
+    "dest_port": "53",
+    "bytes": "70044",
+    "rule": "r31",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792486901,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "udp",
+    "src": "192.0.2.121",
+    "sport": "62718",
+    "dst": "203.0.113.166",
+    "dport": "443",
+    "bytes": "65748",
+    "rule": "r31",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "udp",
+    "src": "192.0.2.121",
+    "src_port": "62718",
+    "dest": "203.0.113.166",
+    "dest_port": "443",
+    "bytes": "65748",
+    "rule": "r31",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792486912,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.200",
+    "sport": "59664",
+    "dst": "203.0.113.151",
+    "dport": "443",
+    "bytes": "45727",
+    "rule": "r19",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.200",
+    "src_port": "59664",
+    "dest": "203.0.113.151",
+    "dest_port": "443",
+    "bytes": "45727",
+    "rule": "r19",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792486919,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.65",
+    "sport": "35965",
+    "dst": "203.0.113.90",
+    "dport": "123",
+    "bytes": "44402",
+    "rule": "r14",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.65",
+    "src_port": "35965",
+    "dest": "203.0.113.90",
+    "dest_port": "123",
+    "bytes": "44402",
+    "rule": "r14",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792486949,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.44",
+    "sport": "34935",
+    "dst": "203.0.113.199",
+    "dport": "123",
+    "bytes": "39332",
+    "rule": "r40",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.44",
+    "src_port": "34935",
+    "dest": "203.0.113.199",
+    "dest_port": "123",
+    "bytes": "39332",
+    "rule": "r40",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792486993,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "192.0.2.12",
+    "sport": "23237",
+    "dst": "203.0.113.84",
+    "dport": "53",
+    "bytes": "147241",
+    "rule": "r38",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "192.0.2.12",
+    "src_port": "23237",
+    "dest": "203.0.113.84",
+    "dest_port": "53",
+    "bytes": "147241",
+    "rule": "r38",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792487036,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "udp",
+    "src": "198.51.100.243",
+    "sport": "24889",
+    "dst": "203.0.113.87",
+    "dport": "53",
+    "bytes": "54711",
+    "rule": "r1",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "udp",
+    "src": "198.51.100.243",
+    "src_port": "24889",
+    "dest": "203.0.113.87",
+    "dest_port": "53",
+    "bytes": "54711",
+    "rule": "r1",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792487068,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.129",
+    "sport": "17489",
+    "dst": "203.0.113.77",
+    "dport": "53",
+    "bytes": "13716",
+    "rule": "r38",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.129",
+    "src_port": "17489",
+    "dest": "203.0.113.77",
+    "dest_port": "53",
+    "bytes": "13716",
+    "rule": "r38",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792487095,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.182",
+    "sport": "8273",
+    "dst": "203.0.113.58",
+    "dport": "53",
+    "bytes": "30033",
+    "rule": "r40",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.182",
+    "src_port": "8273",
+    "dest": "203.0.113.58",
+    "dest_port": "53",
+    "bytes": "30033",
+    "rule": "r40",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792487098,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "198.51.100.177",
+    "sport": "57341",
+    "dst": "203.0.113.45",
+    "dport": "123",
+    "bytes": "41416",
+    "rule": "r28",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "198.51.100.177",
+    "src_port": "57341",
+    "dest": "203.0.113.45",
+    "dest_port": "123",
+    "bytes": "41416",
+    "rule": "r28",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792487147,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "198.51.100.182",
+    "sport": "49898",
+    "dst": "203.0.113.213",
+    "dport": "53",
+    "bytes": "12086",
+    "rule": "r27",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "198.51.100.182",
+    "src_port": "49898",
+    "dest": "203.0.113.213",
+    "dest_port": "53",
+    "bytes": "12086",
+    "rule": "r27",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792487177,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "udp",
+    "src": "192.0.2.176",
+    "sport": "16869",
+    "dst": "203.0.113.120",
+    "dport": "123",
+    "bytes": "73235",
+    "rule": "r34",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "udp",
+    "src": "192.0.2.176",
+    "src_port": "16869",
+    "dest": "203.0.113.120",
+    "dest_port": "123",
+    "bytes": "73235",
+    "rule": "r34",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792487235,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.53",
+    "sport": "54624",
+    "dst": "203.0.113.172",
+    "dport": "123",
+    "bytes": "71491",
+    "rule": "r33",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.53",
+    "src_port": "54624",
+    "dest": "203.0.113.172",
+    "dest_port": "123",
+    "bytes": "71491",
+    "rule": "r33",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792487240,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "192.0.2.171",
+    "sport": "43471",
+    "dst": "203.0.113.92",
+    "dport": "123",
+    "bytes": "118390",
+    "rule": "r16",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "192.0.2.171",
+    "src_port": "43471",
+    "dest": "203.0.113.92",
+    "dest_port": "123",
+    "bytes": "118390",
+    "rule": "r16",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792487257,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "198.51.100.215",
+    "sport": "51832",
+    "dst": "203.0.113.33",
+    "dport": "80",
+    "bytes": "69123",
+    "rule": "r13",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "198.51.100.215",
+    "src_port": "51832",
+    "dest": "203.0.113.33",
+    "dest_port": "80",
+    "bytes": "69123",
+    "rule": "r13",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792487269,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "198.51.100.99",
+    "sport": "23387",
+    "dst": "203.0.113.46",
+    "dport": "123",
+    "bytes": "9809",
+    "rule": "r30",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "198.51.100.99",
+    "src_port": "23387",
+    "dest": "203.0.113.46",
+    "dest_port": "123",
+    "bytes": "9809",
+    "rule": "r30",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792487303,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "198.51.100.206",
+    "sport": "38127",
+    "dst": "203.0.113.96",
+    "dport": "53",
+    "bytes": "128342",
+    "rule": "r3",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "198.51.100.206",
+    "src_port": "38127",
+    "dest": "203.0.113.96",
+    "dest_port": "53",
+    "bytes": "128342",
+    "rule": "r3",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792487357,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "192.0.2.250",
+    "sport": "37171",
+    "dst": "203.0.113.254",
+    "dport": "123",
+    "bytes": "25513",
+    "rule": "r15",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "192.0.2.250",
+    "src_port": "37171",
+    "dest": "203.0.113.254",
+    "dest_port": "123",
+    "bytes": "25513",
+    "rule": "r15",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792487404,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "192.0.2.24",
+    "sport": "6699",
+    "dst": "203.0.113.246",
+    "dport": "123",
+    "bytes": "111950",
+    "rule": "r35",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "192.0.2.24",
+    "src_port": "6699",
+    "dest": "203.0.113.246",
+    "dest_port": "123",
+    "bytes": "111950",
+    "rule": "r35",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792487460,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "198.51.100.32",
+    "sport": "23414",
+    "dst": "203.0.113.8",
+    "dport": "123",
+    "bytes": "10739",
+    "rule": "r35",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "198.51.100.32",
+    "src_port": "23414",
+    "dest": "203.0.113.8",
+    "dest_port": "123",
+    "bytes": "10739",
+    "rule": "r35",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792487491,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "198.51.100.179",
+    "sport": "18754",
+    "dst": "203.0.113.86",
+    "dport": "80",
+    "bytes": "33176",
+    "rule": "r35",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "198.51.100.179",
+    "src_port": "18754",
+    "dest": "203.0.113.86",
+    "dest_port": "80",
+    "bytes": "33176",
+    "rule": "r35",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792487534,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "198.51.100.55",
+    "sport": "48888",
+    "dst": "203.0.113.33",
+    "dport": "80",
+    "bytes": "66439",
+    "rule": "r33",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "198.51.100.55",
+    "src_port": "48888",
+    "dest": "203.0.113.33",
+    "dest_port": "80",
+    "bytes": "66439",
+    "rule": "r33",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792487553,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.52",
+    "sport": "41523",
+    "dst": "203.0.113.81",
+    "dport": "53",
+    "bytes": "94027",
+    "rule": "r7",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.52",
+    "src_port": "41523",
+    "dest": "203.0.113.81",
+    "dest_port": "53",
+    "bytes": "94027",
+    "rule": "r7",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792487566,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.16",
+    "sport": "2897",
+    "dst": "203.0.113.62",
+    "dport": "53",
+    "bytes": "89383",
+    "rule": "r14",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.16",
+    "src_port": "2897",
+    "dest": "203.0.113.62",
+    "dest_port": "53",
+    "bytes": "89383",
+    "rule": "r14",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792487615,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "udp",
+    "src": "192.0.2.135",
+    "sport": "60523",
+    "dst": "203.0.113.207",
+    "dport": "53",
+    "bytes": "74719",
+    "rule": "r4",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "udp",
+    "src": "192.0.2.135",
+    "src_port": "60523",
+    "dest": "203.0.113.207",
+    "dest_port": "53",
+    "bytes": "74719",
+    "rule": "r4",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792487644,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.64",
+    "sport": "10464",
+    "dst": "203.0.113.45",
+    "dport": "443",
+    "bytes": "17401",
+    "rule": "r35",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.64",
+    "src_port": "10464",
+    "dest": "203.0.113.45",
+    "dest_port": "443",
+    "bytes": "17401",
+    "rule": "r35",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792487694,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.185",
+    "sport": "64821",
+    "dst": "203.0.113.166",
+    "dport": "80",
+    "bytes": "145353",
+    "rule": "r22",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.185",
+    "src_port": "64821",
+    "dest": "203.0.113.166",
+    "dest_port": "80",
+    "bytes": "145353",
+    "rule": "r22",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792487752,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.42",
+    "sport": "24078",
+    "dst": "203.0.113.140",
+    "dport": "80",
+    "bytes": "130357",
+    "rule": "r1",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.42",
+    "src_port": "24078",
+    "dest": "203.0.113.140",
+    "dest_port": "80",
+    "bytes": "130357",
+    "rule": "r1",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792487771,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.34",
+    "sport": "43680",
+    "dst": "203.0.113.227",
+    "dport": "53",
+    "bytes": "19773",
+    "rule": "r17",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.34",
+    "src_port": "43680",
+    "dest": "203.0.113.227",
+    "dest_port": "53",
+    "bytes": "19773",
+    "rule": "r17",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792487830,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.95",
+    "sport": "63550",
+    "dst": "203.0.113.174",
+    "dport": "443",
+    "bytes": "39197",
+    "rule": "r22",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.95",
+    "src_port": "63550",
+    "dest": "203.0.113.174",
+    "dest_port": "443",
+    "bytes": "39197",
+    "rule": "r22",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792487881,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "192.0.2.196",
+    "sport": "36121",
+    "dst": "203.0.113.171",
+    "dport": "53",
+    "bytes": "118246",
+    "rule": "r7",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "192.0.2.196",
+    "src_port": "36121",
+    "dest": "203.0.113.171",
+    "dest_port": "53",
+    "bytes": "118246",
+    "rule": "r7",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792487935,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "198.51.100.164",
+    "sport": "4463",
+    "dst": "203.0.113.30",
+    "dport": "123",
+    "bytes": "127044",
+    "rule": "r18",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "198.51.100.164",
+    "src_port": "4463",
+    "dest": "203.0.113.30",
+    "dest_port": "123",
+    "bytes": "127044",
+    "rule": "r18",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792487960,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.63",
+    "sport": "48745",
+    "dst": "203.0.113.65",
+    "dport": "123",
+    "bytes": "121423",
+    "rule": "r20",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.63",
+    "src_port": "48745",
+    "dest": "203.0.113.65",
+    "dest_port": "123",
+    "bytes": "121423",
+    "rule": "r20",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792487975,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "udp",
+    "src": "192.0.2.201",
+    "sport": "3880",
+    "dst": "203.0.113.72",
+    "dport": "443",
+    "bytes": "120189",
+    "rule": "r10",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "udp",
+    "src": "192.0.2.201",
+    "src_port": "3880",
+    "dest": "203.0.113.72",
+    "dest_port": "443",
+    "bytes": "120189",
+    "rule": "r10",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792488023,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "198.51.100.160",
+    "sport": "60616",
+    "dst": "203.0.113.216",
+    "dport": "80",
+    "bytes": "4720",
+    "rule": "r24",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "198.51.100.160",
+    "src_port": "60616",
+    "dest": "203.0.113.216",
+    "dest_port": "80",
+    "bytes": "4720",
+    "rule": "r24",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792488080,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "192.0.2.33",
+    "sport": "34160",
+    "dst": "203.0.113.174",
+    "dport": "53",
+    "bytes": "32406",
+    "rule": "r18",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "192.0.2.33",
+    "src_port": "34160",
+    "dest": "203.0.113.174",
+    "dest_port": "53",
+    "bytes": "32406",
+    "rule": "r18",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792488123,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "192.0.2.246",
+    "sport": "33033",
+    "dst": "203.0.113.191",
+    "dport": "443",
+    "bytes": "78473",
+    "rule": "r10",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "192.0.2.246",
+    "src_port": "33033",
+    "dest": "203.0.113.191",
+    "dest_port": "443",
+    "bytes": "78473",
+    "rule": "r10",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792488149,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "198.51.100.98",
+    "sport": "20891",
+    "dst": "203.0.113.153",
+    "dport": "80",
+    "bytes": "29725",
+    "rule": "r22",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "198.51.100.98",
+    "src_port": "20891",
+    "dest": "203.0.113.153",
+    "dest_port": "80",
+    "bytes": "29725",
+    "rule": "r22",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792488185,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "192.0.2.67",
+    "sport": "32449",
+    "dst": "203.0.113.4",
+    "dport": "53",
+    "bytes": "123835",
+    "rule": "r14",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "192.0.2.67",
+    "src_port": "32449",
+    "dest": "203.0.113.4",
+    "dest_port": "53",
+    "bytes": "123835",
+    "rule": "r14",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792488233,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.100",
+    "sport": "48232",
+    "dst": "203.0.113.38",
+    "dport": "80",
+    "bytes": "29671",
+    "rule": "r31",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.100",
+    "src_port": "48232",
+    "dest": "203.0.113.38",
+    "dest_port": "80",
+    "bytes": "29671",
+    "rule": "r31",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792488278,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.99",
+    "sport": "19094",
+    "dst": "203.0.113.254",
+    "dport": "80",
+    "bytes": "139500",
+    "rule": "r16",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.99",
+    "src_port": "19094",
+    "dest": "203.0.113.254",
+    "dest_port": "80",
+    "bytes": "139500",
+    "rule": "r16",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792488289,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.67",
+    "sport": "45753",
+    "dst": "203.0.113.131",
+    "dport": "80",
+    "bytes": "40842",
+    "rule": "r25",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.67",
+    "src_port": "45753",
+    "dest": "203.0.113.131",
+    "dest_port": "80",
+    "bytes": "40842",
+    "rule": "r25",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792488349,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "198.51.100.213",
+    "sport": "50171",
+    "dst": "203.0.113.124",
+    "dport": "80",
+    "bytes": "118162",
+    "rule": "r17",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "198.51.100.213",
+    "src_port": "50171",
+    "dest": "203.0.113.124",
+    "dest_port": "80",
+    "bytes": "118162",
+    "rule": "r17",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792488397,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.37",
+    "sport": "38192",
+    "dst": "203.0.113.208",
+    "dport": "53",
+    "bytes": "17788",
+    "rule": "r12",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.37",
+    "src_port": "38192",
+    "dest": "203.0.113.208",
+    "dest_port": "53",
+    "bytes": "17788",
+    "rule": "r12",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792488438,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "192.0.2.158",
+    "sport": "18330",
+    "dst": "203.0.113.69",
+    "dport": "443",
+    "bytes": "136287",
+    "rule": "r31",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "192.0.2.158",
+    "src_port": "18330",
+    "dest": "203.0.113.69",
+    "dest_port": "443",
+    "bytes": "136287",
+    "rule": "r31",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792488456,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "198.51.100.40",
+    "sport": "51722",
+    "dst": "203.0.113.205",
+    "dport": "443",
+    "bytes": "23772",
+    "rule": "r30",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "198.51.100.40",
+    "src_port": "51722",
+    "dest": "203.0.113.205",
+    "dest_port": "443",
+    "bytes": "23772",
+    "rule": "r30",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792488505,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "198.51.100.106",
+    "sport": "50337",
+    "dst": "203.0.113.33",
+    "dport": "443",
+    "bytes": "98574",
+    "rule": "r21",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "198.51.100.106",
+    "src_port": "50337",
+    "dest": "203.0.113.33",
+    "dest_port": "443",
+    "bytes": "98574",
+    "rule": "r21",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792488539,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.187",
+    "sport": "19884",
+    "dst": "203.0.113.175",
+    "dport": "123",
+    "bytes": "149052",
+    "rule": "r29",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.187",
+    "src_port": "19884",
+    "dest": "203.0.113.175",
+    "dest_port": "123",
+    "bytes": "149052",
+    "rule": "r29",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792488555,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "192.0.2.218",
+    "sport": "54374",
+    "dst": "203.0.113.216",
+    "dport": "53",
+    "bytes": "46398",
+    "rule": "r39",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "192.0.2.218",
+    "src_port": "54374",
+    "dest": "203.0.113.216",
+    "dest_port": "53",
+    "bytes": "46398",
+    "rule": "r39",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792488613,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "192.0.2.71",
+    "sport": "11016",
+    "dst": "203.0.113.179",
+    "dport": "80",
+    "bytes": "44727",
+    "rule": "r6",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "192.0.2.71",
+    "src_port": "11016",
+    "dest": "203.0.113.179",
+    "dest_port": "80",
+    "bytes": "44727",
+    "rule": "r6",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792488655,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "192.0.2.54",
+    "sport": "30614",
+    "dst": "203.0.113.13",
+    "dport": "443",
+    "bytes": "94382",
+    "rule": "r25",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "192.0.2.54",
+    "src_port": "30614",
+    "dest": "203.0.113.13",
+    "dest_port": "443",
+    "bytes": "94382",
+    "rule": "r25",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792488660,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.245",
+    "sport": "55177",
+    "dst": "203.0.113.50",
+    "dport": "80",
+    "bytes": "101105",
+    "rule": "r23",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.245",
+    "src_port": "55177",
+    "dest": "203.0.113.50",
+    "dest_port": "80",
+    "bytes": "101105",
+    "rule": "r23",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792488700,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.177",
+    "sport": "25132",
+    "dst": "203.0.113.164",
+    "dport": "123",
+    "bytes": "112603",
+    "rule": "r39",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.177",
+    "src_port": "25132",
+    "dest": "203.0.113.164",
+    "dest_port": "123",
+    "bytes": "112603",
+    "rule": "r39",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792488747,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.136",
+    "sport": "14357",
+    "dst": "203.0.113.151",
+    "dport": "123",
+    "bytes": "86096",
+    "rule": "r6",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.136",
+    "src_port": "14357",
+    "dest": "203.0.113.151",
+    "dest_port": "123",
+    "bytes": "86096",
+    "rule": "r6",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792488787,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "192.0.2.198",
+    "sport": "3527",
+    "dst": "203.0.113.218",
+    "dport": "80",
+    "bytes": "131394",
+    "rule": "r38",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "192.0.2.198",
+    "src_port": "3527",
+    "dest": "203.0.113.218",
+    "dest_port": "80",
+    "bytes": "131394",
+    "rule": "r38",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792488792,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "192.0.2.19",
+    "sport": "2552",
+    "dst": "203.0.113.55",
+    "dport": "80",
+    "bytes": "98873",
+    "rule": "r35",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "192.0.2.19",
+    "src_port": "2552",
+    "dest": "203.0.113.55",
+    "dest_port": "80",
+    "bytes": "98873",
+    "rule": "r35",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792488817,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "192.0.2.235",
+    "sport": "58237",
+    "dst": "203.0.113.129",
+    "dport": "123",
+    "bytes": "96825",
+    "rule": "r22",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "192.0.2.235",
+    "src_port": "58237",
+    "dest": "203.0.113.129",
+    "dest_port": "123",
+    "bytes": "96825",
+    "rule": "r22",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792488857,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "198.51.100.251",
+    "sport": "40592",
+    "dst": "203.0.113.223",
+    "dport": "123",
+    "bytes": "26859",
+    "rule": "r38",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "198.51.100.251",
+    "src_port": "40592",
+    "dest": "203.0.113.223",
+    "dest_port": "123",
+    "bytes": "26859",
+    "rule": "r38",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792488906,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.19",
+    "sport": "39122",
+    "dst": "203.0.113.174",
+    "dport": "123",
+    "bytes": "26126",
+    "rule": "r4",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.19",
+    "src_port": "39122",
+    "dest": "203.0.113.174",
+    "dest_port": "123",
+    "bytes": "26126",
+    "rule": "r4",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792488945,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "198.51.100.102",
+    "sport": "62513",
+    "dst": "203.0.113.110",
+    "dport": "443",
+    "bytes": "119752",
+    "rule": "r22",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "198.51.100.102",
+    "src_port": "62513",
+    "dest": "203.0.113.110",
+    "dest_port": "443",
+    "bytes": "119752",
+    "rule": "r22",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792488969,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "198.51.100.106",
+    "sport": "35304",
+    "dst": "203.0.113.229",
+    "dport": "53",
+    "bytes": "74805",
+    "rule": "r16",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "198.51.100.106",
+    "src_port": "35304",
+    "dest": "203.0.113.229",
+    "dest_port": "53",
+    "bytes": "74805",
+    "rule": "r16",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792488983,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "udp",
+    "src": "198.51.100.250",
+    "sport": "12769",
+    "dst": "203.0.113.88",
+    "dport": "123",
+    "bytes": "108992",
+    "rule": "r2",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "udp",
+    "src": "198.51.100.250",
+    "src_port": "12769",
+    "dest": "203.0.113.88",
+    "dest_port": "123",
+    "bytes": "108992",
+    "rule": "r2",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792489004,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.156",
+    "sport": "23660",
+    "dst": "203.0.113.56",
+    "dport": "123",
+    "bytes": "6096",
+    "rule": "r30",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.156",
+    "src_port": "23660",
+    "dest": "203.0.113.56",
+    "dest_port": "123",
+    "bytes": "6096",
+    "rule": "r30",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792489019,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.69",
+    "sport": "61052",
+    "dst": "203.0.113.179",
+    "dport": "80",
+    "bytes": "137757",
+    "rule": "r14",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.69",
+    "src_port": "61052",
+    "dest": "203.0.113.179",
+    "dest_port": "80",
+    "bytes": "137757",
+    "rule": "r14",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792489032,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "udp",
+    "src": "198.51.100.192",
+    "sport": "29927",
+    "dst": "203.0.113.25",
+    "dport": "53",
+    "bytes": "101964",
+    "rule": "r9",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "udp",
+    "src": "198.51.100.192",
+    "src_port": "29927",
+    "dest": "203.0.113.25",
+    "dest_port": "53",
+    "bytes": "101964",
+    "rule": "r9",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792489085,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "198.51.100.154",
+    "sport": "49083",
+    "dst": "203.0.113.198",
+    "dport": "123",
+    "bytes": "125071",
+    "rule": "r18",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "198.51.100.154",
+    "src_port": "49083",
+    "dest": "203.0.113.198",
+    "dest_port": "123",
+    "bytes": "125071",
+    "rule": "r18",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792489131,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.73",
+    "sport": "57618",
+    "dst": "203.0.113.14",
+    "dport": "80",
+    "bytes": "116294",
+    "rule": "r34",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.73",
+    "src_port": "57618",
+    "dest": "203.0.113.14",
+    "dest_port": "80",
+    "bytes": "116294",
+    "rule": "r34",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792489169,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "198.51.100.116",
+    "sport": "14643",
+    "dst": "203.0.113.188",
+    "dport": "80",
+    "bytes": "25568",
+    "rule": "r30",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "198.51.100.116",
+    "src_port": "14643",
+    "dest": "203.0.113.188",
+    "dest_port": "80",
+    "bytes": "25568",
+    "rule": "r30",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792489179,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "198.51.100.204",
+    "sport": "25345",
+    "dst": "203.0.113.247",
+    "dport": "80",
+    "bytes": "134276",
+    "rule": "r1",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "198.51.100.204",
+    "src_port": "25345",
+    "dest": "203.0.113.247",
+    "dest_port": "80",
+    "bytes": "134276",
+    "rule": "r1",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792489239,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "198.51.100.76",
+    "sport": "23764",
+    "dst": "203.0.113.167",
+    "dport": "123",
+    "bytes": "112996",
+    "rule": "r26",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "198.51.100.76",
+    "src_port": "23764",
+    "dest": "203.0.113.167",
+    "dest_port": "123",
+    "bytes": "112996",
+    "rule": "r26",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792489256,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "192.0.2.49",
+    "sport": "8386",
+    "dst": "203.0.113.130",
+    "dport": "80",
+    "bytes": "146668",
+    "rule": "r6",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "192.0.2.49",
+    "src_port": "8386",
+    "dest": "203.0.113.130",
+    "dest_port": "80",
+    "bytes": "146668",
+    "rule": "r6",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792489269,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "198.51.100.192",
+    "sport": "18666",
+    "dst": "203.0.113.4",
+    "dport": "443",
+    "bytes": "7851",
+    "rule": "r11",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "198.51.100.192",
+    "src_port": "18666",
+    "dest": "203.0.113.4",
+    "dest_port": "443",
+    "bytes": "7851",
+    "rule": "r11",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792489276,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.174",
+    "sport": "32754",
+    "dst": "203.0.113.144",
+    "dport": "443",
+    "bytes": "41984",
+    "rule": "r9",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.174",
+    "src_port": "32754",
+    "dest": "203.0.113.144",
+    "dest_port": "443",
+    "bytes": "41984",
+    "rule": "r9",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792489306,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.245",
+    "sport": "15514",
+    "dst": "203.0.113.59",
+    "dport": "53",
+    "bytes": "92087",
+    "rule": "r27",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.245",
+    "src_port": "15514",
+    "dest": "203.0.113.59",
+    "dest_port": "53",
+    "bytes": "92087",
+    "rule": "r27",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792489350,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.72",
+    "sport": "13716",
+    "dst": "203.0.113.6",
+    "dport": "80",
+    "bytes": "97329",
+    "rule": "r6",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.72",
+    "src_port": "13716",
+    "dest": "203.0.113.6",
+    "dest_port": "80",
+    "bytes": "97329",
+    "rule": "r6",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792489391,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "udp",
+    "src": "192.0.2.41",
+    "sport": "30890",
+    "dst": "203.0.113.242",
+    "dport": "443",
+    "bytes": "96216",
+    "rule": "r9",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "udp",
+    "src": "192.0.2.41",
+    "src_port": "30890",
+    "dest": "203.0.113.242",
+    "dest_port": "443",
+    "bytes": "96216",
+    "rule": "r9",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792489429,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.186",
+    "sport": "22485",
+    "dst": "203.0.113.250",
+    "dport": "443",
+    "bytes": "73534",
+    "rule": "r16",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.186",
+    "src_port": "22485",
+    "dest": "203.0.113.250",
+    "dest_port": "443",
+    "bytes": "73534",
+    "rule": "r16",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792489483,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "udp",
+    "src": "192.0.2.1",
+    "sport": "49743",
+    "dst": "203.0.113.218",
+    "dport": "80",
+    "bytes": "87114",
+    "rule": "r5",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "udp",
+    "src": "192.0.2.1",
+    "src_port": "49743",
+    "dest": "203.0.113.218",
+    "dest_port": "80",
+    "bytes": "87114",
+    "rule": "r5",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792489520,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "192.0.2.141",
+    "sport": "20708",
+    "dst": "203.0.113.40",
+    "dport": "53",
+    "bytes": "27329",
+    "rule": "r14",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "192.0.2.141",
+    "src_port": "20708",
+    "dest": "203.0.113.40",
+    "dest_port": "53",
+    "bytes": "27329",
+    "rule": "r14",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792489567,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.180",
+    "sport": "37887",
+    "dst": "203.0.113.2",
+    "dport": "443",
+    "bytes": "75673",
+    "rule": "r26",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.180",
+    "src_port": "37887",
+    "dest": "203.0.113.2",
+    "dest_port": "443",
+    "bytes": "75673",
+    "rule": "r26",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792489572,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.11",
+    "sport": "2988",
+    "dst": "203.0.113.231",
+    "dport": "123",
+    "bytes": "123676",
+    "rule": "r24",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.11",
+    "src_port": "2988",
+    "dest": "203.0.113.231",
+    "dest_port": "123",
+    "bytes": "123676",
+    "rule": "r24",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792489603,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.247",
+    "sport": "2367",
+    "dst": "203.0.113.211",
+    "dport": "53",
+    "bytes": "147433",
+    "rule": "r24",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.247",
+    "src_port": "2367",
+    "dest": "203.0.113.211",
+    "dest_port": "53",
+    "bytes": "147433",
+    "rule": "r24",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792489658,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.86",
+    "sport": "45078",
+    "dst": "203.0.113.81",
+    "dport": "80",
+    "bytes": "109079",
+    "rule": "r6",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.86",
+    "src_port": "45078",
+    "dest": "203.0.113.81",
+    "dest_port": "80",
+    "bytes": "109079",
+    "rule": "r6",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792489682,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "192.0.2.77",
+    "sport": "62020",
+    "dst": "203.0.113.14",
+    "dport": "80",
+    "bytes": "30191",
+    "rule": "r22",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "192.0.2.77",
+    "src_port": "62020",
+    "dest": "203.0.113.14",
+    "dest_port": "80",
+    "bytes": "30191",
+    "rule": "r22",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792489726,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.82",
+    "sport": "32404",
+    "dst": "203.0.113.75",
+    "dport": "123",
+    "bytes": "144656",
+    "rule": "r13",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.82",
+    "src_port": "32404",
+    "dest": "203.0.113.75",
+    "dest_port": "123",
+    "bytes": "144656",
+    "rule": "r13",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792489734,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.219",
+    "sport": "39257",
+    "dst": "203.0.113.4",
+    "dport": "53",
+    "bytes": "1405",
+    "rule": "r27",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.219",
+    "src_port": "39257",
+    "dest": "203.0.113.4",
+    "dest_port": "53",
+    "bytes": "1405",
+    "rule": "r27",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792489770,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "198.51.100.234",
+    "sport": "16912",
+    "dst": "203.0.113.113",
+    "dport": "80",
+    "bytes": "18671",
+    "rule": "r12",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "198.51.100.234",
+    "src_port": "16912",
+    "dest": "203.0.113.113",
+    "dest_port": "80",
+    "bytes": "18671",
+    "rule": "r12",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792489773,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "udp",
+    "src": "192.0.2.88",
+    "sport": "50381",
+    "dst": "203.0.113.46",
+    "dport": "443",
+    "bytes": "87939",
+    "rule": "r15",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "udp",
+    "src": "192.0.2.88",
+    "src_port": "50381",
+    "dest": "203.0.113.46",
+    "dest_port": "443",
+    "bytes": "87939",
+    "rule": "r15",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792489784,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.216",
+    "sport": "30781",
+    "dst": "203.0.113.106",
+    "dport": "443",
+    "bytes": "107726",
+    "rule": "r11",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.216",
+    "src_port": "30781",
+    "dest": "203.0.113.106",
+    "dest_port": "443",
+    "bytes": "107726",
+    "rule": "r11",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792489806,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "198.51.100.36",
+    "sport": "51019",
+    "dst": "203.0.113.141",
+    "dport": "443",
+    "bytes": "135095",
+    "rule": "r29",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "198.51.100.36",
+    "src_port": "51019",
+    "dest": "203.0.113.141",
+    "dest_port": "443",
+    "bytes": "135095",
+    "rule": "r29",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792489816,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "udp",
+    "src": "198.51.100.44",
+    "sport": "34597",
+    "dst": "203.0.113.246",
+    "dport": "53",
+    "bytes": "93331",
+    "rule": "r16",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "udp",
+    "src": "198.51.100.44",
+    "src_port": "34597",
+    "dest": "203.0.113.246",
+    "dest_port": "53",
+    "bytes": "93331",
+    "rule": "r16",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792489845,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.225",
+    "sport": "8250",
+    "dst": "203.0.113.73",
+    "dport": "123",
+    "bytes": "140443",
+    "rule": "r38",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.225",
+    "src_port": "8250",
+    "dest": "203.0.113.73",
+    "dest_port": "123",
+    "bytes": "140443",
+    "rule": "r38",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792489867,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "192.0.2.50",
+    "sport": "53628",
+    "dst": "203.0.113.176",
+    "dport": "123",
+    "bytes": "20931",
+    "rule": "r18",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "192.0.2.50",
+    "src_port": "53628",
+    "dest": "203.0.113.176",
+    "dest_port": "123",
+    "bytes": "20931",
+    "rule": "r18",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792489887,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "198.51.100.99",
+    "sport": "24987",
+    "dst": "203.0.113.230",
+    "dport": "123",
+    "bytes": "53311",
+    "rule": "r8",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "198.51.100.99",
+    "src_port": "24987",
+    "dest": "203.0.113.230",
+    "dest_port": "123",
+    "bytes": "53311",
+    "rule": "r8",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792489926,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "192.0.2.151",
+    "sport": "11021",
+    "dst": "203.0.113.233",
+    "dport": "53",
+    "bytes": "50280",
+    "rule": "r32",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "192.0.2.151",
+    "src_port": "11021",
+    "dest": "203.0.113.233",
+    "dest_port": "53",
+    "bytes": "50280",
+    "rule": "r32",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792489967,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "udp",
+    "src": "192.0.2.27",
+    "sport": "18778",
+    "dst": "203.0.113.168",
+    "dport": "443",
+    "bytes": "53987",
+    "rule": "r31",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "udp",
+    "src": "192.0.2.27",
+    "src_port": "18778",
+    "dest": "203.0.113.168",
+    "dest_port": "443",
+    "bytes": "53987",
+    "rule": "r31",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490014,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "udp",
+    "src": "198.51.100.142",
+    "sport": "19945",
+    "dst": "203.0.113.252",
+    "dport": "53",
+    "bytes": "55681",
+    "rule": "r28",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "udp",
+    "src": "198.51.100.142",
+    "src_port": "19945",
+    "dest": "203.0.113.252",
+    "dest_port": "53",
+    "bytes": "55681",
+    "rule": "r28",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490021,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "198.51.100.26",
+    "sport": "56130",
+    "dst": "203.0.113.66",
+    "dport": "123",
+    "bytes": "53403",
+    "rule": "r38",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "198.51.100.26",
+    "src_port": "56130",
+    "dest": "203.0.113.66",
+    "dest_port": "123",
+    "bytes": "53403",
+    "rule": "r38",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490054,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "198.51.100.40",
+    "sport": "5042",
+    "dst": "203.0.113.247",
+    "dport": "123",
+    "bytes": "90312",
+    "rule": "r29",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "198.51.100.40",
+    "src_port": "5042",
+    "dest": "203.0.113.247",
+    "dest_port": "123",
+    "bytes": "90312",
+    "rule": "r29",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490090,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.98",
+    "sport": "24277",
+    "dst": "203.0.113.110",
+    "dport": "443",
+    "bytes": "28761",
+    "rule": "r33",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.98",
+    "src_port": "24277",
+    "dest": "203.0.113.110",
+    "dest_port": "443",
+    "bytes": "28761",
+    "rule": "r33",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490116,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "192.0.2.49",
+    "sport": "11091",
+    "dst": "203.0.113.208",
+    "dport": "123",
+    "bytes": "58776",
+    "rule": "r4",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "192.0.2.49",
+    "src_port": "11091",
+    "dest": "203.0.113.208",
+    "dest_port": "123",
+    "bytes": "58776",
+    "rule": "r4",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490173,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.225",
+    "sport": "52447",
+    "dst": "203.0.113.60",
+    "dport": "80",
+    "bytes": "64846",
+    "rule": "r10",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.225",
+    "src_port": "52447",
+    "dest": "203.0.113.60",
+    "dest_port": "80",
+    "bytes": "64846",
+    "rule": "r10",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490229,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "198.51.100.76",
+    "sport": "37004",
+    "dst": "203.0.113.230",
+    "dport": "443",
+    "bytes": "139963",
+    "rule": "r12",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "198.51.100.76",
+    "src_port": "37004",
+    "dest": "203.0.113.230",
+    "dest_port": "443",
+    "bytes": "139963",
+    "rule": "r12",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490234,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "192.0.2.13",
+    "sport": "19961",
+    "dst": "203.0.113.116",
+    "dport": "443",
+    "bytes": "110232",
+    "rule": "r11",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "192.0.2.13",
+    "src_port": "19961",
+    "dest": "203.0.113.116",
+    "dest_port": "443",
+    "bytes": "110232",
+    "rule": "r11",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490237,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.115",
+    "sport": "42854",
+    "dst": "203.0.113.67",
+    "dport": "53",
+    "bytes": "48616",
+    "rule": "r31",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.115",
+    "src_port": "42854",
+    "dest": "203.0.113.67",
+    "dest_port": "53",
+    "bytes": "48616",
+    "rule": "r31",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490260,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "198.51.100.136",
+    "sport": "5585",
+    "dst": "203.0.113.158",
+    "dport": "80",
+    "bytes": "93880",
+    "rule": "r8",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "198.51.100.136",
+    "src_port": "5585",
+    "dest": "203.0.113.158",
+    "dest_port": "80",
+    "bytes": "93880",
+    "rule": "r8",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490284,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.131",
+    "sport": "59326",
+    "dst": "203.0.113.199",
+    "dport": "80",
+    "bytes": "76332",
+    "rule": "r5",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.131",
+    "src_port": "59326",
+    "dest": "203.0.113.199",
+    "dest_port": "80",
+    "bytes": "76332",
+    "rule": "r5",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490296,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.93",
+    "sport": "56943",
+    "dst": "203.0.113.200",
+    "dport": "80",
+    "bytes": "17598",
+    "rule": "r23",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.93",
+    "src_port": "56943",
+    "dest": "203.0.113.200",
+    "dest_port": "80",
+    "bytes": "17598",
+    "rule": "r23",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490330,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "192.0.2.96",
+    "sport": "23946",
+    "dst": "203.0.113.8",
+    "dport": "53",
+    "bytes": "108722",
+    "rule": "r8",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "192.0.2.96",
+    "src_port": "23946",
+    "dest": "203.0.113.8",
+    "dest_port": "53",
+    "bytes": "108722",
+    "rule": "r8",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490368,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.236",
+    "sport": "17868",
+    "dst": "203.0.113.118",
+    "dport": "443",
+    "bytes": "68355",
+    "rule": "r11",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.236",
+    "src_port": "17868",
+    "dest": "203.0.113.118",
+    "dest_port": "443",
+    "bytes": "68355",
+    "rule": "r11",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490405,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "198.51.100.110",
+    "sport": "22277",
+    "dst": "203.0.113.106",
+    "dport": "80",
+    "bytes": "44358",
+    "rule": "r11",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "198.51.100.110",
+    "src_port": "22277",
+    "dest": "203.0.113.106",
+    "dest_port": "80",
+    "bytes": "44358",
+    "rule": "r11",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490441,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "udp",
+    "src": "192.0.2.120",
+    "sport": "28158",
+    "dst": "203.0.113.22",
+    "dport": "443",
+    "bytes": "95165",
+    "rule": "r21",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "udp",
+    "src": "192.0.2.120",
+    "src_port": "28158",
+    "dest": "203.0.113.22",
+    "dest_port": "443",
+    "bytes": "95165",
+    "rule": "r21",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490496,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.63",
+    "sport": "51633",
+    "dst": "203.0.113.173",
+    "dport": "123",
+    "bytes": "111744",
+    "rule": "r1",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.63",
+    "src_port": "51633",
+    "dest": "203.0.113.173",
+    "dest_port": "123",
+    "bytes": "111744",
+    "rule": "r1",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490529,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "198.51.100.113",
+    "sport": "7334",
+    "dst": "203.0.113.106",
+    "dport": "443",
+    "bytes": "136193",
+    "rule": "r22",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "198.51.100.113",
+    "src_port": "7334",
+    "dest": "203.0.113.106",
+    "dest_port": "443",
+    "bytes": "136193",
+    "rule": "r22",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490546,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.192",
+    "sport": "60944",
+    "dst": "203.0.113.148",
+    "dport": "443",
+    "bytes": "48186",
+    "rule": "r34",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.192",
+    "src_port": "60944",
+    "dest": "203.0.113.148",
+    "dest_port": "443",
+    "bytes": "48186",
+    "rule": "r34",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490591,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "udp",
+    "src": "192.0.2.226",
+    "sport": "13944",
+    "dst": "203.0.113.132",
+    "dport": "123",
+    "bytes": "42717",
+    "rule": "r33",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "udp",
+    "src": "192.0.2.226",
+    "src_port": "13944",
+    "dest": "203.0.113.132",
+    "dest_port": "123",
+    "bytes": "42717",
+    "rule": "r33",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490607,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.88",
+    "sport": "19667",
+    "dst": "203.0.113.163",
+    "dport": "443",
+    "bytes": "40536",
+    "rule": "r26",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.88",
+    "src_port": "19667",
+    "dest": "203.0.113.163",
+    "dest_port": "443",
+    "bytes": "40536",
+    "rule": "r26",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490628,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "192.0.2.39",
+    "sport": "1359",
+    "dst": "203.0.113.164",
+    "dport": "123",
+    "bytes": "148795",
+    "rule": "r26",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "192.0.2.39",
+    "src_port": "1359",
+    "dest": "203.0.113.164",
+    "dest_port": "123",
+    "bytes": "148795",
+    "rule": "r26",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490682,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "192.0.2.83",
+    "sport": "12567",
+    "dst": "203.0.113.67",
+    "dport": "443",
+    "bytes": "39959",
+    "rule": "r28",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "192.0.2.83",
+    "src_port": "12567",
+    "dest": "203.0.113.67",
+    "dest_port": "443",
+    "bytes": "39959",
+    "rule": "r28",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490687,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "192.0.2.219",
+    "sport": "58061",
+    "dst": "203.0.113.24",
+    "dport": "53",
+    "bytes": "89843",
+    "rule": "r22",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "192.0.2.219",
+    "src_port": "58061",
+    "dest": "203.0.113.24",
+    "dest_port": "53",
+    "bytes": "89843",
+    "rule": "r22",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490714,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.239",
+    "sport": "41091",
+    "dst": "203.0.113.205",
+    "dport": "443",
+    "bytes": "137415",
+    "rule": "r10",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.239",
+    "src_port": "41091",
+    "dest": "203.0.113.205",
+    "dest_port": "443",
+    "bytes": "137415",
+    "rule": "r10",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490749,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.112",
+    "sport": "34554",
+    "dst": "203.0.113.51",
+    "dport": "443",
+    "bytes": "72324",
+    "rule": "r15",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.112",
+    "src_port": "34554",
+    "dest": "203.0.113.51",
+    "dest_port": "443",
+    "bytes": "72324",
+    "rule": "r15",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490797,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.77",
+    "sport": "37584",
+    "dst": "203.0.113.252",
+    "dport": "443",
+    "bytes": "7176",
+    "rule": "r35",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.77",
+    "src_port": "37584",
+    "dest": "203.0.113.252",
+    "dest_port": "443",
+    "bytes": "7176",
+    "rule": "r35",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490810,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "192.0.2.161",
+    "sport": "10941",
+    "dst": "203.0.113.195",
+    "dport": "123",
+    "bytes": "57310",
+    "rule": "r15",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "192.0.2.161",
+    "src_port": "10941",
+    "dest": "203.0.113.195",
+    "dest_port": "123",
+    "bytes": "57310",
+    "rule": "r15",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490860,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.117",
+    "sport": "38306",
+    "dst": "203.0.113.138",
+    "dport": "123",
+    "bytes": "138625",
+    "rule": "r39",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.117",
+    "src_port": "38306",
+    "dest": "203.0.113.138",
+    "dest_port": "123",
+    "bytes": "138625",
+    "rule": "r39",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490872,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "192.0.2.164",
+    "sport": "44961",
+    "dst": "203.0.113.89",
+    "dport": "123",
+    "bytes": "139749",
+    "rule": "r12",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "192.0.2.164",
+    "src_port": "44961",
+    "dest": "203.0.113.89",
+    "dest_port": "123",
+    "bytes": "139749",
+    "rule": "r12",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490891,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "198.51.100.113",
+    "sport": "29976",
+    "dst": "203.0.113.222",
+    "dport": "443",
+    "bytes": "145200",
+    "rule": "r38",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "198.51.100.113",
+    "src_port": "29976",
+    "dest": "203.0.113.222",
+    "dest_port": "443",
+    "bytes": "145200",
+    "rule": "r38",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490921,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "198.51.100.140",
+    "sport": "6609",
+    "dst": "203.0.113.246",
+    "dport": "123",
+    "bytes": "148151",
+    "rule": "r14",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "198.51.100.140",
+    "src_port": "6609",
+    "dest": "203.0.113.246",
+    "dest_port": "123",
+    "bytes": "148151",
+    "rule": "r14",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490967,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "198.51.100.171",
+    "sport": "44600",
+    "dst": "203.0.113.210",
+    "dport": "123",
+    "bytes": "148449",
+    "rule": "r12",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "198.51.100.171",
+    "src_port": "44600",
+    "dest": "203.0.113.210",
+    "dest_port": "123",
+    "bytes": "148449",
+    "rule": "r12",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491022,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.240",
+    "sport": "34822",
+    "dst": "203.0.113.80",
+    "dport": "53",
+    "bytes": "59428",
+    "rule": "r5",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.240",
+    "src_port": "34822",
+    "dest": "203.0.113.80",
+    "dest_port": "53",
+    "bytes": "59428",
+    "rule": "r5",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491079,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.127",
+    "sport": "8005",
+    "dst": "203.0.113.162",
+    "dport": "80",
+    "bytes": "147450",
+    "rule": "r40",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.127",
+    "src_port": "8005",
+    "dest": "203.0.113.162",
+    "dest_port": "80",
+    "bytes": "147450",
+    "rule": "r40",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491095,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "192.0.2.107",
+    "sport": "41134",
+    "dst": "203.0.113.90",
+    "dport": "123",
+    "bytes": "103067",
+    "rule": "r22",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "192.0.2.107",
+    "src_port": "41134",
+    "dest": "203.0.113.90",
+    "dest_port": "123",
+    "bytes": "103067",
+    "rule": "r22",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491114,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.232",
+    "sport": "14298",
+    "dst": "203.0.113.163",
+    "dport": "53",
+    "bytes": "142987",
+    "rule": "r18",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.232",
+    "src_port": "14298",
+    "dest": "203.0.113.163",
+    "dest_port": "53",
+    "bytes": "142987",
+    "rule": "r18",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491144,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.118",
+    "sport": "1924",
+    "dst": "203.0.113.142",
+    "dport": "123",
+    "bytes": "105102",
+    "rule": "r32",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.118",
+    "src_port": "1924",
+    "dest": "203.0.113.142",
+    "dest_port": "123",
+    "bytes": "105102",
+    "rule": "r32",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491184,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.232",
+    "sport": "46322",
+    "dst": "203.0.113.230",
+    "dport": "123",
+    "bytes": "126612",
+    "rule": "r11",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.232",
+    "src_port": "46322",
+    "dest": "203.0.113.230",
+    "dest_port": "123",
+    "bytes": "126612",
+    "rule": "r11",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491202,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "192.0.2.201",
+    "sport": "43792",
+    "dst": "203.0.113.9",
+    "dport": "443",
+    "bytes": "77266",
+    "rule": "r22",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "192.0.2.201",
+    "src_port": "43792",
+    "dest": "203.0.113.9",
+    "dest_port": "443",
+    "bytes": "77266",
+    "rule": "r22",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491227,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "192.0.2.39",
+    "sport": "23001",
+    "dst": "203.0.113.198",
+    "dport": "443",
+    "bytes": "129214",
+    "rule": "r9",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "192.0.2.39",
+    "src_port": "23001",
+    "dest": "203.0.113.198",
+    "dest_port": "443",
+    "bytes": "129214",
+    "rule": "r9",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491279,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "198.51.100.92",
+    "sport": "11740",
+    "dst": "203.0.113.45",
+    "dport": "443",
+    "bytes": "3953",
+    "rule": "r3",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "198.51.100.92",
+    "src_port": "11740",
+    "dest": "203.0.113.45",
+    "dest_port": "443",
+    "bytes": "3953",
+    "rule": "r3",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491297,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.127",
+    "sport": "1992",
+    "dst": "203.0.113.41",
+    "dport": "443",
+    "bytes": "59435",
+    "rule": "r15",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.127",
+    "src_port": "1992",
+    "dest": "203.0.113.41",
+    "dest_port": "443",
+    "bytes": "59435",
+    "rule": "r15",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491337,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "udp",
+    "src": "192.0.2.140",
+    "sport": "37832",
+    "dst": "203.0.113.111",
+    "dport": "123",
+    "bytes": "59888",
+    "rule": "r2",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "udp",
+    "src": "192.0.2.140",
+    "src_port": "37832",
+    "dest": "203.0.113.111",
+    "dest_port": "123",
+    "bytes": "59888",
+    "rule": "r2",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491358,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "198.51.100.230",
+    "sport": "6481",
+    "dst": "203.0.113.217",
+    "dport": "53",
+    "bytes": "55762",
+    "rule": "r33",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "198.51.100.230",
+    "src_port": "6481",
+    "dest": "203.0.113.217",
+    "dest_port": "53",
+    "bytes": "55762",
+    "rule": "r33",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491388,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "192.0.2.208",
+    "sport": "38613",
+    "dst": "203.0.113.254",
+    "dport": "123",
+    "bytes": "83503",
+    "rule": "r17",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "192.0.2.208",
+    "src_port": "38613",
+    "dest": "203.0.113.254",
+    "dest_port": "123",
+    "bytes": "83503",
+    "rule": "r17",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491404,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "udp",
+    "src": "198.51.100.132",
+    "sport": "8240",
+    "dst": "203.0.113.101",
+    "dport": "123",
+    "bytes": "86084",
+    "rule": "r33",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "udp",
+    "src": "198.51.100.132",
+    "src_port": "8240",
+    "dest": "203.0.113.101",
+    "dest_port": "123",
+    "bytes": "86084",
+    "rule": "r33",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491448,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "198.51.100.166",
+    "sport": "9869",
+    "dst": "203.0.113.55",
+    "dport": "80",
+    "bytes": "44435",
+    "rule": "r9",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "198.51.100.166",
+    "src_port": "9869",
+    "dest": "203.0.113.55",
+    "dest_port": "80",
+    "bytes": "44435",
+    "rule": "r9",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491473,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "198.51.100.86",
+    "sport": "37309",
+    "dst": "203.0.113.70",
+    "dport": "80",
+    "bytes": "49688",
+    "rule": "r28",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "198.51.100.86",
+    "src_port": "37309",
+    "dest": "203.0.113.70",
+    "dest_port": "80",
+    "bytes": "49688",
+    "rule": "r28",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491503,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "udp",
+    "src": "198.51.100.128",
+    "sport": "14812",
+    "dst": "203.0.113.34",
+    "dport": "53",
+    "bytes": "12892",
+    "rule": "r6",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "udp",
+    "src": "198.51.100.128",
+    "src_port": "14812",
+    "dest": "203.0.113.34",
+    "dest_port": "53",
+    "bytes": "12892",
+    "rule": "r6",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491508,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "198.51.100.91",
+    "sport": "37544",
+    "dst": "203.0.113.90",
+    "dport": "80",
+    "bytes": "120070",
+    "rule": "r3",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "198.51.100.91",
+    "src_port": "37544",
+    "dest": "203.0.113.90",
+    "dest_port": "80",
+    "bytes": "120070",
+    "rule": "r3",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491531,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.251",
+    "sport": "59231",
+    "dst": "203.0.113.222",
+    "dport": "80",
+    "bytes": "38184",
+    "rule": "r3",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.251",
+    "src_port": "59231",
+    "dest": "203.0.113.222",
+    "dest_port": "80",
+    "bytes": "38184",
+    "rule": "r3",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491559,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "192.0.2.151",
+    "sport": "33685",
+    "dst": "203.0.113.7",
+    "dport": "443",
+    "bytes": "119893",
+    "rule": "r13",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "192.0.2.151",
+    "src_port": "33685",
+    "dest": "203.0.113.7",
+    "dest_port": "443",
+    "bytes": "119893",
+    "rule": "r13",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491591,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "192.0.2.24",
+    "sport": "19280",
+    "dst": "203.0.113.112",
+    "dport": "443",
+    "bytes": "133769",
+    "rule": "r31",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "192.0.2.24",
+    "src_port": "19280",
+    "dest": "203.0.113.112",
+    "dest_port": "443",
+    "bytes": "133769",
+    "rule": "r31",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491599,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.212",
+    "sport": "22298",
+    "dst": "203.0.113.95",
+    "dport": "53",
+    "bytes": "13740",
+    "rule": "r16",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.212",
+    "src_port": "22298",
+    "dest": "203.0.113.95",
+    "dest_port": "53",
+    "bytes": "13740",
+    "rule": "r16",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491606,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "192.0.2.181",
+    "sport": "26481",
+    "dst": "203.0.113.185",
+    "dport": "123",
+    "bytes": "116452",
+    "rule": "r36",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "192.0.2.181",
+    "src_port": "26481",
+    "dest": "203.0.113.185",
+    "dest_port": "123",
+    "bytes": "116452",
+    "rule": "r36",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491657,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "udp",
+    "src": "192.0.2.96",
+    "sport": "41931",
+    "dst": "203.0.113.105",
+    "dport": "53",
+    "bytes": "143988",
+    "rule": "r18",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "udp",
+    "src": "192.0.2.96",
+    "src_port": "41931",
+    "dest": "203.0.113.105",
+    "dest_port": "53",
+    "bytes": "143988",
+    "rule": "r18",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491662,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "192.0.2.114",
+    "sport": "64605",
+    "dst": "203.0.113.206",
+    "dport": "53",
+    "bytes": "124959",
+    "rule": "r18",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "192.0.2.114",
+    "src_port": "64605",
+    "dest": "203.0.113.206",
+    "dest_port": "53",
+    "bytes": "124959",
+    "rule": "r18",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491703,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.110",
+    "sport": "51421",
+    "dst": "203.0.113.224",
+    "dport": "443",
+    "bytes": "62606",
+    "rule": "r12",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.110",
+    "src_port": "51421",
+    "dest": "203.0.113.224",
+    "dest_port": "443",
+    "bytes": "62606",
+    "rule": "r12",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491706,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.134",
+    "sport": "27455",
+    "dst": "203.0.113.48",
+    "dport": "443",
+    "bytes": "60968",
+    "rule": "r36",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.134",
+    "src_port": "27455",
+    "dest": "203.0.113.48",
+    "dest_port": "443",
+    "bytes": "60968",
+    "rule": "r36",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491750,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.250",
+    "sport": "39615",
+    "dst": "203.0.113.167",
+    "dport": "123",
+    "bytes": "9688",
+    "rule": "r26",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.250",
+    "src_port": "39615",
+    "dest": "203.0.113.167",
+    "dest_port": "123",
+    "bytes": "9688",
+    "rule": "r26",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491802,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "192.0.2.200",
+    "sport": "8452",
+    "dst": "203.0.113.35",
+    "dport": "443",
+    "bytes": "127192",
+    "rule": "r9",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "192.0.2.200",
+    "src_port": "8452",
+    "dest": "203.0.113.35",
+    "dest_port": "443",
+    "bytes": "127192",
+    "rule": "r9",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491824,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "192.0.2.9",
+    "sport": "30790",
+    "dst": "203.0.113.132",
+    "dport": "443",
+    "bytes": "55133",
+    "rule": "r1",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "192.0.2.9",
+    "src_port": "30790",
+    "dest": "203.0.113.132",
+    "dest_port": "443",
+    "bytes": "55133",
+    "rule": "r1",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491839,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "198.51.100.120",
+    "sport": "44234",
+    "dst": "203.0.113.152",
+    "dport": "123",
+    "bytes": "118159",
+    "rule": "r11",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "198.51.100.120",
+    "src_port": "44234",
+    "dest": "203.0.113.152",
+    "dest_port": "123",
+    "bytes": "118159",
+    "rule": "r11",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491870,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.94",
+    "sport": "60936",
+    "dst": "203.0.113.101",
+    "dport": "123",
+    "bytes": "82353",
+    "rule": "r16",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.94",
+    "src_port": "60936",
+    "dest": "203.0.113.101",
+    "dest_port": "123",
+    "bytes": "82353",
+    "rule": "r16",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491903,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.35",
+    "sport": "33380",
+    "dst": "203.0.113.106",
+    "dport": "53",
+    "bytes": "67140",
+    "rule": "r21",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.35",
+    "src_port": "33380",
+    "dest": "203.0.113.106",
+    "dest_port": "53",
+    "bytes": "67140",
+    "rule": "r21",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491941,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.54",
+    "sport": "43001",
+    "dst": "203.0.113.166",
+    "dport": "443",
+    "bytes": "141221",
+    "rule": "r24",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.54",
+    "src_port": "43001",
+    "dest": "203.0.113.166",
+    "dest_port": "443",
+    "bytes": "141221",
+    "rule": "r24",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491968,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "192.0.2.83",
+    "sport": "48727",
+    "dst": "203.0.113.122",
+    "dport": "443",
+    "bytes": "119511",
+    "rule": "r4",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "192.0.2.83",
+    "src_port": "48727",
+    "dest": "203.0.113.122",
+    "dest_port": "443",
+    "bytes": "119511",
+    "rule": "r4",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491992,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "udp",
+    "src": "198.51.100.81",
+    "sport": "60334",
+    "dst": "203.0.113.180",
+    "dport": "80",
+    "bytes": "86339",
+    "rule": "r31",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "udp",
+    "src": "198.51.100.81",
+    "src_port": "60334",
+    "dest": "203.0.113.180",
+    "dest_port": "80",
+    "bytes": "86339",
+    "rule": "r31",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491998,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "192.0.2.47",
+    "sport": "62338",
+    "dst": "203.0.113.140",
+    "dport": "123",
+    "bytes": "100479",
+    "rule": "r2",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "192.0.2.47",
+    "src_port": "62338",
+    "dest": "203.0.113.140",
+    "dest_port": "123",
+    "bytes": "100479",
+    "rule": "r2",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792492019,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "192.0.2.57",
+    "sport": "57600",
+    "dst": "203.0.113.77",
+    "dport": "443",
+    "bytes": "148266",
+    "rule": "r37",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "192.0.2.57",
+    "src_port": "57600",
+    "dest": "203.0.113.77",
+    "dest_port": "443",
+    "bytes": "148266",
+    "rule": "r37",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792492055,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.215",
+    "sport": "1913",
+    "dst": "203.0.113.205",
+    "dport": "53",
+    "bytes": "540",
+    "rule": "r7",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.215",
+    "src_port": "1913",
+    "dest": "203.0.113.205",
+    "dest_port": "53",
+    "bytes": "540",
+    "rule": "r7",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792492085,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.239",
+    "sport": "43855",
+    "dst": "203.0.113.140",
+    "dport": "80",
+    "bytes": "55143",
+    "rule": "r27",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.239",
+    "src_port": "43855",
+    "dest": "203.0.113.140",
+    "dest_port": "80",
+    "bytes": "55143",
+    "rule": "r27",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792492096,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.121",
+    "sport": "9086",
+    "dst": "203.0.113.100",
+    "dport": "123",
+    "bytes": "94272",
+    "rule": "r4",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.121",
+    "src_port": "9086",
+    "dest": "203.0.113.100",
+    "dest_port": "123",
+    "bytes": "94272",
+    "rule": "r4",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792492108,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "udp",
+    "src": "198.51.100.31",
+    "sport": "25464",
+    "dst": "203.0.113.6",
+    "dport": "80",
+    "bytes": "63863",
+    "rule": "r12",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "udp",
+    "src": "198.51.100.31",
+    "src_port": "25464",
+    "dest": "203.0.113.6",
+    "dest_port": "80",
+    "bytes": "63863",
+    "rule": "r12",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792492166,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "198.51.100.60",
+    "sport": "10826",
+    "dst": "203.0.113.240",
+    "dport": "53",
+    "bytes": "19726",
+    "rule": "r39",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "198.51.100.60",
+    "src_port": "10826",
+    "dest": "203.0.113.240",
+    "dest_port": "53",
+    "bytes": "19726",
+    "rule": "r39",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792492172,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "192.0.2.142",
+    "sport": "64797",
+    "dst": "203.0.113.40",
+    "dport": "80",
+    "bytes": "9631",
+    "rule": "r19",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "192.0.2.142",
+    "src_port": "64797",
+    "dest": "203.0.113.40",
+    "dest_port": "80",
+    "bytes": "9631",
+    "rule": "r19",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792492182,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "192.0.2.5",
+    "sport": "52771",
+    "dst": "203.0.113.63",
+    "dport": "443",
+    "bytes": "28872",
+    "rule": "r38",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "192.0.2.5",
+    "src_port": "52771",
+    "dest": "203.0.113.63",
+    "dest_port": "443",
+    "bytes": "28872",
+    "rule": "r38",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792492208,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.83",
+    "sport": "15981",
+    "dst": "203.0.113.195",
+    "dport": "80",
+    "bytes": "3752",
+    "rule": "r16",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.83",
+    "src_port": "15981",
+    "dest": "203.0.113.195",
+    "dest_port": "80",
+    "bytes": "3752",
+    "rule": "r16",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792492263,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.145",
+    "sport": "39197",
+    "dst": "203.0.113.154",
+    "dport": "80",
+    "bytes": "117463",
+    "rule": "r40",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.145",
+    "src_port": "39197",
+    "dest": "203.0.113.154",
+    "dest_port": "80",
+    "bytes": "117463",
+    "rule": "r40",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792492276,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.79",
+    "sport": "40997",
+    "dst": "203.0.113.203",
+    "dport": "443",
+    "bytes": "136824",
+    "rule": "r11",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.79",
+    "src_port": "40997",
+    "dest": "203.0.113.203",
+    "dest_port": "443",
+    "bytes": "136824",
+    "rule": "r11",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792492292,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.251",
+    "sport": "26029",
+    "dst": "203.0.113.229",
+    "dport": "443",
+    "bytes": "44517",
+    "rule": "r39",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.251",
+    "src_port": "26029",
+    "dest": "203.0.113.229",
+    "dest_port": "443",
+    "bytes": "44517",
+    "rule": "r39",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792492314,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.26",
+    "sport": "13238",
+    "dst": "203.0.113.181",
+    "dport": "53",
+    "bytes": "2251",
+    "rule": "r5",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.26",
+    "src_port": "13238",
+    "dest": "203.0.113.181",
+    "dest_port": "53",
+    "bytes": "2251",
+    "rule": "r5",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792492336,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "192.0.2.105",
+    "sport": "43146",
+    "dst": "203.0.113.177",
+    "dport": "53",
+    "bytes": "138448",
+    "rule": "r27",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "192.0.2.105",
+    "src_port": "43146",
+    "dest": "203.0.113.177",
+    "dest_port": "53",
+    "bytes": "138448",
+    "rule": "r27",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792492377,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.221",
+    "sport": "3834",
+    "dst": "203.0.113.159",
+    "dport": "443",
+    "bytes": "71489",
+    "rule": "r31",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.221",
+    "src_port": "3834",
+    "dest": "203.0.113.159",
+    "dest_port": "443",
+    "bytes": "71489",
+    "rule": "r31",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792492404,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.98",
+    "sport": "12643",
+    "dst": "203.0.113.242",
+    "dport": "53",
+    "bytes": "20444",
+    "rule": "r16",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.98",
+    "src_port": "12643",
+    "dest": "203.0.113.242",
+    "dest_port": "53",
+    "bytes": "20444",
+    "rule": "r16",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792492425,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "udp",
+    "src": "192.0.2.49",
+    "sport": "51824",
+    "dst": "203.0.113.178",
+    "dport": "443",
+    "bytes": "124241",
+    "rule": "r26",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "udp",
+    "src": "192.0.2.49",
+    "src_port": "51824",
+    "dest": "203.0.113.178",
+    "dest_port": "443",
+    "bytes": "124241",
+    "rule": "r26",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792492430,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "198.51.100.44",
+    "sport": "21315",
+    "dst": "203.0.113.238",
+    "dport": "53",
+    "bytes": "115396",
+    "rule": "r3",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "198.51.100.44",
+    "src_port": "21315",
+    "dest": "203.0.113.238",
+    "dest_port": "53",
+    "bytes": "115396",
+    "rule": "r3",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792492455,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.156",
+    "sport": "57767",
+    "dst": "203.0.113.141",
+    "dport": "80",
+    "bytes": "32622",
+    "rule": "r9",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.156",
+    "src_port": "57767",
+    "dest": "203.0.113.141",
+    "dest_port": "80",
+    "bytes": "32622",
+    "rule": "r9",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792492466,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "udp",
+    "src": "192.0.2.99",
+    "sport": "39978",
+    "dst": "203.0.113.73",
+    "dport": "80",
+    "bytes": "68754",
+    "rule": "r34",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "udp",
+    "src": "192.0.2.99",
+    "src_port": "39978",
+    "dest": "203.0.113.73",
+    "dest_port": "80",
+    "bytes": "68754",
+    "rule": "r34",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792492475,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "udp",
+    "src": "192.0.2.73",
+    "sport": "56646",
+    "dst": "203.0.113.48",
+    "dport": "123",
+    "bytes": "106387",
+    "rule": "r30",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "udp",
+    "src": "192.0.2.73",
+    "src_port": "56646",
+    "dest": "203.0.113.48",
+    "dest_port": "123",
+    "bytes": "106387",
+    "rule": "r30",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792492501,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.131",
+    "sport": "5834",
+    "dst": "203.0.113.159",
+    "dport": "80",
+    "bytes": "61976",
+    "rule": "r37",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.131",
+    "src_port": "5834",
+    "dest": "203.0.113.159",
+    "dest_port": "80",
+    "bytes": "61976",
+    "rule": "r37",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792492535,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.8",
+    "sport": "61288",
+    "dst": "203.0.113.90",
+    "dport": "80",
+    "bytes": "52638",
+    "rule": "r26",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.8",
+    "src_port": "61288",
+    "dest": "203.0.113.90",
+    "dest_port": "80",
+    "bytes": "52638",
+    "rule": "r26",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792492566,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.56",
+    "sport": "61008",
+    "dst": "203.0.113.174",
+    "dport": "53",
+    "bytes": "94564",
+    "rule": "r33",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.56",
+    "src_port": "61008",
+    "dest": "203.0.113.174",
+    "dest_port": "53",
+    "bytes": "94564",
+    "rule": "r33",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792492606,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "tcp",
+    "src": "198.51.100.245",
+    "sport": "57693",
+    "dst": "203.0.113.122",
+    "dport": "123",
+    "bytes": "73803",
+    "rule": "r39",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "tcp",
+    "src": "198.51.100.245",
+    "src_port": "57693",
+    "dest": "203.0.113.122",
+    "dest_port": "123",
+    "bytes": "73803",
+    "rule": "r39",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792492665,
+   "category": "network_traffic",
+   "fields": {
+    "action": "drop",
+    "proto": "udp",
+    "src": "192.0.2.23",
+    "sport": "32031",
+    "dst": "203.0.113.134",
+    "dport": "80",
+    "bytes": "67956",
+    "rule": "r34",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "blocked",
+    "transport": "udp",
+    "src": "192.0.2.23",
+    "src_port": "32031",
+    "dest": "203.0.113.134",
+    "dest_port": "80",
+    "bytes": "67956",
+    "rule": "r34",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792492705,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "198.51.100.249",
+    "sport": "20911",
+    "dst": "203.0.113.119",
+    "dport": "80",
+    "bytes": "107893",
+    "rule": "r12",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "198.51.100.249",
+    "src_port": "20911",
+    "dest": "203.0.113.119",
+    "dest_port": "80",
+    "bytes": "107893",
+    "rule": "r12",
+    "dvc": "fw01.example.com"
+   }
+  },
+  {
+   "epoch": 1792492735,
+   "category": "network_traffic",
+   "fields": {
+    "action": "accept",
+    "proto": "tcp",
+    "src": "192.0.2.124",
+    "sport": "7198",
+    "dst": "203.0.113.244",
+    "dport": "443",
+    "bytes": "93989",
+    "rule": "r17",
+    "dvc": "fw01.example.com"
+   },
+   "cim": {
+    "action": "allowed",
+    "transport": "tcp",
+    "src": "192.0.2.124",
+    "src_port": "7198",
+    "dest": "203.0.113.244",
+    "dest_port": "443",
+    "bytes": "93989",
+    "rule": "r17",
+    "dvc": "fw01.example.com"
+   }
+  }
+ ]
+}

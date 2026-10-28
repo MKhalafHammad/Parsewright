@@ -29,6 +29,7 @@ def truth(manifest, shift=0):
 
 def go(sample, pkgs, llm, splunk, **kw):
     lines: list[str] = []
+    kw.setdefault("stages", ("index-time",))
     result = run(sample, llm, splunk, "pw_test", pkgs, out=lines.append, **kw)
     return result, "\n".join(lines)
 
@@ -37,7 +38,7 @@ def test_pass_on_first_attempt(sample, pkgs, tmp_path, manifest):
     splunk = FakeSplunk([truth(manifest)])
     result, log = go(sample, pkgs, fake_llm(tmp_path, [PROFILE, proposal()]), splunk)
     assert result.status == "passed" and result.attempts == 1
-    assert "index-time: PASS (event count 60/60, attempt 1)" in log
+    assert "index-time: PASS (event count 300/300, attempt 1)" in log
     app = splunk.installed[0].app
     assert app.startswith("TA-parsewright-acme-vpn_gateway__test_")
     assert splunk.ingested == [("pw_test", result.sourcetype)]

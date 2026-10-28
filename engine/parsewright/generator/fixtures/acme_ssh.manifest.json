@@ -1,0 +1,6011 @@
+{
+ "source": "acme_ssh.log",
+ "synthetic": true,
+ "notes": "syslog, no year and no timezone (logs are UTC; give --tz UTC)",
+ "true_timezone": "UTC",
+ "event_count": 300,
+ "epochs": [
+  1792483236,
+  1792483265,
+  1792483319,
+  1792483341,
+  1792483367,
+  1792483388,
+  1792483402,
+  1792483454,
+  1792483502,
+  1792483550,
+  1792483587,
+  1792483632,
+  1792483652,
+  1792483662,
+  1792483666,
+  1792483684,
+  1792483711,
+  1792483766,
+  1792483816,
+  1792483845,
+  1792483864,
+  1792483922,
+  1792483957,
+  1792484011,
+  1792484034,
+  1792484077,
+  1792484134,
+  1792484180,
+  1792484229,
+  1792484257,
+  1792484268,
+  1792484306,
+  1792484312,
+  1792484323,
+  1792484378,
+  1792484431,
+  1792484490,
+  1792484505,
+  1792484517,
+  1792484576,
+  1792484624,
+  1792484661,
+  1792484699,
+  1792484753,
+  1792484799,
+  1792484815,
+  1792484839,
+  1792484876,
+  1792484886,
+  1792484945,
+  1792484993,
+  1792485036,
+  1792485043,
+  1792485065,
+  1792485094,
+  1792485102,
+  1792485137,
+  1792485194,
+  1792485227,
+  1792485270,
+  1792485311,
+  1792485323,
+  1792485369,
+  1792485423,
+  1792485452,
+  1792485507,
+  1792485542,
+  1792485566,
+  1792485570,
+  1792485600,
+  1792485626,
+  1792485665,
+  1792485671,
+  1792485731,
+  1792485782,
+  1792485832,
+  1792485857,
+  1792485863,
+  1792485896,
+  1792485922,
+  1792485962,
+  1792486014,
+  1792486017,
+  1792486075,
+  1792486103,
+  1792486121,
+  1792486131,
+  1792486169,
+  1792486185,
+  1792486203,
+  1792486239,
+  1792486265,
+  1792486271,
+  1792486291,
+  1792486298,
+  1792486351,
+  1792486371,
+  1792486386,
+  1792486436,
+  1792486477,
+  1792486533,
+  1792486571,
+  1792486608,
+  1792486646,
+  1792486706,
+  1792486717,
+  1792486736,
+  1792486781,
+  1792486803,
+  1792486828,
+  1792486851,
+  1792486864,
+  1792486888,
+  1792486897,
+  1792486936,
+  1792486976,
+  1792487029,
+  1792487049,
+  1792487073,
+  1792487076,
+  1792487082,
+  1792487133,
+  1792487158,
+  1792487162,
+  1792487194,
+  1792487244,
+  1792487264,
+  1792487297,
+  1792487340,
+  1792487346,
+  1792487395,
+  1792487410,
+  1792487432,
+  1792487451,
+  1792487458,
+  1792487508,
+  1792487556,
+  1792487590,
+  1792487594,
+  1792487636,
+  1792487675,
+  1792487711,
+  1792487757,
+  1792487768,
+  1792487796,
+  1792487830,
+  1792487879,
+  1792487919,
+  1792487974,
+  1792488002,
+  1792488016,
+  1792488031,
+  1792488050,
+  1792488062,
+  1792488108,
+  1792488118,
+  1792488134,
+  1792488140,
+  1792488196,
+  1792488233,
+  1792488255,
+  1792488309,
+  1792488368,
+  1792488391,
+  1792488445,
+  1792488468,
+  1792488474,
+  1792488487,
+  1792488516,
+  1792488524,
+  1792488571,
+  1792488623,
+  1792488645,
+  1792488701,
+  1792488720,
+  1792488765,
+  1792488793,
+  1792488826,
+  1792488833,
+  1792488870,
+  1792488878,
+  1792488915,
+  1792488958,
+  1792488976,
+  1792488993,
+  1792489030,
+  1792489049,
+  1792489088,
+  1792489101,
+  1792489155,
+  1792489176,
+  1792489182,
+  1792489231,
+  1792489290,
+  1792489324,
+  1792489364,
+  1792489392,
+  1792489447,
+  1792489481,
+  1792489498,
+  1792489536,
+  1792489565,
+  1792489601,
+  1792489644,
+  1792489675,
+  1792489682,
+  1792489714,
+  1792489765,
+  1792489781,
+  1792489798,
+  1792489831,
+  1792489854,
+  1792489909,
+  1792489924,
+  1792489950,
+  1792489991,
+  1792489995,
+  1792490045,
+  1792490084,
+  1792490123,
+  1792490159,
+  1792490189,
+  1792490195,
+  1792490255,
+  1792490311,
+  1792490335,
+  1792490375,
+  1792490388,
+  1792490426,
+  1792490443,
+  1792490485,
+  1792490508,
+  1792490534,
+  1792490548,
+  1792490599,
+  1792490615,
+  1792490637,
+  1792490667,
+  1792490692,
+  1792490723,
+  1792490763,
+  1792490771,
+  1792490807,
+  1792490816,
+  1792490852,
+  1792490855,
+  1792490870,
+  1792490909,
+  1792490969,
+  1792491017,
+  1792491055,
+  1792491106,
+  1792491120,
+  1792491151,
+  1792491183,
+  1792491214,
+  1792491271,
+  1792491306,
+  1792491317,
+  1792491354,
+  1792491392,
+  1792491425,
+  1792491456,
+  1792491459,
+  1792491480,
+  1792491499,
+  1792491513,
+  1792491516,
+  1792491571,
+  1792491631,
+  1792491663,
+  1792491687,
+  1792491738,
+  1792491762,
+  1792491778,
+  1792491784,
+  1792491804,
+  1792491813,
+  1792491849,
+  1792491894,
+  1792491941,
+  1792491944,
+  1792491948,
+  1792491958,
+  1792491991,
+  1792492039,
+  1792492099,
+  1792492121,
+  1792492163,
+  1792492179,
+  1792492231,
+  1792492240,
+  1792492292,
+  1792492347,
+  1792492403,
+  1792492407,
+  1792492439,
+  1792492476,
+  1792492531,
+  1792492582
+ ],
+ "events": [
+  {
+   "epoch": 1792483236,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "8014",
+    "user": "bob",
+    "src": "192.0.2.218",
+    "port": "27237",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "bob",
+    "src": "192.0.2.218",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792483265,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "5414",
+    "user": "alice",
+    "src": "192.0.2.49",
+    "port": "64881",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice",
+    "src": "192.0.2.49",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792483319,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "7826",
+    "user": "carol",
+    "src": "198.51.100.241",
+    "port": "36658",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol",
+    "src": "198.51.100.241",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792483341,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "2325",
+    "user": "dave",
+    "src": "192.0.2.135",
+    "port": "50186",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "dave",
+    "src": "192.0.2.135",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792483367,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "6331",
+    "user": "frank",
+    "src": "192.0.2.161",
+    "port": "48919",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "frank",
+    "src": "192.0.2.161",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792483388,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "4985",
+    "user": "carol",
+    "src": "192.0.2.86",
+    "port": "9363",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol",
+    "src": "192.0.2.86",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792483402,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "2207",
+    "user": "dave",
+    "src": "198.51.100.114",
+    "port": "9192",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave",
+    "src": "198.51.100.114",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792483454,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "6989",
+    "user": "frank",
+    "src": "198.51.100.80",
+    "port": "45907",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "frank",
+    "src": "198.51.100.80",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792483502,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "3484",
+    "user": "bob",
+    "src": "192.0.2.130",
+    "port": "64917",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "bob",
+    "src": "192.0.2.130",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792483550,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "7364",
+    "user": "carol",
+    "src": "192.0.2.112",
+    "port": "29697",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol",
+    "src": "192.0.2.112",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792483587,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "9762",
+    "user": "erin",
+    "src": "192.0.2.170",
+    "port": "37673",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "erin",
+    "src": "192.0.2.170",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792483632,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "7670",
+    "user": "carol",
+    "src": "198.51.100.206",
+    "port": "58248",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "carol",
+    "src": "198.51.100.206",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792483652,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "4860",
+    "user": "alice",
+    "src": "192.0.2.44",
+    "port": "60151",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "alice",
+    "src": "192.0.2.44",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792483662,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "9222",
+    "user": "dave",
+    "src": "198.51.100.139",
+    "port": "50704",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave",
+    "src": "198.51.100.139",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792483666,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "9230",
+    "user": "bob",
+    "src": "198.51.100.241",
+    "port": "16923",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "bob",
+    "src": "198.51.100.241",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792483684,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "9072",
+    "user": "bob",
+    "src": "198.51.100.2",
+    "port": "42670",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "bob",
+    "src": "198.51.100.2",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792483711,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "4994",
+    "user": "alice",
+    "src": "198.51.100.23",
+    "port": "59330",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice",
+    "src": "198.51.100.23",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792483766,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "6566",
+    "user": "bob",
+    "src": "192.0.2.239",
+    "port": "20467",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "bob",
+    "src": "192.0.2.239",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792483816,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "5358",
+    "user": "dave",
+    "src": "198.51.100.39",
+    "port": "64197",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave",
+    "src": "198.51.100.39",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792483845,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "9421",
+    "user": "carol",
+    "src": "198.51.100.222",
+    "port": "22358",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "carol",
+    "src": "198.51.100.222",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792483864,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "5218",
+    "user": "frank",
+    "src": "192.0.2.112",
+    "port": "7845",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "frank",
+    "src": "192.0.2.112",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792483922,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "8146",
+    "user": "bob",
+    "src": "192.0.2.55",
+    "port": "36714",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "bob",
+    "src": "192.0.2.55",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792483957,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "4332",
+    "user": "dave",
+    "src": "198.51.100.242",
+    "port": "6184",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave",
+    "src": "198.51.100.242",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792484011,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "1984",
+    "user": "carol",
+    "src": "192.0.2.10",
+    "port": "57973",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol",
+    "src": "192.0.2.10",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792484034,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "5957",
+    "user": "carol",
+    "src": "198.51.100.104",
+    "port": "28756",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol",
+    "src": "198.51.100.104",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792484077,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "4408",
+    "user": "dave",
+    "src": "192.0.2.193",
+    "port": "28215",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave",
+    "src": "192.0.2.193",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792484134,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "7221",
+    "user": "carol",
+    "src": "192.0.2.59",
+    "port": "51117",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol",
+    "src": "192.0.2.59",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792484180,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "9202",
+    "user": "alice",
+    "src": "198.51.100.169",
+    "port": "13975",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice",
+    "src": "198.51.100.169",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792484229,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "2439",
+    "user": "bob",
+    "src": "198.51.100.189",
+    "port": "29972",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "bob",
+    "src": "198.51.100.189",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792484257,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "4731",
+    "user": "bob",
+    "src": "192.0.2.225",
+    "port": "29596",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "bob",
+    "src": "192.0.2.225",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792484268,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "4918",
+    "user": "frank",
+    "src": "198.51.100.97",
+    "port": "32876",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "frank",
+    "src": "198.51.100.97",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792484306,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "9072",
+    "user": "carol",
+    "src": "198.51.100.239",
+    "port": "15056",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "carol",
+    "src": "198.51.100.239",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792484312,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "8888",
+    "user": "alice",
+    "src": "198.51.100.26",
+    "port": "27665",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "alice",
+    "src": "198.51.100.26",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792484323,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "3112",
+    "user": "alice",
+    "src": "192.0.2.128",
+    "port": "3009",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice",
+    "src": "192.0.2.128",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792484378,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "3038",
+    "user": "bob",
+    "src": "192.0.2.66",
+    "port": "10635",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "bob",
+    "src": "192.0.2.66",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792484431,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "5259",
+    "user": "carol",
+    "src": "198.51.100.14",
+    "port": "6761",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "carol",
+    "src": "198.51.100.14",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792484490,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "1554",
+    "user": "erin",
+    "src": "198.51.100.166",
+    "port": "25824",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "erin",
+    "src": "198.51.100.166",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792484505,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "2174",
+    "user": "frank",
+    "src": "192.0.2.182",
+    "port": "36181",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "frank",
+    "src": "192.0.2.182",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792484517,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "8892",
+    "user": "frank",
+    "src": "192.0.2.71",
+    "port": "20327",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "frank",
+    "src": "192.0.2.71",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792484576,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "8314",
+    "user": "bob",
+    "src": "192.0.2.12",
+    "port": "25398",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "bob",
+    "src": "192.0.2.12",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792484624,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "2860",
+    "user": "carol",
+    "src": "198.51.100.94",
+    "port": "65154",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol",
+    "src": "198.51.100.94",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792484661,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "2296",
+    "user": "carol",
+    "src": "192.0.2.218",
+    "port": "26077",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol",
+    "src": "192.0.2.218",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792484699,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "8552",
+    "user": "alice",
+    "src": "198.51.100.241",
+    "port": "8200",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice",
+    "src": "198.51.100.241",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792484753,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "5394",
+    "user": "bob",
+    "src": "192.0.2.141",
+    "port": "54029",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "bob",
+    "src": "192.0.2.141",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792484799,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "4610",
+    "user": "alice",
+    "src": "192.0.2.198",
+    "port": "7325",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice",
+    "src": "192.0.2.198",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792484815,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "1272",
+    "user": "carol",
+    "src": "198.51.100.78",
+    "port": "40734",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol",
+    "src": "198.51.100.78",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792484839,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "2701",
+    "user": "dave",
+    "src": "192.0.2.99",
+    "port": "1227",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave",
+    "src": "192.0.2.99",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792484876,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "1937",
+    "user": "carol",
+    "src": "198.51.100.189",
+    "port": "31119",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "carol",
+    "src": "198.51.100.189",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792484886,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "3013",
+    "user": "dave",
+    "src": "192.0.2.137",
+    "port": "43390",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave",
+    "src": "192.0.2.137",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792484945,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "6279",
+    "user": "frank",
+    "src": "192.0.2.196",
+    "port": "63744",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "frank",
+    "src": "192.0.2.196",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792484993,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "4282",
+    "user": "frank",
+    "src": "192.0.2.219",
+    "port": "11125",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "frank",
+    "src": "192.0.2.219",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792485036,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "7243",
+    "user": "carol",
+    "src": "198.51.100.204",
+    "port": "6616",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol",
+    "src": "198.51.100.204",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792485043,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "5315",
+    "user": "alice",
+    "src": "198.51.100.132",
+    "port": "27899",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice",
+    "src": "198.51.100.132",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792485065,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "3119",
+    "user": "erin",
+    "src": "192.0.2.145",
+    "port": "33897",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "erin",
+    "src": "192.0.2.145",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792485094,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "6200",
+    "user": "frank",
+    "src": "192.0.2.222",
+    "port": "22743",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "frank",
+    "src": "192.0.2.222",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792485102,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "2621",
+    "user": "dave",
+    "src": "198.51.100.203",
+    "port": "62460",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave",
+    "src": "198.51.100.203",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792485137,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "8159",
+    "user": "bob",
+    "src": "198.51.100.54",
+    "port": "29850",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "bob",
+    "src": "198.51.100.54",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792485194,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "1093",
+    "user": "erin",
+    "src": "192.0.2.51",
+    "port": "63972",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "erin",
+    "src": "192.0.2.51",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792485227,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "6926",
+    "user": "carol",
+    "src": "192.0.2.228",
+    "port": "18165",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "carol",
+    "src": "192.0.2.228",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792485270,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "9542",
+    "user": "dave",
+    "src": "198.51.100.181",
+    "port": "4026",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave",
+    "src": "198.51.100.181",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792485311,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "6305",
+    "user": "alice",
+    "src": "192.0.2.161",
+    "port": "36503",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "alice",
+    "src": "192.0.2.161",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792485323,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "3829",
+    "user": "frank",
+    "src": "198.51.100.208",
+    "port": "52336",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "frank",
+    "src": "198.51.100.208",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792485369,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "8250",
+    "user": "carol",
+    "src": "198.51.100.154",
+    "port": "16667",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "carol",
+    "src": "198.51.100.154",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792485423,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "8439",
+    "user": "dave",
+    "src": "192.0.2.33",
+    "port": "2587",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "dave",
+    "src": "192.0.2.33",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792485452,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "1119",
+    "user": "erin",
+    "src": "192.0.2.184",
+    "port": "30177",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "erin",
+    "src": "192.0.2.184",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792485507,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "7535",
+    "user": "alice",
+    "src": "192.0.2.98",
+    "port": "25632",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice",
+    "src": "192.0.2.98",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792485542,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "1296",
+    "user": "alice",
+    "src": "198.51.100.50",
+    "port": "14302",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice",
+    "src": "198.51.100.50",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792485566,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "7918",
+    "user": "erin",
+    "src": "198.51.100.84",
+    "port": "10854",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "erin",
+    "src": "198.51.100.84",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792485570,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "8327",
+    "user": "frank",
+    "src": "198.51.100.67",
+    "port": "47606",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "frank",
+    "src": "198.51.100.67",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792485600,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "5084",
+    "user": "dave",
+    "src": "192.0.2.45",
+    "port": "7919",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave",
+    "src": "192.0.2.45",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792485626,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "5222",
+    "user": "carol",
+    "src": "192.0.2.67",
+    "port": "34936",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "carol",
+    "src": "192.0.2.67",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792485665,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "8422",
+    "user": "carol",
+    "src": "198.51.100.67",
+    "port": "34345",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol",
+    "src": "198.51.100.67",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792485671,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "2711",
+    "user": "carol",
+    "src": "192.0.2.245",
+    "port": "34743",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol",
+    "src": "192.0.2.245",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792485731,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "6805",
+    "user": "alice",
+    "src": "198.51.100.30",
+    "port": "47867",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice",
+    "src": "198.51.100.30",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792485782,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "1156",
+    "user": "carol",
+    "src": "192.0.2.54",
+    "port": "34196",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol",
+    "src": "192.0.2.54",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792485832,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "8533",
+    "user": "dave",
+    "src": "192.0.2.183",
+    "port": "51091",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "dave",
+    "src": "192.0.2.183",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792485857,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "1929",
+    "user": "dave",
+    "src": "198.51.100.86",
+    "port": "35081",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave",
+    "src": "198.51.100.86",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792485863,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "7271",
+    "user": "alice",
+    "src": "192.0.2.17",
+    "port": "41952",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice",
+    "src": "192.0.2.17",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792485896,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "6465",
+    "user": "frank",
+    "src": "192.0.2.40",
+    "port": "55009",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "frank",
+    "src": "192.0.2.40",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792485922,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "6235",
+    "user": "frank",
+    "src": "192.0.2.234",
+    "port": "48897",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "frank",
+    "src": "192.0.2.234",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792485962,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "5802",
+    "user": "dave",
+    "src": "192.0.2.145",
+    "port": "31086",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "dave",
+    "src": "192.0.2.145",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792486014,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "8002",
+    "user": "frank",
+    "src": "198.51.100.56",
+    "port": "12094",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "frank",
+    "src": "198.51.100.56",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792486017,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "9659",
+    "user": "carol",
+    "src": "198.51.100.140",
+    "port": "21357",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol",
+    "src": "198.51.100.140",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792486075,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "1612",
+    "user": "frank",
+    "src": "198.51.100.35",
+    "port": "64401",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "frank",
+    "src": "198.51.100.35",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792486103,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "2868",
+    "user": "alice",
+    "src": "198.51.100.202",
+    "port": "7613",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice",
+    "src": "198.51.100.202",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792486121,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "7063",
+    "user": "erin",
+    "src": "192.0.2.236",
+    "port": "64389",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "erin",
+    "src": "192.0.2.236",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792486131,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "3208",
+    "user": "bob",
+    "src": "198.51.100.217",
+    "port": "40247",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "bob",
+    "src": "198.51.100.217",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792486169,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "7858",
+    "user": "dave",
+    "src": "198.51.100.246",
+    "port": "15291",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave",
+    "src": "198.51.100.246",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792486185,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "4166",
+    "user": "alice",
+    "src": "192.0.2.208",
+    "port": "37260",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "alice",
+    "src": "192.0.2.208",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792486203,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "5486",
+    "user": "erin",
+    "src": "192.0.2.106",
+    "port": "39140",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "erin",
+    "src": "192.0.2.106",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792486239,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "3305",
+    "user": "erin",
+    "src": "198.51.100.137",
+    "port": "12437",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "erin",
+    "src": "198.51.100.137",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792486265,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "2055",
+    "user": "frank",
+    "src": "198.51.100.247",
+    "port": "52158",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "frank",
+    "src": "198.51.100.247",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792486271,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "1148",
+    "user": "frank",
+    "src": "198.51.100.68",
+    "port": "60433",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "frank",
+    "src": "198.51.100.68",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792486291,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "4466",
+    "user": "erin",
+    "src": "192.0.2.105",
+    "port": "45256",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "erin",
+    "src": "192.0.2.105",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792486298,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "6926",
+    "user": "frank",
+    "src": "192.0.2.124",
+    "port": "19647",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "frank",
+    "src": "192.0.2.124",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792486351,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "1530",
+    "user": "carol",
+    "src": "198.51.100.180",
+    "port": "20805",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol",
+    "src": "198.51.100.180",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792486371,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "1531",
+    "user": "bob",
+    "src": "192.0.2.128",
+    "port": "5635",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "bob",
+    "src": "192.0.2.128",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792486386,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "4611",
+    "user": "dave",
+    "src": "198.51.100.221",
+    "port": "55731",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave",
+    "src": "198.51.100.221",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792486436,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "9733",
+    "user": "erin",
+    "src": "198.51.100.70",
+    "port": "61265",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "erin",
+    "src": "198.51.100.70",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792486477,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "7015",
+    "user": "alice",
+    "src": "192.0.2.66",
+    "port": "63330",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice",
+    "src": "192.0.2.66",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792486533,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "8312",
+    "user": "alice",
+    "src": "192.0.2.142",
+    "port": "54844",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice",
+    "src": "192.0.2.142",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792486571,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "7018",
+    "user": "alice",
+    "src": "198.51.100.207",
+    "port": "6911",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice",
+    "src": "198.51.100.207",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792486608,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "5214",
+    "user": "alice",
+    "src": "192.0.2.77",
+    "port": "34643",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "alice",
+    "src": "192.0.2.77",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792486646,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "2564",
+    "user": "erin",
+    "src": "192.0.2.132",
+    "port": "1587",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "erin",
+    "src": "192.0.2.132",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792486706,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "9261",
+    "user": "carol",
+    "src": "198.51.100.253",
+    "port": "42666",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "carol",
+    "src": "198.51.100.253",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792486717,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "3542",
+    "user": "erin",
+    "src": "198.51.100.139",
+    "port": "39060",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "erin",
+    "src": "198.51.100.139",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792486736,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "8485",
+    "user": "carol",
+    "src": "192.0.2.146",
+    "port": "46234",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "carol",
+    "src": "192.0.2.146",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792486781,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "1853",
+    "user": "erin",
+    "src": "198.51.100.29",
+    "port": "59667",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "erin",
+    "src": "198.51.100.29",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792486803,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "5675",
+    "user": "bob",
+    "src": "192.0.2.204",
+    "port": "16293",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "bob",
+    "src": "192.0.2.204",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792486828,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "9824",
+    "user": "dave",
+    "src": "192.0.2.18",
+    "port": "61986",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave",
+    "src": "192.0.2.18",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792486851,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "9059",
+    "user": "dave",
+    "src": "192.0.2.26",
+    "port": "43533",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "dave",
+    "src": "192.0.2.26",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792486864,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "1484",
+    "user": "dave",
+    "src": "192.0.2.133",
+    "port": "27810",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave",
+    "src": "192.0.2.133",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792486888,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "4163",
+    "user": "alice",
+    "src": "192.0.2.69",
+    "port": "22330",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice",
+    "src": "192.0.2.69",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792486897,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "2952",
+    "user": "bob",
+    "src": "192.0.2.99",
+    "port": "47726",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "bob",
+    "src": "192.0.2.99",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792486936,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "6933",
+    "user": "carol",
+    "src": "192.0.2.52",
+    "port": "17935",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "carol",
+    "src": "192.0.2.52",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792486976,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "2394",
+    "user": "erin",
+    "src": "192.0.2.236",
+    "port": "34681",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "erin",
+    "src": "192.0.2.236",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792487029,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "7662",
+    "user": "alice",
+    "src": "198.51.100.231",
+    "port": "20680",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice",
+    "src": "198.51.100.231",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792487049,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "5069",
+    "user": "dave",
+    "src": "198.51.100.151",
+    "port": "14264",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "dave",
+    "src": "198.51.100.151",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792487073,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "5865",
+    "user": "bob",
+    "src": "198.51.100.70",
+    "port": "63541",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "bob",
+    "src": "198.51.100.70",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792487076,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "6558",
+    "user": "bob",
+    "src": "192.0.2.155",
+    "port": "27333",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "bob",
+    "src": "192.0.2.155",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792487082,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "9651",
+    "user": "bob",
+    "src": "198.51.100.199",
+    "port": "2166",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "bob",
+    "src": "198.51.100.199",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792487133,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "7630",
+    "user": "carol",
+    "src": "198.51.100.120",
+    "port": "25348",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol",
+    "src": "198.51.100.120",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792487158,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "7667",
+    "user": "carol",
+    "src": "192.0.2.56",
+    "port": "3570",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol",
+    "src": "192.0.2.56",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792487162,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "8897",
+    "user": "carol",
+    "src": "192.0.2.42",
+    "port": "22401",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol",
+    "src": "192.0.2.42",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792487194,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "4525",
+    "user": "alice",
+    "src": "192.0.2.45",
+    "port": "13674",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "alice",
+    "src": "192.0.2.45",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792487244,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "2004",
+    "user": "alice",
+    "src": "192.0.2.223",
+    "port": "34836",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice",
+    "src": "192.0.2.223",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792487264,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "5105",
+    "user": "bob",
+    "src": "192.0.2.246",
+    "port": "34514",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "bob",
+    "src": "192.0.2.246",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792487297,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "2515",
+    "user": "alice",
+    "src": "192.0.2.89",
+    "port": "58133",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "alice",
+    "src": "192.0.2.89",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792487340,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "6742",
+    "user": "frank",
+    "src": "198.51.100.83",
+    "port": "6191",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "frank",
+    "src": "198.51.100.83",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792487346,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "8798",
+    "user": "carol",
+    "src": "192.0.2.55",
+    "port": "22142",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol",
+    "src": "192.0.2.55",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792487395,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "1873",
+    "user": "dave",
+    "src": "192.0.2.15",
+    "port": "12085",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "dave",
+    "src": "192.0.2.15",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792487410,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "3774",
+    "user": "alice",
+    "src": "192.0.2.88",
+    "port": "35580",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "alice",
+    "src": "192.0.2.88",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792487432,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "1421",
+    "user": "erin",
+    "src": "198.51.100.91",
+    "port": "19295",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "erin",
+    "src": "198.51.100.91",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792487451,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "6317",
+    "user": "dave",
+    "src": "198.51.100.131",
+    "port": "43513",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave",
+    "src": "198.51.100.131",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792487458,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "9251",
+    "user": "bob",
+    "src": "192.0.2.157",
+    "port": "6200",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "bob",
+    "src": "192.0.2.157",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792487508,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "1858",
+    "user": "alice",
+    "src": "198.51.100.121",
+    "port": "52439",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice",
+    "src": "198.51.100.121",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792487556,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "1116",
+    "user": "carol",
+    "src": "192.0.2.59",
+    "port": "2660",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol",
+    "src": "192.0.2.59",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792487590,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "4360",
+    "user": "erin",
+    "src": "192.0.2.148",
+    "port": "6938",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "erin",
+    "src": "192.0.2.148",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792487594,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "3107",
+    "user": "carol",
+    "src": "192.0.2.248",
+    "port": "4878",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "carol",
+    "src": "192.0.2.248",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792487636,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "2089",
+    "user": "bob",
+    "src": "192.0.2.219",
+    "port": "51582",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "bob",
+    "src": "192.0.2.219",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792487675,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "4739",
+    "user": "erin",
+    "src": "192.0.2.187",
+    "port": "45957",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "erin",
+    "src": "192.0.2.187",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792487711,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "4123",
+    "user": "carol",
+    "src": "192.0.2.72",
+    "port": "58349",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol",
+    "src": "192.0.2.72",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792487757,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "7971",
+    "user": "erin",
+    "src": "192.0.2.64",
+    "port": "30562",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "erin",
+    "src": "192.0.2.64",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792487768,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "2638",
+    "user": "dave",
+    "src": "198.51.100.104",
+    "port": "7597",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave",
+    "src": "198.51.100.104",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792487796,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "5447",
+    "user": "frank",
+    "src": "198.51.100.44",
+    "port": "47979",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "frank",
+    "src": "198.51.100.44",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792487830,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "3588",
+    "user": "carol",
+    "src": "192.0.2.174",
+    "port": "4805",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol",
+    "src": "192.0.2.174",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792487879,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "3994",
+    "user": "erin",
+    "src": "192.0.2.220",
+    "port": "27901",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "erin",
+    "src": "192.0.2.220",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792487919,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "6026",
+    "user": "bob",
+    "src": "192.0.2.96",
+    "port": "24072",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "bob",
+    "src": "192.0.2.96",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792487974,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "9066",
+    "user": "dave",
+    "src": "198.51.100.9",
+    "port": "64764",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave",
+    "src": "198.51.100.9",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792488002,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "9328",
+    "user": "carol",
+    "src": "192.0.2.134",
+    "port": "47437",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "carol",
+    "src": "192.0.2.134",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792488016,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "5593",
+    "user": "alice",
+    "src": "192.0.2.149",
+    "port": "38850",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "alice",
+    "src": "192.0.2.149",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792488031,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "5011",
+    "user": "carol",
+    "src": "198.51.100.109",
+    "port": "28102",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol",
+    "src": "198.51.100.109",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792488050,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "5708",
+    "user": "dave",
+    "src": "192.0.2.123",
+    "port": "18321",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave",
+    "src": "192.0.2.123",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792488062,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "6023",
+    "user": "erin",
+    "src": "198.51.100.46",
+    "port": "63340",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "erin",
+    "src": "198.51.100.46",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792488108,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "4414",
+    "user": "alice",
+    "src": "192.0.2.233",
+    "port": "60950",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice",
+    "src": "192.0.2.233",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792488118,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "5252",
+    "user": "frank",
+    "src": "192.0.2.135",
+    "port": "35436",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "frank",
+    "src": "192.0.2.135",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792488134,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "9880",
+    "user": "carol",
+    "src": "192.0.2.93",
+    "port": "24121",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "carol",
+    "src": "192.0.2.93",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792488140,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "8015",
+    "user": "frank",
+    "src": "192.0.2.207",
+    "port": "57399",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "frank",
+    "src": "192.0.2.207",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792488196,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "9288",
+    "user": "dave",
+    "src": "198.51.100.32",
+    "port": "11414",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave",
+    "src": "198.51.100.32",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792488233,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "3416",
+    "user": "bob",
+    "src": "192.0.2.98",
+    "port": "34171",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "bob",
+    "src": "192.0.2.98",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792488255,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "3708",
+    "user": "carol",
+    "src": "192.0.2.241",
+    "port": "63368",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol",
+    "src": "192.0.2.241",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792488309,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "4294",
+    "user": "frank",
+    "src": "192.0.2.88",
+    "port": "35369",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "frank",
+    "src": "192.0.2.88",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792488368,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "2605",
+    "user": "frank",
+    "src": "192.0.2.98",
+    "port": "41450",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "frank",
+    "src": "192.0.2.98",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792488391,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "5514",
+    "user": "dave",
+    "src": "192.0.2.233",
+    "port": "33240",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave",
+    "src": "192.0.2.233",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792488445,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "7198",
+    "user": "frank",
+    "src": "198.51.100.236",
+    "port": "33578",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "frank",
+    "src": "198.51.100.236",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792488468,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "5937",
+    "user": "carol",
+    "src": "198.51.100.82",
+    "port": "61358",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol",
+    "src": "198.51.100.82",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792488474,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "1870",
+    "user": "bob",
+    "src": "192.0.2.166",
+    "port": "51475",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "bob",
+    "src": "192.0.2.166",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792488487,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "9728",
+    "user": "alice",
+    "src": "198.51.100.112",
+    "port": "60589",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice",
+    "src": "198.51.100.112",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792488516,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "4374",
+    "user": "bob",
+    "src": "198.51.100.102",
+    "port": "56805",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "bob",
+    "src": "198.51.100.102",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792488524,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "7881",
+    "user": "erin",
+    "src": "192.0.2.158",
+    "port": "34597",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "erin",
+    "src": "192.0.2.158",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792488571,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "4325",
+    "user": "bob",
+    "src": "198.51.100.51",
+    "port": "11586",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "bob",
+    "src": "198.51.100.51",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792488623,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "6016",
+    "user": "alice",
+    "src": "198.51.100.176",
+    "port": "23928",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice",
+    "src": "198.51.100.176",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792488645,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "4582",
+    "user": "frank",
+    "src": "198.51.100.225",
+    "port": "38188",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "frank",
+    "src": "198.51.100.225",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792488701,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "5656",
+    "user": "dave",
+    "src": "192.0.2.44",
+    "port": "38714",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave",
+    "src": "192.0.2.44",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792488720,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "8135",
+    "user": "bob",
+    "src": "192.0.2.130",
+    "port": "21731",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "bob",
+    "src": "192.0.2.130",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792488765,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "7150",
+    "user": "bob",
+    "src": "192.0.2.70",
+    "port": "54749",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "bob",
+    "src": "192.0.2.70",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792488793,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "4715",
+    "user": "carol",
+    "src": "192.0.2.107",
+    "port": "55309",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol",
+    "src": "192.0.2.107",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792488826,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "5469",
+    "user": "frank",
+    "src": "198.51.100.220",
+    "port": "52275",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "frank",
+    "src": "198.51.100.220",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792488833,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "4305",
+    "user": "erin",
+    "src": "198.51.100.75",
+    "port": "55900",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "erin",
+    "src": "198.51.100.75",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792488870,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "5766",
+    "user": "erin",
+    "src": "198.51.100.112",
+    "port": "59584",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "erin",
+    "src": "198.51.100.112",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792488878,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "3216",
+    "user": "alice",
+    "src": "198.51.100.26",
+    "port": "2060",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice",
+    "src": "198.51.100.26",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792488915,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "8777",
+    "user": "dave",
+    "src": "192.0.2.64",
+    "port": "30716",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave",
+    "src": "192.0.2.64",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792488958,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "1823",
+    "user": "dave",
+    "src": "198.51.100.30",
+    "port": "44262",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave",
+    "src": "198.51.100.30",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792488976,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "8605",
+    "user": "alice",
+    "src": "192.0.2.205",
+    "port": "25185",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice",
+    "src": "192.0.2.205",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792488993,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "5554",
+    "user": "alice",
+    "src": "198.51.100.68",
+    "port": "31660",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice",
+    "src": "198.51.100.68",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792489030,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "6017",
+    "user": "carol",
+    "src": "198.51.100.242",
+    "port": "7445",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol",
+    "src": "198.51.100.242",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792489049,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "1585",
+    "user": "dave",
+    "src": "198.51.100.68",
+    "port": "21736",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "dave",
+    "src": "198.51.100.68",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792489088,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "1168",
+    "user": "frank",
+    "src": "198.51.100.238",
+    "port": "63159",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "frank",
+    "src": "198.51.100.238",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792489101,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "8204",
+    "user": "bob",
+    "src": "198.51.100.115",
+    "port": "36220",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "bob",
+    "src": "198.51.100.115",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792489155,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "5256",
+    "user": "alice",
+    "src": "192.0.2.133",
+    "port": "15707",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice",
+    "src": "192.0.2.133",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792489176,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "4733",
+    "user": "frank",
+    "src": "198.51.100.152",
+    "port": "51755",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "frank",
+    "src": "198.51.100.152",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792489182,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "3688",
+    "user": "dave",
+    "src": "198.51.100.210",
+    "port": "21674",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave",
+    "src": "198.51.100.210",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792489231,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "7752",
+    "user": "carol",
+    "src": "192.0.2.250",
+    "port": "46131",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol",
+    "src": "192.0.2.250",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792489290,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "4584",
+    "user": "dave",
+    "src": "198.51.100.247",
+    "port": "61854",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave",
+    "src": "198.51.100.247",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792489324,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "2329",
+    "user": "dave",
+    "src": "198.51.100.229",
+    "port": "21790",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave",
+    "src": "198.51.100.229",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792489364,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "9701",
+    "user": "bob",
+    "src": "198.51.100.137",
+    "port": "16385",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "bob",
+    "src": "198.51.100.137",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792489392,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "9481",
+    "user": "dave",
+    "src": "198.51.100.249",
+    "port": "59646",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave",
+    "src": "198.51.100.249",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792489447,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "1314",
+    "user": "bob",
+    "src": "198.51.100.239",
+    "port": "4575",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "bob",
+    "src": "198.51.100.239",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792489481,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "8221",
+    "user": "erin",
+    "src": "192.0.2.103",
+    "port": "54679",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "erin",
+    "src": "192.0.2.103",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792489498,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "5952",
+    "user": "erin",
+    "src": "192.0.2.7",
+    "port": "15408",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "erin",
+    "src": "192.0.2.7",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792489536,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "1612",
+    "user": "alice",
+    "src": "198.51.100.126",
+    "port": "28810",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice",
+    "src": "198.51.100.126",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792489565,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "2055",
+    "user": "dave",
+    "src": "198.51.100.175",
+    "port": "32296",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "dave",
+    "src": "198.51.100.175",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792489601,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "3275",
+    "user": "carol",
+    "src": "192.0.2.170",
+    "port": "16585",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol",
+    "src": "192.0.2.170",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792489644,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "7803",
+    "user": "frank",
+    "src": "198.51.100.94",
+    "port": "47917",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "frank",
+    "src": "198.51.100.94",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792489675,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "1258",
+    "user": "carol",
+    "src": "192.0.2.15",
+    "port": "45161",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol",
+    "src": "192.0.2.15",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792489682,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "1476",
+    "user": "carol",
+    "src": "192.0.2.57",
+    "port": "8395",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol",
+    "src": "192.0.2.57",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792489714,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "7663",
+    "user": "alice",
+    "src": "192.0.2.144",
+    "port": "63751",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice",
+    "src": "192.0.2.144",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792489765,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "3685",
+    "user": "alice",
+    "src": "198.51.100.206",
+    "port": "17628",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "alice",
+    "src": "198.51.100.206",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792489781,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "4384",
+    "user": "carol",
+    "src": "198.51.100.187",
+    "port": "3609",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol",
+    "src": "198.51.100.187",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792489798,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "8323",
+    "user": "alice",
+    "src": "192.0.2.43",
+    "port": "6273",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "alice",
+    "src": "192.0.2.43",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792489831,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "1259",
+    "user": "bob",
+    "src": "192.0.2.106",
+    "port": "26048",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "bob",
+    "src": "192.0.2.106",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792489854,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "2424",
+    "user": "alice",
+    "src": "192.0.2.107",
+    "port": "61219",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice",
+    "src": "192.0.2.107",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792489909,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "3652",
+    "user": "erin",
+    "src": "198.51.100.202",
+    "port": "41300",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "erin",
+    "src": "198.51.100.202",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792489924,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "2529",
+    "user": "bob",
+    "src": "198.51.100.244",
+    "port": "27566",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "bob",
+    "src": "198.51.100.244",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792489950,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "3233",
+    "user": "dave",
+    "src": "192.0.2.102",
+    "port": "6213",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave",
+    "src": "192.0.2.102",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792489991,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "5343",
+    "user": "bob",
+    "src": "198.51.100.57",
+    "port": "7636",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "bob",
+    "src": "198.51.100.57",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792489995,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "9656",
+    "user": "carol",
+    "src": "192.0.2.172",
+    "port": "60287",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol",
+    "src": "192.0.2.172",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792490045,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "8645",
+    "user": "dave",
+    "src": "192.0.2.41",
+    "port": "20360",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave",
+    "src": "192.0.2.41",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792490084,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "1252",
+    "user": "dave",
+    "src": "192.0.2.191",
+    "port": "8255",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "dave",
+    "src": "192.0.2.191",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792490123,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "3594",
+    "user": "erin",
+    "src": "198.51.100.63",
+    "port": "38766",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "erin",
+    "src": "198.51.100.63",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792490159,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "5511",
+    "user": "bob",
+    "src": "198.51.100.184",
+    "port": "58067",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "bob",
+    "src": "198.51.100.184",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792490189,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "6585",
+    "user": "erin",
+    "src": "198.51.100.161",
+    "port": "11162",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "erin",
+    "src": "198.51.100.161",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792490195,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "9709",
+    "user": "bob",
+    "src": "198.51.100.61",
+    "port": "21409",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "bob",
+    "src": "198.51.100.61",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792490255,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "8045",
+    "user": "carol",
+    "src": "198.51.100.211",
+    "port": "64598",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol",
+    "src": "198.51.100.211",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792490311,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "6810",
+    "user": "frank",
+    "src": "192.0.2.189",
+    "port": "37623",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "frank",
+    "src": "192.0.2.189",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792490335,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "9146",
+    "user": "erin",
+    "src": "192.0.2.61",
+    "port": "55659",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "erin",
+    "src": "192.0.2.61",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792490375,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "4096",
+    "user": "frank",
+    "src": "198.51.100.5",
+    "port": "15717",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "frank",
+    "src": "198.51.100.5",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792490388,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "8587",
+    "user": "alice",
+    "src": "198.51.100.143",
+    "port": "37114",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice",
+    "src": "198.51.100.143",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792490426,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "3767",
+    "user": "erin",
+    "src": "198.51.100.51",
+    "port": "54123",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "erin",
+    "src": "198.51.100.51",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792490443,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "4064",
+    "user": "dave",
+    "src": "198.51.100.111",
+    "port": "58397",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave",
+    "src": "198.51.100.111",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792490485,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "2263",
+    "user": "dave",
+    "src": "198.51.100.80",
+    "port": "2283",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave",
+    "src": "198.51.100.80",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792490508,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "9986",
+    "user": "erin",
+    "src": "192.0.2.66",
+    "port": "24225",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "erin",
+    "src": "192.0.2.66",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792490534,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "7880",
+    "user": "bob",
+    "src": "198.51.100.70",
+    "port": "64699",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "bob",
+    "src": "198.51.100.70",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792490548,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "9286",
+    "user": "carol",
+    "src": "192.0.2.233",
+    "port": "25797",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "carol",
+    "src": "192.0.2.233",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792490599,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "3116",
+    "user": "bob",
+    "src": "192.0.2.227",
+    "port": "29640",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "bob",
+    "src": "192.0.2.227",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792490615,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "9019",
+    "user": "erin",
+    "src": "192.0.2.130",
+    "port": "43684",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "erin",
+    "src": "192.0.2.130",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792490637,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "5962",
+    "user": "alice",
+    "src": "198.51.100.227",
+    "port": "25533",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "alice",
+    "src": "198.51.100.227",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792490667,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "3898",
+    "user": "frank",
+    "src": "198.51.100.79",
+    "port": "34788",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "frank",
+    "src": "198.51.100.79",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792490692,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "5619",
+    "user": "frank",
+    "src": "192.0.2.3",
+    "port": "60781",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "frank",
+    "src": "192.0.2.3",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792490723,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "7216",
+    "user": "dave",
+    "src": "192.0.2.125",
+    "port": "28285",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "dave",
+    "src": "192.0.2.125",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792490763,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "5436",
+    "user": "alice",
+    "src": "192.0.2.37",
+    "port": "39463",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "alice",
+    "src": "192.0.2.37",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792490771,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "9239",
+    "user": "erin",
+    "src": "192.0.2.48",
+    "port": "51308",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "erin",
+    "src": "192.0.2.48",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792490807,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "6874",
+    "user": "frank",
+    "src": "192.0.2.100",
+    "port": "25283",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "frank",
+    "src": "192.0.2.100",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792490816,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "5304",
+    "user": "dave",
+    "src": "198.51.100.179",
+    "port": "5009",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "dave",
+    "src": "198.51.100.179",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792490852,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "7076",
+    "user": "alice",
+    "src": "198.51.100.12",
+    "port": "55776",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice",
+    "src": "198.51.100.12",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792490855,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "4578",
+    "user": "frank",
+    "src": "198.51.100.209",
+    "port": "24274",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "frank",
+    "src": "198.51.100.209",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792490870,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "3585",
+    "user": "bob",
+    "src": "192.0.2.82",
+    "port": "45993",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "bob",
+    "src": "192.0.2.82",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792490909,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "9430",
+    "user": "frank",
+    "src": "198.51.100.229",
+    "port": "52315",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "frank",
+    "src": "198.51.100.229",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792490969,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "9503",
+    "user": "frank",
+    "src": "198.51.100.17",
+    "port": "23329",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "frank",
+    "src": "198.51.100.17",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792491017,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "4589",
+    "user": "carol",
+    "src": "192.0.2.250",
+    "port": "55969",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "carol",
+    "src": "192.0.2.250",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792491055,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "7229",
+    "user": "erin",
+    "src": "198.51.100.190",
+    "port": "44210",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "erin",
+    "src": "198.51.100.190",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792491106,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "5902",
+    "user": "frank",
+    "src": "198.51.100.236",
+    "port": "55140",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "frank",
+    "src": "198.51.100.236",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792491120,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "5074",
+    "user": "dave",
+    "src": "192.0.2.28",
+    "port": "41176",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave",
+    "src": "192.0.2.28",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792491151,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "2577",
+    "user": "dave",
+    "src": "198.51.100.194",
+    "port": "8148",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave",
+    "src": "198.51.100.194",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792491183,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "9734",
+    "user": "bob",
+    "src": "198.51.100.53",
+    "port": "19174",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "bob",
+    "src": "198.51.100.53",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792491214,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "3552",
+    "user": "frank",
+    "src": "192.0.2.89",
+    "port": "18511",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "frank",
+    "src": "192.0.2.89",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792491271,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "8989",
+    "user": "bob",
+    "src": "192.0.2.81",
+    "port": "17044",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "bob",
+    "src": "192.0.2.81",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792491306,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "8675",
+    "user": "erin",
+    "src": "192.0.2.1",
+    "port": "40633",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "erin",
+    "src": "192.0.2.1",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792491317,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "5750",
+    "user": "erin",
+    "src": "198.51.100.102",
+    "port": "2435",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "erin",
+    "src": "198.51.100.102",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792491354,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "2245",
+    "user": "bob",
+    "src": "192.0.2.183",
+    "port": "40434",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "bob",
+    "src": "192.0.2.183",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792491392,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "1604",
+    "user": "frank",
+    "src": "198.51.100.122",
+    "port": "63454",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "frank",
+    "src": "198.51.100.122",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792491425,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "6093",
+    "user": "alice",
+    "src": "192.0.2.178",
+    "port": "59416",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice",
+    "src": "192.0.2.178",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792491456,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "9474",
+    "user": "dave",
+    "src": "198.51.100.125",
+    "port": "61653",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "dave",
+    "src": "198.51.100.125",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792491459,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "9856",
+    "user": "dave",
+    "src": "192.0.2.91",
+    "port": "56565",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave",
+    "src": "192.0.2.91",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792491480,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "4226",
+    "user": "erin",
+    "src": "192.0.2.142",
+    "port": "34595",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "erin",
+    "src": "192.0.2.142",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792491499,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "6555",
+    "user": "erin",
+    "src": "192.0.2.48",
+    "port": "32806",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "erin",
+    "src": "192.0.2.48",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792491513,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "9627",
+    "user": "carol",
+    "src": "198.51.100.153",
+    "port": "47994",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol",
+    "src": "198.51.100.153",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792491516,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "5096",
+    "user": "frank",
+    "src": "192.0.2.148",
+    "port": "51235",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "frank",
+    "src": "192.0.2.148",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792491571,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "3680",
+    "user": "alice",
+    "src": "192.0.2.22",
+    "port": "42240",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice",
+    "src": "192.0.2.22",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792491631,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "4718",
+    "user": "dave",
+    "src": "192.0.2.33",
+    "port": "30603",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave",
+    "src": "192.0.2.33",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792491663,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "5670",
+    "user": "carol",
+    "src": "192.0.2.94",
+    "port": "24073",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "carol",
+    "src": "192.0.2.94",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792491687,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "1233",
+    "user": "frank",
+    "src": "198.51.100.126",
+    "port": "9384",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "frank",
+    "src": "198.51.100.126",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792491738,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "2390",
+    "user": "carol",
+    "src": "192.0.2.121",
+    "port": "14652",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol",
+    "src": "192.0.2.121",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792491762,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "4263",
+    "user": "dave",
+    "src": "198.51.100.234",
+    "port": "60985",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "dave",
+    "src": "198.51.100.234",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792491778,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "8117",
+    "user": "erin",
+    "src": "198.51.100.11",
+    "port": "38048",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "erin",
+    "src": "198.51.100.11",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792491784,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "4918",
+    "user": "erin",
+    "src": "192.0.2.29",
+    "port": "37805",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "erin",
+    "src": "192.0.2.29",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792491804,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "3677",
+    "user": "frank",
+    "src": "192.0.2.112",
+    "port": "60163",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "frank",
+    "src": "192.0.2.112",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792491813,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "7871",
+    "user": "frank",
+    "src": "198.51.100.192",
+    "port": "15349",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "frank",
+    "src": "198.51.100.192",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792491849,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "5895",
+    "user": "bob",
+    "src": "198.51.100.4",
+    "port": "45329",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "bob",
+    "src": "198.51.100.4",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792491894,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "3602",
+    "user": "bob",
+    "src": "192.0.2.177",
+    "port": "41277",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "bob",
+    "src": "192.0.2.177",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792491941,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "1721",
+    "user": "alice",
+    "src": "192.0.2.32",
+    "port": "60351",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice",
+    "src": "192.0.2.32",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792491944,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "4948",
+    "user": "bob",
+    "src": "192.0.2.201",
+    "port": "17181",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "bob",
+    "src": "192.0.2.201",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792491948,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "3080",
+    "user": "frank",
+    "src": "192.0.2.12",
+    "port": "4195",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "frank",
+    "src": "192.0.2.12",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792491958,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "8518",
+    "user": "alice",
+    "src": "192.0.2.200",
+    "port": "24709",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice",
+    "src": "192.0.2.200",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792491991,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "1525",
+    "user": "bob",
+    "src": "192.0.2.189",
+    "port": "13819",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "bob",
+    "src": "192.0.2.189",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792492039,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "8731",
+    "user": "carol",
+    "src": "192.0.2.44",
+    "port": "60422",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol",
+    "src": "192.0.2.44",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792492099,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "1339",
+    "user": "dave",
+    "src": "192.0.2.80",
+    "port": "46125",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave",
+    "src": "192.0.2.80",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792492121,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "8270",
+    "user": "bob",
+    "src": "198.51.100.19",
+    "port": "47005",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "bob",
+    "src": "198.51.100.19",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792492163,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "3306",
+    "user": "frank",
+    "src": "198.51.100.208",
+    "port": "20229",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "frank",
+    "src": "198.51.100.208",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792492179,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "8921",
+    "user": "dave",
+    "src": "198.51.100.244",
+    "port": "43235",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave",
+    "src": "198.51.100.244",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792492231,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "2907",
+    "user": "erin",
+    "src": "198.51.100.148",
+    "port": "8922",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "erin",
+    "src": "198.51.100.148",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792492240,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "2071",
+    "user": "dave",
+    "src": "198.51.100.9",
+    "port": "27584",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "dave",
+    "src": "198.51.100.9",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792492292,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "3235",
+    "user": "carol",
+    "src": "192.0.2.100",
+    "port": "10819",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol",
+    "src": "192.0.2.100",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792492347,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "7729",
+    "user": "alice",
+    "src": "192.0.2.91",
+    "port": "25837",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice",
+    "src": "192.0.2.91",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792492403,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "2617",
+    "user": "erin",
+    "src": "198.51.100.150",
+    "port": "7708",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "erin",
+    "src": "198.51.100.150",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792492407,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "5117",
+    "user": "bob",
+    "src": "198.51.100.13",
+    "port": "8977",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "bob",
+    "src": "198.51.100.13",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792492439,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "5932",
+    "user": "dave",
+    "src": "198.51.100.24",
+    "port": "56217",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "dave",
+    "src": "198.51.100.24",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792492476,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "5173",
+    "user": "bob",
+    "src": "192.0.2.241",
+    "port": "49598",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "bob",
+    "src": "192.0.2.241",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792492531,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "4064",
+    "user": "bob",
+    "src": "198.51.100.242",
+    "port": "37405",
+    "outcome": "Accepted"
+   },
+   "cim": {
+    "action": "success",
+    "user": "bob",
+    "src": "198.51.100.242",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  },
+  {
+   "epoch": 1792492582,
+   "category": "authentication",
+   "fields": {
+    "hostname": "bastion01",
+    "pid": "1552",
+    "user": "carol",
+    "src": "192.0.2.142",
+    "port": "53794",
+    "outcome": "Failed"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "carol",
+    "src": "192.0.2.142",
+    "dest": "bastion01",
+    "app": "sshd"
+   }
+  }
+ ]
+}

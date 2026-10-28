@@ -118,3 +118,9 @@ def test_packages_dir_must_be_private_real_dir(tmp_path):
     link.symlink_to(tmp_path)
     with pytest.raises(ValueError, match="link"):
         package.packages_dir(link)
+
+
+@pytest.mark.parametrize("value", ["x\x85y", "x\u2028y", "x\u2029y", "x\x9by"])
+def test_writer_rejects_c1_and_unicode_line_separators(value):
+    with pytest.raises(ConfValueError):
+        write_conf({"acme:vpn": {"TIME_FORMAT": value}})

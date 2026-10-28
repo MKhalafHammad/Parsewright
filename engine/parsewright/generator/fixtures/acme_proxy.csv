@@ -1,0 +1,300 @@
+2026-10-20T08:00:46Z,198.51.100.49,bob,GET,https://api.example.com/,api.example.com,304,33757,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T08:00:51Z,198.51.100.80,erin,POST,https://cdn.example.com/login,cdn.example.com,200,177547,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T08:01:44Z,198.51.100.36,carol,POST,https://cdn.example.com/login,cdn.example.com,200,15767,allowed,Acme-Updater/2.4
+2026-10-20T08:02:44Z,198.51.100.32,bob,GET,https://api.example.com/login,api.example.com,200,128278,allowed,curl/8.9.1
+2026-10-20T08:03:20Z,198.51.100.13,erin,POST,https://www.example.com/docs/help,www.example.com,200,146072,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T08:03:30Z,192.0.2.202,dave,POST,https://cdn.example.com/login,cdn.example.com,200,41059,allowed,curl/8.9.1
+2026-10-20T08:04:05Z,192.0.2.184,erin,POST,https://www.example.com/api/v1/items,www.example.com,304,155052,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T08:04:20Z,192.0.2.190,bob,GET,https://api.example.com/login,api.example.com,404,104164,allowed,curl/8.9.1
+2026-10-20T08:04:48Z,198.51.100.109,alice,GET,https://www.example.com/login,www.example.com,200,70604,allowed,Acme-Updater/2.4
+2026-10-20T08:05:13Z,198.51.100.239,erin,GET,https://www.example.com/api/v1/items,www.example.com,200,142825,allowed,curl/8.9.1
+2026-10-20T08:05:49Z,192.0.2.32,alice,GET,https://cdn.example.com/,cdn.example.com,200,9353,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T08:06:10Z,198.51.100.177,dave,GET,https://api.example.com/api/v1/items,api.example.com,200,31464,allowed,Acme-Updater/2.4
+2026-10-20T08:06:50Z,192.0.2.12,carol,GET,https://www.example.com/search,www.example.com,200,66196,allowed,Acme-Updater/2.4
+2026-10-20T08:07:02Z,198.51.100.28,erin,GET,https://www.example.com/docs/help,www.example.com,404,101388,allowed,curl/8.9.1
+2026-10-20T08:07:43Z,192.0.2.54,erin,POST,https://www.example.com/,www.example.com,304,59740,allowed,Acme-Updater/2.4
+2026-10-20T08:08:02Z,192.0.2.48,bob,POST,https://www.example.com/search,www.example.com,200,65990,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T08:08:11Z,192.0.2.166,dave,POST,https://www.example.com/docs/help,www.example.com,403,156581,blocked,Acme-Updater/2.4
+2026-10-20T08:08:30Z,198.51.100.89,erin,GET,https://api.example.com/docs/help,api.example.com,404,249157,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T08:08:59Z,192.0.2.213,alice,GET,https://api.example.com/search,api.example.com,200,180513,allowed,Acme-Updater/2.4
+2026-10-20T08:09:22Z,192.0.2.178,frank,POST,https://cdn.example.com/,cdn.example.com,404,170632,allowed,Acme-Updater/2.4
+2026-10-20T08:09:42Z,198.51.100.149,carol,GET,https://api.example.com/static/app.js,api.example.com,200,24791,allowed,curl/8.9.1
+2026-10-20T08:10:38Z,192.0.2.217,erin,POST,https://www.example.com/,www.example.com,304,156136,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T08:10:47Z,192.0.2.229,alice,GET,https://api.example.com/search,api.example.com,403,104128,blocked,curl/8.9.1
+2026-10-20T08:11:39Z,192.0.2.132,erin,POST,https://www.example.com/login,www.example.com,200,245638,allowed,Acme-Updater/2.4
+2026-10-20T08:12:02Z,198.51.100.41,carol,POST,https://api.example.com/login,api.example.com,200,208917,allowed,curl/8.9.1
+2026-10-20T08:13:02Z,198.51.100.79,erin,POST,https://api.example.com/api/v1/items,api.example.com,304,247523,allowed,curl/8.9.1
+2026-10-20T08:13:24Z,192.0.2.204,bob,GET,https://api.example.com/login,api.example.com,200,201256,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T08:13:28Z,192.0.2.191,carol,GET,https://api.example.com/docs/help,api.example.com,304,167711,allowed,curl/8.9.1
+2026-10-20T08:14:07Z,198.51.100.105,dave,POST,https://www.example.com/,www.example.com,404,92721,allowed,curl/8.9.1
+2026-10-20T08:14:49Z,192.0.2.51,carol,GET,https://api.example.com/api/v1/items,api.example.com,304,88411,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T08:15:04Z,198.51.100.91,erin,GET,https://api.example.com/static/app.js,api.example.com,404,245934,allowed,Acme-Updater/2.4
+2026-10-20T08:16:03Z,192.0.2.114,alice,GET,https://api.example.com/,api.example.com,404,152342,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T08:16:10Z,198.51.100.35,erin,POST,https://api.example.com/api/v1/items,api.example.com,200,46418,allowed,Acme-Updater/2.4
+2026-10-20T08:16:25Z,192.0.2.210,dave,GET,https://www.example.com/search,www.example.com,404,55279,allowed,curl/8.9.1
+2026-10-20T08:16:35Z,198.51.100.195,erin,GET,https://www.example.com/api/v1/items,www.example.com,200,217094,allowed,Acme-Updater/2.4
+2026-10-20T08:17:12Z,192.0.2.227,frank,GET,https://cdn.example.com/,cdn.example.com,200,72287,allowed,curl/8.9.1
+2026-10-20T08:17:44Z,198.51.100.150,carol,GET,https://api.example.com/search,api.example.com,403,19010,blocked,curl/8.9.1
+2026-10-20T08:18:11Z,198.51.100.206,alice,POST,https://api.example.com/api/v1/items,api.example.com,304,120541,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T08:19:09Z,198.51.100.128,carol,GET,https://cdn.example.com/login,cdn.example.com,200,118081,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T08:19:58Z,192.0.2.117,dave,GET,https://www.example.com/api/v1/items,www.example.com,304,105163,allowed,Acme-Updater/2.4
+2026-10-20T08:20:05Z,198.51.100.152,bob,GET,https://www.example.com/api/v1/items,www.example.com,403,216093,blocked,curl/8.9.1
+2026-10-20T08:20:59Z,192.0.2.203,frank,GET,https://cdn.example.com/static/app.js,cdn.example.com,404,129617,allowed,curl/8.9.1
+2026-10-20T08:21:08Z,198.51.100.195,bob,GET,https://api.example.com/static/app.js,api.example.com,200,140807,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T08:21:37Z,192.0.2.218,dave,POST,https://cdn.example.com/,cdn.example.com,200,134265,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T08:21:41Z,192.0.2.240,carol,GET,https://cdn.example.com/docs/help,cdn.example.com,200,241113,allowed,curl/8.9.1
+2026-10-20T08:21:50Z,192.0.2.50,frank,GET,https://api.example.com/docs/help,api.example.com,404,125315,allowed,curl/8.9.1
+2026-10-20T08:22:30Z,192.0.2.115,dave,POST,https://cdn.example.com/docs/help,cdn.example.com,304,28541,allowed,Acme-Updater/2.4
+2026-10-20T08:23:19Z,192.0.2.126,bob,GET,https://cdn.example.com/api/v1/items,cdn.example.com,200,115353,allowed,curl/8.9.1
+2026-10-20T08:23:49Z,192.0.2.124,erin,GET,https://api.example.com/search,api.example.com,200,32414,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T08:24:40Z,198.51.100.128,erin,POST,https://api.example.com/api/v1/items,api.example.com,200,139147,allowed,Acme-Updater/2.4
+2026-10-20T08:25:37Z,192.0.2.157,dave,GET,https://api.example.com/api/v1/items,api.example.com,200,150442,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T08:26:05Z,192.0.2.203,dave,POST,https://api.example.com/,api.example.com,200,173047,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T08:26:36Z,198.51.100.175,bob,POST,https://api.example.com/api/v1/items,api.example.com,200,78018,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T08:27:21Z,198.51.100.24,frank,GET,https://cdn.example.com/static/app.js,cdn.example.com,200,27686,allowed,curl/8.9.1
+2026-10-20T08:27:43Z,198.51.100.36,alice,GET,https://cdn.example.com/login,cdn.example.com,200,147460,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T08:28:22Z,198.51.100.76,erin,GET,https://cdn.example.com/static/app.js,cdn.example.com,403,5512,blocked,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T08:28:57Z,198.51.100.29,bob,GET,https://api.example.com/search,api.example.com,200,14114,allowed,Acme-Updater/2.4
+2026-10-20T08:29:53Z,192.0.2.241,alice,GET,https://cdn.example.com/docs/help,cdn.example.com,403,206276,blocked,curl/8.9.1
+2026-10-20T08:30:06Z,198.51.100.114,carol,GET,https://api.example.com/api/v1/items,api.example.com,200,99374,allowed,curl/8.9.1
+2026-10-20T08:30:59Z,198.51.100.183,bob,GET,https://www.example.com/docs/help,www.example.com,200,114971,allowed,curl/8.9.1
+2026-10-20T08:31:42Z,192.0.2.158,carol,GET,https://api.example.com/static/app.js,api.example.com,200,155601,allowed,curl/8.9.1
+2026-10-20T08:32:11Z,192.0.2.31,carol,GET,https://cdn.example.com/api/v1/items,cdn.example.com,200,199738,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T08:32:28Z,192.0.2.51,dave,POST,https://api.example.com/static/app.js,api.example.com,200,81535,allowed,Acme-Updater/2.4
+2026-10-20T08:33:20Z,198.51.100.239,bob,GET,https://cdn.example.com/static/app.js,cdn.example.com,200,87577,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T08:33:57Z,198.51.100.214,frank,GET,https://api.example.com/static/app.js,api.example.com,200,226601,allowed,Acme-Updater/2.4
+2026-10-20T08:34:36Z,192.0.2.166,carol,GET,https://api.example.com/api/v1/items,api.example.com,200,215110,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T08:35:25Z,192.0.2.232,erin,GET,https://www.example.com/docs/help,www.example.com,304,153908,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T08:35:34Z,198.51.100.9,erin,GET,https://cdn.example.com/search,cdn.example.com,404,237320,allowed,Acme-Updater/2.4
+2026-10-20T08:36:28Z,198.51.100.77,carol,GET,https://api.example.com/login,api.example.com,200,154,allowed,Acme-Updater/2.4
+2026-10-20T08:36:44Z,198.51.100.63,frank,GET,https://cdn.example.com/login,cdn.example.com,200,192423,allowed,curl/8.9.1
+2026-10-20T08:37:11Z,198.51.100.174,erin,GET,https://api.example.com/static/app.js,api.example.com,200,141440,allowed,Acme-Updater/2.4
+2026-10-20T08:37:26Z,198.51.100.136,erin,GET,https://www.example.com/,www.example.com,404,141894,allowed,curl/8.9.1
+2026-10-20T08:37:37Z,198.51.100.104,frank,GET,https://www.example.com/api/v1/items,www.example.com,200,71387,allowed,curl/8.9.1
+2026-10-20T08:37:48Z,192.0.2.88,erin,GET,https://www.example.com/search,www.example.com,200,126870,allowed,curl/8.9.1
+2026-10-20T08:38:31Z,192.0.2.126,bob,POST,https://www.example.com/static/app.js,www.example.com,404,99436,allowed,Acme-Updater/2.4
+2026-10-20T08:39:05Z,198.51.100.138,bob,POST,https://api.example.com/login,api.example.com,200,35449,allowed,curl/8.9.1
+2026-10-20T08:39:14Z,198.51.100.3,carol,GET,https://api.example.com/api/v1/items,api.example.com,403,38828,blocked,curl/8.9.1
+2026-10-20T08:39:52Z,198.51.100.214,erin,GET,https://api.example.com/docs/help,api.example.com,304,144638,allowed,Acme-Updater/2.4
+2026-10-20T08:40:40Z,192.0.2.230,bob,POST,https://www.example.com/login,www.example.com,200,46770,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T08:41:12Z,198.51.100.195,frank,GET,https://api.example.com/login,api.example.com,200,20777,allowed,Acme-Updater/2.4
+2026-10-20T08:41:15Z,198.51.100.117,dave,GET,https://www.example.com/search,www.example.com,200,201271,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T08:41:47Z,192.0.2.218,dave,GET,https://cdn.example.com/login,cdn.example.com,404,159401,allowed,curl/8.9.1
+2026-10-20T08:42:47Z,192.0.2.4,alice,POST,https://www.example.com/api/v1/items,www.example.com,200,11210,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T08:43:20Z,198.51.100.174,dave,GET,https://www.example.com/search,www.example.com,304,86303,allowed,Acme-Updater/2.4
+2026-10-20T08:44:01Z,198.51.100.139,alice,GET,https://api.example.com/api/v1/items,api.example.com,200,64304,allowed,curl/8.9.1
+2026-10-20T08:44:11Z,198.51.100.113,dave,POST,https://www.example.com/static/app.js,www.example.com,200,172956,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T08:44:47Z,192.0.2.136,carol,GET,https://api.example.com/,api.example.com,403,226825,blocked,Acme-Updater/2.4
+2026-10-20T08:45:20Z,198.51.100.114,dave,GET,https://www.example.com/api/v1/items,www.example.com,200,186165,allowed,curl/8.9.1
+2026-10-20T08:46:15Z,192.0.2.230,dave,GET,https://api.example.com/api/v1/items,api.example.com,200,88039,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T08:46:50Z,198.51.100.53,bob,GET,https://api.example.com/search,api.example.com,200,186236,allowed,curl/8.9.1
+2026-10-20T08:47:24Z,192.0.2.60,frank,POST,https://api.example.com/api/v1/items,api.example.com,304,149220,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T08:47:50Z,192.0.2.116,erin,POST,https://cdn.example.com/api/v1/items,cdn.example.com,404,109853,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T08:48:20Z,198.51.100.212,erin,GET,https://api.example.com/static/app.js,api.example.com,200,34128,allowed,curl/8.9.1
+2026-10-20T08:49:20Z,192.0.2.159,dave,GET,https://cdn.example.com/search,cdn.example.com,403,134876,blocked,curl/8.9.1
+2026-10-20T08:49:57Z,192.0.2.96,erin,GET,https://api.example.com/,api.example.com,403,89646,blocked,curl/8.9.1
+2026-10-20T08:50:55Z,198.51.100.95,bob,GET,https://api.example.com/static/app.js,api.example.com,200,174946,allowed,Acme-Updater/2.4
+2026-10-20T08:51:09Z,192.0.2.81,carol,GET,https://cdn.example.com/static/app.js,cdn.example.com,403,132186,blocked,curl/8.9.1
+2026-10-20T08:52:08Z,192.0.2.243,alice,GET,https://cdn.example.com/search,cdn.example.com,403,229885,blocked,curl/8.9.1
+2026-10-20T08:52:11Z,192.0.2.241,carol,GET,https://api.example.com/static/app.js,api.example.com,200,34457,allowed,curl/8.9.1
+2026-10-20T08:52:29Z,192.0.2.68,carol,GET,https://www.example.com/docs/help,www.example.com,200,126968,allowed,curl/8.9.1
+2026-10-20T08:52:37Z,192.0.2.120,frank,GET,https://www.example.com/api/v1/items,www.example.com,200,92855,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T08:52:41Z,198.51.100.148,frank,GET,https://cdn.example.com/static/app.js,cdn.example.com,403,52384,blocked,Acme-Updater/2.4
+2026-10-20T08:53:13Z,192.0.2.73,carol,GET,https://cdn.example.com/docs/help,cdn.example.com,200,60957,allowed,curl/8.9.1
+2026-10-20T08:53:40Z,192.0.2.68,dave,GET,https://www.example.com/static/app.js,www.example.com,200,183400,allowed,Acme-Updater/2.4
+2026-10-20T08:54:11Z,198.51.100.123,carol,POST,https://cdn.example.com/login,cdn.example.com,200,67805,allowed,curl/8.9.1
+2026-10-20T08:54:21Z,192.0.2.43,frank,POST,https://api.example.com/search,api.example.com,403,134948,blocked,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T08:55:07Z,198.51.100.197,frank,GET,https://cdn.example.com/static/app.js,cdn.example.com,200,172828,allowed,Acme-Updater/2.4
+2026-10-20T08:55:55Z,192.0.2.113,frank,GET,https://api.example.com/docs/help,api.example.com,200,174072,allowed,curl/8.9.1
+2026-10-20T08:56:39Z,192.0.2.250,erin,GET,https://www.example.com/login,www.example.com,200,237662,allowed,Acme-Updater/2.4
+2026-10-20T08:56:58Z,192.0.2.117,carol,GET,https://www.example.com/static/app.js,www.example.com,404,121456,allowed,Acme-Updater/2.4
+2026-10-20T08:57:09Z,192.0.2.107,frank,GET,https://api.example.com/login,api.example.com,200,93466,allowed,Acme-Updater/2.4
+2026-10-20T08:57:42Z,198.51.100.147,carol,GET,https://www.example.com/static/app.js,www.example.com,200,77489,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T08:58:03Z,198.51.100.176,carol,GET,https://api.example.com/search,api.example.com,404,81526,allowed,curl/8.9.1
+2026-10-20T08:58:34Z,198.51.100.188,carol,POST,https://api.example.com/login,api.example.com,403,32242,blocked,Acme-Updater/2.4
+2026-10-20T08:59:02Z,192.0.2.55,erin,GET,https://api.example.com/,api.example.com,304,57115,allowed,Acme-Updater/2.4
+2026-10-20T08:59:23Z,192.0.2.159,alice,GET,https://cdn.example.com/api/v1/items,cdn.example.com,200,34497,allowed,Acme-Updater/2.4
+2026-10-20T09:00:13Z,198.51.100.112,alice,GET,https://www.example.com/docs/help,www.example.com,200,82187,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T09:00:26Z,198.51.100.207,dave,POST,https://api.example.com/static/app.js,api.example.com,200,102578,allowed,curl/8.9.1
+2026-10-20T09:00:58Z,192.0.2.177,frank,POST,https://www.example.com/static/app.js,www.example.com,200,197488,allowed,curl/8.9.1
+2026-10-20T09:01:29Z,192.0.2.102,dave,POST,https://cdn.example.com/login,cdn.example.com,404,91708,allowed,Acme-Updater/2.4
+2026-10-20T09:01:51Z,192.0.2.88,alice,POST,https://cdn.example.com/api/v1/items,cdn.example.com,200,248859,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T09:02:13Z,198.51.100.247,alice,POST,https://cdn.example.com/api/v1/items,cdn.example.com,200,208937,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T09:02:59Z,198.51.100.206,erin,POST,https://cdn.example.com/api/v1/items,cdn.example.com,200,58517,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T09:03:50Z,198.51.100.148,frank,POST,https://cdn.example.com/static/app.js,cdn.example.com,304,33733,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T09:03:55Z,192.0.2.211,frank,GET,https://cdn.example.com/static/app.js,cdn.example.com,403,171947,blocked,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T09:04:02Z,192.0.2.29,frank,POST,https://cdn.example.com/login,cdn.example.com,200,21503,allowed,curl/8.9.1
+2026-10-20T09:04:18Z,198.51.100.175,frank,GET,https://cdn.example.com/docs/help,cdn.example.com,304,144463,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T09:04:40Z,192.0.2.159,carol,GET,https://www.example.com/api/v1/items,www.example.com,404,132139,allowed,Acme-Updater/2.4
+2026-10-20T09:05:26Z,192.0.2.56,dave,POST,https://cdn.example.com/static/app.js,cdn.example.com,403,55187,blocked,curl/8.9.1
+2026-10-20T09:06:17Z,198.51.100.188,frank,POST,https://api.example.com/search,api.example.com,304,140451,allowed,Acme-Updater/2.4
+2026-10-20T09:06:46Z,192.0.2.23,alice,GET,https://www.example.com/docs/help,www.example.com,404,213786,allowed,Acme-Updater/2.4
+2026-10-20T09:06:55Z,198.51.100.109,frank,POST,https://api.example.com/api/v1/items,api.example.com,304,191845,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T09:07:27Z,198.51.100.110,erin,GET,https://www.example.com/,www.example.com,403,204007,blocked,curl/8.9.1
+2026-10-20T09:07:34Z,198.51.100.5,alice,GET,https://cdn.example.com/docs/help,cdn.example.com,200,76324,allowed,Acme-Updater/2.4
+2026-10-20T09:08:06Z,192.0.2.57,erin,POST,https://api.example.com/,api.example.com,200,79984,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T09:08:41Z,198.51.100.149,carol,GET,https://www.example.com/login,www.example.com,304,24502,allowed,Acme-Updater/2.4
+2026-10-20T09:09:12Z,192.0.2.210,alice,GET,https://www.example.com/static/app.js,www.example.com,304,229721,allowed,curl/8.9.1
+2026-10-20T09:09:57Z,198.51.100.247,bob,GET,https://cdn.example.com/api/v1/items,cdn.example.com,200,86913,allowed,curl/8.9.1
+2026-10-20T09:10:01Z,192.0.2.68,bob,POST,https://api.example.com/,api.example.com,200,141101,allowed,Acme-Updater/2.4
+2026-10-20T09:10:15Z,192.0.2.149,frank,GET,https://api.example.com/login,api.example.com,404,38890,allowed,curl/8.9.1
+2026-10-20T09:10:45Z,198.51.100.183,bob,POST,https://api.example.com/static/app.js,api.example.com,200,124307,allowed,Acme-Updater/2.4
+2026-10-20T09:11:29Z,198.51.100.169,dave,POST,https://api.example.com/,api.example.com,304,173043,allowed,curl/8.9.1
+2026-10-20T09:11:49Z,192.0.2.1,frank,GET,https://cdn.example.com/,cdn.example.com,404,9039,allowed,Acme-Updater/2.4
+2026-10-20T09:11:56Z,192.0.2.242,bob,GET,https://api.example.com/login,api.example.com,200,112520,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T09:12:04Z,198.51.100.180,dave,GET,https://api.example.com/api/v1/items,api.example.com,304,12157,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T09:12:15Z,198.51.100.198,bob,GET,https://www.example.com/docs/help,www.example.com,403,83009,blocked,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T09:12:28Z,192.0.2.162,frank,GET,https://cdn.example.com/static/app.js,cdn.example.com,200,27062,allowed,curl/8.9.1
+2026-10-20T09:12:58Z,192.0.2.88,alice,GET,https://cdn.example.com/static/app.js,cdn.example.com,403,13653,blocked,curl/8.9.1
+2026-10-20T09:13:19Z,198.51.100.117,dave,GET,https://cdn.example.com/,cdn.example.com,200,33578,allowed,Acme-Updater/2.4
+2026-10-20T09:14:18Z,192.0.2.75,frank,POST,https://www.example.com/static/app.js,www.example.com,304,219593,allowed,Acme-Updater/2.4
+2026-10-20T09:14:50Z,198.51.100.126,dave,GET,https://www.example.com/login,www.example.com,404,72047,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T09:15:46Z,192.0.2.127,alice,GET,https://www.example.com/static/app.js,www.example.com,200,79391,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T09:15:56Z,192.0.2.15,dave,POST,https://cdn.example.com/,cdn.example.com,200,221970,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T09:16:11Z,198.51.100.175,bob,GET,https://cdn.example.com/login,cdn.example.com,200,105425,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T09:16:53Z,198.51.100.209,erin,GET,https://cdn.example.com/login,cdn.example.com,304,225821,allowed,Acme-Updater/2.4
+2026-10-20T09:17:26Z,192.0.2.115,dave,GET,https://www.example.com/login,www.example.com,403,35206,blocked,curl/8.9.1
+2026-10-20T09:18:25Z,198.51.100.117,frank,GET,https://www.example.com/docs/help,www.example.com,304,191711,allowed,curl/8.9.1
+2026-10-20T09:19:11Z,192.0.2.90,alice,GET,https://cdn.example.com/search,cdn.example.com,200,24905,allowed,Acme-Updater/2.4
+2026-10-20T09:20:05Z,198.51.100.32,frank,GET,https://cdn.example.com/,cdn.example.com,200,145119,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T09:20:12Z,192.0.2.58,alice,GET,https://www.example.com/,www.example.com,200,231224,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T09:20:42Z,198.51.100.235,dave,GET,https://www.example.com/login,www.example.com,304,92114,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T09:21:26Z,192.0.2.58,erin,GET,https://www.example.com/,www.example.com,403,180915,blocked,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T09:22:09Z,198.51.100.23,dave,GET,https://cdn.example.com/login,cdn.example.com,304,129466,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T09:22:21Z,198.51.100.12,erin,GET,https://cdn.example.com/login,cdn.example.com,200,108933,allowed,curl/8.9.1
+2026-10-20T09:22:24Z,192.0.2.186,bob,GET,https://api.example.com/search,api.example.com,304,227008,allowed,Acme-Updater/2.4
+2026-10-20T09:23:23Z,192.0.2.252,frank,GET,https://api.example.com/static/app.js,api.example.com,404,109344,allowed,Acme-Updater/2.4
+2026-10-20T09:23:50Z,192.0.2.212,bob,POST,https://cdn.example.com/docs/help,cdn.example.com,200,172707,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T09:24:32Z,192.0.2.42,bob,POST,https://www.example.com/api/v1/items,www.example.com,404,78977,allowed,curl/8.9.1
+2026-10-20T09:25:16Z,192.0.2.21,carol,POST,https://api.example.com/login,api.example.com,200,26879,allowed,Acme-Updater/2.4
+2026-10-20T09:25:37Z,198.51.100.194,carol,GET,https://cdn.example.com/,cdn.example.com,200,155638,allowed,Acme-Updater/2.4
+2026-10-20T09:26:20Z,198.51.100.22,bob,GET,https://cdn.example.com/search,cdn.example.com,200,114991,allowed,curl/8.9.1
+2026-10-20T09:26:25Z,192.0.2.153,carol,GET,https://api.example.com/login,api.example.com,403,228212,blocked,curl/8.9.1
+2026-10-20T09:27:04Z,192.0.2.38,carol,POST,https://www.example.com/,www.example.com,200,160924,allowed,curl/8.9.1
+2026-10-20T09:27:41Z,198.51.100.119,frank,POST,https://www.example.com/static/app.js,www.example.com,404,68442,allowed,Acme-Updater/2.4
+2026-10-20T09:28:21Z,198.51.100.41,bob,GET,https://cdn.example.com/docs/help,cdn.example.com,304,10756,allowed,curl/8.9.1
+2026-10-20T09:28:46Z,192.0.2.174,alice,GET,https://cdn.example.com/static/app.js,cdn.example.com,200,132154,allowed,Acme-Updater/2.4
+2026-10-20T09:29:05Z,192.0.2.156,frank,POST,https://api.example.com/docs/help,api.example.com,200,201888,allowed,Acme-Updater/2.4
+2026-10-20T09:29:21Z,192.0.2.208,dave,GET,https://www.example.com/docs/help,www.example.com,304,85533,allowed,curl/8.9.1
+2026-10-20T09:29:40Z,192.0.2.111,erin,POST,https://cdn.example.com/static/app.js,cdn.example.com,404,33710,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T09:30:15Z,192.0.2.101,bob,GET,https://api.example.com/login,api.example.com,200,19748,allowed,curl/8.9.1
+2026-10-20T09:30:38Z,192.0.2.37,carol,GET,https://api.example.com/search,api.example.com,200,114515,allowed,curl/8.9.1
+2026-10-20T09:30:44Z,198.51.100.78,carol,GET,https://cdn.example.com/api/v1/items,cdn.example.com,200,130468,allowed,Acme-Updater/2.4
+2026-10-20T09:30:48Z,198.51.100.39,dave,GET,https://cdn.example.com/search,cdn.example.com,200,29473,allowed,Acme-Updater/2.4
+2026-10-20T09:31:40Z,192.0.2.203,erin,POST,https://api.example.com/login,api.example.com,200,28499,allowed,Acme-Updater/2.4
+2026-10-20T09:32:00Z,198.51.100.64,alice,GET,https://www.example.com/docs/help,www.example.com,404,17765,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T09:32:44Z,192.0.2.194,bob,POST,https://cdn.example.com/docs/help,cdn.example.com,403,159747,blocked,Acme-Updater/2.4
+2026-10-20T09:33:41Z,198.51.100.85,bob,GET,https://api.example.com/search,api.example.com,200,132027,allowed,curl/8.9.1
+2026-10-20T09:33:57Z,198.51.100.215,bob,GET,https://api.example.com/api/v1/items,api.example.com,403,49516,blocked,curl/8.9.1
+2026-10-20T09:34:04Z,198.51.100.140,bob,GET,https://www.example.com/,www.example.com,404,240944,allowed,Acme-Updater/2.4
+2026-10-20T09:34:19Z,192.0.2.95,bob,GET,https://www.example.com/docs/help,www.example.com,403,28321,blocked,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T09:34:40Z,198.51.100.165,bob,GET,https://cdn.example.com/,cdn.example.com,200,16875,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T09:35:16Z,192.0.2.215,bob,GET,https://cdn.example.com/login,cdn.example.com,200,69364,allowed,curl/8.9.1
+2026-10-20T09:35:48Z,198.51.100.116,erin,GET,https://api.example.com/search,api.example.com,200,48858,allowed,curl/8.9.1
+2026-10-20T09:36:39Z,192.0.2.62,alice,GET,https://api.example.com/docs/help,api.example.com,403,168810,blocked,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T09:37:14Z,198.51.100.93,frank,GET,https://api.example.com/api/v1/items,api.example.com,200,176448,allowed,curl/8.9.1
+2026-10-20T09:37:25Z,198.51.100.107,bob,GET,https://www.example.com/login,www.example.com,403,89241,blocked,curl/8.9.1
+2026-10-20T09:37:48Z,192.0.2.56,carol,GET,https://api.example.com/docs/help,api.example.com,304,237261,allowed,curl/8.9.1
+2026-10-20T09:38:42Z,198.51.100.40,erin,POST,https://cdn.example.com/docs/help,cdn.example.com,404,200808,allowed,Acme-Updater/2.4
+2026-10-20T09:39:17Z,198.51.100.127,dave,GET,https://cdn.example.com/api/v1/items,cdn.example.com,403,239297,blocked,curl/8.9.1
+2026-10-20T09:40:11Z,198.51.100.125,erin,GET,https://www.example.com/,www.example.com,200,111127,allowed,Acme-Updater/2.4
+2026-10-20T09:40:30Z,198.51.100.100,dave,GET,https://www.example.com/docs/help,www.example.com,403,210808,blocked,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T09:41:08Z,198.51.100.31,erin,POST,https://cdn.example.com/search,cdn.example.com,200,73220,allowed,curl/8.9.1
+2026-10-20T09:42:07Z,198.51.100.209,dave,GET,https://cdn.example.com/login,cdn.example.com,403,229203,blocked,curl/8.9.1
+2026-10-20T09:42:55Z,192.0.2.245,bob,GET,https://www.example.com/docs/help,www.example.com,200,117822,allowed,curl/8.9.1
+2026-10-20T09:43:44Z,192.0.2.18,carol,POST,https://www.example.com/api/v1/items,www.example.com,200,24586,allowed,Acme-Updater/2.4
+2026-10-20T09:44:34Z,198.51.100.184,frank,POST,https://www.example.com/docs/help,www.example.com,403,248175,blocked,Acme-Updater/2.4
+2026-10-20T09:44:56Z,198.51.100.90,erin,GET,https://www.example.com/api/v1/items,www.example.com,200,103792,allowed,Acme-Updater/2.4
+2026-10-20T09:45:40Z,192.0.2.186,carol,GET,https://api.example.com/login,api.example.com,200,119319,allowed,Acme-Updater/2.4
+2026-10-20T09:46:30Z,192.0.2.189,erin,POST,https://api.example.com/static/app.js,api.example.com,200,246635,allowed,Acme-Updater/2.4
+2026-10-20T09:47:16Z,192.0.2.58,frank,GET,https://api.example.com/static/app.js,api.example.com,404,156651,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T09:47:52Z,192.0.2.4,dave,POST,https://cdn.example.com/static/app.js,cdn.example.com,200,156941,allowed,Acme-Updater/2.4
+2026-10-20T09:48:13Z,192.0.2.122,frank,GET,https://cdn.example.com/static/app.js,cdn.example.com,200,7942,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T09:48:57Z,198.51.100.56,frank,GET,https://cdn.example.com/,cdn.example.com,304,495,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T09:49:32Z,192.0.2.6,carol,GET,https://api.example.com/search,api.example.com,404,237734,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T09:50:11Z,198.51.100.231,alice,GET,https://api.example.com/static/app.js,api.example.com,200,24422,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T09:50:41Z,192.0.2.158,bob,GET,https://www.example.com/static/app.js,www.example.com,403,65025,blocked,Acme-Updater/2.4
+2026-10-20T09:51:36Z,198.51.100.105,bob,POST,https://www.example.com/,www.example.com,304,43417,allowed,Acme-Updater/2.4
+2026-10-20T09:52:09Z,198.51.100.161,erin,POST,https://cdn.example.com/static/app.js,cdn.example.com,403,19724,blocked,Acme-Updater/2.4
+2026-10-20T09:52:15Z,192.0.2.142,dave,GET,https://cdn.example.com/api/v1/items,cdn.example.com,304,85478,allowed,curl/8.9.1
+2026-10-20T09:53:13Z,192.0.2.45,dave,GET,https://www.example.com/static/app.js,www.example.com,200,109120,allowed,Acme-Updater/2.4
+2026-10-20T09:54:10Z,198.51.100.231,bob,GET,https://www.example.com/login,www.example.com,200,3792,allowed,curl/8.9.1
+2026-10-20T09:54:27Z,192.0.2.108,bob,GET,https://api.example.com/search,api.example.com,403,16925,blocked,Acme-Updater/2.4
+2026-10-20T09:54:39Z,192.0.2.143,alice,GET,https://cdn.example.com/search,cdn.example.com,200,83265,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T09:54:44Z,192.0.2.151,frank,GET,https://www.example.com/search,www.example.com,304,75977,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T09:55:16Z,198.51.100.135,erin,POST,https://api.example.com/docs/help,api.example.com,200,28840,allowed,Acme-Updater/2.4
+2026-10-20T09:56:13Z,192.0.2.32,frank,GET,https://www.example.com/api/v1/items,www.example.com,304,137631,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T09:56:23Z,192.0.2.52,dave,GET,https://cdn.example.com/,cdn.example.com,403,27832,blocked,Acme-Updater/2.4
+2026-10-20T09:56:58Z,198.51.100.190,erin,POST,https://api.example.com/docs/help,api.example.com,200,92350,allowed,curl/8.9.1
+2026-10-20T09:57:38Z,192.0.2.225,erin,GET,https://cdn.example.com/login,cdn.example.com,404,39025,allowed,curl/8.9.1
+2026-10-20T09:58:36Z,192.0.2.46,frank,POST,https://api.example.com/static/app.js,api.example.com,200,94906,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T09:58:45Z,198.51.100.217,alice,GET,https://www.example.com/static/app.js,www.example.com,200,36036,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T09:59:04Z,192.0.2.12,alice,GET,https://www.example.com/api/v1/items,www.example.com,304,154110,allowed,Acme-Updater/2.4
+2026-10-20T09:59:52Z,198.51.100.15,frank,GET,https://cdn.example.com/,cdn.example.com,200,23501,allowed,curl/8.9.1
+2026-10-20T10:00:24Z,192.0.2.55,erin,POST,https://api.example.com/api/v1/items,api.example.com,403,176835,blocked,curl/8.9.1
+2026-10-20T10:01:11Z,192.0.2.62,alice,GET,https://api.example.com/login,api.example.com,200,174745,allowed,Acme-Updater/2.4
+2026-10-20T10:01:38Z,198.51.100.80,bob,GET,https://api.example.com/docs/help,api.example.com,304,200380,allowed,curl/8.9.1
+2026-10-20T10:02:24Z,192.0.2.59,carol,GET,https://api.example.com/static/app.js,api.example.com,200,24439,allowed,Acme-Updater/2.4
+2026-10-20T10:02:47Z,198.51.100.119,frank,GET,https://www.example.com/,www.example.com,200,155147,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T10:03:11Z,192.0.2.234,erin,GET,https://api.example.com/static/app.js,api.example.com,200,70775,allowed,curl/8.9.1
+2026-10-20T10:03:37Z,192.0.2.93,bob,GET,https://www.example.com/search,www.example.com,200,77413,allowed,Acme-Updater/2.4
+2026-10-20T10:03:51Z,192.0.2.34,erin,GET,https://www.example.com/login,www.example.com,404,99145,allowed,Acme-Updater/2.4
+2026-10-20T10:04:22Z,192.0.2.169,frank,GET,https://api.example.com/static/app.js,api.example.com,200,100578,allowed,curl/8.9.1
+2026-10-20T10:05:20Z,192.0.2.71,dave,POST,https://cdn.example.com/login,cdn.example.com,200,99436,allowed,Acme-Updater/2.4
+2026-10-20T10:06:16Z,192.0.2.43,bob,GET,https://www.example.com/search,www.example.com,200,129856,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T10:06:40Z,192.0.2.62,carol,GET,https://cdn.example.com/docs/help,cdn.example.com,200,43699,allowed,Acme-Updater/2.4
+2026-10-20T10:07:29Z,198.51.100.102,dave,POST,https://api.example.com/static/app.js,api.example.com,403,28796,blocked,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T10:07:38Z,198.51.100.219,carol,GET,https://www.example.com/static/app.js,www.example.com,404,216467,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T10:08:21Z,192.0.2.109,alice,GET,https://api.example.com/search,api.example.com,200,222026,allowed,curl/8.9.1
+2026-10-20T10:09:06Z,192.0.2.127,alice,GET,https://api.example.com/docs/help,api.example.com,200,77271,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T10:09:51Z,192.0.2.74,dave,GET,https://cdn.example.com/,cdn.example.com,200,175038,allowed,Acme-Updater/2.4
+2026-10-20T10:10:27Z,198.51.100.25,alice,POST,https://www.example.com/,www.example.com,200,31386,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T10:10:58Z,192.0.2.168,bob,GET,https://www.example.com/login,www.example.com,200,174029,allowed,Acme-Updater/2.4
+2026-10-20T10:11:27Z,198.51.100.182,carol,GET,https://www.example.com/api/v1/items,www.example.com,200,214193,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T10:12:09Z,198.51.100.3,alice,POST,https://cdn.example.com/static/app.js,cdn.example.com,200,58187,allowed,curl/8.9.1
+2026-10-20T10:12:14Z,198.51.100.181,dave,GET,https://api.example.com/static/app.js,api.example.com,200,21959,allowed,curl/8.9.1
+2026-10-20T10:13:12Z,192.0.2.40,carol,GET,https://api.example.com/search,api.example.com,403,183068,blocked,Acme-Updater/2.4
+2026-10-20T10:13:38Z,198.51.100.93,frank,POST,https://api.example.com/api/v1/items,api.example.com,200,112738,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T10:13:46Z,198.51.100.67,alice,GET,https://api.example.com/login,api.example.com,200,199319,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T10:14:09Z,192.0.2.228,alice,GET,https://www.example.com/search,www.example.com,200,27207,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T10:14:39Z,198.51.100.126,dave,GET,https://api.example.com/,api.example.com,200,233282,allowed,curl/8.9.1
+2026-10-20T10:15:05Z,192.0.2.43,carol,GET,https://cdn.example.com/docs/help,cdn.example.com,404,24694,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T10:15:37Z,192.0.2.10,carol,GET,https://www.example.com/docs/help,www.example.com,200,7391,allowed,curl/8.9.1
+2026-10-20T10:16:17Z,198.51.100.130,erin,GET,https://cdn.example.com/docs/help,cdn.example.com,200,216609,allowed,curl/8.9.1
+2026-10-20T10:17:06Z,192.0.2.4,bob,GET,https://api.example.com/static/app.js,api.example.com,200,248319,allowed,curl/8.9.1
+2026-10-20T10:17:32Z,192.0.2.73,carol,GET,https://api.example.com/static/app.js,api.example.com,403,71398,blocked,curl/8.9.1
+2026-10-20T10:17:37Z,198.51.100.181,carol,POST,https://api.example.com/docs/help,api.example.com,403,2123,blocked,curl/8.9.1
+2026-10-20T10:17:58Z,198.51.100.21,erin,GET,https://www.example.com/search,www.example.com,304,2218,allowed,curl/8.9.1
+2026-10-20T10:18:17Z,192.0.2.33,bob,GET,https://api.example.com/static/app.js,api.example.com,200,147435,allowed,Acme-Updater/2.4
+2026-10-20T10:18:37Z,192.0.2.31,erin,GET,https://www.example.com/search,www.example.com,200,119511,allowed,Acme-Updater/2.4
+2026-10-20T10:18:45Z,198.51.100.8,dave,GET,https://www.example.com/search,www.example.com,200,113062,allowed,curl/8.9.1
+2026-10-20T10:19:02Z,198.51.100.109,erin,GET,https://www.example.com/search,www.example.com,200,149033,allowed,curl/8.9.1
+2026-10-20T10:19:30Z,192.0.2.4,dave,GET,https://api.example.com/search,api.example.com,200,186333,allowed,Acme-Updater/2.4
+2026-10-20T10:19:35Z,198.51.100.122,erin,GET,https://www.example.com/login,www.example.com,404,80759,allowed,curl/8.9.1
+2026-10-20T10:19:48Z,198.51.100.131,dave,POST,https://cdn.example.com/static/app.js,cdn.example.com,200,98513,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T10:20:01Z,198.51.100.106,erin,GET,https://www.example.com/,www.example.com,403,144097,blocked,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T10:20:34Z,192.0.2.207,frank,GET,https://cdn.example.com/login,cdn.example.com,200,60660,allowed,Acme-Updater/2.4
+2026-10-20T10:21:19Z,198.51.100.142,alice,GET,https://www.example.com/api/v1/items,www.example.com,200,158352,allowed,Acme-Updater/2.4
+2026-10-20T10:22:07Z,198.51.100.59,erin,POST,https://api.example.com/search,api.example.com,403,174423,blocked,curl/8.9.1
+2026-10-20T10:22:45Z,198.51.100.87,erin,GET,https://api.example.com/search,api.example.com,200,141249,allowed,Acme-Updater/2.4
+2026-10-20T10:22:54Z,198.51.100.37,carol,GET,https://api.example.com/search,api.example.com,200,73139,allowed,Acme-Updater/2.4
+2026-10-20T10:23:42Z,198.51.100.171,frank,GET,https://cdn.example.com/docs/help,cdn.example.com,403,215407,blocked,curl/8.9.1
+2026-10-20T10:24:23Z,192.0.2.16,dave,GET,https://cdn.example.com/login,cdn.example.com,200,131005,allowed,Acme-Updater/2.4
+2026-10-20T10:24:58Z,192.0.2.82,bob,GET,https://www.example.com/,www.example.com,403,213349,blocked,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T10:25:06Z,192.0.2.75,frank,GET,https://www.example.com/docs/help,www.example.com,403,240076,blocked,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T10:26:04Z,198.51.100.178,dave,GET,https://cdn.example.com/,cdn.example.com,200,22871,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T10:26:09Z,198.51.100.146,bob,GET,https://www.example.com/static/app.js,www.example.com,304,45468,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T10:26:49Z,198.51.100.16,dave,GET,https://www.example.com/search,www.example.com,200,194867,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T10:27:19Z,198.51.100.170,dave,POST,https://cdn.example.com/static/app.js,cdn.example.com,200,2316,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T10:27:24Z,192.0.2.67,erin,GET,https://www.example.com/docs/help,www.example.com,200,146367,allowed,curl/8.9.1
+2026-10-20T10:28:12Z,198.51.100.114,carol,POST,https://api.example.com/,api.example.com,403,113374,blocked,Acme-Updater/2.4
+2026-10-20T10:28:58Z,198.51.100.132,frank,POST,https://cdn.example.com/docs/help,cdn.example.com,200,147522,allowed,Acme-Updater/2.4
+2026-10-20T10:29:09Z,192.0.2.217,carol,GET,https://api.example.com/static/app.js,api.example.com,200,94812,allowed,curl/8.9.1
+2026-10-20T10:29:51Z,192.0.2.157,bob,GET,https://api.example.com/docs/help,api.example.com,304,233488,allowed,curl/8.9.1
+2026-10-20T10:30:14Z,192.0.2.25,alice,GET,https://cdn.example.com/api/v1/items,cdn.example.com,200,235217,allowed,curl/8.9.1
+2026-10-20T10:30:32Z,192.0.2.244,dave,GET,https://api.example.com/api/v1/items,api.example.com,404,222604,allowed,curl/8.9.1
+2026-10-20T10:31:09Z,198.51.100.121,bob,POST,https://www.example.com/search,www.example.com,304,85396,allowed,Acme-Updater/2.4
+2026-10-20T10:31:58Z,192.0.2.197,frank,GET,https://www.example.com/search,www.example.com,200,86148,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T10:32:35Z,192.0.2.177,alice,GET,https://www.example.com/login,www.example.com,200,227569,allowed,Mozilla/5.0 (X11; Linux x86_64)
+2026-10-20T10:33:31Z,198.51.100.254,alice,GET,https://cdn.example.com/static/app.js,cdn.example.com,200,14009,allowed,curl/8.9.1
+2026-10-20T10:33:36Z,192.0.2.85,carol,GET,https://cdn.example.com/login,cdn.example.com,404,178252,allowed,Acme-Updater/2.4

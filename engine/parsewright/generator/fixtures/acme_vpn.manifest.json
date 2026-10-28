@@ -1,68 +1,6431 @@
 {
  "source": "acme_vpn.json",
- "event_count": 60,
+ "synthetic": true,
+ "notes": "JSON, ISO offsets",
+ "true_timezone": "offset or UTC in each timestamp",
+ "event_count": 300,
  "epochs": [
-  1792483246,
+  1792483223,
+  1792483235,
   1792483263,
-  1792483295,
-  1792483330,
-  1792483350,
-  1792483405,
+  1792483307,
+  1792483313,
+  1792483320,
+  1792483375,
+  1792483412,
+  1792483421,
   1792483447,
-  1792483523,
-  1792483552,
-  1792483636,
-  1792483700,
-  1792483736,
-  1792483784,
-  1792483804,
-  1792483871,
-  1792483949,
-  1792484028,
-  1792484093,
-  1792484180,
-  1792484229,
-  1792484248,
-  1792484269,
-  1792484284,
-  1792484306,
-  1792484356,
-  1792484380,
-  1792484408,
-  1792484481,
-  1792484551,
-  1792484627,
-  1792484693,
-  1792484754,
-  1792484772,
-  1792484823,
-  1792484876,
-  1792484941,
-  1792485007,
-  1792485055,
-  1792485126,
-  1792485200,
-  1792485216,
-  1792485249,
-  1792485278,
-  1792485346,
-  1792485411,
-  1792485460,
-  1792485525,
-  1792485608,
-  1792485623,
-  1792485689,
-  1792485744,
-  1792485770,
-  1792485858,
-  1792485882,
-  1792485900,
-  1792485932,
-  1792485967,
-  1792485979,
-  1792486037,
-  1792486098
+  1792483487,
+  1792483493,
+  1792483528,
+  1792483544,
+  1792483549,
+  1792483557,
+  1792483587,
+  1792483616,
+  1792483623,
+  1792483641,
+  1792483649,
+  1792483687,
+  1792483717,
+  1792483723,
+  1792483778,
+  1792483817,
+  1792483827,
+  1792483844,
+  1792483887,
+  1792483930,
+  1792483970,
+  1792483976,
+  1792484015,
+  1792484055,
+  1792484083,
+  1792484089,
+  1792484106,
+  1792484111,
+  1792484149,
+  1792484206,
+  1792484217,
+  1792484238,
+  1792484267,
+  1792484279,
+  1792484316,
+  1792484326,
+  1792484365,
+  1792484387,
+  1792484425,
+  1792484480,
+  1792484526,
+  1792484540,
+  1792484549,
+  1792484589,
+  1792484628,
+  1792484671,
+  1792484686,
+  1792484712,
+  1792484721,
+  1792484759,
+  1792484807,
+  1792484814,
+  1792484853,
+  1792484859,
+  1792484901,
+  1792484917,
+  1792484951,
+  1792484997,
+  1792485034,
+  1792485064,
+  1792485116,
+  1792485139,
+  1792485171,
+  1792485211,
+  1792485243,
+  1792485269,
+  1792485291,
+  1792485309,
+  1792485362,
+  1792485376,
+  1792485423,
+  1792485475,
+  1792485493,
+  1792485501,
+  1792485540,
+  1792485562,
+  1792485598,
+  1792485632,
+  1792485691,
+  1792485715,
+  1792485764,
+  1792485795,
+  1792485816,
+  1792485857,
+  1792485864,
+  1792485874,
+  1792485909,
+  1792485938,
+  1792485951,
+  1792486002,
+  1792486026,
+  1792486038,
+  1792486072,
+  1792486101,
+  1792486106,
+  1792486151,
+  1792486158,
+  1792486209,
+  1792486247,
+  1792486286,
+  1792486339,
+  1792486398,
+  1792486453,
+  1792486476,
+  1792486500,
+  1792486547,
+  1792486572,
+  1792486613,
+  1792486647,
+  1792486687,
+  1792486741,
+  1792486773,
+  1792486780,
+  1792486836,
+  1792486844,
+  1792486864,
+  1792486897,
+  1792486944,
+  1792486989,
+  1792486996,
+  1792487002,
+  1792487051,
+  1792487098,
+  1792487120,
+  1792487164,
+  1792487203,
+  1792487249,
+  1792487304,
+  1792487335,
+  1792487356,
+  1792487404,
+  1792487431,
+  1792487490,
+  1792487535,
+  1792487560,
+  1792487564,
+  1792487596,
+  1792487621,
+  1792487634,
+  1792487676,
+  1792487686,
+  1792487720,
+  1792487726,
+  1792487742,
+  1792487794,
+  1792487815,
+  1792487826,
+  1792487876,
+  1792487894,
+  1792487922,
+  1792487950,
+  1792488008,
+  1792488042,
+  1792488050,
+  1792488063,
+  1792488094,
+  1792488122,
+  1792488160,
+  1792488180,
+  1792488239,
+  1792488250,
+  1792488305,
+  1792488335,
+  1792488393,
+  1792488431,
+  1792488451,
+  1792488499,
+  1792488528,
+  1792488553,
+  1792488599,
+  1792488658,
+  1792488685,
+  1792488702,
+  1792488714,
+  1792488722,
+  1792488736,
+  1792488748,
+  1792488765,
+  1792488810,
+  1792488827,
+  1792488830,
+  1792488864,
+  1792488920,
+  1792488960,
+  1792488974,
+  1792488993,
+  1792489014,
+  1792489017,
+  1792489029,
+  1792489058,
+  1792489095,
+  1792489121,
+  1792489163,
+  1792489202,
+  1792489225,
+  1792489236,
+  1792489283,
+  1792489340,
+  1792489375,
+  1792489417,
+  1792489461,
+  1792489507,
+  1792489557,
+  1792489563,
+  1792489595,
+  1792489655,
+  1792489713,
+  1792489765,
+  1792489823,
+  1792489869,
+  1792489923,
+  1792489961,
+  1792489989,
+  1792490017,
+  1792490045,
+  1792490073,
+  1792490082,
+  1792490115,
+  1792490158,
+  1792490186,
+  1792490192,
+  1792490207,
+  1792490214,
+  1792490230,
+  1792490261,
+  1792490274,
+  1792490284,
+  1792490308,
+  1792490349,
+  1792490355,
+  1792490364,
+  1792490367,
+  1792490406,
+  1792490418,
+  1792490455,
+  1792490464,
+  1792490490,
+  1792490532,
+  1792490536,
+  1792490543,
+  1792490601,
+  1792490617,
+  1792490659,
+  1792490686,
+  1792490698,
+  1792490741,
+  1792490760,
+  1792490785,
+  1792490826,
+  1792490852,
+  1792490885,
+  1792490895,
+  1792490905,
+  1792490962,
+  1792490996,
+  1792491028,
+  1792491061,
+  1792491094,
+  1792491116,
+  1792491124,
+  1792491136,
+  1792491145,
+  1792491195,
+  1792491219,
+  1792491269,
+  1792491288,
+  1792491321,
+  1792491377,
+  1792491424,
+  1792491437,
+  1792491473,
+  1792491477,
+  1792491493,
+  1792491529,
+  1792491555,
+  1792491567,
+  1792491614,
+  1792491651,
+  1792491655,
+  1792491706,
+  1792491742,
+  1792491764,
+  1792491808,
+  1792491866,
+  1792491874,
+  1792491921,
+  1792491978,
+  1792491997,
+  1792492033,
+  1792492059
  ],
- "true_timezone": "offset in each timestamp",
- "synthetic": true
+ "events": [
+  {
+   "epoch": 1792483223,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1000",
+    "type": "auth",
+    "user": "bob@example.com",
+    "src_ip": "198.51.100.198",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "bob@example.com",
+    "src": "198.51.100.198",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792483235,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1001",
+    "type": "auth",
+    "user": "erin@example.com",
+    "src_ip": "198.51.100.163",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "erin@example.com",
+    "src": "198.51.100.163",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792483263,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1002",
+    "type": "session",
+    "user": "bob@example.com",
+    "src_ip": "198.51.100.190",
+    "dest_ip": "203.0.113.52",
+    "dest_port": "8443",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "3998"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "198.51.100.190",
+    "dest": "203.0.113.52",
+    "dest_port": "8443",
+    "transport": "tcp",
+    "user": "bob@example.com",
+    "bytes_out": "3998"
+   }
+  },
+  {
+   "epoch": 1792483307,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1003",
+    "type": "auth",
+    "user": "alice@example.com",
+    "src_ip": "198.51.100.121",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "alice@example.com",
+    "src": "198.51.100.121",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792483313,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1004",
+    "type": "session",
+    "user": "erin@example.com",
+    "src_ip": "198.51.100.115",
+    "dest_ip": "203.0.113.186",
+    "dest_port": "3389",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "10756"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "198.51.100.115",
+    "dest": "203.0.113.186",
+    "dest_port": "3389",
+    "transport": "tcp",
+    "user": "erin@example.com",
+    "bytes_out": "10756"
+   }
+  },
+  {
+   "epoch": 1792483320,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1005",
+    "type": "auth",
+    "user": "bob@example.com",
+    "src_ip": "192.0.2.59",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "bob@example.com",
+    "src": "192.0.2.59",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792483375,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1006",
+    "type": "session",
+    "user": "bob@example.com",
+    "src_ip": "198.51.100.160",
+    "dest_ip": "203.0.113.157",
+    "dest_port": "22",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "85787"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "198.51.100.160",
+    "dest": "203.0.113.157",
+    "dest_port": "22",
+    "transport": "tcp",
+    "user": "bob@example.com",
+    "bytes_out": "85787"
+   }
+  },
+  {
+   "epoch": 1792483412,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1007",
+    "type": "session",
+    "user": "carol@example.com",
+    "src_ip": "192.0.2.214",
+    "dest_ip": "203.0.113.233",
+    "dest_port": "8443",
+    "proto": "tcp",
+    "verdict": "deny",
+    "bytes_out": "26325"
+   },
+   "cim": {
+    "action": "blocked",
+    "src": "192.0.2.214",
+    "dest": "203.0.113.233",
+    "dest_port": "8443",
+    "transport": "tcp",
+    "user": "carol@example.com",
+    "bytes_out": "26325"
+   }
+  },
+  {
+   "epoch": 1792483421,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1008",
+    "type": "session",
+    "user": "dave@example.com",
+    "src_ip": "192.0.2.112",
+    "dest_ip": "203.0.113.86",
+    "dest_port": "22",
+    "proto": "tcp",
+    "verdict": "deny",
+    "bytes_out": "52083"
+   },
+   "cim": {
+    "action": "blocked",
+    "src": "192.0.2.112",
+    "dest": "203.0.113.86",
+    "dest_port": "22",
+    "transport": "tcp",
+    "user": "dave@example.com",
+    "bytes_out": "52083"
+   }
+  },
+  {
+   "epoch": 1792483447,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1009",
+    "type": "session",
+    "user": "dave@example.com",
+    "src_ip": "198.51.100.191",
+    "dest_ip": "203.0.113.186",
+    "dest_port": "443",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "16851"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "198.51.100.191",
+    "dest": "203.0.113.186",
+    "dest_port": "443",
+    "transport": "tcp",
+    "user": "dave@example.com",
+    "bytes_out": "16851"
+   }
+  },
+  {
+   "epoch": 1792483487,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1010",
+    "type": "session",
+    "user": "alice@example.com",
+    "src_ip": "192.0.2.152",
+    "dest_ip": "203.0.113.207",
+    "dest_port": "443",
+    "proto": "tcp",
+    "verdict": "deny",
+    "bytes_out": "78301"
+   },
+   "cim": {
+    "action": "blocked",
+    "src": "192.0.2.152",
+    "dest": "203.0.113.207",
+    "dest_port": "443",
+    "transport": "tcp",
+    "user": "alice@example.com",
+    "bytes_out": "78301"
+   }
+  },
+  {
+   "epoch": 1792483493,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1011",
+    "type": "auth",
+    "user": "dave@example.com",
+    "src_ip": "198.51.100.40",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave@example.com",
+    "src": "198.51.100.40",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792483528,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1012",
+    "type": "session",
+    "user": "alice@example.com",
+    "src_ip": "192.0.2.205",
+    "dest_ip": "203.0.113.167",
+    "dest_port": "22",
+    "proto": "tcp",
+    "verdict": "deny",
+    "bytes_out": "18451"
+   },
+   "cim": {
+    "action": "blocked",
+    "src": "192.0.2.205",
+    "dest": "203.0.113.167",
+    "dest_port": "22",
+    "transport": "tcp",
+    "user": "alice@example.com",
+    "bytes_out": "18451"
+   }
+  },
+  {
+   "epoch": 1792483544,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1013",
+    "type": "session",
+    "user": "dave@example.com",
+    "src_ip": "192.0.2.212",
+    "dest_ip": "203.0.113.8",
+    "dest_port": "3389",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "38599"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "192.0.2.212",
+    "dest": "203.0.113.8",
+    "dest_port": "3389",
+    "transport": "tcp",
+    "user": "dave@example.com",
+    "bytes_out": "38599"
+   }
+  },
+  {
+   "epoch": 1792483549,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1014",
+    "type": "auth",
+    "user": "erin@example.com",
+    "src_ip": "192.0.2.196",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "erin@example.com",
+    "src": "192.0.2.196",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792483557,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1015",
+    "type": "auth",
+    "user": "erin@example.com",
+    "src_ip": "198.51.100.214",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "erin@example.com",
+    "src": "198.51.100.214",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792483587,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1016",
+    "type": "auth",
+    "user": "carol@example.com",
+    "src_ip": "198.51.100.170",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "carol@example.com",
+    "src": "198.51.100.170",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792483616,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1017",
+    "type": "auth",
+    "user": "dave@example.com",
+    "src_ip": "192.0.2.137",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "dave@example.com",
+    "src": "192.0.2.137",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792483623,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1018",
+    "type": "auth",
+    "user": "alice@example.com",
+    "src_ip": "198.51.100.199",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice@example.com",
+    "src": "198.51.100.199",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792483641,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1019",
+    "type": "auth",
+    "user": "bob@example.com",
+    "src_ip": "192.0.2.37",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "bob@example.com",
+    "src": "192.0.2.37",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792483649,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1020",
+    "type": "session",
+    "user": "alice@example.com",
+    "src_ip": "192.0.2.84",
+    "dest_ip": "203.0.113.136",
+    "dest_port": "8443",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "73639"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "192.0.2.84",
+    "dest": "203.0.113.136",
+    "dest_port": "8443",
+    "transport": "tcp",
+    "user": "alice@example.com",
+    "bytes_out": "73639"
+   }
+  },
+  {
+   "epoch": 1792483687,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1021",
+    "type": "auth",
+    "user": "alice@example.com",
+    "src_ip": "192.0.2.49",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice@example.com",
+    "src": "192.0.2.49",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792483717,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1022",
+    "type": "auth",
+    "user": "erin@example.com",
+    "src_ip": "198.51.100.144",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "erin@example.com",
+    "src": "198.51.100.144",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792483723,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1023",
+    "type": "session",
+    "user": "dave@example.com",
+    "src_ip": "198.51.100.157",
+    "dest_ip": "203.0.113.156",
+    "dest_port": "443",
+    "proto": "tcp",
+    "verdict": "deny",
+    "bytes_out": "36531"
+   },
+   "cim": {
+    "action": "blocked",
+    "src": "198.51.100.157",
+    "dest": "203.0.113.156",
+    "dest_port": "443",
+    "transport": "tcp",
+    "user": "dave@example.com",
+    "bytes_out": "36531"
+   }
+  },
+  {
+   "epoch": 1792483778,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1024",
+    "type": "session",
+    "user": "dave@example.com",
+    "src_ip": "198.51.100.130",
+    "dest_ip": "203.0.113.179",
+    "dest_port": "3389",
+    "proto": "tcp",
+    "verdict": "deny",
+    "bytes_out": "26753"
+   },
+   "cim": {
+    "action": "blocked",
+    "src": "198.51.100.130",
+    "dest": "203.0.113.179",
+    "dest_port": "3389",
+    "transport": "tcp",
+    "user": "dave@example.com",
+    "bytes_out": "26753"
+   }
+  },
+  {
+   "epoch": 1792483817,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1025",
+    "type": "auth",
+    "user": "dave@example.com",
+    "src_ip": "192.0.2.107",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave@example.com",
+    "src": "192.0.2.107",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792483827,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1026",
+    "type": "auth",
+    "user": "carol@example.com",
+    "src_ip": "192.0.2.172",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol@example.com",
+    "src": "192.0.2.172",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792483844,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1027",
+    "type": "auth",
+    "user": "bob@example.com",
+    "src_ip": "198.51.100.201",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "bob@example.com",
+    "src": "198.51.100.201",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792483887,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1028",
+    "type": "auth",
+    "user": "frank@example.com",
+    "src_ip": "198.51.100.37",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "frank@example.com",
+    "src": "198.51.100.37",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792483930,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1029",
+    "type": "session",
+    "user": "dave@example.com",
+    "src_ip": "192.0.2.192",
+    "dest_ip": "203.0.113.102",
+    "dest_port": "8443",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "87734"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "192.0.2.192",
+    "dest": "203.0.113.102",
+    "dest_port": "8443",
+    "transport": "tcp",
+    "user": "dave@example.com",
+    "bytes_out": "87734"
+   }
+  },
+  {
+   "epoch": 1792483970,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1030",
+    "type": "auth",
+    "user": "bob@example.com",
+    "src_ip": "192.0.2.181",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "bob@example.com",
+    "src": "192.0.2.181",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792483976,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1031",
+    "type": "auth",
+    "user": "dave@example.com",
+    "src_ip": "198.51.100.108",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave@example.com",
+    "src": "198.51.100.108",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792484015,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1032",
+    "type": "auth",
+    "user": "alice@example.com",
+    "src_ip": "198.51.100.5",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice@example.com",
+    "src": "198.51.100.5",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792484055,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1033",
+    "type": "auth",
+    "user": "dave@example.com",
+    "src_ip": "192.0.2.99",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "dave@example.com",
+    "src": "192.0.2.99",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792484083,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1034",
+    "type": "session",
+    "user": "carol@example.com",
+    "src_ip": "192.0.2.29",
+    "dest_ip": "203.0.113.202",
+    "dest_port": "443",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "11218"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "192.0.2.29",
+    "dest": "203.0.113.202",
+    "dest_port": "443",
+    "transport": "tcp",
+    "user": "carol@example.com",
+    "bytes_out": "11218"
+   }
+  },
+  {
+   "epoch": 1792484089,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1035",
+    "type": "session",
+    "user": "carol@example.com",
+    "src_ip": "198.51.100.11",
+    "dest_ip": "203.0.113.47",
+    "dest_port": "3389",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "55545"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "198.51.100.11",
+    "dest": "203.0.113.47",
+    "dest_port": "3389",
+    "transport": "tcp",
+    "user": "carol@example.com",
+    "bytes_out": "55545"
+   }
+  },
+  {
+   "epoch": 1792484106,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1036",
+    "type": "auth",
+    "user": "frank@example.com",
+    "src_ip": "198.51.100.104",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "frank@example.com",
+    "src": "198.51.100.104",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792484111,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1037",
+    "type": "auth",
+    "user": "erin@example.com",
+    "src_ip": "198.51.100.180",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "erin@example.com",
+    "src": "198.51.100.180",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792484149,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1038",
+    "type": "session",
+    "user": "alice@example.com",
+    "src_ip": "192.0.2.109",
+    "dest_ip": "203.0.113.69",
+    "dest_port": "22",
+    "proto": "tcp",
+    "verdict": "deny",
+    "bytes_out": "11808"
+   },
+   "cim": {
+    "action": "blocked",
+    "src": "192.0.2.109",
+    "dest": "203.0.113.69",
+    "dest_port": "22",
+    "transport": "tcp",
+    "user": "alice@example.com",
+    "bytes_out": "11808"
+   }
+  },
+  {
+   "epoch": 1792484206,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1039",
+    "type": "session",
+    "user": "carol@example.com",
+    "src_ip": "192.0.2.156",
+    "dest_ip": "203.0.113.18",
+    "dest_port": "3389",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "59677"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "192.0.2.156",
+    "dest": "203.0.113.18",
+    "dest_port": "3389",
+    "transport": "tcp",
+    "user": "carol@example.com",
+    "bytes_out": "59677"
+   }
+  },
+  {
+   "epoch": 1792484217,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1040",
+    "type": "auth",
+    "user": "alice@example.com",
+    "src_ip": "198.51.100.142",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice@example.com",
+    "src": "198.51.100.142",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792484238,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1041",
+    "type": "auth",
+    "user": "erin@example.com",
+    "src_ip": "192.0.2.12",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "erin@example.com",
+    "src": "192.0.2.12",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792484267,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1042",
+    "type": "auth",
+    "user": "alice@example.com",
+    "src_ip": "192.0.2.68",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice@example.com",
+    "src": "192.0.2.68",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792484279,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1043",
+    "type": "session",
+    "user": "carol@example.com",
+    "src_ip": "198.51.100.136",
+    "dest_ip": "203.0.113.75",
+    "dest_port": "8443",
+    "proto": "tcp",
+    "verdict": "deny",
+    "bytes_out": "88300"
+   },
+   "cim": {
+    "action": "blocked",
+    "src": "198.51.100.136",
+    "dest": "203.0.113.75",
+    "dest_port": "8443",
+    "transport": "tcp",
+    "user": "carol@example.com",
+    "bytes_out": "88300"
+   }
+  },
+  {
+   "epoch": 1792484316,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1044",
+    "type": "session",
+    "user": "bob@example.com",
+    "src_ip": "198.51.100.89",
+    "dest_ip": "203.0.113.65",
+    "dest_port": "22",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "2616"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "198.51.100.89",
+    "dest": "203.0.113.65",
+    "dest_port": "22",
+    "transport": "tcp",
+    "user": "bob@example.com",
+    "bytes_out": "2616"
+   }
+  },
+  {
+   "epoch": 1792484326,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1045",
+    "type": "auth",
+    "user": "frank@example.com",
+    "src_ip": "192.0.2.132",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "frank@example.com",
+    "src": "192.0.2.132",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792484365,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1046",
+    "type": "auth",
+    "user": "alice@example.com",
+    "src_ip": "198.51.100.169",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice@example.com",
+    "src": "198.51.100.169",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792484387,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1047",
+    "type": "auth",
+    "user": "erin@example.com",
+    "src_ip": "198.51.100.177",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "erin@example.com",
+    "src": "198.51.100.177",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792484425,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1048",
+    "type": "session",
+    "user": "carol@example.com",
+    "src_ip": "192.0.2.214",
+    "dest_ip": "203.0.113.187",
+    "dest_port": "443",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "45754"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "192.0.2.214",
+    "dest": "203.0.113.187",
+    "dest_port": "443",
+    "transport": "tcp",
+    "user": "carol@example.com",
+    "bytes_out": "45754"
+   }
+  },
+  {
+   "epoch": 1792484480,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1049",
+    "type": "auth",
+    "user": "alice@example.com",
+    "src_ip": "192.0.2.4",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "alice@example.com",
+    "src": "192.0.2.4",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792484526,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1050",
+    "type": "auth",
+    "user": "carol@example.com",
+    "src_ip": "198.51.100.42",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "carol@example.com",
+    "src": "198.51.100.42",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792484540,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1051",
+    "type": "auth",
+    "user": "dave@example.com",
+    "src_ip": "198.51.100.154",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave@example.com",
+    "src": "198.51.100.154",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792484549,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1052",
+    "type": "auth",
+    "user": "alice@example.com",
+    "src_ip": "198.51.100.48",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice@example.com",
+    "src": "198.51.100.48",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792484589,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1053",
+    "type": "session",
+    "user": "alice@example.com",
+    "src_ip": "198.51.100.94",
+    "dest_ip": "203.0.113.249",
+    "dest_port": "3389",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "4715"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "198.51.100.94",
+    "dest": "203.0.113.249",
+    "dest_port": "3389",
+    "transport": "tcp",
+    "user": "alice@example.com",
+    "bytes_out": "4715"
+   }
+  },
+  {
+   "epoch": 1792484628,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1054",
+    "type": "auth",
+    "user": "carol@example.com",
+    "src_ip": "192.0.2.92",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol@example.com",
+    "src": "192.0.2.92",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792484671,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1055",
+    "type": "auth",
+    "user": "dave@example.com",
+    "src_ip": "192.0.2.122",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "dave@example.com",
+    "src": "192.0.2.122",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792484686,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1056",
+    "type": "session",
+    "user": "bob@example.com",
+    "src_ip": "192.0.2.130",
+    "dest_ip": "203.0.113.24",
+    "dest_port": "3389",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "19056"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "192.0.2.130",
+    "dest": "203.0.113.24",
+    "dest_port": "3389",
+    "transport": "tcp",
+    "user": "bob@example.com",
+    "bytes_out": "19056"
+   }
+  },
+  {
+   "epoch": 1792484712,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1057",
+    "type": "auth",
+    "user": "dave@example.com",
+    "src_ip": "192.0.2.101",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave@example.com",
+    "src": "192.0.2.101",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792484721,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1058",
+    "type": "auth",
+    "user": "frank@example.com",
+    "src_ip": "192.0.2.22",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "frank@example.com",
+    "src": "192.0.2.22",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792484759,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1059",
+    "type": "auth",
+    "user": "bob@example.com",
+    "src_ip": "198.51.100.196",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "bob@example.com",
+    "src": "198.51.100.196",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792484807,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1060",
+    "type": "session",
+    "user": "bob@example.com",
+    "src_ip": "198.51.100.186",
+    "dest_ip": "203.0.113.38",
+    "dest_port": "22",
+    "proto": "tcp",
+    "verdict": "deny",
+    "bytes_out": "67437"
+   },
+   "cim": {
+    "action": "blocked",
+    "src": "198.51.100.186",
+    "dest": "203.0.113.38",
+    "dest_port": "22",
+    "transport": "tcp",
+    "user": "bob@example.com",
+    "bytes_out": "67437"
+   }
+  },
+  {
+   "epoch": 1792484814,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1061",
+    "type": "session",
+    "user": "frank@example.com",
+    "src_ip": "198.51.100.188",
+    "dest_ip": "203.0.113.130",
+    "dest_port": "443",
+    "proto": "tcp",
+    "verdict": "deny",
+    "bytes_out": "66308"
+   },
+   "cim": {
+    "action": "blocked",
+    "src": "198.51.100.188",
+    "dest": "203.0.113.130",
+    "dest_port": "443",
+    "transport": "tcp",
+    "user": "frank@example.com",
+    "bytes_out": "66308"
+   }
+  },
+  {
+   "epoch": 1792484853,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1062",
+    "type": "session",
+    "user": "erin@example.com",
+    "src_ip": "192.0.2.212",
+    "dest_ip": "203.0.113.205",
+    "dest_port": "443",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "4284"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "192.0.2.212",
+    "dest": "203.0.113.205",
+    "dest_port": "443",
+    "transport": "tcp",
+    "user": "erin@example.com",
+    "bytes_out": "4284"
+   }
+  },
+  {
+   "epoch": 1792484859,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1063",
+    "type": "auth",
+    "user": "alice@example.com",
+    "src_ip": "192.0.2.164",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice@example.com",
+    "src": "192.0.2.164",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792484901,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1064",
+    "type": "auth",
+    "user": "dave@example.com",
+    "src_ip": "198.51.100.143",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave@example.com",
+    "src": "198.51.100.143",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792484917,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1065",
+    "type": "auth",
+    "user": "frank@example.com",
+    "src_ip": "192.0.2.126",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "frank@example.com",
+    "src": "192.0.2.126",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792484951,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1066",
+    "type": "auth",
+    "user": "alice@example.com",
+    "src_ip": "192.0.2.169",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "alice@example.com",
+    "src": "192.0.2.169",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792484997,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1067",
+    "type": "session",
+    "user": "frank@example.com",
+    "src_ip": "198.51.100.65",
+    "dest_ip": "203.0.113.217",
+    "dest_port": "3389",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "27098"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "198.51.100.65",
+    "dest": "203.0.113.217",
+    "dest_port": "3389",
+    "transport": "tcp",
+    "user": "frank@example.com",
+    "bytes_out": "27098"
+   }
+  },
+  {
+   "epoch": 1792485034,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1068",
+    "type": "session",
+    "user": "bob@example.com",
+    "src_ip": "198.51.100.127",
+    "dest_ip": "203.0.113.20",
+    "dest_port": "8443",
+    "proto": "tcp",
+    "verdict": "deny",
+    "bytes_out": "37859"
+   },
+   "cim": {
+    "action": "blocked",
+    "src": "198.51.100.127",
+    "dest": "203.0.113.20",
+    "dest_port": "8443",
+    "transport": "tcp",
+    "user": "bob@example.com",
+    "bytes_out": "37859"
+   }
+  },
+  {
+   "epoch": 1792485064,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1069",
+    "type": "auth",
+    "user": "alice@example.com",
+    "src_ip": "192.0.2.20",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice@example.com",
+    "src": "192.0.2.20",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792485116,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1070",
+    "type": "auth",
+    "user": "carol@example.com",
+    "src_ip": "198.51.100.160",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol@example.com",
+    "src": "198.51.100.160",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792485139,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1071",
+    "type": "auth",
+    "user": "dave@example.com",
+    "src_ip": "192.0.2.125",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "dave@example.com",
+    "src": "192.0.2.125",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792485171,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1072",
+    "type": "auth",
+    "user": "alice@example.com",
+    "src_ip": "192.0.2.173",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "alice@example.com",
+    "src": "192.0.2.173",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792485211,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1073",
+    "type": "auth",
+    "user": "erin@example.com",
+    "src_ip": "198.51.100.119",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "erin@example.com",
+    "src": "198.51.100.119",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792485243,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1074",
+    "type": "session",
+    "user": "erin@example.com",
+    "src_ip": "192.0.2.80",
+    "dest_ip": "203.0.113.240",
+    "dest_port": "8443",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "38156"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "192.0.2.80",
+    "dest": "203.0.113.240",
+    "dest_port": "8443",
+    "transport": "tcp",
+    "user": "erin@example.com",
+    "bytes_out": "38156"
+   }
+  },
+  {
+   "epoch": 1792485269,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1075",
+    "type": "auth",
+    "user": "dave@example.com",
+    "src_ip": "192.0.2.210",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave@example.com",
+    "src": "192.0.2.210",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792485291,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1076",
+    "type": "session",
+    "user": "carol@example.com",
+    "src_ip": "198.51.100.54",
+    "dest_ip": "203.0.113.239",
+    "dest_port": "443",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "76414"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "198.51.100.54",
+    "dest": "203.0.113.239",
+    "dest_port": "443",
+    "transport": "tcp",
+    "user": "carol@example.com",
+    "bytes_out": "76414"
+   }
+  },
+  {
+   "epoch": 1792485309,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1077",
+    "type": "auth",
+    "user": "alice@example.com",
+    "src_ip": "192.0.2.192",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice@example.com",
+    "src": "192.0.2.192",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792485362,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1078",
+    "type": "auth",
+    "user": "bob@example.com",
+    "src_ip": "198.51.100.228",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "bob@example.com",
+    "src": "198.51.100.228",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792485376,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1079",
+    "type": "session",
+    "user": "bob@example.com",
+    "src_ip": "198.51.100.230",
+    "dest_ip": "203.0.113.101",
+    "dest_port": "22",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "670"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "198.51.100.230",
+    "dest": "203.0.113.101",
+    "dest_port": "22",
+    "transport": "tcp",
+    "user": "bob@example.com",
+    "bytes_out": "670"
+   }
+  },
+  {
+   "epoch": 1792485423,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1080",
+    "type": "auth",
+    "user": "dave@example.com",
+    "src_ip": "198.51.100.104",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave@example.com",
+    "src": "198.51.100.104",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792485475,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1081",
+    "type": "auth",
+    "user": "dave@example.com",
+    "src_ip": "198.51.100.97",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave@example.com",
+    "src": "198.51.100.97",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792485493,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1082",
+    "type": "auth",
+    "user": "alice@example.com",
+    "src_ip": "198.51.100.193",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice@example.com",
+    "src": "198.51.100.193",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792485501,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1083",
+    "type": "auth",
+    "user": "alice@example.com",
+    "src_ip": "192.0.2.183",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "alice@example.com",
+    "src": "192.0.2.183",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792485540,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1084",
+    "type": "auth",
+    "user": "carol@example.com",
+    "src_ip": "198.51.100.96",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol@example.com",
+    "src": "198.51.100.96",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792485562,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1085",
+    "type": "session",
+    "user": "erin@example.com",
+    "src_ip": "192.0.2.93",
+    "dest_ip": "203.0.113.194",
+    "dest_port": "3389",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "36983"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "192.0.2.93",
+    "dest": "203.0.113.194",
+    "dest_port": "3389",
+    "transport": "tcp",
+    "user": "erin@example.com",
+    "bytes_out": "36983"
+   }
+  },
+  {
+   "epoch": 1792485598,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1086",
+    "type": "session",
+    "user": "alice@example.com",
+    "src_ip": "192.0.2.214",
+    "dest_ip": "203.0.113.163",
+    "dest_port": "443",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "35029"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "192.0.2.214",
+    "dest": "203.0.113.163",
+    "dest_port": "443",
+    "transport": "tcp",
+    "user": "alice@example.com",
+    "bytes_out": "35029"
+   }
+  },
+  {
+   "epoch": 1792485632,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1087",
+    "type": "session",
+    "user": "dave@example.com",
+    "src_ip": "198.51.100.49",
+    "dest_ip": "203.0.113.201",
+    "dest_port": "8443",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "82892"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "198.51.100.49",
+    "dest": "203.0.113.201",
+    "dest_port": "8443",
+    "transport": "tcp",
+    "user": "dave@example.com",
+    "bytes_out": "82892"
+   }
+  },
+  {
+   "epoch": 1792485691,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1088",
+    "type": "auth",
+    "user": "dave@example.com",
+    "src_ip": "192.0.2.185",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "dave@example.com",
+    "src": "192.0.2.185",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792485715,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1089",
+    "type": "session",
+    "user": "dave@example.com",
+    "src_ip": "198.51.100.158",
+    "dest_ip": "203.0.113.165",
+    "dest_port": "3389",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "6619"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "198.51.100.158",
+    "dest": "203.0.113.165",
+    "dest_port": "3389",
+    "transport": "tcp",
+    "user": "dave@example.com",
+    "bytes_out": "6619"
+   }
+  },
+  {
+   "epoch": 1792485764,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1090",
+    "type": "auth",
+    "user": "erin@example.com",
+    "src_ip": "192.0.2.44",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "erin@example.com",
+    "src": "192.0.2.44",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792485795,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1091",
+    "type": "session",
+    "user": "carol@example.com",
+    "src_ip": "198.51.100.66",
+    "dest_ip": "203.0.113.250",
+    "dest_port": "3389",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "86182"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "198.51.100.66",
+    "dest": "203.0.113.250",
+    "dest_port": "3389",
+    "transport": "tcp",
+    "user": "carol@example.com",
+    "bytes_out": "86182"
+   }
+  },
+  {
+   "epoch": 1792485816,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1092",
+    "type": "auth",
+    "user": "bob@example.com",
+    "src_ip": "198.51.100.124",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "bob@example.com",
+    "src": "198.51.100.124",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792485857,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1093",
+    "type": "auth",
+    "user": "alice@example.com",
+    "src_ip": "192.0.2.165",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice@example.com",
+    "src": "192.0.2.165",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792485864,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1094",
+    "type": "auth",
+    "user": "erin@example.com",
+    "src_ip": "198.51.100.141",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "erin@example.com",
+    "src": "198.51.100.141",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792485874,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1095",
+    "type": "auth",
+    "user": "dave@example.com",
+    "src_ip": "198.51.100.36",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave@example.com",
+    "src": "198.51.100.36",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792485909,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1096",
+    "type": "auth",
+    "user": "alice@example.com",
+    "src_ip": "192.0.2.88",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice@example.com",
+    "src": "192.0.2.88",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792485938,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1097",
+    "type": "session",
+    "user": "bob@example.com",
+    "src_ip": "198.51.100.67",
+    "dest_ip": "203.0.113.52",
+    "dest_port": "22",
+    "proto": "tcp",
+    "verdict": "deny",
+    "bytes_out": "54304"
+   },
+   "cim": {
+    "action": "blocked",
+    "src": "198.51.100.67",
+    "dest": "203.0.113.52",
+    "dest_port": "22",
+    "transport": "tcp",
+    "user": "bob@example.com",
+    "bytes_out": "54304"
+   }
+  },
+  {
+   "epoch": 1792485951,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1098",
+    "type": "auth",
+    "user": "dave@example.com",
+    "src_ip": "198.51.100.191",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave@example.com",
+    "src": "198.51.100.191",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792486002,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1099",
+    "type": "auth",
+    "user": "carol@example.com",
+    "src_ip": "198.51.100.193",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol@example.com",
+    "src": "198.51.100.193",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792486026,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1100",
+    "type": "session",
+    "user": "erin@example.com",
+    "src_ip": "198.51.100.33",
+    "dest_ip": "203.0.113.136",
+    "dest_port": "443",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "35723"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "198.51.100.33",
+    "dest": "203.0.113.136",
+    "dest_port": "443",
+    "transport": "tcp",
+    "user": "erin@example.com",
+    "bytes_out": "35723"
+   }
+  },
+  {
+   "epoch": 1792486038,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1101",
+    "type": "session",
+    "user": "bob@example.com",
+    "src_ip": "198.51.100.103",
+    "dest_ip": "203.0.113.111",
+    "dest_port": "3389",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "16878"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "198.51.100.103",
+    "dest": "203.0.113.111",
+    "dest_port": "3389",
+    "transport": "tcp",
+    "user": "bob@example.com",
+    "bytes_out": "16878"
+   }
+  },
+  {
+   "epoch": 1792486072,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1102",
+    "type": "session",
+    "user": "alice@example.com",
+    "src_ip": "198.51.100.182",
+    "dest_ip": "203.0.113.206",
+    "dest_port": "8443",
+    "proto": "tcp",
+    "verdict": "deny",
+    "bytes_out": "64402"
+   },
+   "cim": {
+    "action": "blocked",
+    "src": "198.51.100.182",
+    "dest": "203.0.113.206",
+    "dest_port": "8443",
+    "transport": "tcp",
+    "user": "alice@example.com",
+    "bytes_out": "64402"
+   }
+  },
+  {
+   "epoch": 1792486101,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1103",
+    "type": "session",
+    "user": "alice@example.com",
+    "src_ip": "192.0.2.101",
+    "dest_ip": "203.0.113.238",
+    "dest_port": "8443",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "32766"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "192.0.2.101",
+    "dest": "203.0.113.238",
+    "dest_port": "8443",
+    "transport": "tcp",
+    "user": "alice@example.com",
+    "bytes_out": "32766"
+   }
+  },
+  {
+   "epoch": 1792486106,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1104",
+    "type": "auth",
+    "user": "alice@example.com",
+    "src_ip": "192.0.2.40",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "alice@example.com",
+    "src": "192.0.2.40",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792486151,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1105",
+    "type": "auth",
+    "user": "alice@example.com",
+    "src_ip": "198.51.100.22",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice@example.com",
+    "src": "198.51.100.22",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792486158,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1106",
+    "type": "auth",
+    "user": "alice@example.com",
+    "src_ip": "192.0.2.60",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice@example.com",
+    "src": "192.0.2.60",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792486209,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1107",
+    "type": "auth",
+    "user": "frank@example.com",
+    "src_ip": "198.51.100.247",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "frank@example.com",
+    "src": "198.51.100.247",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792486247,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1108",
+    "type": "session",
+    "user": "erin@example.com",
+    "src_ip": "198.51.100.179",
+    "dest_ip": "203.0.113.26",
+    "dest_port": "22",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "68938"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "198.51.100.179",
+    "dest": "203.0.113.26",
+    "dest_port": "22",
+    "transport": "tcp",
+    "user": "erin@example.com",
+    "bytes_out": "68938"
+   }
+  },
+  {
+   "epoch": 1792486286,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1109",
+    "type": "auth",
+    "user": "erin@example.com",
+    "src_ip": "192.0.2.100",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "erin@example.com",
+    "src": "192.0.2.100",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792486339,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1110",
+    "type": "auth",
+    "user": "alice@example.com",
+    "src_ip": "192.0.2.138",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice@example.com",
+    "src": "192.0.2.138",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792486398,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1111",
+    "type": "session",
+    "user": "carol@example.com",
+    "src_ip": "198.51.100.166",
+    "dest_ip": "203.0.113.63",
+    "dest_port": "8443",
+    "proto": "tcp",
+    "verdict": "deny",
+    "bytes_out": "30971"
+   },
+   "cim": {
+    "action": "blocked",
+    "src": "198.51.100.166",
+    "dest": "203.0.113.63",
+    "dest_port": "8443",
+    "transport": "tcp",
+    "user": "carol@example.com",
+    "bytes_out": "30971"
+   }
+  },
+  {
+   "epoch": 1792486453,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1112",
+    "type": "session",
+    "user": "erin@example.com",
+    "src_ip": "192.0.2.8",
+    "dest_ip": "203.0.113.181",
+    "dest_port": "3389",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "3055"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "192.0.2.8",
+    "dest": "203.0.113.181",
+    "dest_port": "3389",
+    "transport": "tcp",
+    "user": "erin@example.com",
+    "bytes_out": "3055"
+   }
+  },
+  {
+   "epoch": 1792486476,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1113",
+    "type": "session",
+    "user": "bob@example.com",
+    "src_ip": "198.51.100.227",
+    "dest_ip": "203.0.113.108",
+    "dest_port": "22",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "30063"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "198.51.100.227",
+    "dest": "203.0.113.108",
+    "dest_port": "22",
+    "transport": "tcp",
+    "user": "bob@example.com",
+    "bytes_out": "30063"
+   }
+  },
+  {
+   "epoch": 1792486500,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1114",
+    "type": "auth",
+    "user": "frank@example.com",
+    "src_ip": "198.51.100.237",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "frank@example.com",
+    "src": "198.51.100.237",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792486547,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1115",
+    "type": "auth",
+    "user": "alice@example.com",
+    "src_ip": "198.51.100.184",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "alice@example.com",
+    "src": "198.51.100.184",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792486572,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1116",
+    "type": "session",
+    "user": "dave@example.com",
+    "src_ip": "192.0.2.2",
+    "dest_ip": "203.0.113.190",
+    "dest_port": "22",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "65171"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "192.0.2.2",
+    "dest": "203.0.113.190",
+    "dest_port": "22",
+    "transport": "tcp",
+    "user": "dave@example.com",
+    "bytes_out": "65171"
+   }
+  },
+  {
+   "epoch": 1792486613,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1117",
+    "type": "session",
+    "user": "bob@example.com",
+    "src_ip": "198.51.100.197",
+    "dest_ip": "203.0.113.60",
+    "dest_port": "8443",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "34936"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "198.51.100.197",
+    "dest": "203.0.113.60",
+    "dest_port": "8443",
+    "transport": "tcp",
+    "user": "bob@example.com",
+    "bytes_out": "34936"
+   }
+  },
+  {
+   "epoch": 1792486647,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1118",
+    "type": "session",
+    "user": "carol@example.com",
+    "src_ip": "192.0.2.244",
+    "dest_ip": "203.0.113.157",
+    "dest_port": "443",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "63776"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "192.0.2.244",
+    "dest": "203.0.113.157",
+    "dest_port": "443",
+    "transport": "tcp",
+    "user": "carol@example.com",
+    "bytes_out": "63776"
+   }
+  },
+  {
+   "epoch": 1792486687,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1119",
+    "type": "auth",
+    "user": "dave@example.com",
+    "src_ip": "192.0.2.243",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave@example.com",
+    "src": "192.0.2.243",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792486741,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1120",
+    "type": "session",
+    "user": "alice@example.com",
+    "src_ip": "192.0.2.7",
+    "dest_ip": "203.0.113.37",
+    "dest_port": "8443",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "8082"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "192.0.2.7",
+    "dest": "203.0.113.37",
+    "dest_port": "8443",
+    "transport": "tcp",
+    "user": "alice@example.com",
+    "bytes_out": "8082"
+   }
+  },
+  {
+   "epoch": 1792486773,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1121",
+    "type": "session",
+    "user": "bob@example.com",
+    "src_ip": "198.51.100.116",
+    "dest_ip": "203.0.113.227",
+    "dest_port": "3389",
+    "proto": "tcp",
+    "verdict": "deny",
+    "bytes_out": "15038"
+   },
+   "cim": {
+    "action": "blocked",
+    "src": "198.51.100.116",
+    "dest": "203.0.113.227",
+    "dest_port": "3389",
+    "transport": "tcp",
+    "user": "bob@example.com",
+    "bytes_out": "15038"
+   }
+  },
+  {
+   "epoch": 1792486780,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1122",
+    "type": "auth",
+    "user": "alice@example.com",
+    "src_ip": "192.0.2.85",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "alice@example.com",
+    "src": "192.0.2.85",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792486836,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1123",
+    "type": "auth",
+    "user": "erin@example.com",
+    "src_ip": "198.51.100.9",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "erin@example.com",
+    "src": "198.51.100.9",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792486844,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1124",
+    "type": "auth",
+    "user": "dave@example.com",
+    "src_ip": "198.51.100.253",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave@example.com",
+    "src": "198.51.100.253",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792486864,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1125",
+    "type": "auth",
+    "user": "alice@example.com",
+    "src_ip": "192.0.2.21",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice@example.com",
+    "src": "192.0.2.21",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792486897,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1126",
+    "type": "session",
+    "user": "dave@example.com",
+    "src_ip": "192.0.2.144",
+    "dest_ip": "203.0.113.54",
+    "dest_port": "8443",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "40661"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "192.0.2.144",
+    "dest": "203.0.113.54",
+    "dest_port": "8443",
+    "transport": "tcp",
+    "user": "dave@example.com",
+    "bytes_out": "40661"
+   }
+  },
+  {
+   "epoch": 1792486944,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1127",
+    "type": "session",
+    "user": "dave@example.com",
+    "src_ip": "192.0.2.13",
+    "dest_ip": "203.0.113.51",
+    "dest_port": "3389",
+    "proto": "tcp",
+    "verdict": "deny",
+    "bytes_out": "58703"
+   },
+   "cim": {
+    "action": "blocked",
+    "src": "192.0.2.13",
+    "dest": "203.0.113.51",
+    "dest_port": "3389",
+    "transport": "tcp",
+    "user": "dave@example.com",
+    "bytes_out": "58703"
+   }
+  },
+  {
+   "epoch": 1792486989,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1128",
+    "type": "session",
+    "user": "bob@example.com",
+    "src_ip": "198.51.100.94",
+    "dest_ip": "203.0.113.122",
+    "dest_port": "22",
+    "proto": "tcp",
+    "verdict": "deny",
+    "bytes_out": "54044"
+   },
+   "cim": {
+    "action": "blocked",
+    "src": "198.51.100.94",
+    "dest": "203.0.113.122",
+    "dest_port": "22",
+    "transport": "tcp",
+    "user": "bob@example.com",
+    "bytes_out": "54044"
+   }
+  },
+  {
+   "epoch": 1792486996,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1129",
+    "type": "auth",
+    "user": "bob@example.com",
+    "src_ip": "198.51.100.11",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "bob@example.com",
+    "src": "198.51.100.11",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792487002,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1130",
+    "type": "auth",
+    "user": "alice@example.com",
+    "src_ip": "192.0.2.66",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice@example.com",
+    "src": "192.0.2.66",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792487051,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1131",
+    "type": "auth",
+    "user": "erin@example.com",
+    "src_ip": "198.51.100.93",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "erin@example.com",
+    "src": "198.51.100.93",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792487098,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1132",
+    "type": "session",
+    "user": "alice@example.com",
+    "src_ip": "198.51.100.192",
+    "dest_ip": "203.0.113.82",
+    "dest_port": "3389",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "694"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "198.51.100.192",
+    "dest": "203.0.113.82",
+    "dest_port": "3389",
+    "transport": "tcp",
+    "user": "alice@example.com",
+    "bytes_out": "694"
+   }
+  },
+  {
+   "epoch": 1792487120,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1133",
+    "type": "session",
+    "user": "frank@example.com",
+    "src_ip": "192.0.2.7",
+    "dest_ip": "203.0.113.28",
+    "dest_port": "8443",
+    "proto": "tcp",
+    "verdict": "deny",
+    "bytes_out": "61245"
+   },
+   "cim": {
+    "action": "blocked",
+    "src": "192.0.2.7",
+    "dest": "203.0.113.28",
+    "dest_port": "8443",
+    "transport": "tcp",
+    "user": "frank@example.com",
+    "bytes_out": "61245"
+   }
+  },
+  {
+   "epoch": 1792487164,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1134",
+    "type": "auth",
+    "user": "dave@example.com",
+    "src_ip": "198.51.100.234",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave@example.com",
+    "src": "198.51.100.234",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792487203,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1135",
+    "type": "auth",
+    "user": "bob@example.com",
+    "src_ip": "198.51.100.47",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "bob@example.com",
+    "src": "198.51.100.47",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792487249,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1136",
+    "type": "auth",
+    "user": "carol@example.com",
+    "src_ip": "192.0.2.156",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol@example.com",
+    "src": "192.0.2.156",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792487304,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1137",
+    "type": "session",
+    "user": "dave@example.com",
+    "src_ip": "198.51.100.201",
+    "dest_ip": "203.0.113.21",
+    "dest_port": "443",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "21163"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "198.51.100.201",
+    "dest": "203.0.113.21",
+    "dest_port": "443",
+    "transport": "tcp",
+    "user": "dave@example.com",
+    "bytes_out": "21163"
+   }
+  },
+  {
+   "epoch": 1792487335,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1138",
+    "type": "session",
+    "user": "bob@example.com",
+    "src_ip": "198.51.100.17",
+    "dest_ip": "203.0.113.124",
+    "dest_port": "3389",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "56109"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "198.51.100.17",
+    "dest": "203.0.113.124",
+    "dest_port": "3389",
+    "transport": "tcp",
+    "user": "bob@example.com",
+    "bytes_out": "56109"
+   }
+  },
+  {
+   "epoch": 1792487356,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1139",
+    "type": "session",
+    "user": "alice@example.com",
+    "src_ip": "192.0.2.68",
+    "dest_ip": "203.0.113.54",
+    "dest_port": "22",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "65536"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "192.0.2.68",
+    "dest": "203.0.113.54",
+    "dest_port": "22",
+    "transport": "tcp",
+    "user": "alice@example.com",
+    "bytes_out": "65536"
+   }
+  },
+  {
+   "epoch": 1792487404,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1140",
+    "type": "auth",
+    "user": "frank@example.com",
+    "src_ip": "198.51.100.45",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "frank@example.com",
+    "src": "198.51.100.45",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792487431,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1141",
+    "type": "auth",
+    "user": "dave@example.com",
+    "src_ip": "192.0.2.192",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "dave@example.com",
+    "src": "192.0.2.192",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792487490,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1142",
+    "type": "auth",
+    "user": "alice@example.com",
+    "src_ip": "198.51.100.76",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice@example.com",
+    "src": "198.51.100.76",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792487535,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1143",
+    "type": "auth",
+    "user": "carol@example.com",
+    "src_ip": "198.51.100.189",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol@example.com",
+    "src": "198.51.100.189",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792487560,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1144",
+    "type": "auth",
+    "user": "bob@example.com",
+    "src_ip": "192.0.2.63",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "bob@example.com",
+    "src": "192.0.2.63",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792487564,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1145",
+    "type": "auth",
+    "user": "erin@example.com",
+    "src_ip": "192.0.2.84",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "erin@example.com",
+    "src": "192.0.2.84",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792487596,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1146",
+    "type": "session",
+    "user": "bob@example.com",
+    "src_ip": "192.0.2.167",
+    "dest_ip": "203.0.113.168",
+    "dest_port": "8443",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "13612"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "192.0.2.167",
+    "dest": "203.0.113.168",
+    "dest_port": "8443",
+    "transport": "tcp",
+    "user": "bob@example.com",
+    "bytes_out": "13612"
+   }
+  },
+  {
+   "epoch": 1792487621,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1147",
+    "type": "session",
+    "user": "alice@example.com",
+    "src_ip": "198.51.100.227",
+    "dest_ip": "203.0.113.216",
+    "dest_port": "8443",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "5490"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "198.51.100.227",
+    "dest": "203.0.113.216",
+    "dest_port": "8443",
+    "transport": "tcp",
+    "user": "alice@example.com",
+    "bytes_out": "5490"
+   }
+  },
+  {
+   "epoch": 1792487634,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1148",
+    "type": "auth",
+    "user": "carol@example.com",
+    "src_ip": "192.0.2.31",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "carol@example.com",
+    "src": "192.0.2.31",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792487676,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1149",
+    "type": "auth",
+    "user": "erin@example.com",
+    "src_ip": "192.0.2.239",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "erin@example.com",
+    "src": "192.0.2.239",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792487686,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1150",
+    "type": "auth",
+    "user": "bob@example.com",
+    "src_ip": "198.51.100.155",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "bob@example.com",
+    "src": "198.51.100.155",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792487720,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1151",
+    "type": "auth",
+    "user": "alice@example.com",
+    "src_ip": "192.0.2.164",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "alice@example.com",
+    "src": "192.0.2.164",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792487726,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1152",
+    "type": "auth",
+    "user": "carol@example.com",
+    "src_ip": "192.0.2.10",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol@example.com",
+    "src": "192.0.2.10",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792487742,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1153",
+    "type": "auth",
+    "user": "alice@example.com",
+    "src_ip": "192.0.2.66",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "alice@example.com",
+    "src": "192.0.2.66",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792487794,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1154",
+    "type": "auth",
+    "user": "frank@example.com",
+    "src_ip": "192.0.2.209",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "frank@example.com",
+    "src": "192.0.2.209",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792487815,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1155",
+    "type": "session",
+    "user": "dave@example.com",
+    "src_ip": "198.51.100.48",
+    "dest_ip": "203.0.113.20",
+    "dest_port": "443",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "65162"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "198.51.100.48",
+    "dest": "203.0.113.20",
+    "dest_port": "443",
+    "transport": "tcp",
+    "user": "dave@example.com",
+    "bytes_out": "65162"
+   }
+  },
+  {
+   "epoch": 1792487826,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1156",
+    "type": "auth",
+    "user": "erin@example.com",
+    "src_ip": "198.51.100.17",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "erin@example.com",
+    "src": "198.51.100.17",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792487876,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1157",
+    "type": "auth",
+    "user": "frank@example.com",
+    "src_ip": "192.0.2.164",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "frank@example.com",
+    "src": "192.0.2.164",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792487894,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1158",
+    "type": "auth",
+    "user": "bob@example.com",
+    "src_ip": "198.51.100.179",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "bob@example.com",
+    "src": "198.51.100.179",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792487922,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1159",
+    "type": "session",
+    "user": "frank@example.com",
+    "src_ip": "198.51.100.107",
+    "dest_ip": "203.0.113.80",
+    "dest_port": "3389",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "54784"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "198.51.100.107",
+    "dest": "203.0.113.80",
+    "dest_port": "3389",
+    "transport": "tcp",
+    "user": "frank@example.com",
+    "bytes_out": "54784"
+   }
+  },
+  {
+   "epoch": 1792487950,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1160",
+    "type": "auth",
+    "user": "alice@example.com",
+    "src_ip": "198.51.100.165",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "alice@example.com",
+    "src": "198.51.100.165",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792488008,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1161",
+    "type": "auth",
+    "user": "dave@example.com",
+    "src_ip": "192.0.2.242",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave@example.com",
+    "src": "192.0.2.242",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792488042,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1162",
+    "type": "auth",
+    "user": "dave@example.com",
+    "src_ip": "192.0.2.211",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "dave@example.com",
+    "src": "192.0.2.211",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792488050,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1163",
+    "type": "auth",
+    "user": "carol@example.com",
+    "src_ip": "198.51.100.198",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol@example.com",
+    "src": "198.51.100.198",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792488063,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1164",
+    "type": "session",
+    "user": "alice@example.com",
+    "src_ip": "192.0.2.165",
+    "dest_ip": "203.0.113.102",
+    "dest_port": "22",
+    "proto": "tcp",
+    "verdict": "deny",
+    "bytes_out": "81752"
+   },
+   "cim": {
+    "action": "blocked",
+    "src": "192.0.2.165",
+    "dest": "203.0.113.102",
+    "dest_port": "22",
+    "transport": "tcp",
+    "user": "alice@example.com",
+    "bytes_out": "81752"
+   }
+  },
+  {
+   "epoch": 1792488094,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1165",
+    "type": "auth",
+    "user": "carol@example.com",
+    "src_ip": "192.0.2.38",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol@example.com",
+    "src": "192.0.2.38",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792488122,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1166",
+    "type": "auth",
+    "user": "erin@example.com",
+    "src_ip": "192.0.2.237",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "erin@example.com",
+    "src": "192.0.2.237",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792488160,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1167",
+    "type": "auth",
+    "user": "dave@example.com",
+    "src_ip": "192.0.2.78",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave@example.com",
+    "src": "192.0.2.78",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792488180,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1168",
+    "type": "session",
+    "user": "dave@example.com",
+    "src_ip": "198.51.100.14",
+    "dest_ip": "203.0.113.163",
+    "dest_port": "8443",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "81509"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "198.51.100.14",
+    "dest": "203.0.113.163",
+    "dest_port": "8443",
+    "transport": "tcp",
+    "user": "dave@example.com",
+    "bytes_out": "81509"
+   }
+  },
+  {
+   "epoch": 1792488239,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1169",
+    "type": "session",
+    "user": "frank@example.com",
+    "src_ip": "192.0.2.164",
+    "dest_ip": "203.0.113.57",
+    "dest_port": "8443",
+    "proto": "tcp",
+    "verdict": "deny",
+    "bytes_out": "25904"
+   },
+   "cim": {
+    "action": "blocked",
+    "src": "192.0.2.164",
+    "dest": "203.0.113.57",
+    "dest_port": "8443",
+    "transport": "tcp",
+    "user": "frank@example.com",
+    "bytes_out": "25904"
+   }
+  },
+  {
+   "epoch": 1792488250,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1170",
+    "type": "auth",
+    "user": "dave@example.com",
+    "src_ip": "192.0.2.145",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave@example.com",
+    "src": "192.0.2.145",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792488305,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1171",
+    "type": "auth",
+    "user": "erin@example.com",
+    "src_ip": "192.0.2.99",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "erin@example.com",
+    "src": "192.0.2.99",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792488335,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1172",
+    "type": "session",
+    "user": "bob@example.com",
+    "src_ip": "192.0.2.11",
+    "dest_ip": "203.0.113.216",
+    "dest_port": "22",
+    "proto": "tcp",
+    "verdict": "deny",
+    "bytes_out": "42693"
+   },
+   "cim": {
+    "action": "blocked",
+    "src": "192.0.2.11",
+    "dest": "203.0.113.216",
+    "dest_port": "22",
+    "transport": "tcp",
+    "user": "bob@example.com",
+    "bytes_out": "42693"
+   }
+  },
+  {
+   "epoch": 1792488393,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1173",
+    "type": "auth",
+    "user": "alice@example.com",
+    "src_ip": "198.51.100.154",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "alice@example.com",
+    "src": "198.51.100.154",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792488431,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1174",
+    "type": "auth",
+    "user": "carol@example.com",
+    "src_ip": "198.51.100.79",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol@example.com",
+    "src": "198.51.100.79",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792488451,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1175",
+    "type": "auth",
+    "user": "dave@example.com",
+    "src_ip": "198.51.100.115",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave@example.com",
+    "src": "198.51.100.115",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792488499,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1176",
+    "type": "session",
+    "user": "alice@example.com",
+    "src_ip": "192.0.2.159",
+    "dest_ip": "203.0.113.120",
+    "dest_port": "443",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "81277"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "192.0.2.159",
+    "dest": "203.0.113.120",
+    "dest_port": "443",
+    "transport": "tcp",
+    "user": "alice@example.com",
+    "bytes_out": "81277"
+   }
+  },
+  {
+   "epoch": 1792488528,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1177",
+    "type": "auth",
+    "user": "dave@example.com",
+    "src_ip": "192.0.2.208",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave@example.com",
+    "src": "192.0.2.208",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792488553,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1178",
+    "type": "auth",
+    "user": "alice@example.com",
+    "src_ip": "192.0.2.92",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice@example.com",
+    "src": "192.0.2.92",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792488599,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1179",
+    "type": "session",
+    "user": "dave@example.com",
+    "src_ip": "192.0.2.11",
+    "dest_ip": "203.0.113.22",
+    "dest_port": "3389",
+    "proto": "tcp",
+    "verdict": "deny",
+    "bytes_out": "67240"
+   },
+   "cim": {
+    "action": "blocked",
+    "src": "192.0.2.11",
+    "dest": "203.0.113.22",
+    "dest_port": "3389",
+    "transport": "tcp",
+    "user": "dave@example.com",
+    "bytes_out": "67240"
+   }
+  },
+  {
+   "epoch": 1792488658,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1180",
+    "type": "auth",
+    "user": "alice@example.com",
+    "src_ip": "192.0.2.193",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice@example.com",
+    "src": "192.0.2.193",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792488685,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1181",
+    "type": "session",
+    "user": "frank@example.com",
+    "src_ip": "192.0.2.7",
+    "dest_ip": "203.0.113.158",
+    "dest_port": "22",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "17451"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "192.0.2.7",
+    "dest": "203.0.113.158",
+    "dest_port": "22",
+    "transport": "tcp",
+    "user": "frank@example.com",
+    "bytes_out": "17451"
+   }
+  },
+  {
+   "epoch": 1792488702,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1182",
+    "type": "session",
+    "user": "dave@example.com",
+    "src_ip": "198.51.100.245",
+    "dest_ip": "203.0.113.204",
+    "dest_port": "443",
+    "proto": "tcp",
+    "verdict": "deny",
+    "bytes_out": "29183"
+   },
+   "cim": {
+    "action": "blocked",
+    "src": "198.51.100.245",
+    "dest": "203.0.113.204",
+    "dest_port": "443",
+    "transport": "tcp",
+    "user": "dave@example.com",
+    "bytes_out": "29183"
+   }
+  },
+  {
+   "epoch": 1792488714,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1183",
+    "type": "session",
+    "user": "alice@example.com",
+    "src_ip": "198.51.100.157",
+    "dest_ip": "203.0.113.41",
+    "dest_port": "3389",
+    "proto": "tcp",
+    "verdict": "deny",
+    "bytes_out": "36243"
+   },
+   "cim": {
+    "action": "blocked",
+    "src": "198.51.100.157",
+    "dest": "203.0.113.41",
+    "dest_port": "3389",
+    "transport": "tcp",
+    "user": "alice@example.com",
+    "bytes_out": "36243"
+   }
+  },
+  {
+   "epoch": 1792488722,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1184",
+    "type": "auth",
+    "user": "dave@example.com",
+    "src_ip": "192.0.2.66",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave@example.com",
+    "src": "192.0.2.66",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792488736,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1185",
+    "type": "auth",
+    "user": "bob@example.com",
+    "src_ip": "198.51.100.158",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "bob@example.com",
+    "src": "198.51.100.158",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792488748,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1186",
+    "type": "auth",
+    "user": "carol@example.com",
+    "src_ip": "192.0.2.51",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol@example.com",
+    "src": "192.0.2.51",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792488765,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1187",
+    "type": "auth",
+    "user": "frank@example.com",
+    "src_ip": "198.51.100.174",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "frank@example.com",
+    "src": "198.51.100.174",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792488810,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1188",
+    "type": "session",
+    "user": "bob@example.com",
+    "src_ip": "198.51.100.30",
+    "dest_ip": "203.0.113.13",
+    "dest_port": "3389",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "72968"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "198.51.100.30",
+    "dest": "203.0.113.13",
+    "dest_port": "3389",
+    "transport": "tcp",
+    "user": "bob@example.com",
+    "bytes_out": "72968"
+   }
+  },
+  {
+   "epoch": 1792488827,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1189",
+    "type": "session",
+    "user": "erin@example.com",
+    "src_ip": "192.0.2.65",
+    "dest_ip": "203.0.113.162",
+    "dest_port": "8443",
+    "proto": "tcp",
+    "verdict": "deny",
+    "bytes_out": "48888"
+   },
+   "cim": {
+    "action": "blocked",
+    "src": "192.0.2.65",
+    "dest": "203.0.113.162",
+    "dest_port": "8443",
+    "transport": "tcp",
+    "user": "erin@example.com",
+    "bytes_out": "48888"
+   }
+  },
+  {
+   "epoch": 1792488830,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1190",
+    "type": "auth",
+    "user": "carol@example.com",
+    "src_ip": "198.51.100.254",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol@example.com",
+    "src": "198.51.100.254",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792488864,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1191",
+    "type": "auth",
+    "user": "carol@example.com",
+    "src_ip": "198.51.100.196",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol@example.com",
+    "src": "198.51.100.196",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792488920,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1192",
+    "type": "session",
+    "user": "bob@example.com",
+    "src_ip": "192.0.2.76",
+    "dest_ip": "203.0.113.65",
+    "dest_port": "3389",
+    "proto": "tcp",
+    "verdict": "deny",
+    "bytes_out": "76991"
+   },
+   "cim": {
+    "action": "blocked",
+    "src": "192.0.2.76",
+    "dest": "203.0.113.65",
+    "dest_port": "3389",
+    "transport": "tcp",
+    "user": "bob@example.com",
+    "bytes_out": "76991"
+   }
+  },
+  {
+   "epoch": 1792488960,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1193",
+    "type": "auth",
+    "user": "frank@example.com",
+    "src_ip": "198.51.100.188",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "frank@example.com",
+    "src": "198.51.100.188",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792488974,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1194",
+    "type": "session",
+    "user": "bob@example.com",
+    "src_ip": "192.0.2.75",
+    "dest_ip": "203.0.113.111",
+    "dest_port": "8443",
+    "proto": "tcp",
+    "verdict": "deny",
+    "bytes_out": "47923"
+   },
+   "cim": {
+    "action": "blocked",
+    "src": "192.0.2.75",
+    "dest": "203.0.113.111",
+    "dest_port": "8443",
+    "transport": "tcp",
+    "user": "bob@example.com",
+    "bytes_out": "47923"
+   }
+  },
+  {
+   "epoch": 1792488993,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1195",
+    "type": "auth",
+    "user": "alice@example.com",
+    "src_ip": "192.0.2.126",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "alice@example.com",
+    "src": "192.0.2.126",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792489014,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1196",
+    "type": "auth",
+    "user": "alice@example.com",
+    "src_ip": "192.0.2.14",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice@example.com",
+    "src": "192.0.2.14",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792489017,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1197",
+    "type": "auth",
+    "user": "carol@example.com",
+    "src_ip": "192.0.2.134",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol@example.com",
+    "src": "192.0.2.134",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792489029,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1198",
+    "type": "auth",
+    "user": "dave@example.com",
+    "src_ip": "198.51.100.151",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave@example.com",
+    "src": "198.51.100.151",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792489058,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1199",
+    "type": "auth",
+    "user": "erin@example.com",
+    "src_ip": "198.51.100.41",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "erin@example.com",
+    "src": "198.51.100.41",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792489095,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1200",
+    "type": "auth",
+    "user": "frank@example.com",
+    "src_ip": "192.0.2.116",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "frank@example.com",
+    "src": "192.0.2.116",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792489121,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1201",
+    "type": "session",
+    "user": "bob@example.com",
+    "src_ip": "198.51.100.103",
+    "dest_ip": "203.0.113.248",
+    "dest_port": "22",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "84734"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "198.51.100.103",
+    "dest": "203.0.113.248",
+    "dest_port": "22",
+    "transport": "tcp",
+    "user": "bob@example.com",
+    "bytes_out": "84734"
+   }
+  },
+  {
+   "epoch": 1792489163,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1202",
+    "type": "session",
+    "user": "erin@example.com",
+    "src_ip": "198.51.100.153",
+    "dest_ip": "203.0.113.114",
+    "dest_port": "8443",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "21839"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "198.51.100.153",
+    "dest": "203.0.113.114",
+    "dest_port": "8443",
+    "transport": "tcp",
+    "user": "erin@example.com",
+    "bytes_out": "21839"
+   }
+  },
+  {
+   "epoch": 1792489202,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1203",
+    "type": "auth",
+    "user": "alice@example.com",
+    "src_ip": "192.0.2.16",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice@example.com",
+    "src": "192.0.2.16",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792489225,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1204",
+    "type": "auth",
+    "user": "bob@example.com",
+    "src_ip": "192.0.2.41",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "bob@example.com",
+    "src": "192.0.2.41",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792489236,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1205",
+    "type": "auth",
+    "user": "alice@example.com",
+    "src_ip": "192.0.2.37",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "alice@example.com",
+    "src": "192.0.2.37",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792489283,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1206",
+    "type": "session",
+    "user": "erin@example.com",
+    "src_ip": "198.51.100.209",
+    "dest_ip": "203.0.113.131",
+    "dest_port": "3389",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "39556"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "198.51.100.209",
+    "dest": "203.0.113.131",
+    "dest_port": "3389",
+    "transport": "tcp",
+    "user": "erin@example.com",
+    "bytes_out": "39556"
+   }
+  },
+  {
+   "epoch": 1792489340,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1207",
+    "type": "session",
+    "user": "frank@example.com",
+    "src_ip": "192.0.2.228",
+    "dest_ip": "203.0.113.123",
+    "dest_port": "22",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "57432"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "192.0.2.228",
+    "dest": "203.0.113.123",
+    "dest_port": "22",
+    "transport": "tcp",
+    "user": "frank@example.com",
+    "bytes_out": "57432"
+   }
+  },
+  {
+   "epoch": 1792489375,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1208",
+    "type": "session",
+    "user": "frank@example.com",
+    "src_ip": "198.51.100.21",
+    "dest_ip": "203.0.113.116",
+    "dest_port": "443",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "13999"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "198.51.100.21",
+    "dest": "203.0.113.116",
+    "dest_port": "443",
+    "transport": "tcp",
+    "user": "frank@example.com",
+    "bytes_out": "13999"
+   }
+  },
+  {
+   "epoch": 1792489417,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1209",
+    "type": "auth",
+    "user": "carol@example.com",
+    "src_ip": "192.0.2.165",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol@example.com",
+    "src": "192.0.2.165",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792489461,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1210",
+    "type": "auth",
+    "user": "frank@example.com",
+    "src_ip": "198.51.100.183",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "frank@example.com",
+    "src": "198.51.100.183",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792489507,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1211",
+    "type": "session",
+    "user": "erin@example.com",
+    "src_ip": "198.51.100.176",
+    "dest_ip": "203.0.113.134",
+    "dest_port": "3389",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "84348"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "198.51.100.176",
+    "dest": "203.0.113.134",
+    "dest_port": "3389",
+    "transport": "tcp",
+    "user": "erin@example.com",
+    "bytes_out": "84348"
+   }
+  },
+  {
+   "epoch": 1792489557,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1212",
+    "type": "auth",
+    "user": "bob@example.com",
+    "src_ip": "192.0.2.226",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "bob@example.com",
+    "src": "192.0.2.226",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792489563,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1213",
+    "type": "session",
+    "user": "carol@example.com",
+    "src_ip": "192.0.2.216",
+    "dest_ip": "203.0.113.242",
+    "dest_port": "443",
+    "proto": "tcp",
+    "verdict": "deny",
+    "bytes_out": "43043"
+   },
+   "cim": {
+    "action": "blocked",
+    "src": "192.0.2.216",
+    "dest": "203.0.113.242",
+    "dest_port": "443",
+    "transport": "tcp",
+    "user": "carol@example.com",
+    "bytes_out": "43043"
+   }
+  },
+  {
+   "epoch": 1792489595,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1214",
+    "type": "session",
+    "user": "bob@example.com",
+    "src_ip": "198.51.100.85",
+    "dest_ip": "203.0.113.98",
+    "dest_port": "8443",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "69749"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "198.51.100.85",
+    "dest": "203.0.113.98",
+    "dest_port": "8443",
+    "transport": "tcp",
+    "user": "bob@example.com",
+    "bytes_out": "69749"
+   }
+  },
+  {
+   "epoch": 1792489655,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1215",
+    "type": "auth",
+    "user": "frank@example.com",
+    "src_ip": "192.0.2.220",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "frank@example.com",
+    "src": "192.0.2.220",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792489713,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1216",
+    "type": "auth",
+    "user": "bob@example.com",
+    "src_ip": "198.51.100.203",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "bob@example.com",
+    "src": "198.51.100.203",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792489765,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1217",
+    "type": "session",
+    "user": "erin@example.com",
+    "src_ip": "192.0.2.145",
+    "dest_ip": "203.0.113.38",
+    "dest_port": "22",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "14866"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "192.0.2.145",
+    "dest": "203.0.113.38",
+    "dest_port": "22",
+    "transport": "tcp",
+    "user": "erin@example.com",
+    "bytes_out": "14866"
+   }
+  },
+  {
+   "epoch": 1792489823,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1218",
+    "type": "session",
+    "user": "alice@example.com",
+    "src_ip": "192.0.2.89",
+    "dest_ip": "203.0.113.180",
+    "dest_port": "22",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "5659"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "192.0.2.89",
+    "dest": "203.0.113.180",
+    "dest_port": "22",
+    "transport": "tcp",
+    "user": "alice@example.com",
+    "bytes_out": "5659"
+   }
+  },
+  {
+   "epoch": 1792489869,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1219",
+    "type": "auth",
+    "user": "bob@example.com",
+    "src_ip": "192.0.2.179",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "bob@example.com",
+    "src": "192.0.2.179",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792489923,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1220",
+    "type": "session",
+    "user": "alice@example.com",
+    "src_ip": "198.51.100.52",
+    "dest_ip": "203.0.113.210",
+    "dest_port": "22",
+    "proto": "tcp",
+    "verdict": "deny",
+    "bytes_out": "50511"
+   },
+   "cim": {
+    "action": "blocked",
+    "src": "198.51.100.52",
+    "dest": "203.0.113.210",
+    "dest_port": "22",
+    "transport": "tcp",
+    "user": "alice@example.com",
+    "bytes_out": "50511"
+   }
+  },
+  {
+   "epoch": 1792489961,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1221",
+    "type": "auth",
+    "user": "alice@example.com",
+    "src_ip": "192.0.2.53",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice@example.com",
+    "src": "192.0.2.53",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792489989,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1222",
+    "type": "session",
+    "user": "alice@example.com",
+    "src_ip": "192.0.2.212",
+    "dest_ip": "203.0.113.162",
+    "dest_port": "3389",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "13291"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "192.0.2.212",
+    "dest": "203.0.113.162",
+    "dest_port": "3389",
+    "transport": "tcp",
+    "user": "alice@example.com",
+    "bytes_out": "13291"
+   }
+  },
+  {
+   "epoch": 1792490017,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1223",
+    "type": "session",
+    "user": "bob@example.com",
+    "src_ip": "192.0.2.203",
+    "dest_ip": "203.0.113.53",
+    "dest_port": "3389",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "44307"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "192.0.2.203",
+    "dest": "203.0.113.53",
+    "dest_port": "3389",
+    "transport": "tcp",
+    "user": "bob@example.com",
+    "bytes_out": "44307"
+   }
+  },
+  {
+   "epoch": 1792490045,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1224",
+    "type": "auth",
+    "user": "dave@example.com",
+    "src_ip": "198.51.100.6",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave@example.com",
+    "src": "198.51.100.6",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490073,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1225",
+    "type": "auth",
+    "user": "alice@example.com",
+    "src_ip": "198.51.100.234",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "alice@example.com",
+    "src": "198.51.100.234",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490082,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1226",
+    "type": "auth",
+    "user": "erin@example.com",
+    "src_ip": "198.51.100.218",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "erin@example.com",
+    "src": "198.51.100.218",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490115,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1227",
+    "type": "auth",
+    "user": "alice@example.com",
+    "src_ip": "198.51.100.8",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice@example.com",
+    "src": "198.51.100.8",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490158,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1228",
+    "type": "auth",
+    "user": "carol@example.com",
+    "src_ip": "198.51.100.181",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "carol@example.com",
+    "src": "198.51.100.181",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490186,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1229",
+    "type": "session",
+    "user": "bob@example.com",
+    "src_ip": "192.0.2.148",
+    "dest_ip": "203.0.113.44",
+    "dest_port": "8443",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "68823"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "192.0.2.148",
+    "dest": "203.0.113.44",
+    "dest_port": "8443",
+    "transport": "tcp",
+    "user": "bob@example.com",
+    "bytes_out": "68823"
+   }
+  },
+  {
+   "epoch": 1792490192,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1230",
+    "type": "session",
+    "user": "bob@example.com",
+    "src_ip": "198.51.100.196",
+    "dest_ip": "203.0.113.14",
+    "dest_port": "22",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "64533"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "198.51.100.196",
+    "dest": "203.0.113.14",
+    "dest_port": "22",
+    "transport": "tcp",
+    "user": "bob@example.com",
+    "bytes_out": "64533"
+   }
+  },
+  {
+   "epoch": 1792490207,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1231",
+    "type": "session",
+    "user": "alice@example.com",
+    "src_ip": "198.51.100.178",
+    "dest_ip": "203.0.113.48",
+    "dest_port": "8443",
+    "proto": "tcp",
+    "verdict": "deny",
+    "bytes_out": "45706"
+   },
+   "cim": {
+    "action": "blocked",
+    "src": "198.51.100.178",
+    "dest": "203.0.113.48",
+    "dest_port": "8443",
+    "transport": "tcp",
+    "user": "alice@example.com",
+    "bytes_out": "45706"
+   }
+  },
+  {
+   "epoch": 1792490214,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1232",
+    "type": "session",
+    "user": "erin@example.com",
+    "src_ip": "198.51.100.148",
+    "dest_ip": "203.0.113.73",
+    "dest_port": "443",
+    "proto": "tcp",
+    "verdict": "deny",
+    "bytes_out": "30546"
+   },
+   "cim": {
+    "action": "blocked",
+    "src": "198.51.100.148",
+    "dest": "203.0.113.73",
+    "dest_port": "443",
+    "transport": "tcp",
+    "user": "erin@example.com",
+    "bytes_out": "30546"
+   }
+  },
+  {
+   "epoch": 1792490230,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1233",
+    "type": "session",
+    "user": "dave@example.com",
+    "src_ip": "192.0.2.29",
+    "dest_ip": "203.0.113.197",
+    "dest_port": "22",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "73764"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "192.0.2.29",
+    "dest": "203.0.113.197",
+    "dest_port": "22",
+    "transport": "tcp",
+    "user": "dave@example.com",
+    "bytes_out": "73764"
+   }
+  },
+  {
+   "epoch": 1792490261,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1234",
+    "type": "auth",
+    "user": "alice@example.com",
+    "src_ip": "198.51.100.92",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice@example.com",
+    "src": "198.51.100.92",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490274,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1235",
+    "type": "session",
+    "user": "frank@example.com",
+    "src_ip": "192.0.2.109",
+    "dest_ip": "203.0.113.7",
+    "dest_port": "3389",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "39933"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "192.0.2.109",
+    "dest": "203.0.113.7",
+    "dest_port": "3389",
+    "transport": "tcp",
+    "user": "frank@example.com",
+    "bytes_out": "39933"
+   }
+  },
+  {
+   "epoch": 1792490284,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1236",
+    "type": "auth",
+    "user": "carol@example.com",
+    "src_ip": "198.51.100.231",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol@example.com",
+    "src": "198.51.100.231",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490308,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1237",
+    "type": "auth",
+    "user": "dave@example.com",
+    "src_ip": "192.0.2.242",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "dave@example.com",
+    "src": "192.0.2.242",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490349,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1238",
+    "type": "auth",
+    "user": "erin@example.com",
+    "src_ip": "192.0.2.90",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "erin@example.com",
+    "src": "192.0.2.90",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490355,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1239",
+    "type": "auth",
+    "user": "bob@example.com",
+    "src_ip": "198.51.100.170",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "bob@example.com",
+    "src": "198.51.100.170",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490364,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1240",
+    "type": "session",
+    "user": "bob@example.com",
+    "src_ip": "198.51.100.113",
+    "dest_ip": "203.0.113.66",
+    "dest_port": "443",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "43985"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "198.51.100.113",
+    "dest": "203.0.113.66",
+    "dest_port": "443",
+    "transport": "tcp",
+    "user": "bob@example.com",
+    "bytes_out": "43985"
+   }
+  },
+  {
+   "epoch": 1792490367,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1241",
+    "type": "auth",
+    "user": "dave@example.com",
+    "src_ip": "192.0.2.130",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave@example.com",
+    "src": "192.0.2.130",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490406,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1242",
+    "type": "auth",
+    "user": "frank@example.com",
+    "src_ip": "192.0.2.186",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "frank@example.com",
+    "src": "192.0.2.186",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490418,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1243",
+    "type": "auth",
+    "user": "frank@example.com",
+    "src_ip": "198.51.100.155",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "frank@example.com",
+    "src": "198.51.100.155",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490455,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1244",
+    "type": "auth",
+    "user": "bob@example.com",
+    "src_ip": "198.51.100.245",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "bob@example.com",
+    "src": "198.51.100.245",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490464,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1245",
+    "type": "session",
+    "user": "alice@example.com",
+    "src_ip": "192.0.2.247",
+    "dest_ip": "203.0.113.51",
+    "dest_port": "8443",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "19640"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "192.0.2.247",
+    "dest": "203.0.113.51",
+    "dest_port": "8443",
+    "transport": "tcp",
+    "user": "alice@example.com",
+    "bytes_out": "19640"
+   }
+  },
+  {
+   "epoch": 1792490490,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1246",
+    "type": "auth",
+    "user": "carol@example.com",
+    "src_ip": "198.51.100.112",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol@example.com",
+    "src": "198.51.100.112",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490532,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1247",
+    "type": "auth",
+    "user": "frank@example.com",
+    "src_ip": "192.0.2.72",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "frank@example.com",
+    "src": "192.0.2.72",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490536,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1248",
+    "type": "auth",
+    "user": "dave@example.com",
+    "src_ip": "192.0.2.4",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave@example.com",
+    "src": "192.0.2.4",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490543,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1249",
+    "type": "session",
+    "user": "frank@example.com",
+    "src_ip": "192.0.2.129",
+    "dest_ip": "203.0.113.76",
+    "dest_port": "8443",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "18787"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "192.0.2.129",
+    "dest": "203.0.113.76",
+    "dest_port": "8443",
+    "transport": "tcp",
+    "user": "frank@example.com",
+    "bytes_out": "18787"
+   }
+  },
+  {
+   "epoch": 1792490601,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1250",
+    "type": "session",
+    "user": "carol@example.com",
+    "src_ip": "198.51.100.2",
+    "dest_ip": "203.0.113.233",
+    "dest_port": "8443",
+    "proto": "tcp",
+    "verdict": "deny",
+    "bytes_out": "75432"
+   },
+   "cim": {
+    "action": "blocked",
+    "src": "198.51.100.2",
+    "dest": "203.0.113.233",
+    "dest_port": "8443",
+    "transport": "tcp",
+    "user": "carol@example.com",
+    "bytes_out": "75432"
+   }
+  },
+  {
+   "epoch": 1792490617,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1251",
+    "type": "auth",
+    "user": "erin@example.com",
+    "src_ip": "198.51.100.217",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "erin@example.com",
+    "src": "198.51.100.217",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490659,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1252",
+    "type": "auth",
+    "user": "frank@example.com",
+    "src_ip": "192.0.2.174",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "frank@example.com",
+    "src": "192.0.2.174",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490686,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1253",
+    "type": "auth",
+    "user": "dave@example.com",
+    "src_ip": "198.51.100.81",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "dave@example.com",
+    "src": "198.51.100.81",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490698,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1254",
+    "type": "session",
+    "user": "alice@example.com",
+    "src_ip": "198.51.100.63",
+    "dest_ip": "203.0.113.183",
+    "dest_port": "443",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "55719"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "198.51.100.63",
+    "dest": "203.0.113.183",
+    "dest_port": "443",
+    "transport": "tcp",
+    "user": "alice@example.com",
+    "bytes_out": "55719"
+   }
+  },
+  {
+   "epoch": 1792490741,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1255",
+    "type": "session",
+    "user": "dave@example.com",
+    "src_ip": "198.51.100.6",
+    "dest_ip": "203.0.113.105",
+    "dest_port": "443",
+    "proto": "tcp",
+    "verdict": "deny",
+    "bytes_out": "43198"
+   },
+   "cim": {
+    "action": "blocked",
+    "src": "198.51.100.6",
+    "dest": "203.0.113.105",
+    "dest_port": "443",
+    "transport": "tcp",
+    "user": "dave@example.com",
+    "bytes_out": "43198"
+   }
+  },
+  {
+   "epoch": 1792490760,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1256",
+    "type": "auth",
+    "user": "alice@example.com",
+    "src_ip": "198.51.100.213",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice@example.com",
+    "src": "198.51.100.213",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490785,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1257",
+    "type": "auth",
+    "user": "alice@example.com",
+    "src_ip": "198.51.100.140",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "alice@example.com",
+    "src": "198.51.100.140",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490826,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1258",
+    "type": "session",
+    "user": "bob@example.com",
+    "src_ip": "198.51.100.26",
+    "dest_ip": "203.0.113.117",
+    "dest_port": "443",
+    "proto": "tcp",
+    "verdict": "deny",
+    "bytes_out": "62555"
+   },
+   "cim": {
+    "action": "blocked",
+    "src": "198.51.100.26",
+    "dest": "203.0.113.117",
+    "dest_port": "443",
+    "transport": "tcp",
+    "user": "bob@example.com",
+    "bytes_out": "62555"
+   }
+  },
+  {
+   "epoch": 1792490852,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1259",
+    "type": "session",
+    "user": "erin@example.com",
+    "src_ip": "192.0.2.164",
+    "dest_ip": "203.0.113.95",
+    "dest_port": "3389",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "60088"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "192.0.2.164",
+    "dest": "203.0.113.95",
+    "dest_port": "3389",
+    "transport": "tcp",
+    "user": "erin@example.com",
+    "bytes_out": "60088"
+   }
+  },
+  {
+   "epoch": 1792490885,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1260",
+    "type": "auth",
+    "user": "bob@example.com",
+    "src_ip": "192.0.2.101",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "bob@example.com",
+    "src": "192.0.2.101",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490895,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1261",
+    "type": "auth",
+    "user": "frank@example.com",
+    "src_ip": "198.51.100.164",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "frank@example.com",
+    "src": "198.51.100.164",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490905,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1262",
+    "type": "auth",
+    "user": "dave@example.com",
+    "src_ip": "198.51.100.16",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave@example.com",
+    "src": "198.51.100.16",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490962,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1263",
+    "type": "auth",
+    "user": "dave@example.com",
+    "src_ip": "198.51.100.149",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave@example.com",
+    "src": "198.51.100.149",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792490996,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1264",
+    "type": "session",
+    "user": "carol@example.com",
+    "src_ip": "198.51.100.241",
+    "dest_ip": "203.0.113.249",
+    "dest_port": "443",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "60770"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "198.51.100.241",
+    "dest": "203.0.113.249",
+    "dest_port": "443",
+    "transport": "tcp",
+    "user": "carol@example.com",
+    "bytes_out": "60770"
+   }
+  },
+  {
+   "epoch": 1792491028,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1265",
+    "type": "session",
+    "user": "bob@example.com",
+    "src_ip": "192.0.2.34",
+    "dest_ip": "203.0.113.18",
+    "dest_port": "443",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "84374"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "192.0.2.34",
+    "dest": "203.0.113.18",
+    "dest_port": "443",
+    "transport": "tcp",
+    "user": "bob@example.com",
+    "bytes_out": "84374"
+   }
+  },
+  {
+   "epoch": 1792491061,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1266",
+    "type": "session",
+    "user": "erin@example.com",
+    "src_ip": "192.0.2.209",
+    "dest_ip": "203.0.113.91",
+    "dest_port": "8443",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "38780"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "192.0.2.209",
+    "dest": "203.0.113.91",
+    "dest_port": "8443",
+    "transport": "tcp",
+    "user": "erin@example.com",
+    "bytes_out": "38780"
+   }
+  },
+  {
+   "epoch": 1792491094,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1267",
+    "type": "session",
+    "user": "erin@example.com",
+    "src_ip": "192.0.2.200",
+    "dest_ip": "203.0.113.91",
+    "dest_port": "443",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "49502"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "192.0.2.200",
+    "dest": "203.0.113.91",
+    "dest_port": "443",
+    "transport": "tcp",
+    "user": "erin@example.com",
+    "bytes_out": "49502"
+   }
+  },
+  {
+   "epoch": 1792491116,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1268",
+    "type": "auth",
+    "user": "frank@example.com",
+    "src_ip": "198.51.100.252",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "frank@example.com",
+    "src": "198.51.100.252",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491124,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1269",
+    "type": "session",
+    "user": "dave@example.com",
+    "src_ip": "192.0.2.207",
+    "dest_ip": "203.0.113.72",
+    "dest_port": "3389",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "85973"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "192.0.2.207",
+    "dest": "203.0.113.72",
+    "dest_port": "3389",
+    "transport": "tcp",
+    "user": "dave@example.com",
+    "bytes_out": "85973"
+   }
+  },
+  {
+   "epoch": 1792491136,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1270",
+    "type": "auth",
+    "user": "carol@example.com",
+    "src_ip": "198.51.100.123",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "carol@example.com",
+    "src": "198.51.100.123",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491145,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1271",
+    "type": "session",
+    "user": "frank@example.com",
+    "src_ip": "192.0.2.169",
+    "dest_ip": "203.0.113.40",
+    "dest_port": "3389",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "7679"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "192.0.2.169",
+    "dest": "203.0.113.40",
+    "dest_port": "3389",
+    "transport": "tcp",
+    "user": "frank@example.com",
+    "bytes_out": "7679"
+   }
+  },
+  {
+   "epoch": 1792491195,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1272",
+    "type": "session",
+    "user": "alice@example.com",
+    "src_ip": "198.51.100.201",
+    "dest_ip": "203.0.113.136",
+    "dest_port": "3389",
+    "proto": "tcp",
+    "verdict": "deny",
+    "bytes_out": "76543"
+   },
+   "cim": {
+    "action": "blocked",
+    "src": "198.51.100.201",
+    "dest": "203.0.113.136",
+    "dest_port": "3389",
+    "transport": "tcp",
+    "user": "alice@example.com",
+    "bytes_out": "76543"
+   }
+  },
+  {
+   "epoch": 1792491219,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1273",
+    "type": "session",
+    "user": "alice@example.com",
+    "src_ip": "192.0.2.54",
+    "dest_ip": "203.0.113.168",
+    "dest_port": "3389",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "79918"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "192.0.2.54",
+    "dest": "203.0.113.168",
+    "dest_port": "3389",
+    "transport": "tcp",
+    "user": "alice@example.com",
+    "bytes_out": "79918"
+   }
+  },
+  {
+   "epoch": 1792491269,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1274",
+    "type": "auth",
+    "user": "alice@example.com",
+    "src_ip": "192.0.2.219",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice@example.com",
+    "src": "192.0.2.219",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491288,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1275",
+    "type": "session",
+    "user": "carol@example.com",
+    "src_ip": "192.0.2.54",
+    "dest_ip": "203.0.113.203",
+    "dest_port": "443",
+    "proto": "tcp",
+    "verdict": "deny",
+    "bytes_out": "79939"
+   },
+   "cim": {
+    "action": "blocked",
+    "src": "192.0.2.54",
+    "dest": "203.0.113.203",
+    "dest_port": "443",
+    "transport": "tcp",
+    "user": "carol@example.com",
+    "bytes_out": "79939"
+   }
+  },
+  {
+   "epoch": 1792491321,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1276",
+    "type": "auth",
+    "user": "alice@example.com",
+    "src_ip": "198.51.100.51",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice@example.com",
+    "src": "198.51.100.51",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491377,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1277",
+    "type": "session",
+    "user": "erin@example.com",
+    "src_ip": "192.0.2.190",
+    "dest_ip": "203.0.113.172",
+    "dest_port": "22",
+    "proto": "tcp",
+    "verdict": "deny",
+    "bytes_out": "15721"
+   },
+   "cim": {
+    "action": "blocked",
+    "src": "192.0.2.190",
+    "dest": "203.0.113.172",
+    "dest_port": "22",
+    "transport": "tcp",
+    "user": "erin@example.com",
+    "bytes_out": "15721"
+   }
+  },
+  {
+   "epoch": 1792491424,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1278",
+    "type": "session",
+    "user": "carol@example.com",
+    "src_ip": "198.51.100.60",
+    "dest_ip": "203.0.113.122",
+    "dest_port": "8443",
+    "proto": "tcp",
+    "verdict": "deny",
+    "bytes_out": "7861"
+   },
+   "cim": {
+    "action": "blocked",
+    "src": "198.51.100.60",
+    "dest": "203.0.113.122",
+    "dest_port": "8443",
+    "transport": "tcp",
+    "user": "carol@example.com",
+    "bytes_out": "7861"
+   }
+  },
+  {
+   "epoch": 1792491437,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1279",
+    "type": "auth",
+    "user": "dave@example.com",
+    "src_ip": "198.51.100.232",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "dave@example.com",
+    "src": "198.51.100.232",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491473,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1280",
+    "type": "auth",
+    "user": "bob@example.com",
+    "src_ip": "198.51.100.43",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "bob@example.com",
+    "src": "198.51.100.43",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491477,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1281",
+    "type": "auth",
+    "user": "alice@example.com",
+    "src_ip": "192.0.2.216",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "alice@example.com",
+    "src": "192.0.2.216",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491493,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1282",
+    "type": "auth",
+    "user": "erin@example.com",
+    "src_ip": "198.51.100.171",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "erin@example.com",
+    "src": "198.51.100.171",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491529,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1283",
+    "type": "session",
+    "user": "carol@example.com",
+    "src_ip": "198.51.100.108",
+    "dest_ip": "203.0.113.174",
+    "dest_port": "22",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "83698"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "198.51.100.108",
+    "dest": "203.0.113.174",
+    "dest_port": "22",
+    "transport": "tcp",
+    "user": "carol@example.com",
+    "bytes_out": "83698"
+   }
+  },
+  {
+   "epoch": 1792491555,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1284",
+    "type": "session",
+    "user": "carol@example.com",
+    "src_ip": "192.0.2.6",
+    "dest_ip": "203.0.113.175",
+    "dest_port": "3389",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "67128"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "192.0.2.6",
+    "dest": "203.0.113.175",
+    "dest_port": "3389",
+    "transport": "tcp",
+    "user": "carol@example.com",
+    "bytes_out": "67128"
+   }
+  },
+  {
+   "epoch": 1792491567,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1285",
+    "type": "session",
+    "user": "dave@example.com",
+    "src_ip": "198.51.100.194",
+    "dest_ip": "203.0.113.9",
+    "dest_port": "443",
+    "proto": "tcp",
+    "verdict": "deny",
+    "bytes_out": "54672"
+   },
+   "cim": {
+    "action": "blocked",
+    "src": "198.51.100.194",
+    "dest": "203.0.113.9",
+    "dest_port": "443",
+    "transport": "tcp",
+    "user": "dave@example.com",
+    "bytes_out": "54672"
+   }
+  },
+  {
+   "epoch": 1792491614,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1286",
+    "type": "auth",
+    "user": "frank@example.com",
+    "src_ip": "192.0.2.87",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "frank@example.com",
+    "src": "192.0.2.87",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491651,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1287",
+    "type": "session",
+    "user": "carol@example.com",
+    "src_ip": "198.51.100.122",
+    "dest_ip": "203.0.113.142",
+    "dest_port": "443",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "57241"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "198.51.100.122",
+    "dest": "203.0.113.142",
+    "dest_port": "443",
+    "transport": "tcp",
+    "user": "carol@example.com",
+    "bytes_out": "57241"
+   }
+  },
+  {
+   "epoch": 1792491655,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1288",
+    "type": "auth",
+    "user": "carol@example.com",
+    "src_ip": "198.51.100.65",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol@example.com",
+    "src": "198.51.100.65",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491706,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1289",
+    "type": "auth",
+    "user": "carol@example.com",
+    "src_ip": "198.51.100.212",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol@example.com",
+    "src": "198.51.100.212",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491742,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1290",
+    "type": "auth",
+    "user": "erin@example.com",
+    "src_ip": "198.51.100.224",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "erin@example.com",
+    "src": "198.51.100.224",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491764,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1291",
+    "type": "auth",
+    "user": "frank@example.com",
+    "src_ip": "198.51.100.203",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "frank@example.com",
+    "src": "198.51.100.203",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491808,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1292",
+    "type": "auth",
+    "user": "carol@example.com",
+    "src_ip": "198.51.100.33",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "carol@example.com",
+    "src": "198.51.100.33",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491866,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1293",
+    "type": "session",
+    "user": "alice@example.com",
+    "src_ip": "192.0.2.103",
+    "dest_ip": "203.0.113.227",
+    "dest_port": "8443",
+    "proto": "tcp",
+    "verdict": "deny",
+    "bytes_out": "75441"
+   },
+   "cim": {
+    "action": "blocked",
+    "src": "192.0.2.103",
+    "dest": "203.0.113.227",
+    "dest_port": "8443",
+    "transport": "tcp",
+    "user": "alice@example.com",
+    "bytes_out": "75441"
+   }
+  },
+  {
+   "epoch": 1792491874,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1294",
+    "type": "auth",
+    "user": "alice@example.com",
+    "src_ip": "198.51.100.77",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "alice@example.com",
+    "src": "198.51.100.77",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491921,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1295",
+    "type": "session",
+    "user": "bob@example.com",
+    "src_ip": "198.51.100.156",
+    "dest_ip": "203.0.113.16",
+    "dest_port": "8443",
+    "proto": "tcp",
+    "verdict": "deny",
+    "bytes_out": "19474"
+   },
+   "cim": {
+    "action": "blocked",
+    "src": "198.51.100.156",
+    "dest": "203.0.113.16",
+    "dest_port": "8443",
+    "transport": "tcp",
+    "user": "bob@example.com",
+    "bytes_out": "19474"
+   }
+  },
+  {
+   "epoch": 1792491978,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1296",
+    "type": "auth",
+    "user": "frank@example.com",
+    "src_ip": "192.0.2.55",
+    "gateway": "vpn01.example.com",
+    "result": "failure"
+   },
+   "cim": {
+    "action": "failure",
+    "user": "frank@example.com",
+    "src": "192.0.2.55",
+    "dest": "vpn01.example.com"
+   }
+  },
+  {
+   "epoch": 1792491997,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1297",
+    "type": "session",
+    "user": "dave@example.com",
+    "src_ip": "192.0.2.26",
+    "dest_ip": "203.0.113.223",
+    "dest_port": "22",
+    "proto": "tcp",
+    "verdict": "allow",
+    "bytes_out": "13386"
+   },
+   "cim": {
+    "action": "allowed",
+    "src": "192.0.2.26",
+    "dest": "203.0.113.223",
+    "dest_port": "22",
+    "transport": "tcp",
+    "user": "dave@example.com",
+    "bytes_out": "13386"
+   }
+  },
+  {
+   "epoch": 1792492033,
+   "category": "network_traffic",
+   "fields": {
+    "event_id": "1298",
+    "type": "session",
+    "user": "frank@example.com",
+    "src_ip": "192.0.2.95",
+    "dest_ip": "203.0.113.36",
+    "dest_port": "3389",
+    "proto": "tcp",
+    "verdict": "deny",
+    "bytes_out": "34016"
+   },
+   "cim": {
+    "action": "blocked",
+    "src": "192.0.2.95",
+    "dest": "203.0.113.36",
+    "dest_port": "3389",
+    "transport": "tcp",
+    "user": "frank@example.com",
+    "bytes_out": "34016"
+   }
+  },
+  {
+   "epoch": 1792492059,
+   "category": "authentication",
+   "fields": {
+    "event_id": "1299",
+    "type": "auth",
+    "user": "carol@example.com",
+    "src_ip": "192.0.2.108",
+    "gateway": "vpn01.example.com",
+    "result": "success"
+   },
+   "cim": {
+    "action": "success",
+    "user": "carol@example.com",
+    "src": "192.0.2.108",
+    "dest": "vpn01.example.com"
+   }
+  }
+ ]
 }

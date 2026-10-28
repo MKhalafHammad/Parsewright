@@ -8,8 +8,8 @@ trailing backslash (line continuation), control characters, and brackets in stan
 import re
 
 KEY = re.compile(r"[A-Za-z_][A-Za-z0-9_.:-]*")
-STANZA = re.compile(r"[A-Za-z0-9_.:*-]+(::[^\[\]\r\n]+)?")
-CONTROL = re.compile(r"[\x00-\x08\x0b-\x1f\x7f]")
+STANZA = re.compile(r"[A-Za-z0-9_.:*-]+(::[^\[\]\r\n]+)?|eventtype=[a-z0-9_]+")
+CONTROL = re.compile(r"[\x00-\x08\x0b-\x1f\x7f-\x9f\u2028\u2029]")
 
 
 class ConfValueError(ValueError):

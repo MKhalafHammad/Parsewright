@@ -1,0 +1,8111 @@
+{
+ "source": "acme_proxy.csv",
+ "synthetic": true,
+ "notes": "CSV without a header row, UTC timestamps",
+ "true_timezone": "offset or UTC in each timestamp",
+ "event_count": 300,
+ "epochs": [
+  1792483246,
+  1792483251,
+  1792483304,
+  1792483364,
+  1792483400,
+  1792483410,
+  1792483445,
+  1792483460,
+  1792483488,
+  1792483513,
+  1792483549,
+  1792483570,
+  1792483610,
+  1792483622,
+  1792483663,
+  1792483682,
+  1792483691,
+  1792483710,
+  1792483739,
+  1792483762,
+  1792483782,
+  1792483838,
+  1792483847,
+  1792483899,
+  1792483922,
+  1792483982,
+  1792484004,
+  1792484008,
+  1792484047,
+  1792484089,
+  1792484104,
+  1792484163,
+  1792484170,
+  1792484185,
+  1792484195,
+  1792484232,
+  1792484264,
+  1792484291,
+  1792484349,
+  1792484398,
+  1792484405,
+  1792484459,
+  1792484468,
+  1792484497,
+  1792484501,
+  1792484510,
+  1792484550,
+  1792484599,
+  1792484629,
+  1792484680,
+  1792484737,
+  1792484765,
+  1792484796,
+  1792484841,
+  1792484863,
+  1792484902,
+  1792484937,
+  1792484993,
+  1792485006,
+  1792485059,
+  1792485102,
+  1792485131,
+  1792485148,
+  1792485200,
+  1792485237,
+  1792485276,
+  1792485325,
+  1792485334,
+  1792485388,
+  1792485404,
+  1792485431,
+  1792485446,
+  1792485457,
+  1792485468,
+  1792485511,
+  1792485545,
+  1792485554,
+  1792485592,
+  1792485640,
+  1792485672,
+  1792485675,
+  1792485707,
+  1792485767,
+  1792485800,
+  1792485841,
+  1792485851,
+  1792485887,
+  1792485920,
+  1792485975,
+  1792486010,
+  1792486044,
+  1792486070,
+  1792486100,
+  1792486160,
+  1792486197,
+  1792486255,
+  1792486269,
+  1792486328,
+  1792486331,
+  1792486349,
+  1792486357,
+  1792486361,
+  1792486393,
+  1792486420,
+  1792486451,
+  1792486461,
+  1792486507,
+  1792486555,
+  1792486599,
+  1792486618,
+  1792486629,
+  1792486662,
+  1792486683,
+  1792486714,
+  1792486742,
+  1792486763,
+  1792486813,
+  1792486826,
+  1792486858,
+  1792486889,
+  1792486911,
+  1792486933,
+  1792486979,
+  1792487030,
+  1792487035,
+  1792487042,
+  1792487058,
+  1792487080,
+  1792487126,
+  1792487177,
+  1792487206,
+  1792487215,
+  1792487247,
+  1792487254,
+  1792487286,
+  1792487321,
+  1792487352,
+  1792487397,
+  1792487401,
+  1792487415,
+  1792487445,
+  1792487489,
+  1792487509,
+  1792487516,
+  1792487524,
+  1792487535,
+  1792487548,
+  1792487578,
+  1792487599,
+  1792487658,
+  1792487690,
+  1792487746,
+  1792487756,
+  1792487771,
+  1792487813,
+  1792487846,
+  1792487905,
+  1792487951,
+  1792488005,
+  1792488012,
+  1792488042,
+  1792488086,
+  1792488129,
+  1792488141,
+  1792488144,
+  1792488203,
+  1792488230,
+  1792488272,
+  1792488316,
+  1792488337,
+  1792488380,
+  1792488385,
+  1792488424,
+  1792488461,
+  1792488501,
+  1792488526,
+  1792488545,
+  1792488561,
+  1792488580,
+  1792488615,
+  1792488638,
+  1792488644,
+  1792488648,
+  1792488700,
+  1792488720,
+  1792488764,
+  1792488821,
+  1792488837,
+  1792488844,
+  1792488859,
+  1792488880,
+  1792488916,
+  1792488948,
+  1792488999,
+  1792489034,
+  1792489045,
+  1792489068,
+  1792489122,
+  1792489157,
+  1792489211,
+  1792489230,
+  1792489268,
+  1792489327,
+  1792489375,
+  1792489424,
+  1792489474,
+  1792489496,
+  1792489540,
+  1792489590,
+  1792489636,
+  1792489672,
+  1792489693,
+  1792489737,
+  1792489772,
+  1792489811,
+  1792489841,
+  1792489896,
+  1792489929,
+  1792489935,
+  1792489993,
+  1792490050,
+  1792490067,
+  1792490079,
+  1792490084,
+  1792490116,
+  1792490173,
+  1792490183,
+  1792490218,
+  1792490258,
+  1792490316,
+  1792490325,
+  1792490344,
+  1792490392,
+  1792490424,
+  1792490471,
+  1792490498,
+  1792490544,
+  1792490567,
+  1792490591,
+  1792490617,
+  1792490631,
+  1792490662,
+  1792490720,
+  1792490776,
+  1792490800,
+  1792490849,
+  1792490858,
+  1792490901,
+  1792490946,
+  1792490991,
+  1792491027,
+  1792491058,
+  1792491087,
+  1792491129,
+  1792491134,
+  1792491192,
+  1792491218,
+  1792491226,
+  1792491249,
+  1792491279,
+  1792491305,
+  1792491337,
+  1792491377,
+  1792491426,
+  1792491452,
+  1792491457,
+  1792491478,
+  1792491497,
+  1792491517,
+  1792491525,
+  1792491542,
+  1792491570,
+  1792491575,
+  1792491588,
+  1792491601,
+  1792491634,
+  1792491679,
+  1792491727,
+  1792491765,
+  1792491774,
+  1792491822,
+  1792491863,
+  1792491898,
+  1792491906,
+  1792491964,
+  1792491969,
+  1792492009,
+  1792492039,
+  1792492044,
+  1792492092,
+  1792492138,
+  1792492149,
+  1792492191,
+  1792492214,
+  1792492232,
+  1792492269,
+  1792492318,
+  1792492355,
+  1792492411,
+  1792492416
+ ],
+ "events": [
+  {
+   "epoch": 1792483246,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.49",
+    "user": "bob",
+    "method": "GET",
+    "url": "https://api.example.com/",
+    "dest": "api.example.com",
+    "status": "304",
+    "bytes": "33757",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "198.51.100.49",
+    "user": "bob",
+    "http_method": "GET",
+    "url": "https://api.example.com/",
+    "dest": "api.example.com",
+    "status": "304",
+    "bytes": "33757",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792483251,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.80",
+    "user": "erin",
+    "method": "POST",
+    "url": "https://cdn.example.com/login",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "177547",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "198.51.100.80",
+    "user": "erin",
+    "http_method": "POST",
+    "url": "https://cdn.example.com/login",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "177547",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792483304,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.36",
+    "user": "carol",
+    "method": "POST",
+    "url": "https://cdn.example.com/login",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "15767",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "198.51.100.36",
+    "user": "carol",
+    "http_method": "POST",
+    "url": "https://cdn.example.com/login",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "15767",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792483364,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.32",
+    "user": "bob",
+    "method": "GET",
+    "url": "https://api.example.com/login",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "128278",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.32",
+    "user": "bob",
+    "http_method": "GET",
+    "url": "https://api.example.com/login",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "128278",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792483400,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.13",
+    "user": "erin",
+    "method": "POST",
+    "url": "https://www.example.com/docs/help",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "146072",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "198.51.100.13",
+    "user": "erin",
+    "http_method": "POST",
+    "url": "https://www.example.com/docs/help",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "146072",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792483410,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.202",
+    "user": "dave",
+    "method": "POST",
+    "url": "https://cdn.example.com/login",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "41059",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.202",
+    "user": "dave",
+    "http_method": "POST",
+    "url": "https://cdn.example.com/login",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "41059",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792483445,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.184",
+    "user": "erin",
+    "method": "POST",
+    "url": "https://www.example.com/api/v1/items",
+    "dest": "www.example.com",
+    "status": "304",
+    "bytes": "155052",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "192.0.2.184",
+    "user": "erin",
+    "http_method": "POST",
+    "url": "https://www.example.com/api/v1/items",
+    "dest": "www.example.com",
+    "status": "304",
+    "bytes": "155052",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792483460,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.190",
+    "user": "bob",
+    "method": "GET",
+    "url": "https://api.example.com/login",
+    "dest": "api.example.com",
+    "status": "404",
+    "bytes": "104164",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.190",
+    "user": "bob",
+    "http_method": "GET",
+    "url": "https://api.example.com/login",
+    "dest": "api.example.com",
+    "status": "404",
+    "bytes": "104164",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792483488,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.109",
+    "user": "alice",
+    "method": "GET",
+    "url": "https://www.example.com/login",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "70604",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "198.51.100.109",
+    "user": "alice",
+    "http_method": "GET",
+    "url": "https://www.example.com/login",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "70604",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792483513,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.239",
+    "user": "erin",
+    "method": "GET",
+    "url": "https://www.example.com/api/v1/items",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "142825",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.239",
+    "user": "erin",
+    "http_method": "GET",
+    "url": "https://www.example.com/api/v1/items",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "142825",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792483549,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.32",
+    "user": "alice",
+    "method": "GET",
+    "url": "https://cdn.example.com/",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "9353",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "192.0.2.32",
+    "user": "alice",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "9353",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792483570,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.177",
+    "user": "dave",
+    "method": "GET",
+    "url": "https://api.example.com/api/v1/items",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "31464",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "198.51.100.177",
+    "user": "dave",
+    "http_method": "GET",
+    "url": "https://api.example.com/api/v1/items",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "31464",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792483610,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.12",
+    "user": "carol",
+    "method": "GET",
+    "url": "https://www.example.com/search",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "66196",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.12",
+    "user": "carol",
+    "http_method": "GET",
+    "url": "https://www.example.com/search",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "66196",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792483622,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.28",
+    "user": "erin",
+    "method": "GET",
+    "url": "https://www.example.com/docs/help",
+    "dest": "www.example.com",
+    "status": "404",
+    "bytes": "101388",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.28",
+    "user": "erin",
+    "http_method": "GET",
+    "url": "https://www.example.com/docs/help",
+    "dest": "www.example.com",
+    "status": "404",
+    "bytes": "101388",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792483663,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.54",
+    "user": "erin",
+    "method": "POST",
+    "url": "https://www.example.com/",
+    "dest": "www.example.com",
+    "status": "304",
+    "bytes": "59740",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.54",
+    "user": "erin",
+    "http_method": "POST",
+    "url": "https://www.example.com/",
+    "dest": "www.example.com",
+    "status": "304",
+    "bytes": "59740",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792483682,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.48",
+    "user": "bob",
+    "method": "POST",
+    "url": "https://www.example.com/search",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "65990",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "192.0.2.48",
+    "user": "bob",
+    "http_method": "POST",
+    "url": "https://www.example.com/search",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "65990",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792483691,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.166",
+    "user": "dave",
+    "method": "POST",
+    "url": "https://www.example.com/docs/help",
+    "dest": "www.example.com",
+    "status": "403",
+    "bytes": "156581",
+    "verdict": "blocked",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.166",
+    "user": "dave",
+    "http_method": "POST",
+    "url": "https://www.example.com/docs/help",
+    "dest": "www.example.com",
+    "status": "403",
+    "bytes": "156581",
+    "action": "blocked",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792483710,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.89",
+    "user": "erin",
+    "method": "GET",
+    "url": "https://api.example.com/docs/help",
+    "dest": "api.example.com",
+    "status": "404",
+    "bytes": "249157",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "198.51.100.89",
+    "user": "erin",
+    "http_method": "GET",
+    "url": "https://api.example.com/docs/help",
+    "dest": "api.example.com",
+    "status": "404",
+    "bytes": "249157",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792483739,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.213",
+    "user": "alice",
+    "method": "GET",
+    "url": "https://api.example.com/search",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "180513",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.213",
+    "user": "alice",
+    "http_method": "GET",
+    "url": "https://api.example.com/search",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "180513",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792483762,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.178",
+    "user": "frank",
+    "method": "POST",
+    "url": "https://cdn.example.com/",
+    "dest": "cdn.example.com",
+    "status": "404",
+    "bytes": "170632",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.178",
+    "user": "frank",
+    "http_method": "POST",
+    "url": "https://cdn.example.com/",
+    "dest": "cdn.example.com",
+    "status": "404",
+    "bytes": "170632",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792483782,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.149",
+    "user": "carol",
+    "method": "GET",
+    "url": "https://api.example.com/static/app.js",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "24791",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.149",
+    "user": "carol",
+    "http_method": "GET",
+    "url": "https://api.example.com/static/app.js",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "24791",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792483838,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.217",
+    "user": "erin",
+    "method": "POST",
+    "url": "https://www.example.com/",
+    "dest": "www.example.com",
+    "status": "304",
+    "bytes": "156136",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "192.0.2.217",
+    "user": "erin",
+    "http_method": "POST",
+    "url": "https://www.example.com/",
+    "dest": "www.example.com",
+    "status": "304",
+    "bytes": "156136",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792483847,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.229",
+    "user": "alice",
+    "method": "GET",
+    "url": "https://api.example.com/search",
+    "dest": "api.example.com",
+    "status": "403",
+    "bytes": "104128",
+    "verdict": "blocked",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.229",
+    "user": "alice",
+    "http_method": "GET",
+    "url": "https://api.example.com/search",
+    "dest": "api.example.com",
+    "status": "403",
+    "bytes": "104128",
+    "action": "blocked",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792483899,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.132",
+    "user": "erin",
+    "method": "POST",
+    "url": "https://www.example.com/login",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "245638",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.132",
+    "user": "erin",
+    "http_method": "POST",
+    "url": "https://www.example.com/login",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "245638",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792483922,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.41",
+    "user": "carol",
+    "method": "POST",
+    "url": "https://api.example.com/login",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "208917",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.41",
+    "user": "carol",
+    "http_method": "POST",
+    "url": "https://api.example.com/login",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "208917",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792483982,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.79",
+    "user": "erin",
+    "method": "POST",
+    "url": "https://api.example.com/api/v1/items",
+    "dest": "api.example.com",
+    "status": "304",
+    "bytes": "247523",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.79",
+    "user": "erin",
+    "http_method": "POST",
+    "url": "https://api.example.com/api/v1/items",
+    "dest": "api.example.com",
+    "status": "304",
+    "bytes": "247523",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792484004,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.204",
+    "user": "bob",
+    "method": "GET",
+    "url": "https://api.example.com/login",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "201256",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "192.0.2.204",
+    "user": "bob",
+    "http_method": "GET",
+    "url": "https://api.example.com/login",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "201256",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792484008,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.191",
+    "user": "carol",
+    "method": "GET",
+    "url": "https://api.example.com/docs/help",
+    "dest": "api.example.com",
+    "status": "304",
+    "bytes": "167711",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.191",
+    "user": "carol",
+    "http_method": "GET",
+    "url": "https://api.example.com/docs/help",
+    "dest": "api.example.com",
+    "status": "304",
+    "bytes": "167711",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792484047,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.105",
+    "user": "dave",
+    "method": "POST",
+    "url": "https://www.example.com/",
+    "dest": "www.example.com",
+    "status": "404",
+    "bytes": "92721",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.105",
+    "user": "dave",
+    "http_method": "POST",
+    "url": "https://www.example.com/",
+    "dest": "www.example.com",
+    "status": "404",
+    "bytes": "92721",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792484089,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.51",
+    "user": "carol",
+    "method": "GET",
+    "url": "https://api.example.com/api/v1/items",
+    "dest": "api.example.com",
+    "status": "304",
+    "bytes": "88411",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "192.0.2.51",
+    "user": "carol",
+    "http_method": "GET",
+    "url": "https://api.example.com/api/v1/items",
+    "dest": "api.example.com",
+    "status": "304",
+    "bytes": "88411",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792484104,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.91",
+    "user": "erin",
+    "method": "GET",
+    "url": "https://api.example.com/static/app.js",
+    "dest": "api.example.com",
+    "status": "404",
+    "bytes": "245934",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "198.51.100.91",
+    "user": "erin",
+    "http_method": "GET",
+    "url": "https://api.example.com/static/app.js",
+    "dest": "api.example.com",
+    "status": "404",
+    "bytes": "245934",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792484163,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.114",
+    "user": "alice",
+    "method": "GET",
+    "url": "https://api.example.com/",
+    "dest": "api.example.com",
+    "status": "404",
+    "bytes": "152342",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "192.0.2.114",
+    "user": "alice",
+    "http_method": "GET",
+    "url": "https://api.example.com/",
+    "dest": "api.example.com",
+    "status": "404",
+    "bytes": "152342",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792484170,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.35",
+    "user": "erin",
+    "method": "POST",
+    "url": "https://api.example.com/api/v1/items",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "46418",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "198.51.100.35",
+    "user": "erin",
+    "http_method": "POST",
+    "url": "https://api.example.com/api/v1/items",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "46418",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792484185,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.210",
+    "user": "dave",
+    "method": "GET",
+    "url": "https://www.example.com/search",
+    "dest": "www.example.com",
+    "status": "404",
+    "bytes": "55279",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.210",
+    "user": "dave",
+    "http_method": "GET",
+    "url": "https://www.example.com/search",
+    "dest": "www.example.com",
+    "status": "404",
+    "bytes": "55279",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792484195,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.195",
+    "user": "erin",
+    "method": "GET",
+    "url": "https://www.example.com/api/v1/items",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "217094",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "198.51.100.195",
+    "user": "erin",
+    "http_method": "GET",
+    "url": "https://www.example.com/api/v1/items",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "217094",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792484232,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.227",
+    "user": "frank",
+    "method": "GET",
+    "url": "https://cdn.example.com/",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "72287",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.227",
+    "user": "frank",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "72287",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792484264,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.150",
+    "user": "carol",
+    "method": "GET",
+    "url": "https://api.example.com/search",
+    "dest": "api.example.com",
+    "status": "403",
+    "bytes": "19010",
+    "verdict": "blocked",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.150",
+    "user": "carol",
+    "http_method": "GET",
+    "url": "https://api.example.com/search",
+    "dest": "api.example.com",
+    "status": "403",
+    "bytes": "19010",
+    "action": "blocked",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792484291,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.206",
+    "user": "alice",
+    "method": "POST",
+    "url": "https://api.example.com/api/v1/items",
+    "dest": "api.example.com",
+    "status": "304",
+    "bytes": "120541",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "198.51.100.206",
+    "user": "alice",
+    "http_method": "POST",
+    "url": "https://api.example.com/api/v1/items",
+    "dest": "api.example.com",
+    "status": "304",
+    "bytes": "120541",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792484349,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.128",
+    "user": "carol",
+    "method": "GET",
+    "url": "https://cdn.example.com/login",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "118081",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "198.51.100.128",
+    "user": "carol",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/login",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "118081",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792484398,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.117",
+    "user": "dave",
+    "method": "GET",
+    "url": "https://www.example.com/api/v1/items",
+    "dest": "www.example.com",
+    "status": "304",
+    "bytes": "105163",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.117",
+    "user": "dave",
+    "http_method": "GET",
+    "url": "https://www.example.com/api/v1/items",
+    "dest": "www.example.com",
+    "status": "304",
+    "bytes": "105163",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792484405,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.152",
+    "user": "bob",
+    "method": "GET",
+    "url": "https://www.example.com/api/v1/items",
+    "dest": "www.example.com",
+    "status": "403",
+    "bytes": "216093",
+    "verdict": "blocked",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.152",
+    "user": "bob",
+    "http_method": "GET",
+    "url": "https://www.example.com/api/v1/items",
+    "dest": "www.example.com",
+    "status": "403",
+    "bytes": "216093",
+    "action": "blocked",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792484459,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.203",
+    "user": "frank",
+    "method": "GET",
+    "url": "https://cdn.example.com/static/app.js",
+    "dest": "cdn.example.com",
+    "status": "404",
+    "bytes": "129617",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.203",
+    "user": "frank",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/static/app.js",
+    "dest": "cdn.example.com",
+    "status": "404",
+    "bytes": "129617",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792484468,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.195",
+    "user": "bob",
+    "method": "GET",
+    "url": "https://api.example.com/static/app.js",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "140807",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "198.51.100.195",
+    "user": "bob",
+    "http_method": "GET",
+    "url": "https://api.example.com/static/app.js",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "140807",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792484497,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.218",
+    "user": "dave",
+    "method": "POST",
+    "url": "https://cdn.example.com/",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "134265",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "192.0.2.218",
+    "user": "dave",
+    "http_method": "POST",
+    "url": "https://cdn.example.com/",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "134265",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792484501,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.240",
+    "user": "carol",
+    "method": "GET",
+    "url": "https://cdn.example.com/docs/help",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "241113",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.240",
+    "user": "carol",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/docs/help",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "241113",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792484510,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.50",
+    "user": "frank",
+    "method": "GET",
+    "url": "https://api.example.com/docs/help",
+    "dest": "api.example.com",
+    "status": "404",
+    "bytes": "125315",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.50",
+    "user": "frank",
+    "http_method": "GET",
+    "url": "https://api.example.com/docs/help",
+    "dest": "api.example.com",
+    "status": "404",
+    "bytes": "125315",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792484550,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.115",
+    "user": "dave",
+    "method": "POST",
+    "url": "https://cdn.example.com/docs/help",
+    "dest": "cdn.example.com",
+    "status": "304",
+    "bytes": "28541",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.115",
+    "user": "dave",
+    "http_method": "POST",
+    "url": "https://cdn.example.com/docs/help",
+    "dest": "cdn.example.com",
+    "status": "304",
+    "bytes": "28541",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792484599,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.126",
+    "user": "bob",
+    "method": "GET",
+    "url": "https://cdn.example.com/api/v1/items",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "115353",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.126",
+    "user": "bob",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/api/v1/items",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "115353",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792484629,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.124",
+    "user": "erin",
+    "method": "GET",
+    "url": "https://api.example.com/search",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "32414",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "192.0.2.124",
+    "user": "erin",
+    "http_method": "GET",
+    "url": "https://api.example.com/search",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "32414",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792484680,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.128",
+    "user": "erin",
+    "method": "POST",
+    "url": "https://api.example.com/api/v1/items",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "139147",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "198.51.100.128",
+    "user": "erin",
+    "http_method": "POST",
+    "url": "https://api.example.com/api/v1/items",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "139147",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792484737,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.157",
+    "user": "dave",
+    "method": "GET",
+    "url": "https://api.example.com/api/v1/items",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "150442",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "192.0.2.157",
+    "user": "dave",
+    "http_method": "GET",
+    "url": "https://api.example.com/api/v1/items",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "150442",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792484765,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.203",
+    "user": "dave",
+    "method": "POST",
+    "url": "https://api.example.com/",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "173047",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "192.0.2.203",
+    "user": "dave",
+    "http_method": "POST",
+    "url": "https://api.example.com/",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "173047",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792484796,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.175",
+    "user": "bob",
+    "method": "POST",
+    "url": "https://api.example.com/api/v1/items",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "78018",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "198.51.100.175",
+    "user": "bob",
+    "http_method": "POST",
+    "url": "https://api.example.com/api/v1/items",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "78018",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792484841,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.24",
+    "user": "frank",
+    "method": "GET",
+    "url": "https://cdn.example.com/static/app.js",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "27686",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.24",
+    "user": "frank",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/static/app.js",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "27686",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792484863,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.36",
+    "user": "alice",
+    "method": "GET",
+    "url": "https://cdn.example.com/login",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "147460",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "198.51.100.36",
+    "user": "alice",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/login",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "147460",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792484902,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.76",
+    "user": "erin",
+    "method": "GET",
+    "url": "https://cdn.example.com/static/app.js",
+    "dest": "cdn.example.com",
+    "status": "403",
+    "bytes": "5512",
+    "verdict": "blocked",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "198.51.100.76",
+    "user": "erin",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/static/app.js",
+    "dest": "cdn.example.com",
+    "status": "403",
+    "bytes": "5512",
+    "action": "blocked",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792484937,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.29",
+    "user": "bob",
+    "method": "GET",
+    "url": "https://api.example.com/search",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "14114",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "198.51.100.29",
+    "user": "bob",
+    "http_method": "GET",
+    "url": "https://api.example.com/search",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "14114",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792484993,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.241",
+    "user": "alice",
+    "method": "GET",
+    "url": "https://cdn.example.com/docs/help",
+    "dest": "cdn.example.com",
+    "status": "403",
+    "bytes": "206276",
+    "verdict": "blocked",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.241",
+    "user": "alice",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/docs/help",
+    "dest": "cdn.example.com",
+    "status": "403",
+    "bytes": "206276",
+    "action": "blocked",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792485006,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.114",
+    "user": "carol",
+    "method": "GET",
+    "url": "https://api.example.com/api/v1/items",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "99374",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.114",
+    "user": "carol",
+    "http_method": "GET",
+    "url": "https://api.example.com/api/v1/items",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "99374",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792485059,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.183",
+    "user": "bob",
+    "method": "GET",
+    "url": "https://www.example.com/docs/help",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "114971",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.183",
+    "user": "bob",
+    "http_method": "GET",
+    "url": "https://www.example.com/docs/help",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "114971",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792485102,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.158",
+    "user": "carol",
+    "method": "GET",
+    "url": "https://api.example.com/static/app.js",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "155601",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.158",
+    "user": "carol",
+    "http_method": "GET",
+    "url": "https://api.example.com/static/app.js",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "155601",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792485131,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.31",
+    "user": "carol",
+    "method": "GET",
+    "url": "https://cdn.example.com/api/v1/items",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "199738",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "192.0.2.31",
+    "user": "carol",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/api/v1/items",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "199738",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792485148,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.51",
+    "user": "dave",
+    "method": "POST",
+    "url": "https://api.example.com/static/app.js",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "81535",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.51",
+    "user": "dave",
+    "http_method": "POST",
+    "url": "https://api.example.com/static/app.js",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "81535",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792485200,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.239",
+    "user": "bob",
+    "method": "GET",
+    "url": "https://cdn.example.com/static/app.js",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "87577",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "198.51.100.239",
+    "user": "bob",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/static/app.js",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "87577",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792485237,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.214",
+    "user": "frank",
+    "method": "GET",
+    "url": "https://api.example.com/static/app.js",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "226601",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "198.51.100.214",
+    "user": "frank",
+    "http_method": "GET",
+    "url": "https://api.example.com/static/app.js",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "226601",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792485276,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.166",
+    "user": "carol",
+    "method": "GET",
+    "url": "https://api.example.com/api/v1/items",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "215110",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "192.0.2.166",
+    "user": "carol",
+    "http_method": "GET",
+    "url": "https://api.example.com/api/v1/items",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "215110",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792485325,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.232",
+    "user": "erin",
+    "method": "GET",
+    "url": "https://www.example.com/docs/help",
+    "dest": "www.example.com",
+    "status": "304",
+    "bytes": "153908",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "192.0.2.232",
+    "user": "erin",
+    "http_method": "GET",
+    "url": "https://www.example.com/docs/help",
+    "dest": "www.example.com",
+    "status": "304",
+    "bytes": "153908",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792485334,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.9",
+    "user": "erin",
+    "method": "GET",
+    "url": "https://cdn.example.com/search",
+    "dest": "cdn.example.com",
+    "status": "404",
+    "bytes": "237320",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "198.51.100.9",
+    "user": "erin",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/search",
+    "dest": "cdn.example.com",
+    "status": "404",
+    "bytes": "237320",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792485388,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.77",
+    "user": "carol",
+    "method": "GET",
+    "url": "https://api.example.com/login",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "154",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "198.51.100.77",
+    "user": "carol",
+    "http_method": "GET",
+    "url": "https://api.example.com/login",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "154",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792485404,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.63",
+    "user": "frank",
+    "method": "GET",
+    "url": "https://cdn.example.com/login",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "192423",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.63",
+    "user": "frank",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/login",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "192423",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792485431,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.174",
+    "user": "erin",
+    "method": "GET",
+    "url": "https://api.example.com/static/app.js",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "141440",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "198.51.100.174",
+    "user": "erin",
+    "http_method": "GET",
+    "url": "https://api.example.com/static/app.js",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "141440",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792485446,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.136",
+    "user": "erin",
+    "method": "GET",
+    "url": "https://www.example.com/",
+    "dest": "www.example.com",
+    "status": "404",
+    "bytes": "141894",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.136",
+    "user": "erin",
+    "http_method": "GET",
+    "url": "https://www.example.com/",
+    "dest": "www.example.com",
+    "status": "404",
+    "bytes": "141894",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792485457,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.104",
+    "user": "frank",
+    "method": "GET",
+    "url": "https://www.example.com/api/v1/items",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "71387",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.104",
+    "user": "frank",
+    "http_method": "GET",
+    "url": "https://www.example.com/api/v1/items",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "71387",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792485468,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.88",
+    "user": "erin",
+    "method": "GET",
+    "url": "https://www.example.com/search",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "126870",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.88",
+    "user": "erin",
+    "http_method": "GET",
+    "url": "https://www.example.com/search",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "126870",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792485511,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.126",
+    "user": "bob",
+    "method": "POST",
+    "url": "https://www.example.com/static/app.js",
+    "dest": "www.example.com",
+    "status": "404",
+    "bytes": "99436",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.126",
+    "user": "bob",
+    "http_method": "POST",
+    "url": "https://www.example.com/static/app.js",
+    "dest": "www.example.com",
+    "status": "404",
+    "bytes": "99436",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792485545,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.138",
+    "user": "bob",
+    "method": "POST",
+    "url": "https://api.example.com/login",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "35449",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.138",
+    "user": "bob",
+    "http_method": "POST",
+    "url": "https://api.example.com/login",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "35449",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792485554,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.3",
+    "user": "carol",
+    "method": "GET",
+    "url": "https://api.example.com/api/v1/items",
+    "dest": "api.example.com",
+    "status": "403",
+    "bytes": "38828",
+    "verdict": "blocked",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.3",
+    "user": "carol",
+    "http_method": "GET",
+    "url": "https://api.example.com/api/v1/items",
+    "dest": "api.example.com",
+    "status": "403",
+    "bytes": "38828",
+    "action": "blocked",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792485592,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.214",
+    "user": "erin",
+    "method": "GET",
+    "url": "https://api.example.com/docs/help",
+    "dest": "api.example.com",
+    "status": "304",
+    "bytes": "144638",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "198.51.100.214",
+    "user": "erin",
+    "http_method": "GET",
+    "url": "https://api.example.com/docs/help",
+    "dest": "api.example.com",
+    "status": "304",
+    "bytes": "144638",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792485640,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.230",
+    "user": "bob",
+    "method": "POST",
+    "url": "https://www.example.com/login",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "46770",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "192.0.2.230",
+    "user": "bob",
+    "http_method": "POST",
+    "url": "https://www.example.com/login",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "46770",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792485672,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.195",
+    "user": "frank",
+    "method": "GET",
+    "url": "https://api.example.com/login",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "20777",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "198.51.100.195",
+    "user": "frank",
+    "http_method": "GET",
+    "url": "https://api.example.com/login",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "20777",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792485675,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.117",
+    "user": "dave",
+    "method": "GET",
+    "url": "https://www.example.com/search",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "201271",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "198.51.100.117",
+    "user": "dave",
+    "http_method": "GET",
+    "url": "https://www.example.com/search",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "201271",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792485707,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.218",
+    "user": "dave",
+    "method": "GET",
+    "url": "https://cdn.example.com/login",
+    "dest": "cdn.example.com",
+    "status": "404",
+    "bytes": "159401",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.218",
+    "user": "dave",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/login",
+    "dest": "cdn.example.com",
+    "status": "404",
+    "bytes": "159401",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792485767,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.4",
+    "user": "alice",
+    "method": "POST",
+    "url": "https://www.example.com/api/v1/items",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "11210",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "192.0.2.4",
+    "user": "alice",
+    "http_method": "POST",
+    "url": "https://www.example.com/api/v1/items",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "11210",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792485800,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.174",
+    "user": "dave",
+    "method": "GET",
+    "url": "https://www.example.com/search",
+    "dest": "www.example.com",
+    "status": "304",
+    "bytes": "86303",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "198.51.100.174",
+    "user": "dave",
+    "http_method": "GET",
+    "url": "https://www.example.com/search",
+    "dest": "www.example.com",
+    "status": "304",
+    "bytes": "86303",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792485841,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.139",
+    "user": "alice",
+    "method": "GET",
+    "url": "https://api.example.com/api/v1/items",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "64304",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.139",
+    "user": "alice",
+    "http_method": "GET",
+    "url": "https://api.example.com/api/v1/items",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "64304",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792485851,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.113",
+    "user": "dave",
+    "method": "POST",
+    "url": "https://www.example.com/static/app.js",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "172956",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "198.51.100.113",
+    "user": "dave",
+    "http_method": "POST",
+    "url": "https://www.example.com/static/app.js",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "172956",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792485887,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.136",
+    "user": "carol",
+    "method": "GET",
+    "url": "https://api.example.com/",
+    "dest": "api.example.com",
+    "status": "403",
+    "bytes": "226825",
+    "verdict": "blocked",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.136",
+    "user": "carol",
+    "http_method": "GET",
+    "url": "https://api.example.com/",
+    "dest": "api.example.com",
+    "status": "403",
+    "bytes": "226825",
+    "action": "blocked",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792485920,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.114",
+    "user": "dave",
+    "method": "GET",
+    "url": "https://www.example.com/api/v1/items",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "186165",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.114",
+    "user": "dave",
+    "http_method": "GET",
+    "url": "https://www.example.com/api/v1/items",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "186165",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792485975,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.230",
+    "user": "dave",
+    "method": "GET",
+    "url": "https://api.example.com/api/v1/items",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "88039",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "192.0.2.230",
+    "user": "dave",
+    "http_method": "GET",
+    "url": "https://api.example.com/api/v1/items",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "88039",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792486010,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.53",
+    "user": "bob",
+    "method": "GET",
+    "url": "https://api.example.com/search",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "186236",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.53",
+    "user": "bob",
+    "http_method": "GET",
+    "url": "https://api.example.com/search",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "186236",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792486044,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.60",
+    "user": "frank",
+    "method": "POST",
+    "url": "https://api.example.com/api/v1/items",
+    "dest": "api.example.com",
+    "status": "304",
+    "bytes": "149220",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "192.0.2.60",
+    "user": "frank",
+    "http_method": "POST",
+    "url": "https://api.example.com/api/v1/items",
+    "dest": "api.example.com",
+    "status": "304",
+    "bytes": "149220",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792486070,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.116",
+    "user": "erin",
+    "method": "POST",
+    "url": "https://cdn.example.com/api/v1/items",
+    "dest": "cdn.example.com",
+    "status": "404",
+    "bytes": "109853",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "192.0.2.116",
+    "user": "erin",
+    "http_method": "POST",
+    "url": "https://cdn.example.com/api/v1/items",
+    "dest": "cdn.example.com",
+    "status": "404",
+    "bytes": "109853",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792486100,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.212",
+    "user": "erin",
+    "method": "GET",
+    "url": "https://api.example.com/static/app.js",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "34128",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.212",
+    "user": "erin",
+    "http_method": "GET",
+    "url": "https://api.example.com/static/app.js",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "34128",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792486160,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.159",
+    "user": "dave",
+    "method": "GET",
+    "url": "https://cdn.example.com/search",
+    "dest": "cdn.example.com",
+    "status": "403",
+    "bytes": "134876",
+    "verdict": "blocked",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.159",
+    "user": "dave",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/search",
+    "dest": "cdn.example.com",
+    "status": "403",
+    "bytes": "134876",
+    "action": "blocked",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792486197,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.96",
+    "user": "erin",
+    "method": "GET",
+    "url": "https://api.example.com/",
+    "dest": "api.example.com",
+    "status": "403",
+    "bytes": "89646",
+    "verdict": "blocked",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.96",
+    "user": "erin",
+    "http_method": "GET",
+    "url": "https://api.example.com/",
+    "dest": "api.example.com",
+    "status": "403",
+    "bytes": "89646",
+    "action": "blocked",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792486255,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.95",
+    "user": "bob",
+    "method": "GET",
+    "url": "https://api.example.com/static/app.js",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "174946",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "198.51.100.95",
+    "user": "bob",
+    "http_method": "GET",
+    "url": "https://api.example.com/static/app.js",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "174946",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792486269,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.81",
+    "user": "carol",
+    "method": "GET",
+    "url": "https://cdn.example.com/static/app.js",
+    "dest": "cdn.example.com",
+    "status": "403",
+    "bytes": "132186",
+    "verdict": "blocked",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.81",
+    "user": "carol",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/static/app.js",
+    "dest": "cdn.example.com",
+    "status": "403",
+    "bytes": "132186",
+    "action": "blocked",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792486328,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.243",
+    "user": "alice",
+    "method": "GET",
+    "url": "https://cdn.example.com/search",
+    "dest": "cdn.example.com",
+    "status": "403",
+    "bytes": "229885",
+    "verdict": "blocked",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.243",
+    "user": "alice",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/search",
+    "dest": "cdn.example.com",
+    "status": "403",
+    "bytes": "229885",
+    "action": "blocked",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792486331,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.241",
+    "user": "carol",
+    "method": "GET",
+    "url": "https://api.example.com/static/app.js",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "34457",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.241",
+    "user": "carol",
+    "http_method": "GET",
+    "url": "https://api.example.com/static/app.js",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "34457",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792486349,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.68",
+    "user": "carol",
+    "method": "GET",
+    "url": "https://www.example.com/docs/help",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "126968",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.68",
+    "user": "carol",
+    "http_method": "GET",
+    "url": "https://www.example.com/docs/help",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "126968",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792486357,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.120",
+    "user": "frank",
+    "method": "GET",
+    "url": "https://www.example.com/api/v1/items",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "92855",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "192.0.2.120",
+    "user": "frank",
+    "http_method": "GET",
+    "url": "https://www.example.com/api/v1/items",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "92855",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792486361,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.148",
+    "user": "frank",
+    "method": "GET",
+    "url": "https://cdn.example.com/static/app.js",
+    "dest": "cdn.example.com",
+    "status": "403",
+    "bytes": "52384",
+    "verdict": "blocked",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "198.51.100.148",
+    "user": "frank",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/static/app.js",
+    "dest": "cdn.example.com",
+    "status": "403",
+    "bytes": "52384",
+    "action": "blocked",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792486393,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.73",
+    "user": "carol",
+    "method": "GET",
+    "url": "https://cdn.example.com/docs/help",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "60957",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.73",
+    "user": "carol",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/docs/help",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "60957",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792486420,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.68",
+    "user": "dave",
+    "method": "GET",
+    "url": "https://www.example.com/static/app.js",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "183400",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.68",
+    "user": "dave",
+    "http_method": "GET",
+    "url": "https://www.example.com/static/app.js",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "183400",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792486451,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.123",
+    "user": "carol",
+    "method": "POST",
+    "url": "https://cdn.example.com/login",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "67805",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.123",
+    "user": "carol",
+    "http_method": "POST",
+    "url": "https://cdn.example.com/login",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "67805",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792486461,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.43",
+    "user": "frank",
+    "method": "POST",
+    "url": "https://api.example.com/search",
+    "dest": "api.example.com",
+    "status": "403",
+    "bytes": "134948",
+    "verdict": "blocked",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "192.0.2.43",
+    "user": "frank",
+    "http_method": "POST",
+    "url": "https://api.example.com/search",
+    "dest": "api.example.com",
+    "status": "403",
+    "bytes": "134948",
+    "action": "blocked",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792486507,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.197",
+    "user": "frank",
+    "method": "GET",
+    "url": "https://cdn.example.com/static/app.js",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "172828",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "198.51.100.197",
+    "user": "frank",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/static/app.js",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "172828",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792486555,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.113",
+    "user": "frank",
+    "method": "GET",
+    "url": "https://api.example.com/docs/help",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "174072",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.113",
+    "user": "frank",
+    "http_method": "GET",
+    "url": "https://api.example.com/docs/help",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "174072",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792486599,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.250",
+    "user": "erin",
+    "method": "GET",
+    "url": "https://www.example.com/login",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "237662",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.250",
+    "user": "erin",
+    "http_method": "GET",
+    "url": "https://www.example.com/login",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "237662",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792486618,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.117",
+    "user": "carol",
+    "method": "GET",
+    "url": "https://www.example.com/static/app.js",
+    "dest": "www.example.com",
+    "status": "404",
+    "bytes": "121456",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.117",
+    "user": "carol",
+    "http_method": "GET",
+    "url": "https://www.example.com/static/app.js",
+    "dest": "www.example.com",
+    "status": "404",
+    "bytes": "121456",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792486629,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.107",
+    "user": "frank",
+    "method": "GET",
+    "url": "https://api.example.com/login",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "93466",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.107",
+    "user": "frank",
+    "http_method": "GET",
+    "url": "https://api.example.com/login",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "93466",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792486662,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.147",
+    "user": "carol",
+    "method": "GET",
+    "url": "https://www.example.com/static/app.js",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "77489",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "198.51.100.147",
+    "user": "carol",
+    "http_method": "GET",
+    "url": "https://www.example.com/static/app.js",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "77489",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792486683,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.176",
+    "user": "carol",
+    "method": "GET",
+    "url": "https://api.example.com/search",
+    "dest": "api.example.com",
+    "status": "404",
+    "bytes": "81526",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.176",
+    "user": "carol",
+    "http_method": "GET",
+    "url": "https://api.example.com/search",
+    "dest": "api.example.com",
+    "status": "404",
+    "bytes": "81526",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792486714,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.188",
+    "user": "carol",
+    "method": "POST",
+    "url": "https://api.example.com/login",
+    "dest": "api.example.com",
+    "status": "403",
+    "bytes": "32242",
+    "verdict": "blocked",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "198.51.100.188",
+    "user": "carol",
+    "http_method": "POST",
+    "url": "https://api.example.com/login",
+    "dest": "api.example.com",
+    "status": "403",
+    "bytes": "32242",
+    "action": "blocked",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792486742,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.55",
+    "user": "erin",
+    "method": "GET",
+    "url": "https://api.example.com/",
+    "dest": "api.example.com",
+    "status": "304",
+    "bytes": "57115",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.55",
+    "user": "erin",
+    "http_method": "GET",
+    "url": "https://api.example.com/",
+    "dest": "api.example.com",
+    "status": "304",
+    "bytes": "57115",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792486763,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.159",
+    "user": "alice",
+    "method": "GET",
+    "url": "https://cdn.example.com/api/v1/items",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "34497",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.159",
+    "user": "alice",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/api/v1/items",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "34497",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792486813,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.112",
+    "user": "alice",
+    "method": "GET",
+    "url": "https://www.example.com/docs/help",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "82187",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "198.51.100.112",
+    "user": "alice",
+    "http_method": "GET",
+    "url": "https://www.example.com/docs/help",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "82187",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792486826,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.207",
+    "user": "dave",
+    "method": "POST",
+    "url": "https://api.example.com/static/app.js",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "102578",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.207",
+    "user": "dave",
+    "http_method": "POST",
+    "url": "https://api.example.com/static/app.js",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "102578",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792486858,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.177",
+    "user": "frank",
+    "method": "POST",
+    "url": "https://www.example.com/static/app.js",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "197488",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.177",
+    "user": "frank",
+    "http_method": "POST",
+    "url": "https://www.example.com/static/app.js",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "197488",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792486889,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.102",
+    "user": "dave",
+    "method": "POST",
+    "url": "https://cdn.example.com/login",
+    "dest": "cdn.example.com",
+    "status": "404",
+    "bytes": "91708",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.102",
+    "user": "dave",
+    "http_method": "POST",
+    "url": "https://cdn.example.com/login",
+    "dest": "cdn.example.com",
+    "status": "404",
+    "bytes": "91708",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792486911,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.88",
+    "user": "alice",
+    "method": "POST",
+    "url": "https://cdn.example.com/api/v1/items",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "248859",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "192.0.2.88",
+    "user": "alice",
+    "http_method": "POST",
+    "url": "https://cdn.example.com/api/v1/items",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "248859",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792486933,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.247",
+    "user": "alice",
+    "method": "POST",
+    "url": "https://cdn.example.com/api/v1/items",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "208937",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "198.51.100.247",
+    "user": "alice",
+    "http_method": "POST",
+    "url": "https://cdn.example.com/api/v1/items",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "208937",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792486979,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.206",
+    "user": "erin",
+    "method": "POST",
+    "url": "https://cdn.example.com/api/v1/items",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "58517",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "198.51.100.206",
+    "user": "erin",
+    "http_method": "POST",
+    "url": "https://cdn.example.com/api/v1/items",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "58517",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792487030,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.148",
+    "user": "frank",
+    "method": "POST",
+    "url": "https://cdn.example.com/static/app.js",
+    "dest": "cdn.example.com",
+    "status": "304",
+    "bytes": "33733",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "198.51.100.148",
+    "user": "frank",
+    "http_method": "POST",
+    "url": "https://cdn.example.com/static/app.js",
+    "dest": "cdn.example.com",
+    "status": "304",
+    "bytes": "33733",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792487035,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.211",
+    "user": "frank",
+    "method": "GET",
+    "url": "https://cdn.example.com/static/app.js",
+    "dest": "cdn.example.com",
+    "status": "403",
+    "bytes": "171947",
+    "verdict": "blocked",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "192.0.2.211",
+    "user": "frank",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/static/app.js",
+    "dest": "cdn.example.com",
+    "status": "403",
+    "bytes": "171947",
+    "action": "blocked",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792487042,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.29",
+    "user": "frank",
+    "method": "POST",
+    "url": "https://cdn.example.com/login",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "21503",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.29",
+    "user": "frank",
+    "http_method": "POST",
+    "url": "https://cdn.example.com/login",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "21503",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792487058,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.175",
+    "user": "frank",
+    "method": "GET",
+    "url": "https://cdn.example.com/docs/help",
+    "dest": "cdn.example.com",
+    "status": "304",
+    "bytes": "144463",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "198.51.100.175",
+    "user": "frank",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/docs/help",
+    "dest": "cdn.example.com",
+    "status": "304",
+    "bytes": "144463",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792487080,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.159",
+    "user": "carol",
+    "method": "GET",
+    "url": "https://www.example.com/api/v1/items",
+    "dest": "www.example.com",
+    "status": "404",
+    "bytes": "132139",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.159",
+    "user": "carol",
+    "http_method": "GET",
+    "url": "https://www.example.com/api/v1/items",
+    "dest": "www.example.com",
+    "status": "404",
+    "bytes": "132139",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792487126,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.56",
+    "user": "dave",
+    "method": "POST",
+    "url": "https://cdn.example.com/static/app.js",
+    "dest": "cdn.example.com",
+    "status": "403",
+    "bytes": "55187",
+    "verdict": "blocked",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.56",
+    "user": "dave",
+    "http_method": "POST",
+    "url": "https://cdn.example.com/static/app.js",
+    "dest": "cdn.example.com",
+    "status": "403",
+    "bytes": "55187",
+    "action": "blocked",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792487177,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.188",
+    "user": "frank",
+    "method": "POST",
+    "url": "https://api.example.com/search",
+    "dest": "api.example.com",
+    "status": "304",
+    "bytes": "140451",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "198.51.100.188",
+    "user": "frank",
+    "http_method": "POST",
+    "url": "https://api.example.com/search",
+    "dest": "api.example.com",
+    "status": "304",
+    "bytes": "140451",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792487206,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.23",
+    "user": "alice",
+    "method": "GET",
+    "url": "https://www.example.com/docs/help",
+    "dest": "www.example.com",
+    "status": "404",
+    "bytes": "213786",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.23",
+    "user": "alice",
+    "http_method": "GET",
+    "url": "https://www.example.com/docs/help",
+    "dest": "www.example.com",
+    "status": "404",
+    "bytes": "213786",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792487215,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.109",
+    "user": "frank",
+    "method": "POST",
+    "url": "https://api.example.com/api/v1/items",
+    "dest": "api.example.com",
+    "status": "304",
+    "bytes": "191845",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "198.51.100.109",
+    "user": "frank",
+    "http_method": "POST",
+    "url": "https://api.example.com/api/v1/items",
+    "dest": "api.example.com",
+    "status": "304",
+    "bytes": "191845",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792487247,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.110",
+    "user": "erin",
+    "method": "GET",
+    "url": "https://www.example.com/",
+    "dest": "www.example.com",
+    "status": "403",
+    "bytes": "204007",
+    "verdict": "blocked",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.110",
+    "user": "erin",
+    "http_method": "GET",
+    "url": "https://www.example.com/",
+    "dest": "www.example.com",
+    "status": "403",
+    "bytes": "204007",
+    "action": "blocked",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792487254,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.5",
+    "user": "alice",
+    "method": "GET",
+    "url": "https://cdn.example.com/docs/help",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "76324",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "198.51.100.5",
+    "user": "alice",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/docs/help",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "76324",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792487286,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.57",
+    "user": "erin",
+    "method": "POST",
+    "url": "https://api.example.com/",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "79984",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "192.0.2.57",
+    "user": "erin",
+    "http_method": "POST",
+    "url": "https://api.example.com/",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "79984",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792487321,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.149",
+    "user": "carol",
+    "method": "GET",
+    "url": "https://www.example.com/login",
+    "dest": "www.example.com",
+    "status": "304",
+    "bytes": "24502",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "198.51.100.149",
+    "user": "carol",
+    "http_method": "GET",
+    "url": "https://www.example.com/login",
+    "dest": "www.example.com",
+    "status": "304",
+    "bytes": "24502",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792487352,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.210",
+    "user": "alice",
+    "method": "GET",
+    "url": "https://www.example.com/static/app.js",
+    "dest": "www.example.com",
+    "status": "304",
+    "bytes": "229721",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.210",
+    "user": "alice",
+    "http_method": "GET",
+    "url": "https://www.example.com/static/app.js",
+    "dest": "www.example.com",
+    "status": "304",
+    "bytes": "229721",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792487397,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.247",
+    "user": "bob",
+    "method": "GET",
+    "url": "https://cdn.example.com/api/v1/items",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "86913",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.247",
+    "user": "bob",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/api/v1/items",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "86913",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792487401,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.68",
+    "user": "bob",
+    "method": "POST",
+    "url": "https://api.example.com/",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "141101",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.68",
+    "user": "bob",
+    "http_method": "POST",
+    "url": "https://api.example.com/",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "141101",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792487415,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.149",
+    "user": "frank",
+    "method": "GET",
+    "url": "https://api.example.com/login",
+    "dest": "api.example.com",
+    "status": "404",
+    "bytes": "38890",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.149",
+    "user": "frank",
+    "http_method": "GET",
+    "url": "https://api.example.com/login",
+    "dest": "api.example.com",
+    "status": "404",
+    "bytes": "38890",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792487445,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.183",
+    "user": "bob",
+    "method": "POST",
+    "url": "https://api.example.com/static/app.js",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "124307",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "198.51.100.183",
+    "user": "bob",
+    "http_method": "POST",
+    "url": "https://api.example.com/static/app.js",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "124307",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792487489,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.169",
+    "user": "dave",
+    "method": "POST",
+    "url": "https://api.example.com/",
+    "dest": "api.example.com",
+    "status": "304",
+    "bytes": "173043",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.169",
+    "user": "dave",
+    "http_method": "POST",
+    "url": "https://api.example.com/",
+    "dest": "api.example.com",
+    "status": "304",
+    "bytes": "173043",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792487509,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.1",
+    "user": "frank",
+    "method": "GET",
+    "url": "https://cdn.example.com/",
+    "dest": "cdn.example.com",
+    "status": "404",
+    "bytes": "9039",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.1",
+    "user": "frank",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/",
+    "dest": "cdn.example.com",
+    "status": "404",
+    "bytes": "9039",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792487516,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.242",
+    "user": "bob",
+    "method": "GET",
+    "url": "https://api.example.com/login",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "112520",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "192.0.2.242",
+    "user": "bob",
+    "http_method": "GET",
+    "url": "https://api.example.com/login",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "112520",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792487524,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.180",
+    "user": "dave",
+    "method": "GET",
+    "url": "https://api.example.com/api/v1/items",
+    "dest": "api.example.com",
+    "status": "304",
+    "bytes": "12157",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "198.51.100.180",
+    "user": "dave",
+    "http_method": "GET",
+    "url": "https://api.example.com/api/v1/items",
+    "dest": "api.example.com",
+    "status": "304",
+    "bytes": "12157",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792487535,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.198",
+    "user": "bob",
+    "method": "GET",
+    "url": "https://www.example.com/docs/help",
+    "dest": "www.example.com",
+    "status": "403",
+    "bytes": "83009",
+    "verdict": "blocked",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "198.51.100.198",
+    "user": "bob",
+    "http_method": "GET",
+    "url": "https://www.example.com/docs/help",
+    "dest": "www.example.com",
+    "status": "403",
+    "bytes": "83009",
+    "action": "blocked",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792487548,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.162",
+    "user": "frank",
+    "method": "GET",
+    "url": "https://cdn.example.com/static/app.js",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "27062",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.162",
+    "user": "frank",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/static/app.js",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "27062",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792487578,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.88",
+    "user": "alice",
+    "method": "GET",
+    "url": "https://cdn.example.com/static/app.js",
+    "dest": "cdn.example.com",
+    "status": "403",
+    "bytes": "13653",
+    "verdict": "blocked",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.88",
+    "user": "alice",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/static/app.js",
+    "dest": "cdn.example.com",
+    "status": "403",
+    "bytes": "13653",
+    "action": "blocked",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792487599,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.117",
+    "user": "dave",
+    "method": "GET",
+    "url": "https://cdn.example.com/",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "33578",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "198.51.100.117",
+    "user": "dave",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "33578",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792487658,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.75",
+    "user": "frank",
+    "method": "POST",
+    "url": "https://www.example.com/static/app.js",
+    "dest": "www.example.com",
+    "status": "304",
+    "bytes": "219593",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.75",
+    "user": "frank",
+    "http_method": "POST",
+    "url": "https://www.example.com/static/app.js",
+    "dest": "www.example.com",
+    "status": "304",
+    "bytes": "219593",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792487690,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.126",
+    "user": "dave",
+    "method": "GET",
+    "url": "https://www.example.com/login",
+    "dest": "www.example.com",
+    "status": "404",
+    "bytes": "72047",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "198.51.100.126",
+    "user": "dave",
+    "http_method": "GET",
+    "url": "https://www.example.com/login",
+    "dest": "www.example.com",
+    "status": "404",
+    "bytes": "72047",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792487746,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.127",
+    "user": "alice",
+    "method": "GET",
+    "url": "https://www.example.com/static/app.js",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "79391",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "192.0.2.127",
+    "user": "alice",
+    "http_method": "GET",
+    "url": "https://www.example.com/static/app.js",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "79391",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792487756,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.15",
+    "user": "dave",
+    "method": "POST",
+    "url": "https://cdn.example.com/",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "221970",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "192.0.2.15",
+    "user": "dave",
+    "http_method": "POST",
+    "url": "https://cdn.example.com/",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "221970",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792487771,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.175",
+    "user": "bob",
+    "method": "GET",
+    "url": "https://cdn.example.com/login",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "105425",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "198.51.100.175",
+    "user": "bob",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/login",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "105425",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792487813,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.209",
+    "user": "erin",
+    "method": "GET",
+    "url": "https://cdn.example.com/login",
+    "dest": "cdn.example.com",
+    "status": "304",
+    "bytes": "225821",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "198.51.100.209",
+    "user": "erin",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/login",
+    "dest": "cdn.example.com",
+    "status": "304",
+    "bytes": "225821",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792487846,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.115",
+    "user": "dave",
+    "method": "GET",
+    "url": "https://www.example.com/login",
+    "dest": "www.example.com",
+    "status": "403",
+    "bytes": "35206",
+    "verdict": "blocked",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.115",
+    "user": "dave",
+    "http_method": "GET",
+    "url": "https://www.example.com/login",
+    "dest": "www.example.com",
+    "status": "403",
+    "bytes": "35206",
+    "action": "blocked",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792487905,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.117",
+    "user": "frank",
+    "method": "GET",
+    "url": "https://www.example.com/docs/help",
+    "dest": "www.example.com",
+    "status": "304",
+    "bytes": "191711",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.117",
+    "user": "frank",
+    "http_method": "GET",
+    "url": "https://www.example.com/docs/help",
+    "dest": "www.example.com",
+    "status": "304",
+    "bytes": "191711",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792487951,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.90",
+    "user": "alice",
+    "method": "GET",
+    "url": "https://cdn.example.com/search",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "24905",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.90",
+    "user": "alice",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/search",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "24905",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792488005,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.32",
+    "user": "frank",
+    "method": "GET",
+    "url": "https://cdn.example.com/",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "145119",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "198.51.100.32",
+    "user": "frank",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "145119",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792488012,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.58",
+    "user": "alice",
+    "method": "GET",
+    "url": "https://www.example.com/",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "231224",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "192.0.2.58",
+    "user": "alice",
+    "http_method": "GET",
+    "url": "https://www.example.com/",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "231224",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792488042,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.235",
+    "user": "dave",
+    "method": "GET",
+    "url": "https://www.example.com/login",
+    "dest": "www.example.com",
+    "status": "304",
+    "bytes": "92114",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "198.51.100.235",
+    "user": "dave",
+    "http_method": "GET",
+    "url": "https://www.example.com/login",
+    "dest": "www.example.com",
+    "status": "304",
+    "bytes": "92114",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792488086,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.58",
+    "user": "erin",
+    "method": "GET",
+    "url": "https://www.example.com/",
+    "dest": "www.example.com",
+    "status": "403",
+    "bytes": "180915",
+    "verdict": "blocked",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "192.0.2.58",
+    "user": "erin",
+    "http_method": "GET",
+    "url": "https://www.example.com/",
+    "dest": "www.example.com",
+    "status": "403",
+    "bytes": "180915",
+    "action": "blocked",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792488129,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.23",
+    "user": "dave",
+    "method": "GET",
+    "url": "https://cdn.example.com/login",
+    "dest": "cdn.example.com",
+    "status": "304",
+    "bytes": "129466",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "198.51.100.23",
+    "user": "dave",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/login",
+    "dest": "cdn.example.com",
+    "status": "304",
+    "bytes": "129466",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792488141,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.12",
+    "user": "erin",
+    "method": "GET",
+    "url": "https://cdn.example.com/login",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "108933",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.12",
+    "user": "erin",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/login",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "108933",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792488144,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.186",
+    "user": "bob",
+    "method": "GET",
+    "url": "https://api.example.com/search",
+    "dest": "api.example.com",
+    "status": "304",
+    "bytes": "227008",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.186",
+    "user": "bob",
+    "http_method": "GET",
+    "url": "https://api.example.com/search",
+    "dest": "api.example.com",
+    "status": "304",
+    "bytes": "227008",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792488203,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.252",
+    "user": "frank",
+    "method": "GET",
+    "url": "https://api.example.com/static/app.js",
+    "dest": "api.example.com",
+    "status": "404",
+    "bytes": "109344",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.252",
+    "user": "frank",
+    "http_method": "GET",
+    "url": "https://api.example.com/static/app.js",
+    "dest": "api.example.com",
+    "status": "404",
+    "bytes": "109344",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792488230,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.212",
+    "user": "bob",
+    "method": "POST",
+    "url": "https://cdn.example.com/docs/help",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "172707",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "192.0.2.212",
+    "user": "bob",
+    "http_method": "POST",
+    "url": "https://cdn.example.com/docs/help",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "172707",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792488272,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.42",
+    "user": "bob",
+    "method": "POST",
+    "url": "https://www.example.com/api/v1/items",
+    "dest": "www.example.com",
+    "status": "404",
+    "bytes": "78977",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.42",
+    "user": "bob",
+    "http_method": "POST",
+    "url": "https://www.example.com/api/v1/items",
+    "dest": "www.example.com",
+    "status": "404",
+    "bytes": "78977",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792488316,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.21",
+    "user": "carol",
+    "method": "POST",
+    "url": "https://api.example.com/login",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "26879",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.21",
+    "user": "carol",
+    "http_method": "POST",
+    "url": "https://api.example.com/login",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "26879",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792488337,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.194",
+    "user": "carol",
+    "method": "GET",
+    "url": "https://cdn.example.com/",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "155638",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "198.51.100.194",
+    "user": "carol",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "155638",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792488380,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.22",
+    "user": "bob",
+    "method": "GET",
+    "url": "https://cdn.example.com/search",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "114991",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.22",
+    "user": "bob",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/search",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "114991",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792488385,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.153",
+    "user": "carol",
+    "method": "GET",
+    "url": "https://api.example.com/login",
+    "dest": "api.example.com",
+    "status": "403",
+    "bytes": "228212",
+    "verdict": "blocked",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.153",
+    "user": "carol",
+    "http_method": "GET",
+    "url": "https://api.example.com/login",
+    "dest": "api.example.com",
+    "status": "403",
+    "bytes": "228212",
+    "action": "blocked",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792488424,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.38",
+    "user": "carol",
+    "method": "POST",
+    "url": "https://www.example.com/",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "160924",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.38",
+    "user": "carol",
+    "http_method": "POST",
+    "url": "https://www.example.com/",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "160924",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792488461,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.119",
+    "user": "frank",
+    "method": "POST",
+    "url": "https://www.example.com/static/app.js",
+    "dest": "www.example.com",
+    "status": "404",
+    "bytes": "68442",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "198.51.100.119",
+    "user": "frank",
+    "http_method": "POST",
+    "url": "https://www.example.com/static/app.js",
+    "dest": "www.example.com",
+    "status": "404",
+    "bytes": "68442",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792488501,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.41",
+    "user": "bob",
+    "method": "GET",
+    "url": "https://cdn.example.com/docs/help",
+    "dest": "cdn.example.com",
+    "status": "304",
+    "bytes": "10756",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.41",
+    "user": "bob",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/docs/help",
+    "dest": "cdn.example.com",
+    "status": "304",
+    "bytes": "10756",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792488526,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.174",
+    "user": "alice",
+    "method": "GET",
+    "url": "https://cdn.example.com/static/app.js",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "132154",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.174",
+    "user": "alice",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/static/app.js",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "132154",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792488545,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.156",
+    "user": "frank",
+    "method": "POST",
+    "url": "https://api.example.com/docs/help",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "201888",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.156",
+    "user": "frank",
+    "http_method": "POST",
+    "url": "https://api.example.com/docs/help",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "201888",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792488561,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.208",
+    "user": "dave",
+    "method": "GET",
+    "url": "https://www.example.com/docs/help",
+    "dest": "www.example.com",
+    "status": "304",
+    "bytes": "85533",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.208",
+    "user": "dave",
+    "http_method": "GET",
+    "url": "https://www.example.com/docs/help",
+    "dest": "www.example.com",
+    "status": "304",
+    "bytes": "85533",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792488580,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.111",
+    "user": "erin",
+    "method": "POST",
+    "url": "https://cdn.example.com/static/app.js",
+    "dest": "cdn.example.com",
+    "status": "404",
+    "bytes": "33710",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "192.0.2.111",
+    "user": "erin",
+    "http_method": "POST",
+    "url": "https://cdn.example.com/static/app.js",
+    "dest": "cdn.example.com",
+    "status": "404",
+    "bytes": "33710",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792488615,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.101",
+    "user": "bob",
+    "method": "GET",
+    "url": "https://api.example.com/login",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "19748",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.101",
+    "user": "bob",
+    "http_method": "GET",
+    "url": "https://api.example.com/login",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "19748",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792488638,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.37",
+    "user": "carol",
+    "method": "GET",
+    "url": "https://api.example.com/search",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "114515",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.37",
+    "user": "carol",
+    "http_method": "GET",
+    "url": "https://api.example.com/search",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "114515",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792488644,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.78",
+    "user": "carol",
+    "method": "GET",
+    "url": "https://cdn.example.com/api/v1/items",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "130468",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "198.51.100.78",
+    "user": "carol",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/api/v1/items",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "130468",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792488648,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.39",
+    "user": "dave",
+    "method": "GET",
+    "url": "https://cdn.example.com/search",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "29473",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "198.51.100.39",
+    "user": "dave",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/search",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "29473",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792488700,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.203",
+    "user": "erin",
+    "method": "POST",
+    "url": "https://api.example.com/login",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "28499",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.203",
+    "user": "erin",
+    "http_method": "POST",
+    "url": "https://api.example.com/login",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "28499",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792488720,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.64",
+    "user": "alice",
+    "method": "GET",
+    "url": "https://www.example.com/docs/help",
+    "dest": "www.example.com",
+    "status": "404",
+    "bytes": "17765",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "198.51.100.64",
+    "user": "alice",
+    "http_method": "GET",
+    "url": "https://www.example.com/docs/help",
+    "dest": "www.example.com",
+    "status": "404",
+    "bytes": "17765",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792488764,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.194",
+    "user": "bob",
+    "method": "POST",
+    "url": "https://cdn.example.com/docs/help",
+    "dest": "cdn.example.com",
+    "status": "403",
+    "bytes": "159747",
+    "verdict": "blocked",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.194",
+    "user": "bob",
+    "http_method": "POST",
+    "url": "https://cdn.example.com/docs/help",
+    "dest": "cdn.example.com",
+    "status": "403",
+    "bytes": "159747",
+    "action": "blocked",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792488821,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.85",
+    "user": "bob",
+    "method": "GET",
+    "url": "https://api.example.com/search",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "132027",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.85",
+    "user": "bob",
+    "http_method": "GET",
+    "url": "https://api.example.com/search",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "132027",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792488837,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.215",
+    "user": "bob",
+    "method": "GET",
+    "url": "https://api.example.com/api/v1/items",
+    "dest": "api.example.com",
+    "status": "403",
+    "bytes": "49516",
+    "verdict": "blocked",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.215",
+    "user": "bob",
+    "http_method": "GET",
+    "url": "https://api.example.com/api/v1/items",
+    "dest": "api.example.com",
+    "status": "403",
+    "bytes": "49516",
+    "action": "blocked",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792488844,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.140",
+    "user": "bob",
+    "method": "GET",
+    "url": "https://www.example.com/",
+    "dest": "www.example.com",
+    "status": "404",
+    "bytes": "240944",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "198.51.100.140",
+    "user": "bob",
+    "http_method": "GET",
+    "url": "https://www.example.com/",
+    "dest": "www.example.com",
+    "status": "404",
+    "bytes": "240944",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792488859,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.95",
+    "user": "bob",
+    "method": "GET",
+    "url": "https://www.example.com/docs/help",
+    "dest": "www.example.com",
+    "status": "403",
+    "bytes": "28321",
+    "verdict": "blocked",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "192.0.2.95",
+    "user": "bob",
+    "http_method": "GET",
+    "url": "https://www.example.com/docs/help",
+    "dest": "www.example.com",
+    "status": "403",
+    "bytes": "28321",
+    "action": "blocked",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792488880,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.165",
+    "user": "bob",
+    "method": "GET",
+    "url": "https://cdn.example.com/",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "16875",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "198.51.100.165",
+    "user": "bob",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "16875",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792488916,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.215",
+    "user": "bob",
+    "method": "GET",
+    "url": "https://cdn.example.com/login",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "69364",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.215",
+    "user": "bob",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/login",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "69364",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792488948,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.116",
+    "user": "erin",
+    "method": "GET",
+    "url": "https://api.example.com/search",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "48858",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.116",
+    "user": "erin",
+    "http_method": "GET",
+    "url": "https://api.example.com/search",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "48858",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792488999,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.62",
+    "user": "alice",
+    "method": "GET",
+    "url": "https://api.example.com/docs/help",
+    "dest": "api.example.com",
+    "status": "403",
+    "bytes": "168810",
+    "verdict": "blocked",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "192.0.2.62",
+    "user": "alice",
+    "http_method": "GET",
+    "url": "https://api.example.com/docs/help",
+    "dest": "api.example.com",
+    "status": "403",
+    "bytes": "168810",
+    "action": "blocked",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792489034,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.93",
+    "user": "frank",
+    "method": "GET",
+    "url": "https://api.example.com/api/v1/items",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "176448",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.93",
+    "user": "frank",
+    "http_method": "GET",
+    "url": "https://api.example.com/api/v1/items",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "176448",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792489045,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.107",
+    "user": "bob",
+    "method": "GET",
+    "url": "https://www.example.com/login",
+    "dest": "www.example.com",
+    "status": "403",
+    "bytes": "89241",
+    "verdict": "blocked",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.107",
+    "user": "bob",
+    "http_method": "GET",
+    "url": "https://www.example.com/login",
+    "dest": "www.example.com",
+    "status": "403",
+    "bytes": "89241",
+    "action": "blocked",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792489068,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.56",
+    "user": "carol",
+    "method": "GET",
+    "url": "https://api.example.com/docs/help",
+    "dest": "api.example.com",
+    "status": "304",
+    "bytes": "237261",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.56",
+    "user": "carol",
+    "http_method": "GET",
+    "url": "https://api.example.com/docs/help",
+    "dest": "api.example.com",
+    "status": "304",
+    "bytes": "237261",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792489122,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.40",
+    "user": "erin",
+    "method": "POST",
+    "url": "https://cdn.example.com/docs/help",
+    "dest": "cdn.example.com",
+    "status": "404",
+    "bytes": "200808",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "198.51.100.40",
+    "user": "erin",
+    "http_method": "POST",
+    "url": "https://cdn.example.com/docs/help",
+    "dest": "cdn.example.com",
+    "status": "404",
+    "bytes": "200808",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792489157,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.127",
+    "user": "dave",
+    "method": "GET",
+    "url": "https://cdn.example.com/api/v1/items",
+    "dest": "cdn.example.com",
+    "status": "403",
+    "bytes": "239297",
+    "verdict": "blocked",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.127",
+    "user": "dave",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/api/v1/items",
+    "dest": "cdn.example.com",
+    "status": "403",
+    "bytes": "239297",
+    "action": "blocked",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792489211,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.125",
+    "user": "erin",
+    "method": "GET",
+    "url": "https://www.example.com/",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "111127",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "198.51.100.125",
+    "user": "erin",
+    "http_method": "GET",
+    "url": "https://www.example.com/",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "111127",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792489230,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.100",
+    "user": "dave",
+    "method": "GET",
+    "url": "https://www.example.com/docs/help",
+    "dest": "www.example.com",
+    "status": "403",
+    "bytes": "210808",
+    "verdict": "blocked",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "198.51.100.100",
+    "user": "dave",
+    "http_method": "GET",
+    "url": "https://www.example.com/docs/help",
+    "dest": "www.example.com",
+    "status": "403",
+    "bytes": "210808",
+    "action": "blocked",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792489268,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.31",
+    "user": "erin",
+    "method": "POST",
+    "url": "https://cdn.example.com/search",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "73220",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.31",
+    "user": "erin",
+    "http_method": "POST",
+    "url": "https://cdn.example.com/search",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "73220",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792489327,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.209",
+    "user": "dave",
+    "method": "GET",
+    "url": "https://cdn.example.com/login",
+    "dest": "cdn.example.com",
+    "status": "403",
+    "bytes": "229203",
+    "verdict": "blocked",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.209",
+    "user": "dave",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/login",
+    "dest": "cdn.example.com",
+    "status": "403",
+    "bytes": "229203",
+    "action": "blocked",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792489375,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.245",
+    "user": "bob",
+    "method": "GET",
+    "url": "https://www.example.com/docs/help",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "117822",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.245",
+    "user": "bob",
+    "http_method": "GET",
+    "url": "https://www.example.com/docs/help",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "117822",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792489424,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.18",
+    "user": "carol",
+    "method": "POST",
+    "url": "https://www.example.com/api/v1/items",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "24586",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.18",
+    "user": "carol",
+    "http_method": "POST",
+    "url": "https://www.example.com/api/v1/items",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "24586",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792489474,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.184",
+    "user": "frank",
+    "method": "POST",
+    "url": "https://www.example.com/docs/help",
+    "dest": "www.example.com",
+    "status": "403",
+    "bytes": "248175",
+    "verdict": "blocked",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "198.51.100.184",
+    "user": "frank",
+    "http_method": "POST",
+    "url": "https://www.example.com/docs/help",
+    "dest": "www.example.com",
+    "status": "403",
+    "bytes": "248175",
+    "action": "blocked",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792489496,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.90",
+    "user": "erin",
+    "method": "GET",
+    "url": "https://www.example.com/api/v1/items",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "103792",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "198.51.100.90",
+    "user": "erin",
+    "http_method": "GET",
+    "url": "https://www.example.com/api/v1/items",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "103792",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792489540,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.186",
+    "user": "carol",
+    "method": "GET",
+    "url": "https://api.example.com/login",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "119319",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.186",
+    "user": "carol",
+    "http_method": "GET",
+    "url": "https://api.example.com/login",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "119319",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792489590,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.189",
+    "user": "erin",
+    "method": "POST",
+    "url": "https://api.example.com/static/app.js",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "246635",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.189",
+    "user": "erin",
+    "http_method": "POST",
+    "url": "https://api.example.com/static/app.js",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "246635",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792489636,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.58",
+    "user": "frank",
+    "method": "GET",
+    "url": "https://api.example.com/static/app.js",
+    "dest": "api.example.com",
+    "status": "404",
+    "bytes": "156651",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "192.0.2.58",
+    "user": "frank",
+    "http_method": "GET",
+    "url": "https://api.example.com/static/app.js",
+    "dest": "api.example.com",
+    "status": "404",
+    "bytes": "156651",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792489672,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.4",
+    "user": "dave",
+    "method": "POST",
+    "url": "https://cdn.example.com/static/app.js",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "156941",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.4",
+    "user": "dave",
+    "http_method": "POST",
+    "url": "https://cdn.example.com/static/app.js",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "156941",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792489693,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.122",
+    "user": "frank",
+    "method": "GET",
+    "url": "https://cdn.example.com/static/app.js",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "7942",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "192.0.2.122",
+    "user": "frank",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/static/app.js",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "7942",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792489737,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.56",
+    "user": "frank",
+    "method": "GET",
+    "url": "https://cdn.example.com/",
+    "dest": "cdn.example.com",
+    "status": "304",
+    "bytes": "495",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "198.51.100.56",
+    "user": "frank",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/",
+    "dest": "cdn.example.com",
+    "status": "304",
+    "bytes": "495",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792489772,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.6",
+    "user": "carol",
+    "method": "GET",
+    "url": "https://api.example.com/search",
+    "dest": "api.example.com",
+    "status": "404",
+    "bytes": "237734",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "192.0.2.6",
+    "user": "carol",
+    "http_method": "GET",
+    "url": "https://api.example.com/search",
+    "dest": "api.example.com",
+    "status": "404",
+    "bytes": "237734",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792489811,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.231",
+    "user": "alice",
+    "method": "GET",
+    "url": "https://api.example.com/static/app.js",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "24422",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "198.51.100.231",
+    "user": "alice",
+    "http_method": "GET",
+    "url": "https://api.example.com/static/app.js",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "24422",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792489841,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.158",
+    "user": "bob",
+    "method": "GET",
+    "url": "https://www.example.com/static/app.js",
+    "dest": "www.example.com",
+    "status": "403",
+    "bytes": "65025",
+    "verdict": "blocked",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.158",
+    "user": "bob",
+    "http_method": "GET",
+    "url": "https://www.example.com/static/app.js",
+    "dest": "www.example.com",
+    "status": "403",
+    "bytes": "65025",
+    "action": "blocked",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792489896,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.105",
+    "user": "bob",
+    "method": "POST",
+    "url": "https://www.example.com/",
+    "dest": "www.example.com",
+    "status": "304",
+    "bytes": "43417",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "198.51.100.105",
+    "user": "bob",
+    "http_method": "POST",
+    "url": "https://www.example.com/",
+    "dest": "www.example.com",
+    "status": "304",
+    "bytes": "43417",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792489929,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.161",
+    "user": "erin",
+    "method": "POST",
+    "url": "https://cdn.example.com/static/app.js",
+    "dest": "cdn.example.com",
+    "status": "403",
+    "bytes": "19724",
+    "verdict": "blocked",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "198.51.100.161",
+    "user": "erin",
+    "http_method": "POST",
+    "url": "https://cdn.example.com/static/app.js",
+    "dest": "cdn.example.com",
+    "status": "403",
+    "bytes": "19724",
+    "action": "blocked",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792489935,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.142",
+    "user": "dave",
+    "method": "GET",
+    "url": "https://cdn.example.com/api/v1/items",
+    "dest": "cdn.example.com",
+    "status": "304",
+    "bytes": "85478",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.142",
+    "user": "dave",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/api/v1/items",
+    "dest": "cdn.example.com",
+    "status": "304",
+    "bytes": "85478",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792489993,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.45",
+    "user": "dave",
+    "method": "GET",
+    "url": "https://www.example.com/static/app.js",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "109120",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.45",
+    "user": "dave",
+    "http_method": "GET",
+    "url": "https://www.example.com/static/app.js",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "109120",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792490050,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.231",
+    "user": "bob",
+    "method": "GET",
+    "url": "https://www.example.com/login",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "3792",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.231",
+    "user": "bob",
+    "http_method": "GET",
+    "url": "https://www.example.com/login",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "3792",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792490067,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.108",
+    "user": "bob",
+    "method": "GET",
+    "url": "https://api.example.com/search",
+    "dest": "api.example.com",
+    "status": "403",
+    "bytes": "16925",
+    "verdict": "blocked",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.108",
+    "user": "bob",
+    "http_method": "GET",
+    "url": "https://api.example.com/search",
+    "dest": "api.example.com",
+    "status": "403",
+    "bytes": "16925",
+    "action": "blocked",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792490079,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.143",
+    "user": "alice",
+    "method": "GET",
+    "url": "https://cdn.example.com/search",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "83265",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "192.0.2.143",
+    "user": "alice",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/search",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "83265",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792490084,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.151",
+    "user": "frank",
+    "method": "GET",
+    "url": "https://www.example.com/search",
+    "dest": "www.example.com",
+    "status": "304",
+    "bytes": "75977",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "192.0.2.151",
+    "user": "frank",
+    "http_method": "GET",
+    "url": "https://www.example.com/search",
+    "dest": "www.example.com",
+    "status": "304",
+    "bytes": "75977",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792490116,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.135",
+    "user": "erin",
+    "method": "POST",
+    "url": "https://api.example.com/docs/help",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "28840",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "198.51.100.135",
+    "user": "erin",
+    "http_method": "POST",
+    "url": "https://api.example.com/docs/help",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "28840",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792490173,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.32",
+    "user": "frank",
+    "method": "GET",
+    "url": "https://www.example.com/api/v1/items",
+    "dest": "www.example.com",
+    "status": "304",
+    "bytes": "137631",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "192.0.2.32",
+    "user": "frank",
+    "http_method": "GET",
+    "url": "https://www.example.com/api/v1/items",
+    "dest": "www.example.com",
+    "status": "304",
+    "bytes": "137631",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792490183,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.52",
+    "user": "dave",
+    "method": "GET",
+    "url": "https://cdn.example.com/",
+    "dest": "cdn.example.com",
+    "status": "403",
+    "bytes": "27832",
+    "verdict": "blocked",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.52",
+    "user": "dave",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/",
+    "dest": "cdn.example.com",
+    "status": "403",
+    "bytes": "27832",
+    "action": "blocked",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792490218,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.190",
+    "user": "erin",
+    "method": "POST",
+    "url": "https://api.example.com/docs/help",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "92350",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.190",
+    "user": "erin",
+    "http_method": "POST",
+    "url": "https://api.example.com/docs/help",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "92350",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792490258,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.225",
+    "user": "erin",
+    "method": "GET",
+    "url": "https://cdn.example.com/login",
+    "dest": "cdn.example.com",
+    "status": "404",
+    "bytes": "39025",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.225",
+    "user": "erin",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/login",
+    "dest": "cdn.example.com",
+    "status": "404",
+    "bytes": "39025",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792490316,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.46",
+    "user": "frank",
+    "method": "POST",
+    "url": "https://api.example.com/static/app.js",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "94906",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "192.0.2.46",
+    "user": "frank",
+    "http_method": "POST",
+    "url": "https://api.example.com/static/app.js",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "94906",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792490325,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.217",
+    "user": "alice",
+    "method": "GET",
+    "url": "https://www.example.com/static/app.js",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "36036",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "198.51.100.217",
+    "user": "alice",
+    "http_method": "GET",
+    "url": "https://www.example.com/static/app.js",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "36036",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792490344,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.12",
+    "user": "alice",
+    "method": "GET",
+    "url": "https://www.example.com/api/v1/items",
+    "dest": "www.example.com",
+    "status": "304",
+    "bytes": "154110",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.12",
+    "user": "alice",
+    "http_method": "GET",
+    "url": "https://www.example.com/api/v1/items",
+    "dest": "www.example.com",
+    "status": "304",
+    "bytes": "154110",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792490392,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.15",
+    "user": "frank",
+    "method": "GET",
+    "url": "https://cdn.example.com/",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "23501",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.15",
+    "user": "frank",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "23501",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792490424,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.55",
+    "user": "erin",
+    "method": "POST",
+    "url": "https://api.example.com/api/v1/items",
+    "dest": "api.example.com",
+    "status": "403",
+    "bytes": "176835",
+    "verdict": "blocked",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.55",
+    "user": "erin",
+    "http_method": "POST",
+    "url": "https://api.example.com/api/v1/items",
+    "dest": "api.example.com",
+    "status": "403",
+    "bytes": "176835",
+    "action": "blocked",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792490471,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.62",
+    "user": "alice",
+    "method": "GET",
+    "url": "https://api.example.com/login",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "174745",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.62",
+    "user": "alice",
+    "http_method": "GET",
+    "url": "https://api.example.com/login",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "174745",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792490498,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.80",
+    "user": "bob",
+    "method": "GET",
+    "url": "https://api.example.com/docs/help",
+    "dest": "api.example.com",
+    "status": "304",
+    "bytes": "200380",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.80",
+    "user": "bob",
+    "http_method": "GET",
+    "url": "https://api.example.com/docs/help",
+    "dest": "api.example.com",
+    "status": "304",
+    "bytes": "200380",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792490544,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.59",
+    "user": "carol",
+    "method": "GET",
+    "url": "https://api.example.com/static/app.js",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "24439",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.59",
+    "user": "carol",
+    "http_method": "GET",
+    "url": "https://api.example.com/static/app.js",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "24439",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792490567,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.119",
+    "user": "frank",
+    "method": "GET",
+    "url": "https://www.example.com/",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "155147",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "198.51.100.119",
+    "user": "frank",
+    "http_method": "GET",
+    "url": "https://www.example.com/",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "155147",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792490591,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.234",
+    "user": "erin",
+    "method": "GET",
+    "url": "https://api.example.com/static/app.js",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "70775",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.234",
+    "user": "erin",
+    "http_method": "GET",
+    "url": "https://api.example.com/static/app.js",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "70775",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792490617,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.93",
+    "user": "bob",
+    "method": "GET",
+    "url": "https://www.example.com/search",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "77413",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.93",
+    "user": "bob",
+    "http_method": "GET",
+    "url": "https://www.example.com/search",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "77413",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792490631,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.34",
+    "user": "erin",
+    "method": "GET",
+    "url": "https://www.example.com/login",
+    "dest": "www.example.com",
+    "status": "404",
+    "bytes": "99145",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.34",
+    "user": "erin",
+    "http_method": "GET",
+    "url": "https://www.example.com/login",
+    "dest": "www.example.com",
+    "status": "404",
+    "bytes": "99145",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792490662,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.169",
+    "user": "frank",
+    "method": "GET",
+    "url": "https://api.example.com/static/app.js",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "100578",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.169",
+    "user": "frank",
+    "http_method": "GET",
+    "url": "https://api.example.com/static/app.js",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "100578",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792490720,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.71",
+    "user": "dave",
+    "method": "POST",
+    "url": "https://cdn.example.com/login",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "99436",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.71",
+    "user": "dave",
+    "http_method": "POST",
+    "url": "https://cdn.example.com/login",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "99436",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792490776,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.43",
+    "user": "bob",
+    "method": "GET",
+    "url": "https://www.example.com/search",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "129856",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "192.0.2.43",
+    "user": "bob",
+    "http_method": "GET",
+    "url": "https://www.example.com/search",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "129856",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792490800,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.62",
+    "user": "carol",
+    "method": "GET",
+    "url": "https://cdn.example.com/docs/help",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "43699",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.62",
+    "user": "carol",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/docs/help",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "43699",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792490849,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.102",
+    "user": "dave",
+    "method": "POST",
+    "url": "https://api.example.com/static/app.js",
+    "dest": "api.example.com",
+    "status": "403",
+    "bytes": "28796",
+    "verdict": "blocked",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "198.51.100.102",
+    "user": "dave",
+    "http_method": "POST",
+    "url": "https://api.example.com/static/app.js",
+    "dest": "api.example.com",
+    "status": "403",
+    "bytes": "28796",
+    "action": "blocked",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792490858,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.219",
+    "user": "carol",
+    "method": "GET",
+    "url": "https://www.example.com/static/app.js",
+    "dest": "www.example.com",
+    "status": "404",
+    "bytes": "216467",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "198.51.100.219",
+    "user": "carol",
+    "http_method": "GET",
+    "url": "https://www.example.com/static/app.js",
+    "dest": "www.example.com",
+    "status": "404",
+    "bytes": "216467",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792490901,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.109",
+    "user": "alice",
+    "method": "GET",
+    "url": "https://api.example.com/search",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "222026",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.109",
+    "user": "alice",
+    "http_method": "GET",
+    "url": "https://api.example.com/search",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "222026",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792490946,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.127",
+    "user": "alice",
+    "method": "GET",
+    "url": "https://api.example.com/docs/help",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "77271",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "192.0.2.127",
+    "user": "alice",
+    "http_method": "GET",
+    "url": "https://api.example.com/docs/help",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "77271",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792490991,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.74",
+    "user": "dave",
+    "method": "GET",
+    "url": "https://cdn.example.com/",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "175038",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.74",
+    "user": "dave",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "175038",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792491027,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.25",
+    "user": "alice",
+    "method": "POST",
+    "url": "https://www.example.com/",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "31386",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "198.51.100.25",
+    "user": "alice",
+    "http_method": "POST",
+    "url": "https://www.example.com/",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "31386",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792491058,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.168",
+    "user": "bob",
+    "method": "GET",
+    "url": "https://www.example.com/login",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "174029",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.168",
+    "user": "bob",
+    "http_method": "GET",
+    "url": "https://www.example.com/login",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "174029",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792491087,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.182",
+    "user": "carol",
+    "method": "GET",
+    "url": "https://www.example.com/api/v1/items",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "214193",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "198.51.100.182",
+    "user": "carol",
+    "http_method": "GET",
+    "url": "https://www.example.com/api/v1/items",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "214193",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792491129,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.3",
+    "user": "alice",
+    "method": "POST",
+    "url": "https://cdn.example.com/static/app.js",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "58187",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.3",
+    "user": "alice",
+    "http_method": "POST",
+    "url": "https://cdn.example.com/static/app.js",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "58187",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792491134,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.181",
+    "user": "dave",
+    "method": "GET",
+    "url": "https://api.example.com/static/app.js",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "21959",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.181",
+    "user": "dave",
+    "http_method": "GET",
+    "url": "https://api.example.com/static/app.js",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "21959",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792491192,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.40",
+    "user": "carol",
+    "method": "GET",
+    "url": "https://api.example.com/search",
+    "dest": "api.example.com",
+    "status": "403",
+    "bytes": "183068",
+    "verdict": "blocked",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.40",
+    "user": "carol",
+    "http_method": "GET",
+    "url": "https://api.example.com/search",
+    "dest": "api.example.com",
+    "status": "403",
+    "bytes": "183068",
+    "action": "blocked",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792491218,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.93",
+    "user": "frank",
+    "method": "POST",
+    "url": "https://api.example.com/api/v1/items",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "112738",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "198.51.100.93",
+    "user": "frank",
+    "http_method": "POST",
+    "url": "https://api.example.com/api/v1/items",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "112738",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792491226,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.67",
+    "user": "alice",
+    "method": "GET",
+    "url": "https://api.example.com/login",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "199319",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "198.51.100.67",
+    "user": "alice",
+    "http_method": "GET",
+    "url": "https://api.example.com/login",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "199319",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792491249,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.228",
+    "user": "alice",
+    "method": "GET",
+    "url": "https://www.example.com/search",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "27207",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "192.0.2.228",
+    "user": "alice",
+    "http_method": "GET",
+    "url": "https://www.example.com/search",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "27207",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792491279,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.126",
+    "user": "dave",
+    "method": "GET",
+    "url": "https://api.example.com/",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "233282",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.126",
+    "user": "dave",
+    "http_method": "GET",
+    "url": "https://api.example.com/",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "233282",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792491305,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.43",
+    "user": "carol",
+    "method": "GET",
+    "url": "https://cdn.example.com/docs/help",
+    "dest": "cdn.example.com",
+    "status": "404",
+    "bytes": "24694",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "192.0.2.43",
+    "user": "carol",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/docs/help",
+    "dest": "cdn.example.com",
+    "status": "404",
+    "bytes": "24694",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792491337,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.10",
+    "user": "carol",
+    "method": "GET",
+    "url": "https://www.example.com/docs/help",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "7391",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.10",
+    "user": "carol",
+    "http_method": "GET",
+    "url": "https://www.example.com/docs/help",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "7391",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792491377,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.130",
+    "user": "erin",
+    "method": "GET",
+    "url": "https://cdn.example.com/docs/help",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "216609",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.130",
+    "user": "erin",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/docs/help",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "216609",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792491426,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.4",
+    "user": "bob",
+    "method": "GET",
+    "url": "https://api.example.com/static/app.js",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "248319",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.4",
+    "user": "bob",
+    "http_method": "GET",
+    "url": "https://api.example.com/static/app.js",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "248319",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792491452,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.73",
+    "user": "carol",
+    "method": "GET",
+    "url": "https://api.example.com/static/app.js",
+    "dest": "api.example.com",
+    "status": "403",
+    "bytes": "71398",
+    "verdict": "blocked",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.73",
+    "user": "carol",
+    "http_method": "GET",
+    "url": "https://api.example.com/static/app.js",
+    "dest": "api.example.com",
+    "status": "403",
+    "bytes": "71398",
+    "action": "blocked",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792491457,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.181",
+    "user": "carol",
+    "method": "POST",
+    "url": "https://api.example.com/docs/help",
+    "dest": "api.example.com",
+    "status": "403",
+    "bytes": "2123",
+    "verdict": "blocked",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.181",
+    "user": "carol",
+    "http_method": "POST",
+    "url": "https://api.example.com/docs/help",
+    "dest": "api.example.com",
+    "status": "403",
+    "bytes": "2123",
+    "action": "blocked",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792491478,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.21",
+    "user": "erin",
+    "method": "GET",
+    "url": "https://www.example.com/search",
+    "dest": "www.example.com",
+    "status": "304",
+    "bytes": "2218",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.21",
+    "user": "erin",
+    "http_method": "GET",
+    "url": "https://www.example.com/search",
+    "dest": "www.example.com",
+    "status": "304",
+    "bytes": "2218",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792491497,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.33",
+    "user": "bob",
+    "method": "GET",
+    "url": "https://api.example.com/static/app.js",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "147435",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.33",
+    "user": "bob",
+    "http_method": "GET",
+    "url": "https://api.example.com/static/app.js",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "147435",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792491517,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.31",
+    "user": "erin",
+    "method": "GET",
+    "url": "https://www.example.com/search",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "119511",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.31",
+    "user": "erin",
+    "http_method": "GET",
+    "url": "https://www.example.com/search",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "119511",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792491525,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.8",
+    "user": "dave",
+    "method": "GET",
+    "url": "https://www.example.com/search",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "113062",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.8",
+    "user": "dave",
+    "http_method": "GET",
+    "url": "https://www.example.com/search",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "113062",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792491542,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.109",
+    "user": "erin",
+    "method": "GET",
+    "url": "https://www.example.com/search",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "149033",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.109",
+    "user": "erin",
+    "http_method": "GET",
+    "url": "https://www.example.com/search",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "149033",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792491570,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.4",
+    "user": "dave",
+    "method": "GET",
+    "url": "https://api.example.com/search",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "186333",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.4",
+    "user": "dave",
+    "http_method": "GET",
+    "url": "https://api.example.com/search",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "186333",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792491575,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.122",
+    "user": "erin",
+    "method": "GET",
+    "url": "https://www.example.com/login",
+    "dest": "www.example.com",
+    "status": "404",
+    "bytes": "80759",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.122",
+    "user": "erin",
+    "http_method": "GET",
+    "url": "https://www.example.com/login",
+    "dest": "www.example.com",
+    "status": "404",
+    "bytes": "80759",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792491588,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.131",
+    "user": "dave",
+    "method": "POST",
+    "url": "https://cdn.example.com/static/app.js",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "98513",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "198.51.100.131",
+    "user": "dave",
+    "http_method": "POST",
+    "url": "https://cdn.example.com/static/app.js",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "98513",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792491601,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.106",
+    "user": "erin",
+    "method": "GET",
+    "url": "https://www.example.com/",
+    "dest": "www.example.com",
+    "status": "403",
+    "bytes": "144097",
+    "verdict": "blocked",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "198.51.100.106",
+    "user": "erin",
+    "http_method": "GET",
+    "url": "https://www.example.com/",
+    "dest": "www.example.com",
+    "status": "403",
+    "bytes": "144097",
+    "action": "blocked",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792491634,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.207",
+    "user": "frank",
+    "method": "GET",
+    "url": "https://cdn.example.com/login",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "60660",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.207",
+    "user": "frank",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/login",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "60660",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792491679,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.142",
+    "user": "alice",
+    "method": "GET",
+    "url": "https://www.example.com/api/v1/items",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "158352",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "198.51.100.142",
+    "user": "alice",
+    "http_method": "GET",
+    "url": "https://www.example.com/api/v1/items",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "158352",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792491727,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.59",
+    "user": "erin",
+    "method": "POST",
+    "url": "https://api.example.com/search",
+    "dest": "api.example.com",
+    "status": "403",
+    "bytes": "174423",
+    "verdict": "blocked",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.59",
+    "user": "erin",
+    "http_method": "POST",
+    "url": "https://api.example.com/search",
+    "dest": "api.example.com",
+    "status": "403",
+    "bytes": "174423",
+    "action": "blocked",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792491765,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.87",
+    "user": "erin",
+    "method": "GET",
+    "url": "https://api.example.com/search",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "141249",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "198.51.100.87",
+    "user": "erin",
+    "http_method": "GET",
+    "url": "https://api.example.com/search",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "141249",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792491774,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.37",
+    "user": "carol",
+    "method": "GET",
+    "url": "https://api.example.com/search",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "73139",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "198.51.100.37",
+    "user": "carol",
+    "http_method": "GET",
+    "url": "https://api.example.com/search",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "73139",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792491822,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.171",
+    "user": "frank",
+    "method": "GET",
+    "url": "https://cdn.example.com/docs/help",
+    "dest": "cdn.example.com",
+    "status": "403",
+    "bytes": "215407",
+    "verdict": "blocked",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.171",
+    "user": "frank",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/docs/help",
+    "dest": "cdn.example.com",
+    "status": "403",
+    "bytes": "215407",
+    "action": "blocked",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792491863,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.16",
+    "user": "dave",
+    "method": "GET",
+    "url": "https://cdn.example.com/login",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "131005",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.16",
+    "user": "dave",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/login",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "131005",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792491898,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.82",
+    "user": "bob",
+    "method": "GET",
+    "url": "https://www.example.com/",
+    "dest": "www.example.com",
+    "status": "403",
+    "bytes": "213349",
+    "verdict": "blocked",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "192.0.2.82",
+    "user": "bob",
+    "http_method": "GET",
+    "url": "https://www.example.com/",
+    "dest": "www.example.com",
+    "status": "403",
+    "bytes": "213349",
+    "action": "blocked",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792491906,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.75",
+    "user": "frank",
+    "method": "GET",
+    "url": "https://www.example.com/docs/help",
+    "dest": "www.example.com",
+    "status": "403",
+    "bytes": "240076",
+    "verdict": "blocked",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "192.0.2.75",
+    "user": "frank",
+    "http_method": "GET",
+    "url": "https://www.example.com/docs/help",
+    "dest": "www.example.com",
+    "status": "403",
+    "bytes": "240076",
+    "action": "blocked",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792491964,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.178",
+    "user": "dave",
+    "method": "GET",
+    "url": "https://cdn.example.com/",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "22871",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "198.51.100.178",
+    "user": "dave",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "22871",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792491969,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.146",
+    "user": "bob",
+    "method": "GET",
+    "url": "https://www.example.com/static/app.js",
+    "dest": "www.example.com",
+    "status": "304",
+    "bytes": "45468",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "198.51.100.146",
+    "user": "bob",
+    "http_method": "GET",
+    "url": "https://www.example.com/static/app.js",
+    "dest": "www.example.com",
+    "status": "304",
+    "bytes": "45468",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792492009,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.16",
+    "user": "dave",
+    "method": "GET",
+    "url": "https://www.example.com/search",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "194867",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "198.51.100.16",
+    "user": "dave",
+    "http_method": "GET",
+    "url": "https://www.example.com/search",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "194867",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792492039,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.170",
+    "user": "dave",
+    "method": "POST",
+    "url": "https://cdn.example.com/static/app.js",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "2316",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "198.51.100.170",
+    "user": "dave",
+    "http_method": "POST",
+    "url": "https://cdn.example.com/static/app.js",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "2316",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792492044,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.67",
+    "user": "erin",
+    "method": "GET",
+    "url": "https://www.example.com/docs/help",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "146367",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.67",
+    "user": "erin",
+    "http_method": "GET",
+    "url": "https://www.example.com/docs/help",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "146367",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792492092,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.114",
+    "user": "carol",
+    "method": "POST",
+    "url": "https://api.example.com/",
+    "dest": "api.example.com",
+    "status": "403",
+    "bytes": "113374",
+    "verdict": "blocked",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "198.51.100.114",
+    "user": "carol",
+    "http_method": "POST",
+    "url": "https://api.example.com/",
+    "dest": "api.example.com",
+    "status": "403",
+    "bytes": "113374",
+    "action": "blocked",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792492138,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.132",
+    "user": "frank",
+    "method": "POST",
+    "url": "https://cdn.example.com/docs/help",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "147522",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "198.51.100.132",
+    "user": "frank",
+    "http_method": "POST",
+    "url": "https://cdn.example.com/docs/help",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "147522",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792492149,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.217",
+    "user": "carol",
+    "method": "GET",
+    "url": "https://api.example.com/static/app.js",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "94812",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.217",
+    "user": "carol",
+    "http_method": "GET",
+    "url": "https://api.example.com/static/app.js",
+    "dest": "api.example.com",
+    "status": "200",
+    "bytes": "94812",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792492191,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.157",
+    "user": "bob",
+    "method": "GET",
+    "url": "https://api.example.com/docs/help",
+    "dest": "api.example.com",
+    "status": "304",
+    "bytes": "233488",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.157",
+    "user": "bob",
+    "http_method": "GET",
+    "url": "https://api.example.com/docs/help",
+    "dest": "api.example.com",
+    "status": "304",
+    "bytes": "233488",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792492214,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.25",
+    "user": "alice",
+    "method": "GET",
+    "url": "https://cdn.example.com/api/v1/items",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "235217",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.25",
+    "user": "alice",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/api/v1/items",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "235217",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792492232,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.244",
+    "user": "dave",
+    "method": "GET",
+    "url": "https://api.example.com/api/v1/items",
+    "dest": "api.example.com",
+    "status": "404",
+    "bytes": "222604",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "192.0.2.244",
+    "user": "dave",
+    "http_method": "GET",
+    "url": "https://api.example.com/api/v1/items",
+    "dest": "api.example.com",
+    "status": "404",
+    "bytes": "222604",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792492269,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.121",
+    "user": "bob",
+    "method": "POST",
+    "url": "https://www.example.com/search",
+    "dest": "www.example.com",
+    "status": "304",
+    "bytes": "85396",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "198.51.100.121",
+    "user": "bob",
+    "http_method": "POST",
+    "url": "https://www.example.com/search",
+    "dest": "www.example.com",
+    "status": "304",
+    "bytes": "85396",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  },
+  {
+   "epoch": 1792492318,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.197",
+    "user": "frank",
+    "method": "GET",
+    "url": "https://www.example.com/search",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "86148",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "192.0.2.197",
+    "user": "frank",
+    "http_method": "GET",
+    "url": "https://www.example.com/search",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "86148",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792492355,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.177",
+    "user": "alice",
+    "method": "GET",
+    "url": "https://www.example.com/login",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "227569",
+    "verdict": "allowed",
+    "agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   },
+   "cim": {
+    "src": "192.0.2.177",
+    "user": "alice",
+    "http_method": "GET",
+    "url": "https://www.example.com/login",
+    "dest": "www.example.com",
+    "status": "200",
+    "bytes": "227569",
+    "action": "allowed",
+    "http_user_agent": "Mozilla/5.0 (X11; Linux x86_64)"
+   }
+  },
+  {
+   "epoch": 1792492411,
+   "category": "web",
+   "fields": {
+    "src": "198.51.100.254",
+    "user": "alice",
+    "method": "GET",
+    "url": "https://cdn.example.com/static/app.js",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "14009",
+    "verdict": "allowed",
+    "agent": "curl/8.9.1"
+   },
+   "cim": {
+    "src": "198.51.100.254",
+    "user": "alice",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/static/app.js",
+    "dest": "cdn.example.com",
+    "status": "200",
+    "bytes": "14009",
+    "action": "allowed",
+    "http_user_agent": "curl/8.9.1"
+   }
+  },
+  {
+   "epoch": 1792492416,
+   "category": "web",
+   "fields": {
+    "src": "192.0.2.85",
+    "user": "carol",
+    "method": "GET",
+    "url": "https://cdn.example.com/login",
+    "dest": "cdn.example.com",
+    "status": "404",
+    "bytes": "178252",
+    "verdict": "allowed",
+    "agent": "Acme-Updater/2.4"
+   },
+   "cim": {
+    "src": "192.0.2.85",
+    "user": "carol",
+    "http_method": "GET",
+    "url": "https://cdn.example.com/login",
+    "dest": "cdn.example.com",
+    "status": "404",
+    "bytes": "178252",
+    "action": "allowed",
+    "http_user_agent": "Acme-Updater/2.4"
+   }
+  }
+ ]
+}

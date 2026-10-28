@@ -91,6 +91,19 @@ def summarise(warning: str) -> str:
     return WARNING_SUMMARIES[match.group(0)] if match else "Splunk message about this add-on"
 
 
+def check_fallback(events: list[tuple[int, int, str]]) -> Check:
+    """Events whose _time is within 60 s of _indextime: Splunk fell back to the index time."""
+    bad = [(t, raw) for t, it, raw in events if it and abs(it - t) < 60]
+    return Check(
+        "timestamp fallback",
+        not bad,
+        "0 events with |_indextime - _time| < 60 s",
+        f"{len(bad)} events"
+        + (" (timestamp not parsed: Splunk used the index time)" if bad else ""),
+        [_preview(raw) for _, raw in bad[:MAX_EXAMPLES]],
+    )
+
+
 def check_warnings(warnings: list[str] | None) -> Check:
     if warnings is None:  # the check itself failed: fail closed (Q7)
         return Check("parser warnings", False, "0", "check could not run")
@@ -110,7 +123,8 @@ def validate(
 ) -> Report:
     count = splunk.wait_stable(index, sourcetype)
     stable_at = time.time()
-    events = splunk.events(index, sourcetype)
+    timed = splunk.events_with_indextime(index, sourcetype)
+    events = [(t, raw) for t, _, raw in timed]
     try:
         warnings: list[str] | None = splunk.parser_warnings(sourcetype, since, app, stable_at)
     except Exception:  # noqa: BLE001 - any failure of this check must fail the attempt
@@ -119,6 +133,19 @@ def validate(
         [
             check_count(count, manifest["event_count"], events),
             check_times(events, manifest["epochs"]),
+            check_fallback(timed),
             check_warnings(warnings),
+        ]
+    )
+
+
+def regression(splunk: SplunkClient, index: str, sourcetype: str, manifest: dict) -> Report:
+    """Re-run the data-only index-time checks after a later stage changed search-time config."""
+    timed = splunk.events_with_indextime(index, sourcetype)
+    events = [(t, raw) for t, _, raw in timed]
+    return Report(
+        [
+            check_count(len(events), manifest["event_count"], events),
+            check_times(events, manifest["epochs"]),
         ]
     )

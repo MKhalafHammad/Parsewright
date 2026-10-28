@@ -4,6 +4,7 @@ splunkd does not warn about unknown or misspelled keys at runtime, so this allow
 syntax control: any key not listed here is rejected before Splunk sees it.
 """
 
+import time
 from collections.abc import Callable
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
@@ -52,9 +53,13 @@ def _regex(need_group: bool) -> Callable[[str], str]:
 def backtracking_safe(value: str, samples: list[str]) -> None:
     """Run the regex over the samples and stress inputs with a timeout; slow means blocked."""
     compiled = regex.compile(value)
+    deadline = time.monotonic() + 4 * REGEX_TIMEOUT_S  # total budget across all inputs
     for text in [*samples, "\n".join(samples), *STRESS]:
+        left = min(REGEX_TIMEOUT_S, deadline - time.monotonic())
         try:
-            compiled.search(text, timeout=REGEX_TIMEOUT_S)
+            if left <= 0:
+                raise TimeoutError
+            compiled.search(text, timeout=left)
         except TimeoutError:
             raise GuardrailBlock(
                 "is too slow (catastrophic backtracking); use a simpler pattern"

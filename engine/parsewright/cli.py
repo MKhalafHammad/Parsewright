@@ -13,13 +13,16 @@ from parsewright.tools.splunk_client import SplunkClient
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="parsewright")
     sub = parser.add_subparsers(dest="command", required=True)
-    r = sub.add_parser("run", help="build and test index-time settings for one log file")
+    r = sub.add_parser(
+        "run", help="build and test a TA for one log file (index-time, extraction, CIM)"
+    )
     r.add_argument("file", type=Path)
     r.add_argument("--tz", help="timezone of the logs, if known (IANA name)")
     r.add_argument("--vendor", help="vendor name, if known (e.g. acme)")
     r.add_argument("--product", help="product name, if known (e.g. vpn)")
     r.add_argument("--keep", action="store_true", help="leave the test app installed")
     r.add_argument("--max-attempts", type=int, default=MAX_ATTEMPTS)
+    r.add_argument("--stages", default="index-time,extraction,cim", help="comma-separated")
     # The repo's .env, not the working directory's: a planted .env could redirect the tokens.
     r.add_argument("--env-file", type=Path, default=Path(__file__).resolve().parents[2] / ".env")
     args = parser.parse_args(argv)
@@ -38,6 +41,7 @@ def main(argv: list[str] | None = None) -> int:
             product=args.product,
             keep=args.keep,
             max_attempts=args.max_attempts,
+            stages=tuple(args.stages.split(",")),
         )
     except TokenCeilingExceeded as e:
         print(f"stopped: {e}", file=sys.stderr)

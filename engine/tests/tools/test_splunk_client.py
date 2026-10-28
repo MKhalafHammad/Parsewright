@@ -46,6 +46,7 @@ def test_ingest_posts_to_receivers_simple(client):
     client.ingest("pw_test", "acme:vpn__test_abcd1234_a1", "a\nb", "acme_vpn_json")
     path, kw = client.deploy.posts[0]
     assert path == "receivers/simple" and kw["index"] == "pw_test" and kw["body"] == b"a\nb"
+    assert kw["host"] == "parsewright-sample"  # never the lab's real address
 
 
 @pytest.mark.parametrize(

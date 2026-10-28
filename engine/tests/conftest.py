@@ -110,6 +110,9 @@ class FakeSplunk:
     def events(self, index, sourcetype):
         return self.data.get(sourcetype, [])
 
+    def events_with_indextime(self, index, sourcetype):
+        return [(e, e + 86400 * 7, raw) for e, raw in self.events(index, sourcetype)]
+
     def parser_warnings(self, sourcetype, since, app, caught_up_to):
         if isinstance(self.warnings, Exception):
             raise self.warnings

@@ -21,6 +21,18 @@ from parsewright.ta_builder.package import Package, packages_dir, sha256
 # Names interpolated into SPL must be plain: test sourcetypes are [a-z0-9_:-] only.
 SPL_NAME = re.compile(r"[a-z0-9_:-]+")
 WARN_COMPONENTS = "DateParserVerbose, LineBreakingProcessor, AggregatorMiningProcessor"
+INGEST_HOST = "parsewright-sample"
+# Fixed names only: data model and dataset names are never taken from an agent.
+ROOTS = {"Authentication": "Authentication", "Network_Traffic": "All_Traffic", "Web": "Web"}
+DATASETS = {
+    ("Authentication", "Authentication"),
+    ("Authentication", "Failed_Authentication"),
+    ("Authentication", "Successful_Authentication"),
+    ("Network_Traffic", "All_Traffic"),
+    ("Network_Traffic", "Allowed_Traffic"),
+    ("Network_Traffic", "Blocked_Traffic"),
+    ("Web", "Web"),
+}
 
 
 class SplunkError(RuntimeError):
@@ -80,6 +92,9 @@ class SplunkClient:
             index=require_pw_index(index),
             sourcetype=spl_name(sourcetype),
             source=spl_name(source),
+            # A fixed synthetic host: otherwise Splunk records the sender's address, which
+            # would put the lab's real IP into events, evidence and prompts.
+            host=INGEST_HOST,
         )
 
     # --- search token -------------------------------------------------------------------
@@ -110,11 +125,50 @@ class SplunkClient:
 
     def events(self, index: str, sourcetype: str) -> list[tuple[int, str]]:
         """(epoch seconds, raw) for every event of one attempt, oldest first."""
+        return [(t, raw) for t, _, raw in self.events_with_indextime(index, sourcetype)]
+
+    def events_with_indextime(self, index: str, sourcetype: str) -> list[tuple[int, int, str]]:
+        """(epoch, _indextime, raw) per event: _indextime exposes the timestamp fallback."""
         rows = self._rows(
             f"search index={require_pw_index(index)} sourcetype={spl_name(sourcetype)} "
-            "| eval t=floor(_time) | sort 0 t | table t _raw"
+            "| eval t=floor(_time), it=_indextime | sort 0 t | table t it _raw"
         )
-        return [(int(r["t"]), r.get("_raw", "")) for r in rows]
+        return [(int(r["t"]), int(r.get("it") or 0), r.get("_raw", "")) for r in rows]
+
+    def field_rows(self, index: str, sourcetype: str) -> list[dict]:
+        """Every search-time field of every event, keyed by epoch t (the manifest key)."""
+        return self._rows(
+            f"search index={require_pw_index(index)} sourcetype={spl_name(sourcetype)} "
+            "| eval t=floor(_time) | fields - _* | table t *"
+        )
+
+    def field_summary(self, index: str, sourcetype: str, first: int) -> list[dict]:
+        """fieldsummary over the first `first` events by time: the sample the agents saw."""
+        return self._rows(
+            f"search index={require_pw_index(index)} sourcetype={spl_name(sourcetype)} "
+            f"| sort 0 _time | head {int(first)} | fieldsummary maxvals=5"
+        )
+
+    def datamodel_rows(self, model: str, dataset: str, index: str, sourcetype: str) -> list[dict]:
+        """Events of this attempt as the CIM data model sees them (fields as Root.field).
+
+        Data model output has no `index` field, so filtering on it drops every event; the
+        attempt's sourcetype is unique per job and attempt, and the CIM index macros already
+        limit the models to the test indexes.
+        """
+        if (model, dataset) not in DATASETS:
+            raise ValueError(f"unknown data model dataset {model}.{dataset}")
+        require_pw_index(index)
+        root = ROOTS[model]
+        return self._rows(
+            f"| datamodel {model} {dataset} search | search sourcetype={spl_name(sourcetype)} "
+            f"| eval t=floor(_time) | table t {root}.*"
+        )
+
+    def reload_search_time(self) -> None:
+        """Safety net if a reinstall's search-time settings are not visible yet."""
+        for conf in ("props", "transforms", "eventtypes", "tags"):
+            self.deploy.get(f"configs/conf-{conf}/_reload")
 
     def parser_warnings(
         self, sourcetype: str, since: float, app: str, caught_up_to: float, timeout: float = 60

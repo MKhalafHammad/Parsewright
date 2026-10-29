@@ -8,7 +8,7 @@
 | --- | --- | --- | --- | --- |
 | Q1 | Does the Meta Model API support `response_format` JSON schemas, or do we need a forced tool call? | `probe_llm` | Answered 2026-10-27 | `response_format` with a strict JSON schema |
 | Q2 | What is "contributor mode"? | Meta docs | Answered 2026-10-27 | Standard mode; contributor variant only for synthetic-only dev runs, if ever |
-| Q3 | Do index-time settings apply to the next ingest right after a reload? | `probe_install` | Answered 2026-10-27 for a new sourcetype; changed settings on the same sourcetype untested | Applied right after install, no reload or restart needed |
+| Q3 | Do index-time settings apply to the next ingest right after a reload? | `probe_install`, `probe_update` | Answered 2026-10-27 (new sourcetype), 2026-10-28 (changed settings, same sourcetype) | Applied right after install, no reload or restart needed, in both cases |
 | Q4 | Which edge cases are in scope? | Decision | Decided 2026-10-27 | In: multiple event types, missing TZ, epoch. Stretch: multi-line. Out: CSV `INDEXED_EXTRACTIONS` |
 | Q5 | Four agents, or merge Extraction and CIM mapper into three? | Decision | Decided 2026-10-27 | Four agents |
 | Q6 | Deploy path: install a package, or write stanzas over REST? | `probe_install` + decision | Answered 2026-10-27 | A: package install via `apps/local`; `update=true` is a full replace |
@@ -16,6 +16,7 @@
 | Q8 | Ingest path: does `receivers/simple` apply line breaking and timestamps? | `probe_splunk` + `probe_install` | Answered 2026-10-27 | `receivers/simple` |
 | Q9 | Which capabilities does the deploy role need? | `probe_splunk` + `probe_install` | Answered 2026-10-27 | `admin_all_objects`, `edit_tcp`, `install_apps`; one shared test index, no `indexes_edit` |
 | Q10 | CIM add-on installed, `pw_*` in the CIM index macros | Manual lab step + search-token check | Done 2026-10-27 | Lab prerequisite met |
+| Q11 | Does an in-place update (`update=true`) keep an admin's `local/`, and can the review see overrides? | `probe_update` | Answered 2026-10-28 | Yes: promote updates in place; flag overrides from the effective settings, with system defaults in code |
 
 ## Lab setup (OWNER ACTION, once)
 
@@ -299,3 +300,30 @@ The design says to "write the new TA version to `/opt/splunk/etc/apps/TA-*/defau
   - The macros say `pw*`, not `pw_*`, so they would also match a non-test index whose name starts with `pw`. That is harmless for Parsewright, because the search role can only see `pw_*` anyway, but `pw_*` is the exact form.
   - Phase 10's bootstrap script writes `(index=pw_*)`.
 - **Decision:** none needed; this is a lab prerequisite. Phase 10's bootstrap script automates it for judges.
+
+## Q11. In-place updates and `local/` (Phase 7)
+
+- **Why:** a parser update replaces a promoted TA in place. The design says `local/` (admin overrides) is kept and never written, and that the review flags overrides the patch collides with. Neither had been tested.
+- **How:** `scripts/probe.sh update`.
+  1. Install a throwaway test add-on v1.0.0 and check its timestamps.
+  2. Write an admin-style override into its `local/` over REST (`TZ` and one extraction). This probe is the only place Parsewright writes `local/`.
+  3. Reinstall a v1.1.0 with `update=true`: a new `TIME_FORMAT` for the same sourcetype and one new extraction.
+  4. Read the effective settings in the app's context, then ingest new-format lines with no reload.
+- **Result (2026-10-28):**
+  ```
+  install v1: ok
+  v1 timestamps correct: True
+  after admin edit: EXTRACT-local present=True, TZ=Pacific/Chatham
+  reinstall v2 with update=true: ok
+  installed version: 1.1.0 (expect 1.1.0)
+  local/ kept after update: True (EXTRACT-local present=True, TZ=Pacific/Chatham: local still overrides default's UTC)
+  v2 default applied: TIME_FORMAT='%d/%m/%Y %H:%M:%S', EXTRACT-b present=True
+  changed TIME_FORMAT on the existing sourcetype applied, no reload: True
+  update probe: PASS
+  ```
+  - `update=true` replaces `default/` and keeps `local/`; a `local/` value still wins over the new default. This is exactly the case the review must flag: an old `TZ` in `local/` would hide the fix.
+  - A changed index-time setting on an existing sourcetype applies to the next ingest with no reload (closes the open half of Q3).
+  - `configs/conf-props/default` returns 404 in every namespace, so the `[default]` stanza cannot be read as a baseline over REST.
+- **Decision:**
+  - Updates are promoted in place with `update=true`, only over a TA the registry lists, at the version the registry expects.
+  - Overrides are found by comparing the effective settings (app context) with what the production TA's own `default/` sets. For a key the TA does not set, the comparison is against Splunk's documented `props.conf` defaults, kept in code.

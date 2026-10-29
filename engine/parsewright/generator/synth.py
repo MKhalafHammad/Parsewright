@@ -138,6 +138,22 @@ def fw_line(t: datetime, raw: dict, zone: str | None) -> str:
     return f"ts={ms} " + " ".join(f"{k}={v}" for k, v in raw.items())
 
 
+def fw_v2_events(n: int, seed: int) -> list[Event]:
+    """Firmware v2 of the same firewall: `src` is renamed `src_ip`; the CIM values are unchanged,
+    so a correct update maps src_ip to src and still parses v1 (both formats coexist)."""
+    out = []
+    for t, cat, raw, cim in fw_events(n, seed):
+        renamed = {("src_ip" if k == "src" else k): v for k, v in raw.items()}
+        out.append((t, cat, renamed, cim))
+    return out
+
+
+def fw_v2_line(t: datetime, raw: dict, zone: str | None) -> str:
+    """v2 writes ISO 8601 with milliseconds instead of epoch milliseconds."""
+    stamp = t.strftime("%Y-%m-%dT%H:%M:%S.") + f"{t.microsecond // 1000:03d}Z"
+    return f"ts={stamp} " + " ".join(f"{k}={v}" for k, v in raw.items())
+
+
 # --- syslog: Acme bastion sshd, no year and no timezone (Authentication) ---------------------
 
 
@@ -288,6 +304,14 @@ def main() -> None:
         "JSON VPN log with a prompt-injection line: demo/03 security beat",
     )
     write("acme_fw", "log", fw_events(300, 13), fw_line, None, "key=value, epoch milliseconds")
+    write(
+        "acme_fw_v2",
+        "log",
+        fw_v2_events(300, 29),
+        fw_v2_line,
+        None,
+        "firmware v2 of acme_fw: src renamed src_ip, ISO 8601 timestamps: demo/06 parser update",
+    )
     write(
         "acme_ssh",
         "log",

@@ -13,7 +13,6 @@ import re
 import uuid
 from collections.abc import AsyncIterator, Iterator
 from contextlib import contextmanager
-from pathlib import Path
 from typing import Annotated
 
 from fastapi import Depends, FastAPI, File, Form, HTTPException, Request, UploadFile
@@ -122,12 +121,20 @@ def create_app(
         product: Annotated[str | None, Form(max_length=40)] = None,
         tz: Annotated[str | None, Form(max_length=64)] = None,
         auto_approve: Annotated[bool, Form()] = False,
+        update_of: Annotated[str | None, Form(max_length=120)] = None,
     ) -> dict:
         try:
             name = intake.safe_name(file.filename or "")
             sample = intake.check(await file.read(intake.MAX_BYTES + 1))
             truth = await _manifest(manifest, sample)
             form = _form(vendor, product, tz, auto_approve) | {"file_name": name}
+            if update_of:  # a parser update: only a TA Parsewright promoted (the registry)
+                ta = store.ta(update_of)
+                if ta is None:
+                    raise intake.UploadRefused(
+                        "update_of must be a TA in the registry (built by Parsewright)"
+                    )
+                form = {"update_of": ta["app"], "file_name": name, "auto_approve": True}
             estimate = intake.estimate_tokens(sample)
             if estimate > settings.run_token_ceiling:
                 raise intake.UploadRefused(
@@ -138,16 +145,15 @@ def create_app(
             raise HTTPException(422, f"upload refused: {e}") from None
         # Fixed names in a fresh per-job folder (appsec M2): no user-derived path, no reuse.
         job = uuid.uuid4().hex[:8]
-        folder = uploads / job
-        folder.mkdir(mode=0o700)
-        path = folder / "sample.log"
-        _write_new(path, sample.text.encode("utf-8"))
-        _write_new(folder / "sample.manifest.json", json.dumps(truth).encode("utf-8"))
-        key = (
-            f"{form['vendor']}:{form['product']}"
-            if form.get("vendor") and form.get("product")
-            else f"upload:{sample.sha256[:16]}"
+        path, form["manifest_sha256"] = intake.save(
+            uploads, job, sample, json.dumps(truth).encode("utf-8")
         )
+        if form.get("update_of"):
+            key = f"update:{form['update_of']}"  # one active update per TA
+        elif form.get("vendor") and form.get("product"):
+            key = f"{form['vendor']}:{form['product']}"
+        else:
+            key = f"upload:{sample.sha256[:16]}"
         job_id, duplicate = store.enqueue(job, key, sample.sha256, str(path), form)
         return {
             "job": job_id,
@@ -226,6 +232,21 @@ def create_app(
             row["record"].get("app") if name == "promoted.tgz" else row["record"].get("test_app")
         )
         return FileResponse(path, media_type="application/gzip", filename=f"{app_name}.tgz")
+
+    # --- TA registry ---------------------------------------------------------------------
+
+    @app.get("/tas")
+    def tas(store: StoreDep) -> list[dict]:
+        return [
+            {
+                "app": t["app"],
+                "sourcetype": t["sourcetype"],
+                "current_version": t["current_version"],
+                "versions": t["versions"] or [],
+                "updated_at": str(t["updated_at"]),
+            }
+            for t in store.tas()
+        ]
 
     # --- live stream ---------------------------------------------------------------------
 
@@ -380,12 +401,6 @@ def _form(vendor, product, tz, auto_approve) -> dict:
     return form
 
 
-def _write_new(path: Path, data: bytes) -> None:
-    fd = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW, 0o600)
-    with os.fdopen(fd, "wb") as f:
-        f.write(data)
-
-
 def _event(e: dict) -> dict:
     return {"id": e["id"], "at": str(e["at"]), "event": e["event"], "data": e["data"]}
 
@@ -418,6 +433,11 @@ def _public(row: dict, detail: bool = False) -> dict:
                 "smoke",
                 "events",
                 "report",
+                "kind",
+                "update_of",
+                "version_from",
+                "version_to",
+                "result",
             )
         }
     return out

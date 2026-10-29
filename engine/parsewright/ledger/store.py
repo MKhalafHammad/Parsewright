@@ -225,6 +225,75 @@ class Store:
             "UPDATE settings SET value = %s WHERE key = 'kill_switch'", (Jsonb(bool(on)),)
         )
 
+    # --- TA registry (migration 003) ---------------------------------------------------
+
+    def ta(self, app: str) -> dict | None:
+        return self.conn.execute("SELECT * FROM tas WHERE app = %s", (app,)).fetchone()
+
+    def tas(self) -> list[dict]:
+        return self.conn.execute(
+            "SELECT t.*, (SELECT json_agg(v.version ORDER BY v.created_at) FROM ta_versions v"
+            " WHERE v.app = t.app) AS versions FROM tas t ORDER BY t.app"
+        ).fetchall()
+
+    def ta_versions(self, app: str) -> list[dict]:
+        """Every version, oldest first, with the job that built it (its samples and profile)."""
+        return self.conn.execute(
+            "SELECT v.version, v.job_id, v.sha256, v.created_at, j.sample_path,"
+            " j.content_sha256, j.form->>'manifest_sha256' AS manifest_sha256,"
+            " j.state->'profile' AS profile FROM ta_versions v JOIN jobs j ON j.id = v.job_id"
+            " WHERE v.app = %s ORDER BY v.created_at, v.version",
+            (app,),
+        ).fetchall()
+
+    def register_ta(self, record: dict, version: str, sha256: str) -> None:
+        """A newly promoted TA and its first version."""
+        with self.conn.transaction():
+            self.conn.execute(
+                "INSERT INTO tas (app, sourcetype, vendor, product, owner_job, current_version)"
+                " VALUES (%s, %s, %s, %s, %s, %s)",
+                (
+                    record["app"],
+                    record["sourcetype"],
+                    record["vendor"],
+                    record["product"],
+                    record["job"],
+                    version,
+                ),
+            )
+            self.conn.execute(
+                "INSERT INTO ta_versions (app, version, job_id, sha256) VALUES (%s, %s, %s, %s)",
+                (record["app"], version, record["job"], sha256),
+            )
+            self.ta_event(record["app"], "registered", {"version": version, "job": record["job"]})
+
+    def add_version(self, app: str, previous: str, version: str, job: str, sha256: str) -> None:
+        """An update's new version; refused unless the registry is still at `previous`."""
+        with self.conn.transaction():
+            self.conn.execute(
+                "INSERT INTO ta_versions (app, version, job_id, sha256) VALUES (%s, %s, %s, %s)",
+                (app, version, job, sha256),
+            )
+            self.set_current_version(app, previous, version, "updated", {"job": job})
+
+    def set_current_version(
+        self, app: str, previous: str, version: str, event: str, data: dict | None = None
+    ) -> None:
+        cur = self.conn.execute(
+            "UPDATE tas SET current_version = %s, updated_at = now()"
+            " WHERE app = %s AND current_version = %s",
+            (version, app, previous),
+        )
+        if cur.rowcount != 1:
+            raise RuntimeError(f"{app} is no longer at version {previous}")
+        self.ta_event(app, event, {"from": previous, "to": version, **(data or {})})
+
+    def ta_event(self, app: str, event: str, data: dict | None = None) -> None:
+        self.conn.execute(
+            "INSERT INTO ta_events (app, event, data) VALUES (%s, %s, %s)",
+            (app, event, Jsonb(data or {})),
+        )
+
     # --- cluster-wide locks -------------------------------------------------------------
 
     @contextmanager
@@ -234,6 +303,15 @@ class Store:
             yield
         finally:
             self.conn.execute("SELECT pg_advisory_unlock(%s)", (key,))
+
+    @contextmanager
+    def ta_lock(self, app: str) -> Iterator[None]:
+        """One promotion or rollback of a TA at a time, across every process (appsec M2)."""
+        self.conn.execute("SELECT pg_advisory_lock(hashtext(%s))", (f"ta:{app}",))
+        try:
+            yield
+        finally:
+            self.conn.execute("SELECT pg_advisory_unlock(hashtext(%s))", (f"ta:{app}",))
 
     @contextmanager
     def llm_slot(self, slots: int) -> Iterator[None]:

@@ -24,6 +24,7 @@ ALLOWED_FILES = re.compile(
 )
 MTIME = 1_700_000_000  # fixed member mtime for reproducible packages
 DEFAULT_META = {"": {"access": "read : [ * ], write : [ admin ]", "export": "system"}}
+DESCRIPTION = "Built and tested by Parsewright."  # app.conf marker; an update checks it
 
 
 @dataclass(frozen=True)
@@ -54,7 +55,7 @@ def app_conf(app: str, version: str) -> dict[str, dict[str, str]]:
     return {
         "install": {"state": "enabled"},
         "ui": {"is_visible": "false", "label": app},
-        "launcher": {"version": version, "description": "Built and tested by Parsewright."},
+        "launcher": {"version": version, "description": DESCRIPTION},
     }
 
 

@@ -75,6 +75,24 @@ class RunResult:
     scores: list = field(default_factory=list)
 
 
+@dataclass
+class SampleSet:
+    """One sample file with its truth manifest and profile. A parser update validates several
+    (the registry's old samples and the new ones) under one test sourcetype, told apart by
+    their source."""
+
+    label: str
+    path: Path
+    text: str
+    manifest: dict
+    profile: LogProfile
+    source: str
+
+    @property
+    def lines(self) -> list[str]:
+        return [line for line in self.text.splitlines() if line.strip()]
+
+
 def load_manifest(path: Path) -> dict:
     manifest = json.loads(path.with_suffix(".manifest.json").read_text(encoding="utf-8"))
     if manifest["event_count"] != len(manifest["epochs"]):
@@ -207,7 +225,7 @@ class Run:
             with self.lock():
                 self.splunk.ingest(self.index, st, self.text, ingest_source(self.path))
             report = index_validator.validate(
-                self.splunk, self.index, st, self.manifest, since, self.app
+                self.splunk, self.index, st, self.manifest, since, self.app, settings=settings
             )
             print_report(report, self.out)
             if report.passed:
@@ -284,35 +302,42 @@ class Run:
         print_report(report, self.out)
         return report
 
-    def extraction_report(self, skip: set[str]) -> Report:
-        rows = self.splunk.field_rows(self.index, self.st)
-        report = extraction_validator.validate(rows, self.manifest, self.prof, skip)
-        regress = index_validator.regression(self.splunk, self.index, self.st, self.manifest)
+    def _set(self, s: SampleSet | None) -> tuple[dict, LogProfile, str | None]:
+        return (s.manifest, s.profile, s.source) if s else (self.manifest, self.prof, None)
+
+    def extraction_report(self, skip: set[str], s: SampleSet | None = None) -> Report:
+        manifest, prof, source = self._set(s)
+        rows = self.splunk.field_rows(self.index, self.st, source)
+        report = extraction_validator.validate(rows, manifest, prof, skip)
+        regress = index_validator.regression(self.splunk, self.index, self.st, manifest, source)
         return Report(report.checks + [_regressed(c, "index-time") for c in regress.checks])
 
-    def cim_report(self, targets: set[str]) -> Report:
+    def cim_report(self, targets: set[str], s: SampleSet | None = None) -> Report:
+        """Sets self.scores to this sample set's scores."""
+        manifest, _, source = self._set(s)
         rows, children = {}, {}
-        for model in cim_validator.expected_by_model(self.manifest):
+        for model in cim_validator.expected_by_model(manifest):
             root = cim_spec.ROOT[model]
-            rows[model] = self.splunk.datamodel_rows(model, root, self.index, self.st)
+            rows[model] = self.splunk.datamodel_rows(model, root, self.index, self.st, source)
             children[model] = {
-                ds: len(self.splunk.datamodel_rows(model, ds, self.index, self.st))
+                ds: len(self.splunk.datamodel_rows(model, ds, self.index, self.st, source))
                 for ds, _, _ in cim_spec.CHILDREN[model]
             }
-        report, self.scores = cim_validator.validate(rows, children, self.manifest)
-        earlier = self.extraction_report(skip=targets)
+        report, self.scores = cim_validator.validate(rows, children, manifest)
+        earlier = self.extraction_report(skip=targets, s=s)
         return Report(report.checks + [_regressed(c, "extraction") for c in earlier.checks])
 
-    def report(self) -> dict:
+    def report(self, s: SampleSet | None = None) -> dict:
         """The approval report's data, from the passing attempt's indexed events."""
+        manifest, prof, source = self._set(s)
         cim_props = {
             k: v
             for k, v in self.confs["cim"].get("props", {}).items()
             if k.startswith(("EVAL-", "FIELDALIAS-"))
         }
-        extracted = [f.name for f in self.prof.fields] + [k.split("-", 1)[1] for k in cim_props]
+        extracted = [f.name for f in prof.fields] + [k.split("-", 1)[1] for k in cim_props]
         try:
-            rows = self.splunk.report_rows(self.index, self.st, report_mod.MAX_EVENTS)
+            rows = self.splunk.report_rows(self.index, self.st, report_mod.MAX_EVENTS, source)
         except Exception as e:  # noqa: BLE001 - a report problem must not fail a passing run
             self.out(f"report: could not read events ({type(e).__name__}); recorded without one")
             return {}
@@ -323,13 +348,13 @@ class Run:
             self.scores,
             self.last_pkg,
             len(self.samples),
-            self.manifest["event_count"],
+            manifest["event_count"],
         )
 
-    def field_values(self) -> str:
+    def field_values(self, source: str | None = None) -> str:
         """Extracted fields with real values from the sample events, for the CIM mapper."""
         lines = []
-        for r in self.splunk.field_summary(self.index, self.st, len(self.samples)):
+        for r in self.splunk.field_summary(self.index, self.st, len(self.samples), source):
             name = r.get("field", "")
             if name in DEFAULT_FIELDS or name.startswith(("date_", "_")):
                 continue

@@ -51,9 +51,32 @@ def strict_schema(model: type[BaseModel]) -> dict[str, Any]:
 
 
 def as_data(tag: str, text: str) -> str:
-    """Wrap untrusted text as delimited data; a closing tag inside it cannot end the block."""
-    safe = re.sub(r"<(/?)\s*" + re.escape(tag), r"&lt;\1" + tag, text, flags=re.IGNORECASE)
+    """Wrap untrusted text as delimited data. Any tag-like text inside it is escaped, so it can
+    neither end this block nor pose as another one (appsec Phase 7 L6); <134> (syslog PRI) and
+    other non-tags are left as they are."""
+    safe = re.sub(r"<(\s*/?\s*[A-Za-z_][\w.-]*\s*/?\s*>)", r"&lt;\1", text)
+    safe = re.sub(r"<(/?)\s*" + re.escape(tag), r"&lt;\1" + tag, safe, flags=re.IGNORECASE)
     return f"<{tag}>\n{safe}\n</{tag}>"
+
+
+PATCH_MODE = """
+
+Patch mode: this sourcetype already has a tested add-on in production, and the log format has
+changed (for example after a firmware upgrade). <current_settings> holds this stage's production
+settings and <old_format_samples> holds events in the old format. Both formats will coexist, so
+the old events must still parse exactly as before. Make the smallest change that makes the new
+events pass (add a timestamp option, extend a regex, add an alias); never rewrite settings that
+already work. Return this stage's complete settings, changed and unchanged."""
+
+
+def patch_context(patch: dict | None) -> tuple[str, list[str]]:
+    """The patch-mode system suffix and data blocks; nothing outside patch mode."""
+    if not patch:
+        return "", []
+    return PATCH_MODE, [
+        as_data("current_settings", json.dumps(patch["current"], indent=1, sort_keys=True)),
+        as_data("old_format_samples", "\n".join(patch["old_samples"])),
+    ]
 
 
 class LLMClient:

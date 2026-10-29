@@ -4,7 +4,7 @@ from typing import Literal
 
 from pydantic import BaseModel
 
-from parsewright.agents.llm import LLMClient, as_data
+from parsewright.agents.llm import LLMClient, as_data, patch_context
 from parsewright.agents.profiler import LogProfile
 
 # Bigger prompts reason longer: 8k cut CIM replies off in the lab (2 wasted attempts).
@@ -46,14 +46,20 @@ class ExtractionProposal(BaseModel):
 
 
 def propose(
-    llm: LLMClient, profile: LogProfile, events: list[str], history: list[dict]
+    llm: LLMClient,
+    profile: LogProfile,
+    events: list[str],
+    history: list[dict],
+    patch: dict | None = None,
 ) -> ExtractionProposal:
+    suffix, patch_parts = patch_context(patch)
     parts = [
         as_data("profile", profile.model_dump_json(indent=1)),
         as_data("events", "\n".join(events)),
+        *patch_parts,
     ]
     for n, past in enumerate(history, 1):
         parts.append(as_data(f"attempt_{n}", f"settings: {past['settings']}\n{past['outcome']}"))
     return llm.structured(
-        SYSTEM, "\n\n".join(parts), ExtractionProposal, max_tokens=SEARCH_TIME_MAX_TOKENS
+        SYSTEM + suffix, "\n\n".join(parts), ExtractionProposal, max_tokens=SEARCH_TIME_MAX_TOKENS
     )

@@ -16,12 +16,23 @@ from splunklib.results import JSONResultsReader
 
 from parsewright.config import Settings
 from parsewright.ta_builder.naming import require_pw_index, require_real_app, require_test_app
-from parsewright.ta_builder.package import Package, packages_dir, sha256
+from parsewright.ta_builder.package import DESCRIPTION, Package, packages_dir, sha256
 
 # Names interpolated into SPL must be plain: test sourcetypes are [a-z0-9_:-] only.
 SPL_NAME = re.compile(r"[a-z0-9_:-]+")
 WARN_COMPONENTS = "DateParserVerbose, LineBreakingProcessor, AggregatorMiningProcessor"
 INGEST_HOST = "parsewright-sample"
+# Splunk's documented props.conf defaults for the keys Parsewright writes, used to tell an
+# override in local/ (or another app) from the system default (lab-findings Q11: the [default]
+# stanza cannot be read over REST). Keys absent here have no default.
+PROPS_SYSTEM_DEFAULTS = {
+    "SHOULD_LINEMERGE": "true",
+    "LINE_BREAKER": "([\\r\\n]+)",
+    "MAX_TIMESTAMP_LOOKAHEAD": "128",
+    "TRUNCATE": "10000",
+    "MAX_EVENTS": "256",
+    "KV_MODE": "auto",
+}
 # Fixed names only: data model and dataset names are never taken from an agent.
 ROOTS = {"Authentication": "Authentication", "Network_Traffic": "All_Traffic", "Web": "Web"}
 DATASETS = {
@@ -79,6 +90,60 @@ class SplunkClient:
             raise SplunkError("package changed after it was built; refusing to install (T5.9)")
         # update=False on promotion: Splunk itself refuses to overwrite an existing app (M3).
         self.deploy.post("apps/local", name=str(path), filename=True, update=not promotion)
+
+    def update_app(self, pkg: Package, expected_version: str) -> None:
+        """Replace a promoted TA in place (update=true keeps its local/, lab-findings Q11), only if
+        the installed copy is the Parsewright TA at the version the registry expects."""
+        require_real_app(pkg.app)
+        installed = self.app_info(pkg.app)
+        if installed is None:
+            raise SplunkError(f"{pkg.app} is not installed; nothing to update in place")
+        if installed.get("version") != expected_version:
+            raise SplunkError(
+                f"{pkg.app} is installed at version {installed.get('version')!r}, not the "
+                f"registry's {expected_version!r}; refusing to replace it"
+            )
+        if installed.get("description") != DESCRIPTION:
+            raise SplunkError(f"{pkg.app} was not installed by Parsewright; refusing to replace it")
+        root = packages_dir(self.packages).resolve()
+        path = pkg.path.resolve()
+        if path.parent != root:
+            raise ValueError(f"package {path} is outside PARSEWRIGHT_PACKAGES_DIR")
+        if sha256(path) != pkg.sha256:
+            raise SplunkError("package changed after it was built; refusing to install (T5.9)")
+        self.deploy.post("apps/local", name=str(path), filename=True, update=True)
+
+    def app_info(self, app: str) -> dict | None:
+        """An installed app's version and description, or None if it is not installed."""
+        try:
+            body = self.deploy.get(f"apps/local/{app}", output_mode="json").body.read()
+        except binding.HTTPError as e:
+            if e.status == 404:
+                return None
+            raise
+        content = json.loads(body)["entry"][0]["content"]
+        return {
+            "version": str(content.get("version", "")),
+            "description": content.get("description"),
+        }
+
+    def props_effective(self, app: str, sourcetype: str) -> dict[str, str]:
+        """The props Splunk applies to a sourcetype in the app's context: its default/ merged
+        with its local/ and any other app's exported settings (empty if there are none)."""
+        require_real_app(app)
+        try:
+            body = self.search.get(
+                f"configs/conf-props/{spl_name(sourcetype)}",
+                owner="nobody",
+                app=app,
+                output_mode="json",
+            ).body.read()
+        except binding.HTTPError as e:
+            if e.status == 404:
+                return {}
+            raise
+        content = json.loads(body)["entry"][0]["content"]
+        return {k: str(v) for k, v in content.items() if not k.startswith("eai:")}
 
     def app_exists(self, app: str) -> bool:
         try:
@@ -146,19 +211,20 @@ class SplunkClient:
         return [r for r in JSONResultsReader(stream) if isinstance(r, dict)]
 
     def count(self, index: str, sourcetype: str, source: str | None = None) -> int:
-        by_source = f" source={spl_name(source)}" if source else ""
         rows = self._rows(
             f"| tstats count where index={require_pw_index(index)} "
-            f"sourcetype={spl_name(sourcetype)}{by_source}"
+            f"sourcetype={spl_name(sourcetype)}{_by_source(source)}"
         )
         return int(rows[0].get("count", 0)) if rows else 0
 
-    def wait_stable(self, index: str, sourcetype: str, timeout: float = 120) -> int:
+    def wait_stable(
+        self, index: str, sourcetype: str, timeout: float = 120, source: str | None = None
+    ) -> int:
         """Poll until two consecutive non-zero counts match (design "Validation mechanics")."""
         seen, end = -1, time.monotonic() + timeout
         while time.monotonic() < end:
             time.sleep(2)
-            now = self.count(index, sourcetype)
+            now = self.count(index, sourcetype, source)
             if now and now == seen:
                 return now
             seen = now
@@ -168,36 +234,46 @@ class SplunkClient:
         """(epoch seconds, raw) for every event of one attempt, oldest first."""
         return [(t, raw) for t, _, raw in self.events_with_indextime(index, sourcetype)]
 
-    def events_with_indextime(self, index: str, sourcetype: str) -> list[tuple[int, int, str]]:
+    def events_with_indextime(
+        self, index: str, sourcetype: str, source: str | None = None
+    ) -> list[tuple[int, int, str]]:
         """(epoch, _indextime, raw) per event: _indextime exposes the timestamp fallback."""
         rows = self._rows(
-            f"search index={require_pw_index(index)} sourcetype={spl_name(sourcetype)} "
-            "| eval t=floor(_time), it=_indextime | sort 0 t | table t it _raw"
+            f"search index={require_pw_index(index)} sourcetype={spl_name(sourcetype)}"
+            f"{_by_source(source)} | eval t=floor(_time), it=_indextime "
+            "| sort 0 t | table t it _raw"
         )
         return [(int(r["t"]), int(r.get("it") or 0), r.get("_raw", "")) for r in rows]
 
-    def field_rows(self, index: str, sourcetype: str) -> list[dict]:
+    def field_rows(self, index: str, sourcetype: str, source: str | None = None) -> list[dict]:
         """Every search-time field of every event, keyed by epoch t (the manifest key)."""
         return self._rows(
-            f"search index={require_pw_index(index)} sourcetype={spl_name(sourcetype)} "
-            "| eval t=floor(_time) | fields - _* | table t *"
+            f"search index={require_pw_index(index)} sourcetype={spl_name(sourcetype)}"
+            f"{_by_source(source)} | eval t=floor(_time) | fields - _* | table t *"
         )
 
-    def report_rows(self, index: str, sourcetype: str, first: int) -> list[dict]:
+    def report_rows(
+        self, index: str, sourcetype: str, first: int, source: str | None = None
+    ) -> list[dict]:
         """The first events with their raw text and parsed fields in the same row."""
         return self._rows(
-            f"search index={require_pw_index(index)} sourcetype={spl_name(sourcetype)} "
-            f"| sort 0 _time | head {int(first)} | eval t=floor(_time) | table t _raw *"
+            f"search index={require_pw_index(index)} sourcetype={spl_name(sourcetype)}"
+            f"{_by_source(source)} | sort 0 _time | head {int(first)} "
+            "| eval t=floor(_time) | table t _raw *"
         )
 
-    def field_summary(self, index: str, sourcetype: str, first: int) -> list[dict]:
+    def field_summary(
+        self, index: str, sourcetype: str, first: int, source: str | None = None
+    ) -> list[dict]:
         """fieldsummary over the first `first` events by time: the sample the agents saw."""
         return self._rows(
-            f"search index={require_pw_index(index)} sourcetype={spl_name(sourcetype)} "
-            f"| sort 0 _time | head {int(first)} | fieldsummary maxvals=5"
+            f"search index={require_pw_index(index)} sourcetype={spl_name(sourcetype)}"
+            f"{_by_source(source)} | sort 0 _time | head {int(first)} | fieldsummary maxvals=5"
         )
 
-    def datamodel_rows(self, model: str, dataset: str, index: str, sourcetype: str) -> list[dict]:
+    def datamodel_rows(
+        self, model: str, dataset: str, index: str, sourcetype: str, source: str | None = None
+    ) -> list[dict]:
         """Events of this attempt as the CIM data model sees them (fields as Root.field).
 
         Data model output has no `index` field, so filtering on it drops every event; the
@@ -209,8 +285,8 @@ class SplunkClient:
         require_pw_index(index)
         root = ROOTS[model]
         return self._rows(
-            f"| datamodel {model} {dataset} search | search sourcetype={spl_name(sourcetype)} "
-            f"| eval t=floor(_time) | table t {root}.*"
+            f"| datamodel {model} {dataset} search | search sourcetype={spl_name(sourcetype)}"
+            f"{_by_source(source)} | eval t=floor(_time) | table t {root}.*"
         )
 
     def reload_search_time(self) -> None:
@@ -249,6 +325,11 @@ class SplunkClient:
             if require_test_app(app) in text or sourcetype in text:
                 found.append(text)
         return found
+
+
+def _by_source(source: str | None) -> str:
+    """An extra source filter: an update ingests old and new samples under one sourcetype."""
+    return f" source={spl_name(source)}" if source else ""
 
 
 def ingest_source(path: Path) -> str:

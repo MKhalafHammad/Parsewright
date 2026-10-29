@@ -113,6 +113,22 @@ def drop_folder_files(root: Path) -> list[Path]:
     return found
 
 
+def save(uploads: Path, job: str, sample: Sample, manifest: bytes) -> tuple[Path, str]:
+    """Keep a job's sample and manifest under fixed names in a fresh private folder (they are
+    the regression set of every later parser update), written O_EXCL|O_NOFOLLOW. Returns the
+    sample path and the manifest's SHA-256."""
+    folder = uploads / job
+    folder.mkdir(mode=0o700)
+    for name, data in (
+        ("sample.log", sample.text.encode("utf-8")),
+        ("sample.manifest.json", manifest),
+    ):
+        fd = os.open(folder / name, os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW, 0o600)
+        with os.fdopen(fd, "wb") as f:
+            f.write(data)
+    return folder / "sample.log", hashlib.sha256(manifest).hexdigest()
+
+
 def estimate_tokens(sample: Sample) -> int:
     """Rough model tokens for one run, from the 200-line sample the agents see (design)."""
     lines = [ln for ln in sample.text.splitlines() if ln.strip()][:200]

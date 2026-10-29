@@ -5,7 +5,7 @@ from typing import Literal
 from pydantic import BaseModel
 
 from parsewright import cim_spec
-from parsewright.agents.llm import LLMClient, as_data
+from parsewright.agents.llm import LLMClient, as_data, patch_context
 from parsewright.agents.profiler import LogProfile
 
 # Bigger prompts reason longer: 8k cut CIM replies off in the lab (2 wasted attempts).
@@ -59,14 +59,17 @@ def propose(
     field_values: str,
     models: list[str],
     history: list[dict],
+    patch: dict | None = None,
 ) -> CimProposal:
+    suffix, patch_parts = patch_context(patch)
     parts = [
         as_data("profile", profile.model_dump_json(indent=1)),
         as_data("extracted_fields", field_values),
         as_data("cim_spec", "\n\n".join(cim_spec.summary(m) for m in models)),
+        *patch_parts,
     ]
     for n, past in enumerate(history, 1):
         parts.append(as_data(f"attempt_{n}", f"settings: {past['settings']}\n{past['outcome']}"))
     return llm.structured(
-        SYSTEM, "\n\n".join(parts), CimProposal, max_tokens=SEARCH_TIME_MAX_TOKENS
+        SYSTEM + suffix, "\n\n".join(parts), CimProposal, max_tokens=SEARCH_TIME_MAX_TOKENS
     )

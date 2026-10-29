@@ -7,6 +7,10 @@ identity back to the real names by code from those same bytes, refuses an existi
 sourcetype, installs the real TA (Splunk itself refuses to overwrite an app), records both hashes
 linked and runs a smoke test.
 
+A parser update (Phase 7) is promoted in place instead: only over a TA in the registry, at the
+version the registry expects, with update=true so the TA's local/ is kept. Rollback reinstalls an
+exact earlier version, rebuilt by the writer from its kept package and checked against its hash.
+
 State lives in run records under PARSEWRIGHT_RUNS_DIR until PostgreSQL arrives (Phase 5). The
 runs folder must be private to the engine user; every write is O_NOFOLLOW and atomic, and
 transitions are checked and written under an exclusive lock, so the same rule holds as the
@@ -172,6 +176,7 @@ def _validated(record: dict) -> dict:
     require_real_app(record["app"])
     require_test_app(record["test_app"])
     require_sourcetype(record["sourcetype"])
+    require_job(record.get("owner_job", record["job"]))
     if record["app"] != ta_name(record["vendor"], record["product"]):
         raise TransitionRefused("record app name does not match its vendor and product")
     return record
@@ -188,8 +193,11 @@ def record_passed_run(
     test_sourcetype: str,
     sample: Path,
     report: dict | None = None,
+    update: dict | None = None,
 ) -> dict:
-    """Keep the exact passing test package and record the run as awaiting approval."""
+    """Keep the exact passing test package and record the run as awaiting approval.
+
+    update: {"update_of", "owner_job", "version_from", "version_to"} for a parser update."""
     d = _dir(runs_dir, job)
     d.mkdir(mode=0o700, exist_ok=isinstance(runs_dir, PgRecords))
     data = test_pkg.path.read_bytes()
@@ -209,7 +217,13 @@ def record_passed_run(
         "app": ta_name(vendor, product),
         "sha256_test": test_pkg.sha256,
         "report": report or {},
+        "owner_job": job,
+        "version_to": "1.0.0",
     }
+    if update is not None:
+        if update["update_of"] != record["app"]:
+            raise TransitionRefused("an update must keep the TA's name")
+        record |= {"kind": "update", **update}
     _validated(record)
     _event(record, "validated", sha256=test_pkg.sha256)
     _save(runs_dir, job, record)
@@ -237,9 +251,14 @@ def renamed_files(test_tgz: bytes, record: dict) -> dict[str, str]:
     """The approved package's files with the test identity replaced by the real names, by code.
 
     Takes the bytes that were hashed, never a second read of the file (appsec M1). The test
-    names contain __test_<job>, so plain token replacement cannot hit anything else.
+    names contain __test_<job>, so plain token replacement cannot hit anything else. An update
+    also gives its transforms and eventtypes back the production TA's names (parsewright_<owner>_).
     """
     swap = [(record["test_app"], record["app"]), (record["test_sourcetype"], record["sourcetype"])]
+    owner = record.get("owner_job", record["job"])
+    if owner != record["job"]:
+        test_prefix = f"parsewright_{require_job(record['job'])}_"
+        swap.append((test_prefix, f"parsewright_{require_job(owner)}_"))
     files = {}
     with tarfile.open(fileobj=io.BytesIO(test_tgz)) as tar:
         for member in tar.getmembers():
@@ -262,7 +281,27 @@ def promote(
     out: Callable[[str], None] = print,
     start: str = APPROVED,
 ) -> dict:
-    """start=PROMOTING when a worker has already claimed the approved job (database mode)."""
+    """start=PROMOTING when a worker has already claimed the approved job (database mode).
+
+    The registry check, the install and the registry write run under one lock per TA, so a
+    rollback or another promotion of the same TA cannot interleave (appsec Phase 7 M2)."""
+    app = require_real_app(load(runs_dir, job)["app"])
+    with _ta_lock(runs_dir, app):
+        return _promote(runs_dir, job, splunk, packages_dir, test_index, caps, out, start)
+
+
+@contextmanager
+def _ta_lock(runs, app: str) -> Iterator[None]:
+    if not isinstance(runs, PgRecords):
+        yield  # file mode has no registry and one process
+        return
+    from parsewright.ledger.store import Store
+
+    with Store(runs.conn).ta_lock(app):
+        yield
+
+
+def _promote(runs_dir, job, splunk, packages_dir, test_index, caps, out, start) -> dict:
     with _locked(runs_dir, job):
         record = load(runs_dir, job)
         if record["status"] != start:
@@ -276,12 +315,20 @@ def promote(
             raise TransitionRefused(
                 "the package changed after approval (hash mismatch); re-validate and re-approve"
             )
-        for app in (record["app"], record["test_app"]):
-            if splunk.app_exists(app):
-                raise TransitionRefused(
-                    f"{app} is installed in Splunk; refusing to promote over it"
-                )
-        if splunk.props_exist(record["sourcetype"]):
+        update = record.get("kind") == "update"
+        if update:
+            _registry_allows_update(runs_dir, record)
+        if splunk.app_exists(record["test_app"]):
+            raise TransitionRefused(f"{record['test_app']} is installed in Splunk; refusing")
+        if not update and splunk.app_exists(record["app"]):
+            raise TransitionRefused(
+                f"{record['app']} is installed in Splunk; refusing to promote over it"
+            )
+        if not update and _registered(runs_dir, record["app"]):
+            raise TransitionRefused(
+                f"{record['app']} is already in the TA registry; change it with an update"
+            )
+        if not update and splunk.props_exist(record["sourcetype"]):
             raise TransitionRefused(
                 f"sourcetype {record['sourcetype']} already has settings in Splunk "
                 "(a built-in or another app's); refusing to merge into it"
@@ -291,22 +338,32 @@ def promote(
         _save(runs_dir, job, record)
 
     try:
-        confs = _confs_from_files(renamed_files(data, record))
-        conf_gate.check(confs, job, record["sourcetype"])  # the renamed package, same final gate
-        real = package.build_promoted(packages_dir, record["app"], "1.0.0", confs)
-        splunk.install(real, promotion=True)  # update=False: Splunk refuses an existing app
+        confs = confs_from_files(renamed_files(data, record))
+        owner = record.get("owner_job", job)
+        conf_gate.check(confs, owner, record["sourcetype"])  # the renamed package, same gate
+        version = record.get("version_to", "1.0.0")
+        real = package.build_promoted(packages_dir, record["app"], version, confs)
+        if update:  # in place: update=true keeps local/ (lab-findings Q11)
+            splunk.update_app(real, expected_version=record["version_from"])
+        else:
+            splunk.install(real, promotion=True)  # update=False: Splunk refuses an existing app
         _write_nofollow(_dir(runs_dir, job) / "promoted.tgz", real.path.read_bytes())
         real.path.unlink(missing_ok=True)
+        _register(runs_dir, record, version, real.sha256)
     except Exception as e:
         _finish(runs_dir, job, FAILED, "promotion_failed", reason=type(e).__name__)
         raise
-    out(f"installed {record['app']} (sha256 {real.sha256})")
+    out(f"installed {record['app']} {version} (sha256 {real.sha256})")
     out(f"  derived from approved test package {record['approved_sha256']}")
 
     try:
         smoke = smoke_test(splunk, record, test_index, job, runs_dir, caps)
     except Exception as e:  # noqa: BLE001 - a smoke test that cannot run has not passed
         smoke = f"FAIL (could not run: {type(e).__name__})"
+    if record.get("kind") == "update" and smoke.startswith("PASS"):
+        hidden = _not_in_effect(splunk, record, confs)
+        if hidden:  # e.g. a local/ value that equals the old default hid it from the review
+            smoke = f"FAIL (overridden in local/ or another app: {', '.join(hidden)})"
     out(f"smoke test: {smoke}")
     status = DONE if smoke.startswith("PASS") else SMOKE_FAILED
     return _finish(
@@ -330,7 +387,121 @@ def _finish(runs_dir: Path, job: str, status: str, event: str, **detail) -> dict
     return record
 
 
-def _confs_from_files(files: dict[str, str]) -> dict[str, dict[str, dict[str, str]]]:
+def _registry_allows_update(runs, record: dict) -> None:
+    """An update replaces a production TA, so the registry must list it at the expected version."""
+    if not isinstance(runs, PgRecords):
+        raise TransitionRefused("updates need the TA registry (PostgreSQL)")
+    from parsewright.ledger.store import Store
+
+    ta = Store(runs.conn).ta(record["app"])
+    if ta is None:
+        raise TransitionRefused(f"{record['app']} is not in the TA registry; refusing to replace")
+    if ta["current_version"] != record["version_from"] or ta["owner_job"] != record["owner_job"]:
+        raise TransitionRefused(
+            f"{record['app']} is at {ta['current_version']} in the registry, not "
+            f"{record['version_from']}: re-run the update against the current version"
+        )
+    if ta["sourcetype"] != record["sourcetype"]:
+        raise TransitionRefused("an update must keep the TA's sourcetype")
+
+
+def _not_in_effect(splunk: SplunkClient, record: dict, confs: dict) -> list[str]:
+    """Changed props keys whose effective value, read back after the in-place install, is not
+    the update's own (appsec Phase 7 L3)."""
+    from parsewright.tools.splunk_client import PROPS_SYSTEM_DEFAULTS
+
+    try:
+        effective = splunk.props_effective(record["app"], record["sourcetype"])
+    except Exception as e:  # noqa: BLE001 - unknown is not "in effect"
+        return [f"could not read the installed settings ({type(e).__name__})"]
+    ours = confs.get("props", {}).get(record["sourcetype"], {})
+    return [
+        k
+        for k in record.get("changed_keys", [])
+        if effective.get(k, "") != ours.get(k, PROPS_SYSTEM_DEFAULTS.get(k, ""))
+    ]
+
+
+def _registered(runs, app: str) -> bool:
+    if not isinstance(runs, PgRecords):
+        return False
+    from parsewright.ledger.store import Store
+
+    return Store(runs.conn).ta(app) is not None
+
+
+def _register(runs, record: dict, version: str, sha256: str) -> None:
+    if not isinstance(runs, PgRecords):
+        return  # file mode (run --local) has no registry
+    from parsewright.ledger.store import Store
+
+    store = Store(runs.conn)
+    if record.get("kind") == "update":
+        store.add_version(record["app"], record["version_from"], version, record["job"], sha256)
+    else:
+        store.register_ta(record, version, sha256)
+
+
+def package_files(data: bytes, app: str) -> dict[str, str]:
+    """A kept package's files. Refused unless every member is a plain file of this app on the
+    package allowlist: no path outside the TA, no link, no unexpected file."""
+    files = {}
+    with tarfile.open(fileobj=io.BytesIO(data)) as tar:
+        for member in tar.getmembers():
+            top, _, rel = member.name.partition("/")
+            if not member.isfile() or top != app or not package.ALLOWED_FILES.fullmatch(rel):
+                raise TransitionRefused(f"unexpected member {member.name!r} in {app}'s package")
+            files[rel] = tar.extractfile(member).read().decode("utf-8")
+    return files
+
+
+def rollback(
+    store,
+    runs_dir: Path,
+    app: str,
+    version: str,
+    splunk: SplunkClient,
+    packages_dir: Path,
+    out: Callable[[str], None] = print,
+) -> str:
+    """Reinstall exactly an earlier registered version of a promoted TA, in place.
+
+    The version's kept package must match its registry hash; it is parsed under the package
+    allowlist and rebuilt by the same writer, and the rebuild must give the same hash, so what
+    is installed is byte for byte the version that was approved. Nothing is deleted: the
+    install replaces default/ and keeps local/.
+    """
+    with store.ta_lock(require_real_app(app)):  # never alongside a promotion of this TA (M2)
+        return _rollback(store, runs_dir, app, version, splunk, packages_dir, out)
+
+
+def _rollback(store, runs_dir, app, version, splunk, packages_dir, out) -> str:
+    ta = store.ta(app)
+    if ta is None:
+        raise TransitionRefused(f"{app} is not in the TA registry")
+    target = next((v for v in store.ta_versions(app) if v["version"] == version), None)
+    if target is None:
+        raise TransitionRefused(f"{app} has no registered version {version}")
+    if version == ta["current_version"]:
+        return f"{app} is already at {version}: nothing to do"
+    data = (runs_root(runs_dir) / require_job(target["job_id"]) / "promoted.tgz").read_bytes()
+    if hashlib.sha256(data).hexdigest() != target["sha256"]:
+        raise TransitionRefused(f"{app} {version}: the kept package does not match its hash")
+    confs = confs_from_files(package_files(data, app))
+    conf_gate.check(confs, ta["owner_job"], ta["sourcetype"])
+    pkg = package.build_promoted(packages_dir, app, version, confs)
+    try:
+        if pkg.sha256 != target["sha256"]:
+            raise TransitionRefused(f"{app} {version} cannot be rebuilt exactly; refusing")
+        splunk.update_app(pkg, expected_version=ta["current_version"])
+    finally:
+        pkg.path.unlink(missing_ok=True)
+    store.set_current_version(app, ta["current_version"], version, "rolled_back")
+    out(f"rolled back {app} {ta['current_version']} -> {version} (sha256 {pkg.sha256})")
+    return f"rolled back to {version}"
+
+
+def confs_from_files(files: dict[str, str]) -> dict[str, dict[str, dict[str, str]]]:
     """Parse the writer's own output back into stanzas (app.conf and metadata are rebuilt)."""
     confs: dict[str, dict[str, dict[str, str]]] = {}
     for rel, text in files.items():

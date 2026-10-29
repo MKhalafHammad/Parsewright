@@ -284,3 +284,41 @@ def test_nul_bytes_anywhere_are_refused():
     data = SAMPLE + b"\x00"
     with pytest.raises(intake.UploadRefused, match="binary"):
         intake.check(data)
+
+
+def test_updates_are_only_for_tas_in_the_registry(client, pg):
+    """A parser update replaces a production TA: only one Parsewright promoted qualifies."""
+    for name in ("Splunk_SA_CIM", "TA-parsewright-acme-firewall", "../../etc"):
+        r = upload(client, update_of=name)
+        assert r.status_code == 422 and "registry" in r.text
+    assert client.get("/tas").json() == []
+    owner = upload(client).json()["job"]
+    pg.register_ta(
+        {
+            "job": owner,
+            "app": "TA-parsewright-acme-firewall",
+            "sourcetype": "acme:fw",
+            "vendor": "acme",
+            "product": "firewall",
+        },
+        "1.0.0",
+        "a" * 64,
+    )
+    v2 = (FIXTURES / "acme_fw_v2.log").read_bytes()
+    m2 = (FIXTURES / "acme_fw_v2.manifest.json").read_bytes()
+    r = upload(
+        client,
+        data=v2,
+        manifest=m2,
+        update_of="TA-parsewright-acme-firewall",
+        vendor="evil",
+        product="x",
+    )
+    assert r.status_code == 201, r.text
+    run = client.get(f"/runs/{r.json()['job']}").json()
+    assert run["form"]["update_of"] == "TA-parsewright-acme-firewall"
+    assert (
+        "vendor" not in run["form"] and run["source_key"] == "update:TA-parsewright-acme-firewall"
+    )
+    (ta,) = client.get("/tas").json()
+    assert ta["current_version"] == "1.0.0" and ta["versions"] == ["1.0.0"]

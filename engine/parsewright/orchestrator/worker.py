@@ -5,6 +5,7 @@
 - Checkpoints after the profile, each attempt and each passed stage, so another worker can resume
   a crashed job from the last saved state.
 - A job waiting for profile review is released; the worker takes the next one.
+- A parser update job (form "update_of") runs the update flow against the TA registry.
 - Splunk writes run under one cluster-wide lock; model calls share a fixed number of slots;
   the daily token budget and the kill switch stop new work and new model calls.
 """
@@ -22,6 +23,7 @@ from parsewright.ledger import store as db
 from parsewright.orchestrator import promote
 from parsewright.orchestrator.caps import IngestCaps
 from parsewright.orchestrator.run import STAGES, RunAborted, run
+from parsewright.orchestrator.update import load_production, run_update
 from parsewright.tools.splunk_client import SplunkClient
 
 HEARTBEAT_S = 30
@@ -114,6 +116,8 @@ class Worker:
     # --- building a TA -------------------------------------------------------------------
 
     def build(self, job: dict, lost: dict) -> None:
+        if job["form"].get("update_of"):
+            return self.update(job, lost)
         jid, form, state = job["id"], job["form"], job["state"] or {}
         llm = self.llm_factory()
         llm.guard = self.model_call_guard
@@ -150,6 +154,40 @@ class Worker:
             final = "stage_failed" if result.status != "passed" else "done"
             self.store.transition(jid, "running", final, worker=self.id)
         self.out(f"[{self.id}] {jid}: {result.status}")
+
+    def update(self, job: dict, lost: dict) -> None:
+        jid, form = job["id"], job["form"]
+        llm = self.llm_factory()
+        llm.guard = self.model_call_guard
+        llm.on_usage = lambda n: self.side.add_tokens(jid, n)
+        records = promote.PgRecords(self.conn, self.settings.runs_dir, worker=self.id)
+        prod = load_production(self.store, self.settings.runs_dir, form["update_of"])
+        result = run_update(
+            Path(job["sample_path"]),
+            prod,
+            llm,
+            self.splunk,
+            self.settings.test_index,
+            self.settings.packages_dir,
+            jid,
+            out=lambda line: self.log(jid, line),
+            caps=IngestCaps(
+                self.settings.runs_dir, self.settings.job_ingest_mb, self.settings.daily_ingest_mb
+            ),
+            state=job["state"] or {},
+            checkpoint=lambda s: self.store.checkpoint(jid, self.id, s),
+            lock=lambda: self.store.advisory(db.SPLUNK_WRITE_LOCK),
+            abort=lambda: (
+                lost.get("reason") or ("kill switch on" if self.side.kill_switch() else None)
+            ),
+            record=lambda j, pkg, **kw: promote.record_passed_run(records, j, pkg, **kw),
+        )
+        if result.status == "no_change":  # ended at Diagnose: nothing to approve or install
+            outcome = {"kind": "update", "update_of": prod.app, "result": "no change needed"}
+            self.store.transition(jid, "running", "done", worker=self.id, record=outcome)
+        elif result.status != "passed":
+            self.store.transition(jid, "running", "stage_failed", worker=self.id)
+        self.out(f"[{self.id}] {jid}: update {result.status}")
 
     @contextmanager
     def model_call_guard(self):

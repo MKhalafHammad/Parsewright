@@ -7,6 +7,9 @@
   parsewright worker [--id w1]              run one worker
   parsewright serve [--workers 4]           run the API and a pool of workers
   parsewright kill on|off                   the kill switch: stop claims and model calls
+  parsewright tas                           the TA registry: promoted TAs and their versions
+  parsewright update <app> <file>           patch a promoted TA for new-format samples
+  parsewright rollback <app> <version>      reinstall an exact earlier version of a TA
 
 `run --local` runs without PostgreSQL (state in run records), as in Phases 2-4.
 """
@@ -67,6 +70,13 @@ def main(argv: list[str] | None = None) -> int:
     sub.add_parser("migrate", help="apply migrations and set the app role's password (owner)")
     k = sub.add_parser("kill", help="the kill switch")
     k.add_argument("state", choices=["on", "off", "status"])
+    sub.add_parser("tas", help="the TA registry")
+    u = sub.add_parser("update", help="patch a promoted TA for new-format samples")
+    u.add_argument("app")
+    u.add_argument("file", type=Path)
+    b = sub.add_parser("rollback", help="reinstall an exact earlier version of a promoted TA")
+    b.add_argument("app")
+    b.add_argument("version")
     args = parser.parse_args(argv)
 
     load_env_file(args.env_file)
@@ -85,6 +95,27 @@ def main(argv: list[str] | None = None) -> int:
         records = promote.PgRecords(conn, settings.runs_dir)
         if args.command == "run":
             return queued_run(args, settings, store)
+        if args.command == "update":
+            return queued_run(args, settings, store, update_of=args.app)
+        if args.command == "tas":
+            for t in store.tas():
+                print(
+                    f"{t['app']}  {t['sourcetype']}  current {t['current_version']}  "
+                    f"versions {', '.join(t['versions'] or [])}"
+                )
+            return 0
+        if args.command == "rollback":
+            print(
+                promote.rollback(
+                    store,
+                    settings.runs_dir,
+                    args.app,
+                    args.version,
+                    SplunkClient(settings),
+                    settings.packages_dir,
+                )
+            )
+            return 0
         if args.command == "status":
             row = store.get(args.job)
             if row is None:
@@ -167,22 +198,34 @@ def migrate(optional: bool = False) -> None:
             )
 
 
-def queued_run(args, settings: Settings, store: db.Store) -> int:
+def queued_run(args, settings: Settings, store: db.Store, update_of: str | None = None) -> int:
     """Queue the file like an upload (same checks), then process exactly that job here."""
     from parsewright.orchestrator.worker import Worker
 
     sample = intake.check(args.file.read_bytes())
-    form = {"auto_approve": True}
-    for key in ("vendor", "product", "tz"):
-        if getattr(args, key):
-            form[key] = getattr(args, key)
+    manifest = args.file.with_suffix(".manifest.json").read_bytes()
+    form: dict = {"auto_approve": True}
+    if update_of:
+        if store.ta(update_of) is None:
+            raise promote.TransitionRefused(f"{update_of} is not in the TA registry")
+        form["update_of"] = update_of
+        key = f"update:{update_of}"
+    else:
+        for name in ("vendor", "product", "tz"):
+            if getattr(args, name):
+                form[name] = getattr(args, name)
+        key = (
+            f"{form['vendor']}:{form['product']}"
+            if "vendor" in form and "product" in form
+            else f"cli:{sample.sha256[:16]}"
+        )
     job = uuid.uuid4().hex[:8]
-    key = (
-        f"{form['vendor']}:{form['product']}"
-        if "vendor" in form and "product" in form
-        else f"cli:{sample.sha256[:16]}"
-    )
-    job, duplicate = store.enqueue(job, key, sample.sha256, str(args.file.resolve()), form)
+    # A private copy, as for uploads: the samples stay the regression set of later updates,
+    # and a path outside the runs folder could be swapped for a link (appsec Phase 7 M1).
+    uploads = promote.runs_root(settings.runs_dir) / "uploads"
+    uploads.mkdir(mode=0o700, exist_ok=True)
+    path, form["manifest_sha256"] = intake.save(uploads, job, sample, manifest)
+    job, duplicate = store.enqueue(job, key, sample.sha256, str(path), form)
     if duplicate:
         row = store.get(job)
         print(f"duplicate of job {job} ({row['status']}): nothing to do")
@@ -190,10 +233,10 @@ def queued_run(args, settings: Settings, store: db.Store) -> int:
     print(f"job {job} queued (~{intake.estimate_tokens(sample)} tokens estimated)")
     Worker(settings, f"cli-{uuid.uuid4().hex[:6]}").once(only=job)
     row = store.get(job)
-    print(f"{job}: {row['status']}")
+    print(f"{job}: {row['status']} {row['record'].get('result', '')}".rstrip())
     if row["status"] == "awaiting_approval":
         print(f"approve: parsewright approve {job} --sha256 {row['record']['sha256_test']}")
-    return 0 if row["status"] == "awaiting_approval" else 1
+    return 0 if row["status"] in ("awaiting_approval", "done") else 1
 
 
 def local_run(args, settings: Settings) -> int:

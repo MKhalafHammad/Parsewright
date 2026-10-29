@@ -1,6 +1,6 @@
 # web
 
-The Next.js + shadcn/ui interface: the job board with upload, the live run view, profile review and the approval report. It only reads job state and the ledger (live, over server-sent events) and sends the allowed actions: upload, confirm profile, approve, reject. All logic lives in `engine/`. Conventions: [CLAUDE.md](CLAUDE.md).
+The Next.js + shadcn/ui interface: the job board with upload (a new TA, or an update of one Parsewright promoted), the live run view, profile review and the approval report (with the diff against production and `local/` override flags for an update). It only reads job state and the ledger (live, over server-sent events) and sends the allowed actions: upload, confirm profile, approve, reject. All logic lives in `engine/`. Conventions: [CLAUDE.md](CLAUDE.md).
 
 ## Run it
 
@@ -28,7 +28,7 @@ ENGINE_URL=http://127.0.0.1:8080 npm start   # http://localhost:3000
 
 ```bash
 npm run lint && npm run typecheck
-npm run test:e2e            # Playwright: XSS, keyboard flow, live view, proxy and headers
+npm run test:e2e            # Playwright: XSS (incl. the parser-update review), keyboard flow, live view, proxy and headers
 npm audit --audit-level=moderate
 ```
 

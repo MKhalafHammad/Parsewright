@@ -12,6 +12,7 @@ const ROUTES: { method: string; pattern: RegExp }[] = [
   { method: "GET", pattern: new RegExp(`^runs/${JOB}$`) },
   { method: "GET", pattern: new RegExp(`^runs/${JOB}/(events|stream|package)$`) },
   { method: "GET", pattern: /^admin\/status$/ },
+  { method: "GET", pattern: /^tas$/ },
   { method: "POST", pattern: /^uploads$/ },
   { method: "POST", pattern: new RegExp(`^runs/${JOB}/(profile|approve|reject)$`) },
   { method: "POST", pattern: /^admin\/kill$/ },

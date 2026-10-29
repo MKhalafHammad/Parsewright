@@ -51,3 +51,37 @@ test("the board and profile review render log-derived text as text", async ({ pa
   expect(dialogs).toEqual([]);
   expect(await page.locator("main script, main img").count()).toBe(0);
 });
+
+test("a parser update's diff, overrides and old event render as text", async ({ page }) => {
+  const dialogs: string[] = [];
+  page.on("dialog", (d) => {
+    dialogs.push(d.message());
+    void d.dismiss();
+  });
+  const base = run("awaiting_approval");
+  const oldRaw = `ts=1792483219000 action=accept src=${XSS}`;
+  const update = {
+    app: "TA-parsewright-acme-fw",
+    version_from: "1.0.0",
+    version_to: "1.1.0",
+    patched: ["cim"],
+    diff: { "default/props.conf": `--- production/default/props.conf\n+++ update/default/props.conf\n+EVAL-src = coalesce(src, "${XSS}")` },
+    overrides: [`TIME_FORMAT: Splunk applies '${XSS}' from local/ or another app`],
+    notes: ["Search-time changes apply to events already indexed as soon as it is promoted."],
+    old_event: { time: 1792483219, raw: oldRaw, fields: {}, highlights: [] },
+    rollback: "parsewright rollback TA-parsewright-acme-fw 1.0.0",
+  };
+  const body = { ...base, record: { ...base.record, report: { ...base.record.report, update } } };
+  await mockRun(page, body);
+  await page.goto("/runs/e2e00001");
+
+  await expect(page.getByRole("heading", { name: /Parser update: .* 1\.0\.0 → 1\.1\.0/ })).toBeVisible();
+  await expect(page.getByRole("alert").filter({ hasText: "Overrides that would hide this fix" })).toContainText(XSS);
+  await expect(page.getByText(`+EVAL-src = coalesce(src, "${XSS}")`)).toBeVisible();
+  await expect(page.getByText(oldRaw)).toBeVisible();
+  await page.getByRole("button", { name: "Approve…" }).click();
+  await expect(page.getByRole("alertdialog")).toContainText("in place with 1.1.0 (local/ is kept)");
+
+  expect(dialogs).toEqual([]);
+  expect(await page.locator("main script, main img").count()).toBe(0);
+});

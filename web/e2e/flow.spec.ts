@@ -5,6 +5,7 @@ import { mockRun, run } from "./fixtures";
 test("keyboard-only: upload, confirm the profile, approve", async ({ page }) => {
   const posts: { url: string; csrf: string | null }[] = [];
   await page.route("**/api/engine/runs", (r) => r.fulfill({ json: [] }));
+  await page.route("**/api/engine/tas", (r) => r.fulfill({ json: [] }));
   await page.route("**/api/engine/uploads", (r) => {
     posts.push({ url: r.request().url(), csrf: r.request().headers()["x-parsewright"] ?? null });
     return r.fulfill({ status: 201, json: { job: "e2e00001", duplicate: false, events: 300, estimated_tokens: 50000 } });
@@ -16,6 +17,8 @@ test("keyboard-only: upload, confirm the profile, approve", async ({ page }) => 
   await page.getByLabel("Log file").setInputFiles({ name: "a.log", mimeType: "text/plain", buffer: Buffer.from("x\n".repeat(60)) });
   await page.getByLabel("Log file").focus();
   await page.keyboard.press("Tab"); // manifest
+  await page.keyboard.press("Tab"); // update an existing TA (no: a new build)
+  await expect(page.getByLabel("Update an existing TA (new log format)")).toBeFocused();
   await page.keyboard.press("Tab"); // vendor
   await expect(page.getByLabel("Vendor")).toBeFocused();
   await page.keyboard.type("acme");

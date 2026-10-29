@@ -5,7 +5,7 @@ From raw sample logs to a tested, CIM-compliant Splunk add-on, verified by Splun
 [![CI](https://github.com/MKhalafHammad/Parsewright/actions/workflows/ci.yml/badge.svg)](https://github.com/MKhalafHammad/Parsewright/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-> **Status:** early development. This README separates what is **built** from what is **planned**. Right now the repository holds a working CLI that builds a TA through all three stages (index-time, extraction, CIM mapping), each checked by a real Splunk, on JSON, key=value, syslog and CSV logs (Phases 2–3). The job queue, the web UI and promotion are planned.
+> **Status:** early development. This README separates what is **built** from what is **planned**. Built: the full loop (three agent stages, each checked by a real Splunk, on JSON, key=value, syslog and CSV logs), the job queue with parallel workers, the web UI, hash-bound approval and promotion, and parser updates of promoted TAs (Phases 2–7). Planned: drift monitoring, shared-feed routing and the judges' one-command Docker setup.
 
 ## Demo
 
@@ -62,7 +62,7 @@ The model is set only through environment variables (`LLM_BASE_URL`, `LLM_MODEL`
 | Index-time agent with a retry loop fed by Validator evidence | **Built** |
 | Extraction and CIM mapper agents with retry loops, regression re-runs and one backtrack | **Built** |
 | Guardrails: stage gates plus a final gate over the whole package (allowlisted keys after Unicode normalisation, no forbidden keys, no foreign stanzas, eventtype anchoring, CIM provenance, environment-independent EVALs), with an adversarial suite of 90+ attacks | **Built** |
-| Validator: index-time checks (event count, timestamp accuracy, parser warnings) | **Built** |
+| Validator: index-time checks (event count, timestamp accuracy, fallback, parser warnings, `TIME_FORMAT` really matching every event) | **Built** |
 | Validator: extraction and CIM checks (Authentication, Network_Traffic, Web) with the three-number CIM score | **Built** |
 | TA builder: escaping conf writer, test identity, reproducible `.tgz` packaging with a file allowlist and SHA-256 | **Built** |
 | Approval and promotion: `parsewright approve <job> --sha256 …` (hash-bound, replay-safe), `parsewright promote <job>` (deterministic rename to real names, both hashes linked, refuses existing TAs and sourcetypes, smoke test) | **Built** |
@@ -71,7 +71,8 @@ The model is set only through environment variables (`LLM_BASE_URL`, `LLM_MODEL`
 | Parallel jobs: PostgreSQL queue (`FOR UPDATE SKIP LOCKED`, leases, heartbeats, crash resume), append-only ledger, worker pool with a global Splunk-write lock, LLM slots, daily token budget and kill switch | **Built** |
 | HTTP API: upload (content checks, duplicates), runs, profile review, approve/reject, `.tgz` download, live server-sent events; `parsewright serve` | **Built** (no login: localhost only, residual risk R1) |
 | Routing for shared syslog feeds | Planned (stretch) |
-| Parser updates and drift monitoring | Planned (stretch) |
+| Parser updates: TA registry (versions, samples, baseline); `parsewright update <TA> <file>` or the upload form; Diagnose with no model call (0 tokens if the TA already parses the new format); only failing stages patched; every attempt checked on the old and the new samples; diff against production and `local/` override flags in the review; in-place promotion with a version bump that keeps `local/`; exact-version `parsewright rollback` | **Built** |
+| Drift monitoring with automatic update jobs | Planned (stretch) |
 
 ## Prerequisites
 
@@ -234,7 +235,7 @@ CI runs `make lint`, `make test` and `make security` on every pull request (not 
 
 Parsewright is being built during the **Meta Global AI Developer Hackathon** (building period Oct 27 – Nov 4, 2026), "Build for Your World" track. All code in this repository is written during the event, starting with the first commit on Oct 27, 2026. Only synthetic logs are used. The demo will show only features built during the event.
 
-Built so far: the project foundation, the threat model and the lab probes. Progress per phase is tracked in the Status table of [docs/build-plan.md](docs/build-plan.md).
+Progress per phase is tracked in the Status table of [docs/build-plan.md](docs/build-plan.md).
 
 ## Limitations and roadmap
 
@@ -251,7 +252,6 @@ Built so far: the project foundation, the threat model and the lab probes. Progr
 
 **Roadmap (after the core loop):**
 - Routing for shared syslog feeds.
-- Parser updates with old and new format regression.
 - Drift monitoring with automatic update jobs.
 - A `pw_audit` index and dashboard.
 - Login with an approver role.

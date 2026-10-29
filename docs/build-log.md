@@ -289,3 +289,49 @@ One entry per completed phase, appended at the end of the phase (see CLAUDE.md, 
 
 **RECORD THIS**
 - **Approval report with an injected log line shown as text:** `demo/05_approval_report.sh` with `parsewright serve` and the web UI running, then open the printed `http://localhost:3000/runs/<job>` URL. Show the raw-versus-parsed highlights, the CIM scores, then the approve confirmation naming the hash.
+
+## 2026-10-28 — Phase 7: Parser updates
+
+**Built**
+- **TA registry** (migrations 003–004): every promoted TA with its versions (append-only), the job that built each one (its samples, manifest and profile are the regression set), and a history of registrations, updates and rollbacks. TAs promoted through the database before the registry existed were backfilled.
+- **Update job** (`parsewright update <TA> <file>`, or "Update an existing TA" on the upload form), Diagnose → failing stages only → Regression → Approval → Promote:
+  - Diagnose installs the production TA from its hash-checked package under the job's test identity and runs every check on the new samples and on every registered version's samples, which share one test sourcetype told apart by `source`. No model call; if everything passes, the job ends there with 0 tokens;
+  - patch mode: only failing stages run, a later stage that passes as it is is skipped, and the agent gets the production settings, the drift evidence and old-format events with an instruction to make the smallest change;
+  - every attempt is checked on old and new samples, so a patch that fixes v2 but breaks v1 is rejected with that evidence; a patch may add eventtypes but never drop or rename a production one;
+  - review: diff against production, `local/` override flags, index-time vs search-time notes, an old event parsed by the update and the rollback command; the version goes up one minor step above the highest registered version.
+- **In-place promotion and rollback:** `update=true` only over a registry TA at the expected installed version with the Parsewright marker, under one lock per TA; `local/` is kept (lab Q11); after the install, the effective settings are read back and a changed key that is not in effect fails the smoke test. `parsewright rollback <TA> <version>` rebuilds the exact version from its kept package (the hash must match before and after).
+- **Validator:** a new index-time check that `TIME_FORMAT` really matches every event. `TIME_FORMAT` may now be left out only with `TIME_PREFIX` and `MAX_TIMESTAMP_LOOKAHEAD` set: that is how two formats coexist in one sourcetype.
+
+**Test results**
+- `pytest`: 403 passed (46 new), including against real PostgreSQL. The tests cover:
+  - 0 tokens when the new samples pass as they are;
+  - the old-format rejection carrying evidence to the next attempt;
+  - only the failing stage's agent running;
+  - test identity there and back through the real final gate;
+  - kept packages with `..`, links, other apps, `bin/` or `local/` refused;
+  - nothing in the engine writing `local/` or `configs/conf-*`;
+  - in-place update refused for a missing, other-version or non-Parsewright app;
+  - exact rollback, and a tampered package refused;
+  - registry versions append-only, with compare-and-set on the current version;
+  - the registry lock, and the app role limited to `current_version`;
+  - the `TIME_FORMAT` check, including a backtracking bomb and a format that works only because Splunk guesses.
+- Playwright: 9 passed. New: the update review (diff, overrides, old event) renders log-derived text as text; the keyboard flow includes the new TA selector. ESLint, `tsc` and pre-commit clean.
+- **Lab, `scripts/probe.sh update` (lab-findings Q11):** `update=true` keeps `local/` and a `local/` value still overrides the new default; a changed `TIME_FORMAT` on an existing sourcetype applies with no reload; `[default]` is not readable over REST.
+- **Lab, firmware v2 against `TA-parsewright-acme-fwdemo` 1.0.0** (job `866b4273`, 37k tokens):
+  - Diagnose with no AI: index-time failed (the v1 `TIME_FORMAT = %s%3N` cannot match ISO 8601: all 300 v2 timestamps were only guessed) and CIM failed (`src` unmapped);
+  - the index-time patch dropped `TIME_FORMAT`, kept the pin and passed on v1 and v2; extraction passed as it was and was not patched;
+  - CIM attempt 1 (`FIELDALIAS src_ip AS src`) fixed v2 but broke v1 and was rejected with that evidence; attempt 2 (`EVAL-src = coalesce(src_ip,src)`) passed both;
+  - regression passed on both, with Network_Traffic 9/9; awaiting approval as 1.0.0 → 1.1.0, with a diff that touches only `props.conf` and `app.conf`.
+- **Found in the lab and fixed:**
+  - the first lab run showed that a wrong `TIME_FORMAT` passed every existing check, because Splunk silently guessed the timestamps correctly; that is the new `TIME_FORMAT` check;
+  - the same run showed patch mode letting the agent rename the production eventtype; agents now see the plain names and the gate refuses a dropped eventtype. Both earlier lab jobs were rejected.
+- `appsec`: one High (the new check could backtrack for hours), two Medium (regression samples read from any path; promotion and rollback not serialised) and six Low; all fixed with tests except L5 (accepted, see the threat model).
+
+**Cut or deferred**
+- Approve, promote in place and rollback have not run against the lab: approval is the owner's step. Unit tests cover them; the commands are under RECORD THIS.
+- Overrides are checked for props only, not `transforms.conf` or `eventtypes.conf`.
+- Rollback is CLI only, with no UI button.
+- The two TAs promoted in Phase 4 file mode are not in the registry, so only TAs promoted through the database can be updated.
+
+**RECORD THIS**
+- **Parser update:** with `parsewright serve` and the web UI running, run `demo/06_parser_update.sh`, then open the printed job page: Diagnose, the patch rejected for breaking v1, both formats passing, and the diff. Approve in the UI (a worker updates the TA in place to 1.1.0), then run `demo/06_parser_update.sh diagnose`: a new v2 batch ends at Diagnose with 0 tokens. Undo with `.venv/bin/parsewright rollback TA-parsewright-acme-fwdemo 1.0.0`.

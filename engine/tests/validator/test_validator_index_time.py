@@ -1,10 +1,13 @@
+import pytest
 from conftest import FakeSplunk
 
 from parsewright.validator.index_time import (
     check_count,
     check_fallback,
+    check_time_format,
     check_times,
     check_warnings,
+    format_pattern,
     validate,
 )
 
@@ -22,6 +25,7 @@ def test_all_checks_pass(manifest):
         "timestamp accuracy",
         "timestamp fallback",
         "parser warnings",
+        "TIME_FORMAT matches",
     ]
 
 
@@ -88,3 +92,59 @@ def test_timestamp_fallback_is_caught():
     assert check_fallback(parsed).passed
     check = check_fallback(fallback)
     assert not check.passed and "index time" in check.actual
+
+
+# --- TIME_FORMAT must really match (Phase 7) ---------------------------------------------------
+
+FW = {"TIME_PREFIX": "ts=", "MAX_TIMESTAMP_LOOKAHEAD": "20", "TIME_FORMAT": "%s%3N"}
+
+
+def test_time_format_matching_every_event_passes():
+    events = [(0, "ts=1792483219000 action=accept"), (0, "ts=1792483240000 action=drop")]
+    assert check_time_format(FW, events).passed
+
+
+def test_a_time_format_that_only_works_by_splunk_guessing_fails():
+    """Adversarial: with a wrong TIME_FORMAT Splunk falls back to guessing and can still get
+    _time right, so timestamp accuracy passes; the add-on is still wrong (lab, Phase 7)."""
+    check = check_time_format(FW, [(0, "ts=2026-10-20T08:00:38.000Z action=accept")])
+    assert not check.passed and "only guessed" in check.actual
+    assert check.examples == ["ts=2026-10-20T08:00:38.000Z action=accept"]
+
+
+def test_a_missing_prefix_or_a_too_short_lookahead_fails():
+    assert not check_time_format(FW, [(0, "time=1792483219000 a=1")]).passed
+    short = FW | {"MAX_TIMESTAMP_LOOKAHEAD": "10"}
+    assert not check_time_format(short, [(0, "ts=1792483219000 a=1")]).passed
+
+
+@pytest.mark.parametrize(
+    "fmt,prefix,raw",
+    [
+        ("%Y-%m-%dT%H:%M:%S%:z", '"time":"', '{"time":"2026-10-20T08:00:46+00:00","x":1}'),
+        ("%b %d %H:%M:%S", None, "Oct  5 08:00:46 bastion01 sshd[1]: Accepted"),
+        ("%Y-%m-%dT%H:%M:%SZ", None, "2026-10-20T08:00:46Z,192.0.2.1,alice"),
+        ("%Y-%m-%d %H:%M:%S", '"time":"', '{"time":"2026-10-20 17:00:46","x":1}'),
+    ],
+)
+def test_every_fixture_timestamp_style_matches_its_format(fmt, prefix, raw):
+    settings = {"TIME_FORMAT": fmt} | ({"TIME_PREFIX": prefix} if prefix else {})
+    assert check_time_format(settings, [(0, raw)]).passed
+
+
+def test_an_unset_format_passes_and_an_unknown_directive_fails_closed():
+    assert check_time_format({"TIME_PREFIX": "ts="}, [(0, "ts=x")]).actual.startswith("not set")
+    assert format_pattern("%Y %c") is None
+    unknown = check_time_format({"TIME_FORMAT": "%Y %c"}, [(0, "2026 x")])
+    assert not unknown.passed and "cannot verify" in unknown.actual
+    millis = {"TIME_FORMAT": "%Y-%m-%d %H:%M:%S.%3Q"}
+    assert check_time_format(millis, [(0, "2026-10-20 08:00:46.123 x")]).passed
+
+
+def test_a_backtracking_time_format_cannot_hang_the_check():
+    """Adversarial (appsec Phase 7 H1): %N%N%N... against long digit runs used to take hours."""
+    import time
+
+    start = time.monotonic()
+    check = check_time_format({"TIME_FORMAT": "%N" * 12 + "x"}, [(0, "1" * 60 + "!")] * 300)
+    assert not check.passed and time.monotonic() - start < 5

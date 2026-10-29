@@ -116,19 +116,25 @@ class FakeSplunk:
     def count(self, index, sourcetype, source=None):
         return len(self.data.get(sourcetype, []))
 
-    def wait_stable(self, index, sourcetype):
+    def wait_stable(self, index, sourcetype, source=None):
         return self.count(index, sourcetype)
 
     def events(self, index, sourcetype):
         return self.data.get(sourcetype, [])
 
-    def events_with_indextime(self, index, sourcetype):
+    def events_with_indextime(self, index, sourcetype, source=None):
         return [(e, e + 86400 * 7, raw) for e, raw in self.events(index, sourcetype)]
 
     def parser_warnings(self, sourcetype, since, app, caught_up_to):
         if isinstance(self.warnings, Exception):
             raise self.warnings
         return self.warnings
+
+
+def vpn_events(manifest: dict, shift: int = 0) -> list[tuple[int, str]]:
+    """The VPN fixture's real lines with their epochs: the TIME_FORMAT check reads the raw."""
+    lines = [ln for ln in (FIXTURES / "acme_vpn.json").read_text().splitlines() if ln]
+    return [(e + shift, raw) for e, raw in zip(manifest["epochs"], lines, strict=True)]
 
 
 @pytest.fixture
@@ -182,17 +188,21 @@ def pg_dsn():
 
 @pytest.fixture
 def pg(pg_dsn):
-    """A Store on the test database, emptied of jobs first (the ledger is append-only, so its
-    rows are removed by dropping the trigger only inside this test helper)."""
+    """A Store on the test database, emptied of jobs first (the ledger and the registry history
+    are append-only, so their rows are removed by disabling the triggers only inside this
+    test helper)."""
     from parsewright.ledger import store as db
 
     conn = db.connect(pg_dsn)
+    append_only = ("ledger", "ta_versions", "ta_events")
     with conn.transaction():
-        conn.execute("ALTER TABLE ledger DISABLE TRIGGER ledger_no_update")
-        conn.execute("ALTER TABLE ledger DISABLE TRIGGER ledger_no_truncate")
-        conn.execute("TRUNCATE ledger, jobs, usage")
-        conn.execute("ALTER TABLE ledger ENABLE TRIGGER ledger_no_update")
-        conn.execute("ALTER TABLE ledger ENABLE TRIGGER ledger_no_truncate")
+        for table in append_only:
+            conn.execute(f"ALTER TABLE {table} DISABLE TRIGGER {table}_no_update")
+            conn.execute(f"ALTER TABLE {table} DISABLE TRIGGER {table}_no_truncate")
+        conn.execute("TRUNCATE ledger, ta_events, ta_versions, tas, jobs, usage")
+        for table in append_only:
+            conn.execute(f"ALTER TABLE {table} ENABLE TRIGGER {table}_no_update")
+            conn.execute(f"ALTER TABLE {table} ENABLE TRIGGER {table}_no_truncate")
         conn.execute("UPDATE settings SET value = 'false'::jsonb WHERE key = 'kill_switch'")
     yield db.Store(conn)
     conn.close()

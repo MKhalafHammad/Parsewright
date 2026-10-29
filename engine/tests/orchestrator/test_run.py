@@ -1,7 +1,7 @@
 import shutil
 
 import pytest
-from conftest import FIXTURES, PROFILE, FakeSplunk, fake_llm, proposal
+from conftest import FIXTURES, PROFILE, FakeSplunk, fake_llm, proposal, vpn_events
 
 from parsewright.agents.llm import TokenCeilingExceeded
 from parsewright.orchestrator.run import run
@@ -24,7 +24,7 @@ def pkgs(tmp_path):
 
 
 def truth(manifest, shift=0):
-    return [(e + shift, "{}") for e in manifest["epochs"]]
+    return vpn_events(manifest, shift)
 
 
 def go(sample, pkgs, llm, splunk, **kw):

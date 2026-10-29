@@ -4,7 +4,7 @@ import dataclasses
 import shutil
 
 import pytest
-from conftest import FIXTURES, PROFILE, FakeSplunk, fake_llm, proposal, settings
+from conftest import FIXTURES, PROFILE, FakeSplunk, fake_llm, proposal, settings, vpn_events
 
 from parsewright.orchestrator import worker as worker_mod
 from parsewright.orchestrator.run import RunAborted
@@ -32,8 +32,8 @@ def make_worker(s, name, splunk, llm):
 def test_crashed_worker_is_resumed_from_its_checkpoint(env, tmp_path, manifest):
     pg, s, sample = env
     pg.enqueue("res00001", "acme:vpn", "f" * 64, str(sample), {"auto_approve": True})
-    wrong = [(e + 3600, "{}") for e in manifest["epochs"]]
-    right = [(e, "{}") for e in manifest["epochs"]]
+    wrong = vpn_events(manifest, 3600)
+    right = vpn_events(manifest)
 
     # Worker 1 profiles, fails attempt 1, then "crashes" at the start of attempt 2.
     llm1 = fake_llm(tmp_path, [PROFILE, proposal(), proposal()])

@@ -4,6 +4,7 @@ splunkd does not warn about unknown or misspelled keys at runtime, so this allow
 syntax control: any key not listed here is rejected before Splunk sees it.
 """
 
+import re
 import time
 from collections.abc import Callable
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
@@ -66,9 +67,17 @@ def backtracking_safe(value: str, samples: list[str]) -> None:
             ) from None
 
 
+UNBOUNDED = re.compile(r"(%(?:N|Q|q|B|A|Z)|\s)\s*(?=%(?:N|Q|q|B|A|Z))")
+DIRECTIVES = re.compile(r"%(?:[369][NQ]|:z|.)")
+
+
 def _time_format(value: str) -> str:
     if "%" not in value or len(value) > 100:
         raise GuardrailBlock("must be a strptime format of at most 100 characters")
+    if len(DIRECTIVES.findall(value)) > 12:
+        raise GuardrailBlock("may use at most 12 directives")
+    if UNBOUNDED.search(value):  # e.g. %N%N: ambiguous for Splunk, and slow to check (H1)
+        raise GuardrailBlock("may not put two variable-width directives side by side")
     return value
 
 
@@ -90,7 +99,11 @@ ALLOWED: dict[str, Callable[[str], str]] = {
     "TRUNCATE": _int(256, 100_000),  # 0 (unlimited) is refused: giant events (design bounds)
     "MAX_EVENTS": _int(1, 2000),  # lines per multi-line event; 0 (unlimited) is refused
 }
-REQUIRED = ("SHOULD_LINEMERGE", "LINE_BREAKER", "TIME_FORMAT")
+REQUIRED = ("SHOULD_LINEMERGE", "LINE_BREAKER")
+# Without TIME_FORMAT Splunk recognises the timestamp itself (the way to accept two formats in
+# one sourcetype, e.g. before and after a firmware upgrade; lab-findings Q11). It must then be
+# told exactly where to look, so a number elsewhere in the event can never become _time.
+UNPINNED_NEEDS = ("TIME_PREFIX", "MAX_TIMESTAMP_LOOKAHEAD")
 
 
 def gate(settings: dict[str, str], samples: list[str] | None = None) -> dict[str, str]:
@@ -101,6 +114,10 @@ def gate(settings: dict[str, str], samples: list[str] | None = None) -> dict[str
     for key in REQUIRED:
         if key not in settings:
             raise GuardrailBlock(f"{key} is required")
+    if "TIME_FORMAT" not in settings:
+        for key in UNPINNED_NEEDS:
+            if key not in settings:
+                raise GuardrailBlock(f"{key} is required when TIME_FORMAT is not set")
     for key, value in settings.items():
         try:
             ALLOWED[key](value)

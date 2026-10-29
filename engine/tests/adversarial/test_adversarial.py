@@ -10,7 +10,7 @@ import json
 import shutil
 
 import pytest
-from conftest import FIXTURES, PROFILE, FakeSplunk, fake_llm, proposal
+from conftest import FIXTURES, PROFILE, FakeSplunk, fake_llm, proposal, vpn_events
 
 from parsewright.agents.cim_mapper import CimProposal, Eval, EventType
 from parsewright.agents.llm import as_data
@@ -346,7 +346,7 @@ def test_blocked_proposal_is_never_deployed(tmp_path, manifest):
         shutil.copy(FIXTURES / name, work / name)
     pkgs = tmp_path / "packages"
     pkgs.mkdir(mode=0o755)
-    splunk = FakeSplunk([[(e, "{}") for e in manifest["epochs"]]])
+    splunk = FakeSplunk([vpn_events(manifest)])
     llm = fake_llm(tmp_path, [PROFILE, proposal(line_breaker="[\\r\\n]+"), proposal()])
     lines: list[str] = []
     result = run(

@@ -40,7 +40,10 @@ def set_app_password(conn: psycopg.Connection, password: str) -> None:
     """Give the engine's limited role its password (from POSTGRES_APP_PASSWORD)."""
     from psycopg import sql
 
-    conn.execute(sql.SQL("ALTER ROLE parsewright_app PASSWORD {}").format(sql.Literal(password)))
+    # DDL takes no bound parameters, so the password is quoted by psycopg's sql.Literal; only
+    # `parsewright migrate` (the owner account) runs this. The rule targets SQLAlchemy text.
+    statement = sql.SQL("ALTER ROLE parsewright_app PASSWORD {}").format(sql.Literal(password))
+    conn.execute(statement)  # nosemgrep
 
 
 def migrate(conn: psycopg.Connection) -> list[str]:
@@ -141,22 +144,44 @@ class Store:
         worker: str | None = None,
         **fields: Any,
     ) -> bool:
-        """UPDATE ... WHERE status = expected (and owner); True only if exactly one row moved."""
+        """UPDATE ... WHERE status = expected (and owner); True only if exactly one row moved.
+
+        One fixed statement: each optional field is set only when its flag is true, so no SQL is
+        ever built from strings."""
         expected = (expected,) if isinstance(expected, str) else expected
-        sets, params = ["status = %s", "updated_at = now()"], [new]
-        for name, value in fields.items():
-            if name not in ("state", "record", "worker_id", "lease_until"):
-                raise ValueError(f"unknown job field {name}")
-            sets.append(f"{name} = %s")  # names from the fixed list above, never input
-            params.append(Jsonb(value) if name in ("state", "record") else value)
-        where = "id = %s AND status = ANY(%s)"
-        params += [job, list(expected)]
-        if worker is not None:
-            where += " AND worker_id = %s"
-            params.append(worker)
-        # Column names come only from the fixed list above; every value is a parameter.
-        sql = f"UPDATE jobs SET {', '.join(sets)} WHERE {where}"  # noqa: S608  # nosec B608
-        cur = self.conn.execute(sql, params)
+        unknown = set(fields) - {"state", "record", "worker_id", "lease_until"}
+        if unknown:
+            raise ValueError(f"unknown job field {', '.join(sorted(unknown))}")
+        params = {
+            "new": new,
+            "job": job,
+            "expected": list(expected),
+            "worker": worker,
+            "set_state": "state" in fields,
+            "state": Jsonb(fields.get("state")),
+            "set_record": "record" in fields,
+            "record": Jsonb(fields.get("record")),
+            "set_worker_id": "worker_id" in fields,
+            "worker_id": fields.get("worker_id"),
+            "set_lease": "lease_until" in fields,
+            "lease_until": fields.get("lease_until"),
+        }
+        cur = self.conn.execute(
+            """
+            UPDATE jobs SET
+                status = %(new)s,
+                updated_at = now(),
+                state = CASE WHEN %(set_state)s THEN %(state)s ELSE state END,
+                record = CASE WHEN %(set_record)s THEN %(record)s ELSE record END,
+                worker_id = CASE WHEN %(set_worker_id)s THEN %(worker_id)s::text
+                                 ELSE worker_id END,
+                lease_until = CASE WHEN %(set_lease)s THEN %(lease_until)s::timestamptz
+                                   ELSE lease_until END
+            WHERE id = %(job)s AND status = ANY(%(expected)s)
+              AND (%(worker)s::text IS NULL OR worker_id = %(worker)s)
+            """,
+            params,
+        )
         if cur.rowcount == 1:
             self.event(job, "state", {"from": list(expected), "to": new})
             return True

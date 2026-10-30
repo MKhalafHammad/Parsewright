@@ -328,10 +328,14 @@ One entry per completed phase, appended at the end of the phase (see CLAUDE.md, 
 - `appsec`: one High (the new check could backtrack for hours), two Medium (regression samples read from any path; promotion and rollback not serialised) and six Low; all fixed with tests except L5 (accepted, see the threat model).
 
 **Cut or deferred**
-- Approve, promote in place and rollback have not run against the lab: approval is the owner's step. Unit tests cover them; the commands are under RECORD THIS.
+- Rollback has not run against the lab yet (unit tests cover it). Approve and in-place promotion ran on Oct 30, see below.
 - Overrides are checked for props only, not `transforms.conf` or `eventtypes.conf`.
 - Rollback is CLI only, with no UI button.
 - The two TAs promoted in Phase 4 file mode are not in the registry, so only TAs promoted through the database can be updated.
+
+**Lab, Oct 30 (owner approval):**
+- The owner approved `866b4273` in the UI. Four seconds later a worker updated `TA-parsewright-acme-fwdemo` in place, 1.0.0 → 1.1.0, rebuilt from the approved package `d05bc005…` (installed as `f4bc33f9…`). Smoke test 20/20 passed, and the read-back found every changed setting in effect. Registry: current 1.1.0, versions 1.0.0 and 1.1.0.
+- `demo/06_parser_update.sh diagnose` (job `1a0521ec`): a fresh batch of 120 v2 events ended at Diagnose, "no change needed", **0 tokens**.
 
 **RECORD THIS**
 - **Parser update:** with `parsewright serve` and the web UI running, run `demo/06_parser_update.sh`, then open the printed job page: Diagnose, the patch rejected for breaking v1, both formats passing, and the diff. Approve in the UI (a worker updates the TA in place to 1.1.0), then run `demo/06_parser_update.sh diagnose`: a new v2 batch ends at Diagnose with 0 tokens. Undo with `.venv/bin/parsewright rollback TA-parsewright-acme-fwdemo 1.0.0`.

@@ -15,7 +15,7 @@ Updated at the end of every phase.
 | 4 | Guardrails, adversarial suite, workflow integrity | Oct 31 | Done | Oct 28 |
 | 5 | Job queue, workers, ledger, FastAPI, event stream | Nov 1 | Done (owner: `docker compose up` check pending) | Oct 28 |
 | 6 | Next.js UI (four screens) | Nov 2 | Done | Oct 28 |
-| 7 | Parser updates | Nov 3 (morning, only if ahead) | Done (owner: approve, promote and rollback in the lab pending) | Oct 28 |
+| 7 | Parser updates | Nov 3 (morning, only if ahead) | Done (lab rollback not yet run) | Oct 28 (lab promotion Oct 30) |
 | 8 | Drift pipeline (stretch) | Unscheduled | Not started | |
 | 9 | Mixed-feed routing (stretch) | Unscheduled | Not started | |
 | 10 | Judges' Docker setup, README, demo preparation | Nov 3 (fixed) | Not started | |

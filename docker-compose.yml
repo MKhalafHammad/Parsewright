@@ -20,6 +20,8 @@ services:
       - splunk-var:/opt/splunk/var
       # The engine's add-on packages, read-only for Splunk (Q6, T5.9).
       - packages:/opt/parsewright/packages:ro
+      # Licensed add-ons that cannot be committed (the CIM add-on), read-only (lab/README.md).
+      - ./lab:/opt/parsewright/lab:ro,z
     restart: unless-stopped
 
   postgres:
@@ -71,6 +73,7 @@ services:
     environment:
       DATABASE_URL: postgresql://parsewright_app:${POSTGRES_APP_PASSWORD:?set POSTGRES_APP_PASSWORD in .env}@postgres:5432/${POSTGRES_DB}
       PARSEWRIGHT_TEST_INDEX: ${PARSEWRIGHT_TEST_INDEX:-pw_test}
+      PARSEWRIGHT_RUN_TOKEN_CEILING: ${PARSEWRIGHT_RUN_TOKEN_CEILING:-300000}
       ALLOWED_HOSTS: localhost,127.0.0.1,engine
       WEB_ORIGIN: http://localhost:${WEB_PORT:-3000}
       SPLUNK_HOST: splunk

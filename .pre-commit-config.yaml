@@ -16,6 +16,8 @@ repos:
       - id: check-yaml
       - id: check-toml
       - id: check-json
+        # Log fixtures are JSON Lines (one event per line), not one JSON document.
+        exclude: ^engine/parsewright/generator/fixtures/(?!.*\.manifest\.json$).*\.json$
       - id: check-merge-conflict
       - id: check-added-large-files
       - id: detect-private-key

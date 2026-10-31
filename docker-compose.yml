@@ -1,6 +1,8 @@
 # Parsewright local stack. Every secret comes from .env (see .env.example).
-# Published to the host (127.0.0.1 only): Splunk Web and the web UI.
-# Internal only: Splunk management port 8089 and PostgreSQL.
+# Published to the host (127.0.0.1 only): Splunk Web, the web UI, and PostgreSQL on 55432
+# (for the CLI on the host; 5432 is often Splunk 10's own internal PostgreSQL, and 543x ports
+# are often taken by other local services).
+# Internal only: Splunk management port 8089.
 name: parsewright
 
 services:
@@ -16,11 +18,17 @@ services:
     volumes:
       - splunk-etc:/opt/splunk/etc
       - splunk-var:/opt/splunk/var
+      # The engine's add-on packages, read-only for Splunk (Q6, T5.9).
+      - packages:/opt/parsewright/packages:ro
+      # Licensed add-ons that cannot be committed (the CIM add-on), read-only (lab/README.md).
+      - ./lab:/opt/parsewright/lab:ro,z
     restart: unless-stopped
 
   postgres:
     image: postgres:17.11-alpine
-    # The entrypoint drops to the unprivileged "postgres" user. No ports: internal only.
+    # The entrypoint drops to the unprivileged "postgres" user. Localhost only, for the CLI.
+    ports:
+      - "127.0.0.1:${POSTGRES_PORT:-55432}:5432"
     environment:
       POSTGRES_DB: ${POSTGRES_DB:?set POSTGRES_DB in .env}
       POSTGRES_USER: ${POSTGRES_USER:?set POSTGRES_USER in .env}
@@ -36,14 +44,38 @@ services:
       - no-new-privileges:true
     restart: unless-stopped
 
-  # Planned: engine/Dockerfile and web/Dockerfile (non-root) land with the first
-  # runnable code. Until then these services sit behind the "app" profile, so
-  # `make up` starts Splunk and PostgreSQL only.
-  engine:
-    profiles: ["app"]
+  # One-shot: migrations and the app role's password. The only service with the database
+  # owner's credentials; the engine itself connects as the limited parsewright_app role.
+  migrate:
     build: ./engine
+    command: ["parsewright", "--env-file", "/dev/null", "migrate"]
     environment:
-      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      MIGRATE_DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      POSTGRES_APP_PASSWORD: ${POSTGRES_APP_PASSWORD:?set POSTGRES_APP_PASSWORD in .env}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    security_opt:
+      - no-new-privileges:true
+    cap_drop: [ALL]
+    read_only: true
+    restart: "no"
+
+  # The engine (API + worker pool), non-root, no Docker socket, no capabilities, read-only
+  # root filesystem.
+  engine:
+    build: ./engine
+    ports:
+      - "127.0.0.1:${ENGINE_PORT:-8080}:8080"
+    volumes:
+      - packages:/opt/parsewright/packages
+      - runs:/app/.runs
+    environment:
+      DATABASE_URL: postgresql://parsewright_app:${POSTGRES_APP_PASSWORD:?set POSTGRES_APP_PASSWORD in .env}@postgres:5432/${POSTGRES_DB}
+      PARSEWRIGHT_TEST_INDEX: ${PARSEWRIGHT_TEST_INDEX:-pw_test}
+      PARSEWRIGHT_RUN_TOKEN_CEILING: ${PARSEWRIGHT_RUN_TOKEN_CEILING:-300000}
+      ALLOWED_HOSTS: localhost,127.0.0.1,engine
+      WEB_ORIGIN: http://localhost:${WEB_PORT:-3000}
       SPLUNK_HOST: splunk
       SPLUNK_PORT: "8089"
       SPLUNK_SEARCH_TOKEN: ${SPLUNK_SEARCH_TOKEN:?set SPLUNK_SEARCH_TOKEN in .env}
@@ -53,28 +85,38 @@ services:
       LLM_BASE_URL: ${LLM_BASE_URL:?set LLM_BASE_URL in .env}
       LLM_MODEL: ${LLM_MODEL:?set LLM_MODEL in .env}
     depends_on:
-      postgres:
-        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
       splunk:
         condition: service_healthy
     security_opt:
       - no-new-privileges:true
+    cap_drop: [ALL]
+    read_only: true
+    tmpfs: [/tmp]
     restart: unless-stopped
 
   web:
-    profiles: ["app"]
     build: ./web
     environment:
       ENGINE_URL: http://engine:8080
+      # The browser reaches the UI only by these names (DNS-rebinding guard, threat T8.5).
+      ALLOWED_HOSTS: localhost:${WEB_PORT:-3000},127.0.0.1:${WEB_PORT:-3000}
+      WEB_ORIGINS: http://localhost:${WEB_PORT:-3000},http://127.0.0.1:${WEB_PORT:-3000}
     ports:
       - "127.0.0.1:${WEB_PORT:-3000}:3000"
     depends_on:
       - engine
     security_opt:
       - no-new-privileges:true
+    cap_drop: [ALL]
+    read_only: true
+    tmpfs: [/tmp]
     restart: unless-stopped
 
 volumes:
   splunk-etc:
   splunk-var:
   pgdata:
+  packages:
+  runs:

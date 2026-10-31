@@ -9,16 +9,17 @@ Updated at the end of every phase.
 | # | Phase | Target date | Status | Date completed |
 | --- | --- | --- | --- | --- |
 | 0 | Repository foundation | Oct 27 | Done | Oct 27 |
-| 1 | Threat model and lab verification | Oct 27 | In progress: code and docs done, OWNER lab runs pending | |
-| 2 | Walking skeleton (JSON, CLI, end to end) | Oct 28 | Not started | |
-| 3 | Extraction, CIM mapper, full Validator, generator | Oct 29–30 | Not started | |
-| 4 | Guardrails, adversarial suite, workflow integrity | Oct 31 | Not started | |
-| 5 | Job queue, workers, ledger, FastAPI, event stream | Nov 1 | Not started | |
-| 6 | Next.js UI (four screens) | Nov 2 | Not started | |
-| 7 | Parser updates | Nov 3 (morning, only if ahead) | Not started | |
+| 1 | Threat model and lab verification | Oct 27 | Done | Oct 27 |
+| 2 | Walking skeleton (JSON, CLI, end to end) | Oct 28 | Done | Oct 27 |
+| 3 | Extraction, CIM mapper, full Validator, generator | Oct 29–30 | Done | Oct 28 |
+| 4 | Guardrails, adversarial suite, workflow integrity | Oct 31 | Done | Oct 28 |
+| 5 | Job queue, workers, ledger, FastAPI, event stream | Nov 1 | Done (owner: `docker compose up` check pending) | Oct 28 |
+| 6 | Next.js UI (four screens) | Nov 2 | Done | Oct 28 |
+| 7 | Parser updates | Nov 3 (morning, only if ahead) | Done | Oct 28 (lab promotion and rollback Oct 30) |
+| 7b | UI redesign (agent-centred, readable, navigable) | Before Phase 8 | Done | Oct 30 |
 | 8 | Drift pipeline (stretch) | Unscheduled | Not started | |
 | 9 | Mixed-feed routing (stretch) | Unscheduled | Not started | |
-| 10 | Judges' Docker setup, README, demo preparation | Nov 3 (fixed) | Not started | |
+| 10 | Judges' Docker setup, README, demo preparation | Nov 3 (fixed) | In progress (owner: clean-VM test, image digests, rehearsal) | |
 | — | Demo video and submission only | Nov 4, before 9:00 PM ET | — | |
 
 ## How to read this plan
@@ -26,7 +27,7 @@ Updated at the end of every phase.
 - **Order is priority.** A working product exists after Phase 2; each later phase is an addition. If time runs out, cut from the bottom, except Phase 10, which is fixed on Nov 3 and is never cut.
 - **Phases 8 and 9 have no date.** They run only if an earlier phase finishes a day early.
 - **Nov 4 is reserved.** The only work that day is the demo video and the submission form. No code changes after Nov 3 except a fix for a demo-breaking bug.
-- **One phase = one branch and one pull request.** CI must be green. The owner merges, and the Status table is updated in the same PR.
+- **One phase = one pull request from `dev` into `main`.** CI must be green. The owner merges, and the Status table is updated in the same PR.
 - **Non-negotiables apply from Phase 2, not Phase 4.** CLAUDE.md requires them from the first deploy, so Phase 2 already contains minimal versions of:
   - the escaping conf writer;
   - the test identity;
@@ -102,7 +103,7 @@ Updated at the end of every phase.
 - **Meta credits:** claim the $150 credits, set the spend limit on the billing page, and put `LLM_API_KEY` in `.env`.
 - **Run the probes:** run both scripts and paste the output into `docs/lab-findings.md`. If you'd rather, give me the output and I'll write it in.
 - **Decide** deploy path A or B, the `btool` approach, and four agents or three.
-- **GitHub:** set `main` as the default branch and turn on branch protection and private vulnerability reporting.
+- **GitHub:** set `main` as the default branch and turn on branch protection and private vulnerability reporting. *(2026-10-27: branch protection skipped by the owner. The owner still merges every PR from `dev`, and CI runs on each PR, but nothing on GitHub enforces it.)*
 
 ### Appsec review focus
 - Completeness of the threat model, especially:
@@ -150,10 +151,24 @@ Updated at the end of every phase.
 - **Orchestrator:** `orchestrator/run.py` runs Profile → (auto-approved review) → Index-time, retrying up to 5 times with evidence. Its state lives in memory; PostgreSQL arrives in Phase 5.
 - **CLI:** `parsewright run <file>`, a `[project.scripts]` entry, prints the stage, attempt, check result and evidence.
 
+### Carried over from Phase 1 (lab findings and appsec review)
+- **Deploy:** install the complete `.tgz` through `apps/local` with `update=true` (Q6).
+  - The packages folder is checked: a real directory, owned by the engine user, not group- or world-writable.
+  - Packages are written with `O_EXCL|O_NOFOLLOW` under a unique name, and the SHA-256 is re-checked just before install (T5.9).
+  - The package file allowlist arrives now, not in Phase 4 (T2.2, T3.4).
+  - The install and delete helpers assert the app-name pattern and the package path before every call (T7.4).
+- **Ingest:**
+  - `receivers/simple` into the one shared `PARSEWRIGHT_TEST_INDEX` (Q8, Q9).
+  - The sourcetype is `<st>__test_<job>_a<attempt>`, and before ingest the code asserts it has 0 events, else bumps the attempt number (T4.5).
+  - No reload is needed (Q3); keep one `conf-props` reload only as a logged safety net.
+- **LLM client:** uses `response_format` with a strict JSON schema, and `max_tokens` leaves headroom for reasoning (Q1). Hitting the cap counts as bad output.
+- **Agent `run_search`:** code owns the base search (`search index=<test index> sourcetype=<own attempt>`); the agent appends only a `|` pipeline (T1.2). *(Moved to Phase 3: in Phase 2 the agents get Validator evidence and no search tool.)*
+- **Gate:** the index-time key allowlist with typed values and bounds. A post-ingest `_internal` warning check fails closed (Q7, T2.11).
+
 ### Acceptance criteria
 - `parsewright run engine/parsewright/generator/fixtures/<sample>.json` exits 0 against the lab and prints `index-time: PASS (event count 60/60)`.
 - During the run, Splunk shows the app `TA-parsewright-<vendor>-<product>__test_<job>` and the sourcetype `<st>__test_<job>`. The real names never appear.
-- The data lands in an index named `pw_<job>_indextime_<attempt>`, and its count equals the manifest's.
+- The data lands in the shared test index (`PARSEWRIGHT_TEST_INDEX`) under the sourcetype `<st>__test_<job>_a<attempt>`, and its count for that sourcetype equals the manifest's.
 - Unit tests:
   - the conf writer rejects a value containing `\n` or `\r`;
   - the TA-name pattern rejects `../x`, `A-B` and `x y`;
@@ -530,6 +545,28 @@ This is the main appsec phase; review everything above, especially:
 
 ### If late, cut
 - The whole phase. It becomes a roadmap item in the README.
+
+---
+
+## Phase 7b — UI redesign (agent-centred, readable, navigable)
+
+**Goal:** a non-expert can tell within 5 seconds which agent is working and on what, which phase and attempt the job is in and how much budget is left, what each phase produced and why it passed or failed, how a parsed event compares with its raw line, and what changed in the config, in plain language. Runs before every remaining phase.
+**Owners:** `engine` (the event labels only), `frontend`, `qa`, `appsec` (rendering of untrusted text).
+
+### Deliverables
+- **Data contract (engine):** every ledger log event carries `stage`, `attempt`, `visit`, `actor`, `kind` and a structured `detail`; parser-update reviews carry structured `changes`. The text line is unchanged for the CLI.
+- **Actor identity system:** `web/lib/actors.ts`, one icon, accent, tagline and kind marker per actor, used on every screen.
+- **Screens:** runs board ("Needs you", new-run sheet); run workspace (meters, Now banner, phase rail, attempts, backtracks); live activity grouped by phase and attempt with filters and "Jump to latest"; readable config and row diffs; raw vs parsed with field colours and a CIM view; approval summary with a sticky decision bar; profile review with coverage bars and change markers; read-only TA registry.
+- **Tokens:** light and dark themes in `web/app/globals.css`, WCAG AA for every text and status pair.
+
+### Acceptance criteria
+- No diff anywhere shows `---`, `+++`, `@@` or a leading `+`/`-` (Playwright).
+- Each phase and attempt opens from `/runs/<job>?phase=<phase>&attempt=<n>`, during and after a run; back and forward work; arrow keys move along the phase rail (Playwright).
+- Log-derived text in the feed, phase view, diffs and config view renders as text (Playwright XSS tests).
+- `make lint`, `make test`, `make security` and the e2e suite pass; `appsec` has reviewed the rendering of untrusted text.
+
+### RECORD THIS
+- **The live workspace:** `demo/07_live_workspace.sh`, then open the printed workspace.
 
 ---
 

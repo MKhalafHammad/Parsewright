@@ -5,6 +5,8 @@ Run: python -m parsewright.tools.probes.probe_splunk
      (reads SPLUNK_HOST, SPLUNK_PORT, SPLUNK_SEARCH_TOKEN, SPLUNK_DEPLOY_TOKEN)
 """
 
+import base64
+import binascii
 import json
 import os
 import re
@@ -13,7 +15,7 @@ import time
 
 import splunklib.client as client
 import splunklib.results as results
-from splunklib.binding import HTTPError
+from splunklib.binding import AuthenticationError, HTTPError
 
 PROBE_INDEX = "pw_probe"
 # Capabilities the deploy role may need; printed so the owner can trim the role (Q9).
@@ -47,11 +49,49 @@ def connect(token: str) -> client.Service:
     )
 
 
-def whoami(service: client.Service, label: str) -> None:
-    body = service.get("authentication/current-context", output_mode="json").body.read()
+def token_shape(token: str) -> str:
+    """Describe a Splunk token without revealing it: length, form, and the JWT's user and expiry.
+
+    The signature (the secret part) is never decoded or printed.
+    """
+    if not token:
+        return "empty: the variable is set but has no value"
+    notes = [f"length={len(token)}"]
+    if token != token.strip():
+        notes.append("has leading/trailing whitespace")
+    if token[:1] in "\"'" or token[-1:] in "\"'":
+        notes.append("has quote characters")
+    parts = token.strip().strip("\"'").split(".")
+    if len(parts) != 3:
+        return ", ".join([*notes, f"not a JWT ({len(parts)} parts, expected 3): copied wrong?"])
+    try:
+        padded = parts[1] + "=" * (-len(parts[1]) % 4)
+        claims = json.loads(base64.urlsafe_b64decode(padded))
+    except (ValueError, binascii.Error):
+        return ", ".join([*notes, "payload not decodable: copied wrong?"])
+    if not isinstance(claims, dict):
+        return ", ".join([*notes, "payload is not a JSON object: copied wrong?"])
+    notes.append(f"user={claims.get('sub')}")
+    if "exp" in claims:
+        try:
+            left = int(claims["exp"]) - int(time.time())
+        except (TypeError, ValueError):
+            notes.append("expiry not a number")
+        else:
+            notes.append("EXPIRED" if left <= 0 else f"expires in {left // 3600}h")
+    return ", ".join(notes)
+
+
+def whoami(service: client.Service, label: str, token: str) -> bool:
+    try:
+        body = service.get("authentication/current-context", output_mode="json").body.read()
+    except AuthenticationError:
+        print(f"{label}: REJECTED by Splunk (401). Token shape: {token_shape(token)}")
+        return False
     content = json.loads(body)["entry"][0]["content"]
     caps = sorted(INTERESTING & set(content.get("capabilities", [])))
     print(f"{label}: user={content['username']} roles={content['roles']} notable_caps={caps}")
+    return True
 
 
 def count(service: client.Service, spl: str) -> int:
@@ -66,10 +106,15 @@ def count(service: client.Service, spl: str) -> int:
 
 
 def main() -> int:
-    search = connect(os.environ["SPLUNK_SEARCH_TOKEN"])
-    deploy = connect(os.environ["SPLUNK_DEPLOY_TOKEN"])
-    whoami(search, "search token")
-    whoami(deploy, "deploy token")
+    search_token = os.environ["SPLUNK_SEARCH_TOKEN"]
+    deploy_token = os.environ["SPLUNK_DEPLOY_TOKEN"]
+    search = connect(search_token)
+    deploy = connect(deploy_token)
+    ok = whoami(search, "search token", search_token)
+    ok = whoami(deploy, "deploy token", deploy_token) and ok
+    if not ok:
+        print("stopping: fix the rejected token in .env and run again")
+        return 1
 
     index = require_pw_index(PROBE_INDEX)
     tstats = f"| tstats count where index={index}"
@@ -83,7 +128,12 @@ def main() -> int:
 
     before = count(search, tstats)
     lines = "\n".join(f"probe line {i} ts={int(time.time())}" for i in range(3))
-    deploy.indexes[index].submit(lines, sourcetype="pw_probe", source="parsewright_probe")
+    try:
+        deploy.indexes[index].submit(lines, sourcetype="pw_probe", source="parsewright_probe")
+    except HTTPError as e:
+        hint = " (deploy role likely lacks edit_tcp)" if e.status == 403 else ""
+        print(f"receivers/simple: refused HTTP {e.status}{hint}")
+        return 1
     seen, stable = before, 0
     for _ in range(30):  # wait until two consecutive polls match, as the Validator will
         time.sleep(2)

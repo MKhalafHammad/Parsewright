@@ -104,6 +104,8 @@ Four core Muse Spark agents, plus an optional Router for shared feeds and a Drif
 
 The TA files on disk are the source of truth: each attempt reads them fresh rather than relying on the agent's memory of what it wrote.
 
+*(2026-10-28, Phase 3: agents get this context prepared by code rather than calling `run_search` themselves. Forced tool calls returned HTTP 400 on the Meta Model API in Phase 1, and prepared context covers the table above. `run_search` (code-owned base search, command allowlist, 50 rows) and `test_regex` are built and tested. `test_regex` runs inside the gate: an `EXTRACT-` regex that matches none of the sample events is blocked, with that reason sent back to the agent. Search-time stages reuse the events indexed by the passing index-time attempt and only reinstall the add-on, so they cost no ingest.)*
+
 ### Tools per agent
 
 | Agent | `run_search` (read-only, scoped) | `test_regex` (local) | Deploy, reload, ingest |
@@ -154,9 +156,9 @@ A run goes from upload to an approved `.tgz` in eight steps; steps 4 to 6 each r
 ### Inner loop for every stage attempt
 
 1. **Generate:** the stage's agent gets its curated context and returns its config (schema-validated).
-2. **Gate:** guardrails check it: key allowlist, `btool check`, regex safety, scope.
-3. **Deploy:** write the new TA version to `/opt/splunk/etc/apps/TA-*/default/` via REST under its test identity (see Test identity) and reload configs (no restart).
-4. **Ingest:** oneshot the samples into a fresh index, `pw_<run>_<stage>_<attempt>`, then wait until the event count is stable.
+2. **Gate:** guardrails check it: key allowlist, `btool check`, regex safety, scope. *(2026-10-27: `btool check` is replaced by a key allowlist with typed values and bounds, run before deploy, plus a post-install check: any splunkd warning about the test add-on fails the attempt, and the warning becomes evidence. splunkd does not warn about unknown or misspelled keys at runtime, so the allowlist is the only syntax control; the post-install check catches parsing warnings. No shell, sidecar or Docker socket. See [lab-findings.md](lab-findings.md), Q7.)*
+3. **Deploy:** write the new TA version to `/opt/splunk/etc/apps/TA-*/default/` via REST under its test identity (see Test identity) and reload configs (no restart). *(2026-10-27: done by installing the complete `.tgz` through the `apps/local` endpoint with `update=true`, from a shared packages folder; never through the `configs/conf-*` endpoints. See [lab-findings.md](lab-findings.md#q6-deploy-path), Q6.)*
+4. **Ingest:** oneshot the samples into a fresh index, `pw_<run>_<stage>_<attempt>`, then wait until the event count is stable. *(2026-10-27: ingest posts the samples to `receivers/simple`, not oneshot. A newly installed sourcetype's index-time settings apply to the very next ingest with no reload or restart. All test ingests go to **one shared index**, `PARSEWRIGHT_TEST_INDEX` (for example `pw_test`), created once by an admin. The engine never creates or deletes indexes. Each attempt has its own sourcetype (see Test identity), and every Validator search filters on that exact sourcetype, so attempts and jobs never mix. See [lab-findings.md](lab-findings.md), Q3, Q8 and Q9.)*
 5. **Validate:** run that stage's fixed SPL checks, plus a quick regression re-run of earlier stages' checks.
 6. **Decide:** pass moves to the next stage; fail returns to the same agent with evidence (expected, actual, up to 3 failing events).
 
@@ -181,13 +183,15 @@ Every test deploy runs under a separate app name and a separate sourcetype name,
 | Item | Production name | Test name |
 | --- | --- | --- |
 | App | `TA-parsewright-fortinet-fortigate` | `TA-parsewright-fortinet-fortigate__test_<job>` |
-| Sourcetype (every stanza, eventtype and search in the copy) | `fortinet:fortigate:traffic` | `fortinet:fortigate:traffic__test_<job>` |
+| Sourcetype (every stanza, eventtype and search in the copy) | `fortinet:fortigate:traffic` | `fortinet:fortigate:traffic__test_<job>_a<attempt>` |
 | Generic sourcetype for routing tests | `syslog` | `syslog__test_<job>` |
 | Transforms | `parsewright_<job>_…` | Same prefix plus `__test` |
 
+*(2026-10-27: the sourcetype also carries the attempt number, `__test_<job>_a<attempt>`. Every attempt is then a new sourcetype, which is the case the lab proved applies without a reload (Q3). It also separates attempts inside the one shared test index.)*
+
 **Applies to** new builds and parser updates alike: samples are ingested into the test index with the test sourcetype, and test apps are removed with the job's other test resources.
 
-**At promotion.** Code, never the agent, renames the tested package back to the real names. The rename is deterministic, but the final file differs from the tested one, so the ledger records both hashes linked by the rename, approval covers the pair, and a smoke test runs right after promotion.
+**At promotion.** Code, never the agent, renames the tested package back to the real names. The rename is deterministic, but the final file differs from the tested one, so the ledger records both hashes linked by the rename, approval covers the pair, and a smoke test runs right after promotion. *(2026-10-28: the human approves the test package's hash. Promotion derives the real package by code from exactly those approved bytes. Packages are built reproducibly, so the promoted hash is deterministic for that input. Both hashes are recorded and linked.)*
 
 ## Uploads
 
@@ -213,7 +217,7 @@ Each job takes sample logs from one log source, raw as the source writes them, p
 | Current sourcetype (e.g. `syslog`, `fw01-2`) | Test data is ingested exactly as production receives it |
 | Shared feed? | Yes runs the Routing stage |
 
-**Holdout test.** The agents see about 200 lines picked to cover each event type; the Validator ingests the full file. The parser is proven on events the model never saw ("learned from 200 lines, passed on 8,000").
+**Holdout test.** *(2026-10-28: the sample is the first 200 events in time order; the generator's event types are mixed throughout, so every type is covered. The CIM mapper's field values come from a `fieldsummary` over those same 200 events, so the holdout stays unseen.)* The agents see about 200 lines picked to cover each event type; the Validator ingests the full file. The parser is proven on events the model never saw ("learned from 200 lines, passed on 8,000").
 
 **Drop folder.** Each new subfolder is one job: the log files plus an optional `job.yaml` with the form fields. Symlinks are never followed.
 
@@ -349,6 +353,8 @@ When a log format changes, an update job patches the existing TA with the smalle
 
 **Job type:** update, with states Diagnose → failing stages only → Regression → Approval → Promote.
 
+*(2026-10-28, as built in Phase 7.)* The update job installs the production TA from its kept, hash-checked package under the job's test identity, and ingests the new samples and every registered version's samples under one test sourcetype per attempt, told apart by `source`; every check runs on every set. A later stage that passes as it is is not patched. A patch may add eventtypes but never drop or rename a production one. Updates are a minor version above the highest registered version (so an update after a rollback never reuses a number). Promotion uses `update=true` only over a TA the registry lists at the expected version whose installed `app.conf` carries the Parsewright marker; the lab confirmed `update=true` keeps `local/` ([lab-findings.md](lab-findings.md), Q11). Overrides are flagged by comparing the effective settings with the TA's own `default/`, and with Splunk's documented defaults for keys the TA does not set. After the in-place install the effective settings are read back, and a changed key that is not in effect fails the smoke test. Registered samples are read only from the engine's private runs folder, never through a link, and only while their intake hashes still match. Promotions and rollbacks of one TA run under one lock. Rollback is CLI only: `parsewright rollback <TA> <version>`.
+
 **Out of scope:** updating TAs not built by Parsewright. Editing a Splunkbase vendor TA directly is lost on the vendor's next upgrade; the right approach, a separate overlay TA, depends on Splunk app precedence and is left for later.
 
 ## Drift pipeline
@@ -425,6 +431,7 @@ The Validator is code plus fixed SPL, no AI: it runs searches through the Splunk
 | Parser warnings | `index=_internal sourcetype=splunkd log_level=WARN` for `DateParserVerbose`, `LineBreakingProcessor`, `AggregatorMiningProcessor` on the test source | Zero |
 | Timestamp fallback | Events with abs(`_indextime` − `_time`) < 60 s | Zero |
 | Timestamp accuracy | `_time` per event vs manifest epoch | All match |
+| `TIME_FORMAT` matches *(added 2026-10-28, Phase 7)* | Code (no SPL): every raw event's timestamp, at `TIME_PREFIX` within `MAX_TIMESTAMP_LOOKAHEAD`, matches `TIME_FORMAT` translated to a pattern | All match. When it does not, Splunk silently guesses the timestamp and can still get `_time` right, so the other checks pass by luck (found in the lab). With no `TIME_FORMAT`, the gate requires `TIME_PREFIX` and `MAX_TIMESTAMP_LOOKAHEAD`: that is how two formats coexist in one sourcetype after an upgrade |
 
 ### Extraction checks
 
@@ -444,7 +451,7 @@ The Validator is code plus fixed SPL, no AI: it runs searches through the Splunk
 | Allowed values | e.g. `Authentication.action` not in success, failure, unknown | Zero events |
 | Child datasets | Failures land in e.g. `Failed_Authentication` | Counts match manifest categories |
 
-**CIM scoring rule (no Vladiator-style false failures):** a field counts as missing only if CIM expects it *and* the source contains it. The report shows three numbers: required fields passed, available fields mapped, and fields not in the source (informational, no penalty). Required-field lists per dataset are pinned from the CIM documentation in `cim_spec/`, not chosen by the model.
+**CIM scoring rule (no Vladiator-style false failures):** a field counts as missing only if CIM expects it *and* the source contains it. The report shows three numbers: required fields passed, available fields mapped, and fields not in the source (informational, no penalty). Required-field lists per dataset are pinned from the CIM documentation in `cim_spec/`, not chosen by the model. *(2026-10-28: pinned from the lab's Splunk_SA_CIM 8.7.0 data model definitions, which carry each field's `recommended` flag and `expected_values`, by `python -m parsewright.cim_spec.pin`; Splunk's docs site refuses automated fetches. Required = the root dataset's recommended fields. Data model rows are read with `| datamodel <Model> <Dataset> search | search sourcetype=<attempt>`: the model's output has no `index` field, so the attempt's unique sourcetype is the filter.)*
 
 **Lab prerequisite:** include `pw_*` in the CIM index macros (e.g. `cim_Authentication_indexes`) on the lab instance, or CIM checks fail falsely.
 
@@ -467,7 +474,7 @@ An AI with write access to Splunk is a risk, so every agent output passes a dete
 | No `[default]`, no broad `[source::...]` or `[host::*]` | Changing parsing for all data | Must |
 | CSV lookups inside the TA only | External lookups that run scripts | Must |
 | Routing exception: a `TRANSFORMS-` on a generic stanza only with `DEST_KEY = MetaData:Sourcetype`, and 0 misrouted events in the negative test | Any other change to a shared stanza | Must |
-| `btool check` before deploy | Syntax errors | Must |
+| ~~`btool check` before deploy~~ Key allowlist with typed values before deploy, plus a post-install splunkd-warning check that fails closed: any warning about the test add-on fails the attempt *(2026-10-27, Q7)* | Syntax errors, unknown or mistyped keys | Must |
 | Regex catastrophic-backtracking test | Stalling the parsing pipeline | Must |
 
 ### TA builder
@@ -477,7 +484,7 @@ An AI with write access to Splunk is a risk, so every agent output passes a dete
 | Reject newlines in values; one escaping conf writer | A value injecting a new stanza such as `[script://…]` | Must |
 | Names match `^[a-z0-9_:-]+$`; code adds the fixed prefix `TA-parsewright-` and the pattern applies only to the vendor and product parts; resolved paths must stay inside the TA folder | Path traversal out of the app | Must |
 | Package file allowlist: `default/`, `metadata/`, `lookups/` (CSV), `README`, `app.conf` | `bin/` scripts, `appserver/static` JavaScript in Splunk Web | Must |
-| Prefix every transform `parsewright_<job>_`; collision check via `btool` | Overriding another app's global transform name | Must |
+| Prefix every transform `parsewright_<job>_`; collision check ~~via `btool`~~ by reading existing transform names over REST (`configs/conf-transforms`) before deploy *(2026-10-27, Q7)* | Overriding another app's global transform name | Must |
 | TA named `TA-parsewright-<vendor>-<product>`; refuse if the name exists | Overwriting (and later deleting) a Splunkbase vendor TA | Must |
 
 ### Validator integrity (no gaming)
@@ -508,7 +515,7 @@ An AI with write access to Splunk is a risk, so every agent output passes a dete
 | Per-job and daily byte caps on test ingestion | Test data consuming the Splunk license | Must |
 | Size-limited test indexes; cleanup after the job, only of indexes the job recorded creating | Disk exhaustion; deleting resources that existed before | Must |
 | Code rejects any ingest target not starting with `pw_` | Test data landing in a real index | Must |
-| Search command allowlist (`search`, `stats`, `tstats`, `eval`, `where`, `table`, `fieldsummary`, `head`, …), 50 rows, short timeout | `delete`, `collect`, `dbxquery`, `loadjob`, custom commands, other apps' lookups | Must |
+| Search command allowlist (`search`, `stats`, `tstats`, `eval`, `where`, `table`, `fieldsummary`, `head`, …), 50 rows, short timeout. *(2026-10-27: with one shared test index, code owns the base search: an agent supplies only a `|` pipeline appended to `search index=<test index> sourcetype=<own attempt sourcetype>`, and commands that start a new result set are blocked for agents: `tstats`, `metadata`, `metasearch`, `datamodel`, `from`, `inputlookup`, `union`, `append*`, `join`, `multisearch`, `set`. `tstats` stays available to the Validator's fixed SPL only. Threat T1.2.)* | `delete`, `collect`, `dbxquery`, `loadjob`, custom commands, other apps' lookups, reading other jobs' samples | Must |
 | Rollback removes every TA file, routing transforms included, and re-runs the negative routing test | A leftover rename transform still affecting production | Must |
 
 ### Workflow integrity
@@ -517,7 +524,7 @@ An AI with write access to Splunk is a risk, so every agent output passes a dete
 | --- | --- | --- |
 | Approval bound to the SHA-256 of the exact `.tgz`; promotion deploys only that hash; any later change needs re-approval | A TA modified between validation, approval and deploy | Must |
 | State transitions enforced in the database (`UPDATE … WHERE status = 'awaiting_approval'`) | Skipping validation or approval; replayed approve or promote requests | Must |
-| Before ingesting, check the attempt's test index is empty, else recreate it | Duplicate events after a retried ingest failing the count check | Must |
+| ~~Before ingesting, check the attempt's test index is empty, else recreate it~~ Before ingesting, assert the attempt's sourcetype has 0 events in the shared test index, else bump the attempt number; never reuse a sourcetype, including on resume *(2026-10-27, T4.5)* | Duplicate events after a retried ingest failing the count check | Must |
 | On resume after a crash or timeout, read the installed TA version from Splunk and compare hashes before redeploying | Acting on an ambiguous deploy outcome | Must |
 | Adversarial regression suite (`nullQueue`, newline injection, path traversal, injected log lines, constant-value gaming) run on every change | Old bypasses returning | Must |
 | Ledger records model version, Validator version, CIM spec hash and artifact hash per run | Results that cannot be reproduced | Should |
@@ -573,14 +580,16 @@ Plain Python, no agent framework: the flow is fixed and small, and readable code
 
 Decision: a Python engine behind FastAPI, with a Next.js UI. The engine runs headless first (`parsewright run samples.log`); the UI is added once the loop works end to end.
 
-The UI only reads the ledger and sends two actions (confirm profile, approve or reject); it holds no logic. FastAPI streams ledger events to the browser as they happen.
+The UI only reads the ledger and sends two actions (confirm profile, approve or reject); it holds no logic. FastAPI streams ledger events to the browser as they happen. *(2026-10-31.)* Every ledger log event carries `stage`, `attempt`, `visit`, `actor` (the agent, the gate, the orchestrator, the Validator or the human), `kind` (proposal, guardrail block, deploy, ingest, check pass or fail, evidence, backtrack, human wait, budget, info) and a structured `detail` (proposed settings, check results), written by `orchestrator/events.py`; the UI reads these fields and never parses the text line, which stays for the CLI.
 
 | Screen | Shows | Actions |
 | --- | --- | --- |
-| New run | Upload or drop folder, board of all jobs and states | Start run |
-| Live run view | State stepper, attempt timeline with config diffs, check results and evidence, agent searches | None (watch) |
-| Profile review | Editable Log Profile: vendor, timezone, categories, CIM targets | Confirm |
-| Approval report | Raw vs parsed events with highlights, mapping table, CIM scores, iterations per stage, final configs | Approve, reject, correct a mapping, download `.tgz` |
+| Runs board | All jobs with the current phase, the agent at work, attempt x/5, tokens and status; "Needs you" jobs pinned; "New run" as a side sheet (new TA or update) | Start run |
+| Run workspace | Budget meters, a "Now" banner naming the acting agent, a clickable and deep-linkable phase rail (`?phase=&attempt=`), each attempt's proposal, gate verdict, Splunk checks and outcome, the diff from the previous attempt, backtracks, and the activity feed grouped by phase and attempt | None (watch) |
+| Profile review | The Profiler's findings with field coverage; inline corrections marked "you changed this" | Confirm |
+| Approval report | CIM meters, attempts per phase, holdout; raw vs parsed with one colour per field and a CIM view; configuration as readable rows; for an update, the row diff against production, `local/` overrides and the rollback command | Approve (SHA-256, second confirmation), reject, correct a mapping, download `.tgz` |
+
+*(2026-10-30.)* Every actor has one identity in the UI (`web/lib/actors.ts`): AI agents, code, Splunk and the human differ in avatar shape and badge, not only colour. Diffs are row-tinted with an icon and a word per row and never show unified-diff markers; the tested configuration is shown as the .conf file in an editor-style pane. The UI uses one dark glass theme. Runs recorded before the event labels are read from their text lines by a display-only fallback (`web/lib/legacy.ts`). Parser-update Diagnose is shown as Validator and Orchestrator work (no AI); the Drift Analyst identity exists for Phase 8.
 
 Budget about 2 days for the UI. Fallback if the engine runs late: a one-day Streamlit UI.
 
@@ -598,7 +607,7 @@ parsewright/
 ├── orchestrator/     state machine, budgets, routing
 ├── agents/           profiler, index_time, extraction, cim_mapper (prompt + schema each)
 ├── tools/            splunk client, search guard, regex test
-├── guardrails/       conf key allowlist, btool, regex safety
+├── guardrails/       conf key allowlist, post-install warning check, regex safety
 ├── validator/        fixed checks per stage
 ├── ta_builder/       writes TA files, versions, packages .tgz
 ├── ledger/           PostgreSQL models (jobs, ledger)
@@ -610,11 +619,11 @@ parsewright/
 
 ### Hackathon compliance checklist
 
-- [ ] Claim the $150 Meta Model API credits (card on file, spend limit set)
-- [ ] Fresh public repo, first commit on Oct 27; all code written Oct 27 to Nov 4
-- [ ] Only synthetic or self-generated logs; no client data anywhere
-- [ ] Meta models do the core reasoning (Stage 1 pass/fail)
-- [ ] 3-minute demo video showing only hackathon-built features
+- [ ] Claim the $150 Meta Model API credits (card on file, spend limit set) *(credits claimed; owner to confirm the spend limit)*
+- [x] Fresh public repo, first commit on Oct 27; all code written Oct 27 to Nov 4
+- [x] Only synthetic or self-generated logs; no client data anywhere
+- [x] Meta models do the core reasoning (Stage 1 pass/fail)
+- [ ] 3-minute demo video showing only hackathon-built features (script: [demo-script.md](demo-script.md))
 - [ ] Submit by Nov 4, 9:00 PM ET (Thu Nov 5, 05:00 Qatar time)
 - [ ] Check the full judging rubric on the live guide page
 
@@ -622,8 +631,8 @@ parsewright/
 
 Phase 1 tracks these, plus five questions about the REST deploy, ingest and config-check paths, with test steps and results in [lab-findings.md](lab-findings.md). Answers are recorded here as they land.
 
-- Does the Meta Model API support `response_format` JSON schemas, or should each agent output be a forced tool call?
-- What exactly is "contributor mode"? Default to standard mode until confirmed.
-- Do index-time settings apply to the next oneshot right after a reload on the lab's Splunk version?
-- Edge cases in scope: multiple event types per file, multi-line events, missing timezone, epoch timestamps, CSV headers (`INDEXED_EXTRACTIONS`)?
-- Four agents, or merge Extraction and CIM mapper into three?
+- Does the Meta Model API support `response_format` JSON schemas, or should each agent output be a forced tool call? *(2026-10-27: answered. `response_format` with a strict JSON schema works and is the mode every agent uses. The model reasons before answering, so output caps must leave room for it. See [lab-findings.md](lab-findings.md#q1-structured-output-from-the-meta-model-api), Q1.)*
+- What exactly is "contributor mode"? Default to standard mode until confirmed. *(2026-10-27: answered. On the Meta Model API it means calling a model's contributor-mode variant: discounted usage, but Meta may train on the content, and confidential data is not allowed. Parsewright uses standard mode; a variant is allowed only for synthetic-only dev runs. See [lab-findings.md](lab-findings.md), Q2.)*
+- Do index-time settings apply to the next oneshot right after a reload on the lab's Splunk version? *(2026-10-27: answered for a new sourcetype. They apply to the next `receivers/simple` ingest right after install, with no reload. See [lab-findings.md](lab-findings.md), Q3.)*
+- Edge cases in scope: multiple event types per file, multi-line events, missing timezone, epoch timestamps, CSV headers (`INDEXED_EXTRACTIONS`)? *(2026-10-27: decided. In: multiple event types, missing timezone, epoch timestamps. Stretch: multi-line. Out: CSV `INDEXED_EXTRACTIONS`; CSV stays supported at search time. See [lab-findings.md](lab-findings.md), Q4.)*
+- Four agents, or merge Extraction and CIM mapper into three? *(2026-10-27: decided. Keep four, for focused context, single-owner failure routing, and no CIM gaming through extractions. Merging is the fallback only if Phase 3 runs late. See [lab-findings.md](lab-findings.md), Q5.)*

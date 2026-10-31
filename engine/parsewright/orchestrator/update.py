@@ -33,14 +33,16 @@ from parsewright.guardrails.index_time import GuardrailBlock, gate
 from parsewright.orchestrator import promote
 from parsewright.orchestrator.caps import IngestCapExceeded, IngestCaps
 from parsewright.orchestrator.run import (
+    AGENT,
     MAX_ATTEMPTS,
     STAGES,
     BudgetExhausted,
     Run,
     RunResult,
     SampleSet,
+    emit_scores,
     load_manifest,
-    print_report,
+    start_detail,
 )
 from parsewright.ta_builder import package
 from parsewright.ta_builder.conf_writer import write_conf
@@ -272,7 +274,7 @@ class UpdateRun(Run):
         splunk: SplunkClient,
         index: str,
         packages_dir: Path,
-        out: Callable[[str], None],
+        out: Callable[..., None],
         max_attempts: int,
         caps: IngestCaps,
     ):
@@ -299,6 +301,7 @@ class UpdateRun(Run):
             self.caps.reserve(len(s.text.encode("utf-8")))
             with self.lock():
                 self.splunk.ingest(self.index, st, s.text, s.source)
+        self.emit_ingest(st, [(s.source, s.text) for s in self.sets])
 
     def index_reports(self, st: str, since: float, settings: dict) -> dict[str, Report]:
         return {
@@ -322,11 +325,18 @@ class UpdateRun(Run):
             reports = make()
         return reports
 
-    def show(self, reports: dict[str, Report]) -> None:
+    def show(self, reports: dict[str, Report], **extra) -> None:
+        """One Validator event per sample set: the text shows only the failing checks, as
+        before; the detail has every check."""
         for label, report in reports.items():
-            self.out(f"  [{label}] {'PASS' if report.passed else 'FAIL'}")
-            if not report.passed:
-                print_report(Report([c for c in report.checks if not c.passed]), self.out)
+            failing = Report([c for c in report.checks if not c.passed])
+            self.show_report(
+                report,
+                label,
+                head=[f"  [{label}] {'PASS' if report.passed else 'FAIL'}"],
+                shown=failing,
+                **extra,
+            )
 
     def evidence(self, reports: dict[str, Report]) -> str:
         parts = []
@@ -348,9 +358,15 @@ class UpdateRun(Run):
     def diagnose(self) -> int | None:
         """The production TA as it is, on every sample set, with no model call. Returns the
         first stage that fails on the new samples, or None if the TA already handles them."""
+        self.enter("diagnose")
         self.tick()
         st = test_sourcetype(self.prod.sourcetype, self.job, self.attempts)
-        self.out(f"diagnose: {self.prod.app} {self.prod.version} as installed, under {st} (no AI)")
+        self.emit(
+            "start",
+            "orchestrator",
+            f"diagnose: {self.prod.app} {self.prod.version} as installed, under {st} (no AI)",
+            {"app": self.prod.app, "version": self.prod.version, "sourcetype": st},
+        )
         since = time.time() - 60
         self.deploy_all(st)
         self.ingest_all(st)
@@ -361,8 +377,8 @@ class UpdateRun(Run):
             found["cim"] = self.search_reports("cim")
         first = None
         for i, (stage, reports) in enumerate(found.items()):
-            self.out(f"diagnose {stage}:")
-            self.show(reports)
+            self.emit("info", "validator", f"diagnose {stage}:", {"checked": stage})
+            self.show(reports, checked=stage)
             old_failed = [s.label for s in self.prod.old if not reports[s.label].passed]
             if old_failed:
                 raise promote.TransitionRefused(
@@ -373,7 +389,12 @@ class UpdateRun(Run):
                 self.drift[stage] = reports[self.new.label].evidence()
                 first = i if first is None else first
         if first is not None:
-            self.out(f"drift report: {', '.join(self.drift)} fail on the new samples")
+            self.emit(
+                "evidence",
+                "orchestrator",
+                f"drift report: {', '.join(self.drift)} fail on the new samples",
+                {"stages": list(self.drift), "drift": self.drift},
+            )
         return first
 
     def patch(self, first: int) -> str | None:
@@ -383,7 +404,14 @@ class UpdateRun(Run):
             if i > first:
                 reports = self.search_reports(stage)
                 if passed(reports):
-                    self.out(f"{stage}: passes as it is on every sample set, not patched")
+                    self.emit(
+                        "check_pass",
+                        "validator",
+                        f"{stage}: passes as it is on every sample set, not patched",
+                        stage=stage,
+                        attempt=None,
+                        visit=None,
+                    )
                     continue
                 self.drift[stage] = self.evidence(reports)
             if not self.patch_stage(stage):
@@ -418,21 +446,27 @@ class UpdateRun(Run):
         return cim
 
     def patch_stage(self, stage: str) -> bool:
+        self.enter(stage)
         history = self.history[stage]
-        history.append(
-            {
-                "settings": "production (no attempt yet)",
-                "outcome": f"drift report: the production settings on the new samples\n"
-                f"{self.drift.get(stage, '')}",
-            }
+        self.add_evidence(
+            stage,
+            "production (no attempt yet)",
+            f"drift report: the production settings on the new samples\n"
+            f"{self.drift.get(stage, '')}",
         )
         both = self.samples + self.old_lines  # gates check regexes against both formats
         for attempt in range(1, self.max_attempts + 1):
+            self.ctx["attempt"] = attempt
             self.tick()
-            self.out(f"patch {stage} attempt {attempt}")
+            self.emit(
+                "start",
+                AGENT[stage],
+                f"patch {stage} attempt {attempt}",
+                {"max_attempts": self.max_attempts},
+            )
             patch = self.patch_context(stage)
             if stage == "index-time":
-                _, settings = self.propose(
+                proposal, settings = self.propose(
                     stage,
                     lambda patch=patch: index_time.propose(
                         self.llm, self.prof, self.samples, history, patch
@@ -442,14 +476,14 @@ class UpdateRun(Run):
                 if settings is None:
                     continue
                 st = test_sourcetype(self.prod.sourcetype, self.job, self.attempts)
-                self.out(f"  proposal: {settings} (sourcetype {st})")
+                self.emit_proposal(stage, proposal, settings, f" (sourcetype {st})")
                 since = time.time() - 60
                 self.deploy_all(st, index=settings)
                 self.ingest_all(st)
                 reports = self.index_reports(st, since, settings)
                 change = {"index": settings}
             elif stage == "extraction":
-                _, ext = self.propose(
+                proposal, ext = self.propose(
                     stage,
                     lambda patch=patch: extraction.propose(
                         self.llm, self.prof, self.samples, history, patch
@@ -458,7 +492,7 @@ class UpdateRun(Run):
                 )
                 if ext is None:
                     continue
-                self.out(f"  proposal: {ext}")
+                self.emit_proposal(stage, proposal, ext)
                 self.deploy_all(self.st, extraction=ext)
                 reports, settings, change = self.search_reports(stage), ext, {"extraction": ext}
             else:
@@ -468,7 +502,7 @@ class UpdateRun(Run):
                     old_fields = self.field_values(s.source).splitlines()
                     names |= {ln.split(" (", 1)[0] for ln in old_fields}
                 models = self.prof.cim_targets
-                _, cim = self.propose(
+                proposal, cim = self.propose(
                     stage,
                     lambda f=fields, m=models, patch=patch: cim_mapper.propose(
                         self.llm, self.prof, f, m, history, patch
@@ -479,7 +513,7 @@ class UpdateRun(Run):
                 )
                 if cim is None:
                     continue
-                self.out(f"  proposal: {cim}")
+                self.emit_proposal(stage, proposal, cim)
                 self.deploy_all(self.st, cim=cim)
                 reports, settings, change = self.search_reports(stage, cim), cim, {"cim": cim}
             self.show(reports)
@@ -487,15 +521,25 @@ class UpdateRun(Run):
                 if stage == "index-time":
                     self.st = st
                 self.confs.update(change)
-                self.out(f"{stage}: patched, PASS on the new and the old samples")
+                self.emit(
+                    "check_pass",
+                    "validator",
+                    f"{stage}: patched, PASS on the new and the old samples",
+                )
                 return True
-            history.append({"settings": settings, "outcome": self.evidence(reports)})
+            self.add_evidence(stage, settings, self.evidence(reports))
         return False
 
     def regression(self) -> dict[str, Report]:
         """The final package on every sample set: every stage's checks (CIM includes the
         extraction checks, which include the index-time data checks)."""
-        self.out("regression: the final package on every registered version's samples and the new")
+        self.enter("regression")
+        self.emit(
+            "start",
+            "orchestrator",
+            "regression: the final package on every registered version's samples and the new",
+            {"sample_sets": [s.label for s in self.sets]},
+        )
         reports = self.search_reports("cim")
         self.show(reports)
         return reports
@@ -507,6 +551,7 @@ class UpdateRun(Run):
         files["default/app.conf"] = write_conf(package.app_conf(self.prod.app, version_to))
         prod_files = dict(self.prod.files)
         diff = unified(prod_files, files)
+        changes = conf_changes(prod_files, files)
         before = self.prod.confs.get("props", {}).get(self.prod.sourcetype, {})
         after = promote.confs_from_files(files).get("props", {}).get(self.prod.sourcetype, {})
         try:
@@ -528,6 +573,7 @@ class UpdateRun(Run):
             "version_to": version_to,
             "patched": [s for s in STAGES if self.history[s]],
             "diff": diff,
+            "changes": changes,
             "overrides": flags,
             "notes": notes,
             "old_event": (old_report.get("events") or [None])[0],
@@ -536,6 +582,44 @@ class UpdateRun(Run):
                 k for k in set(before) | set(after) if before.get(k) != after.get(k)
             ),
         }
+
+
+def conf_changes(old: dict[str, str], new: dict[str, str]) -> list[dict]:
+    """One row per setting of every default/*.conf (app.conf included), production -> update,
+    in file order: {"file", "stanza", "key", "before", "after", "change"}."""
+
+    def parse(files: dict[str, str]) -> dict[str, dict[str, dict[str, str]]]:
+        return {
+            rel.removeprefix("default/"): promote.parse_conf(text)
+            for rel, text in files.items()
+            if re.fullmatch(r"default/[a-z_]+\.conf", rel)
+        }
+
+    a, b = parse(old), parse(new)
+    rows = []
+    for file in sorted(set(a) | set(b)):
+        sa, sb = a.get(file, {}), b.get(file, {})
+        for stanza in dict.fromkeys([*sa, *sb]):
+            ka, kb = sa.get(stanza, {}), sb.get(stanza, {})
+            for key in dict.fromkeys([*ka, *kb]):
+                before, after = ka.get(key), kb.get(key)
+                if before is None:
+                    change = "added"
+                elif after is None:
+                    change = "removed"
+                else:
+                    change = "unchanged" if before == after else "changed"
+                rows.append(
+                    {
+                        "file": file,
+                        "stanza": stanza,
+                        "key": key,
+                        "before": before,
+                        "after": after,
+                        "change": change,
+                    }
+                )
+    return rows
 
 
 def passed(reports: dict[str, Report]) -> bool:
@@ -550,7 +634,7 @@ def run_update(
     test_index: str,
     packages_dir: Path,
     job: str,
-    out: Callable[[str], None] = print,
+    out: Callable[..., None] = print,
     caps: IngestCaps | None = None,
     max_attempts: int = MAX_ATTEMPTS,
     state: dict | None = None,
@@ -586,9 +670,14 @@ def run_update(
     r.lock, r.abort = lock or nullcontext, abort or (lambda: None)
     r.checkpoint = checkpoint or (lambda s: None)
     r.attempts = (state or {}).get("attempts", 0)  # a resumed job never reuses a sourcetype
-    out(
+    r.visits = dict((state or {}).get("visits", {}))  # log metadata: a resumed loop is a new visit
+    r.emit_run(
+        "start",
+        "orchestrator",
         f"update job {job}: {prod.app} {prod.version}, {manifest['event_count']} new events, "
-        f"regression on {len(prod.old)} registered sample set(s)"
+        f"regression on {len(prod.old)} registered sample set(s)",
+        start_detail("update", path, manifest, max_attempts, llm)
+        | {"app": prod.app, "version": prod.version, "registered_sets": len(prod.old)},
     )
     result = RunResult(job=job, status="stage_failed", attempts=0, tokens=0, app=r.app)
     with r.lock():  # a crashed attempt may have left this job's own test app installed
@@ -597,17 +686,27 @@ def run_update(
         first = r.diagnose()
         if first is None:
             result.status = "no_change"
-            out(f"diagnose: {prod.app} {prod.version} already parses the new samples; no change")
+            r.emit(
+                "check_pass",
+                "validator",
+                f"diagnose: {prod.app} {prod.version} already parses the new samples; no change",
+            )
         elif failed := r.patch(first):
             result.failed_stage = failed
-            out(f"{failed}: FAIL after {max_attempts} attempts")
+            r.emit(
+                "budget",
+                "orchestrator",
+                f"{failed}: FAIL after {max_attempts} attempts",
+                {"reason": "attempts"},
+                stage=failed,
+                attempt=None,
+            )
         elif not passed(regression := r.regression()):
             result.failed_stage = "regression"
-            out(f"regression: FAIL\n{r.evidence(regression)}")
+            r.emit("check_fail", "validator", f"regression: FAIL\n{r.evidence(regression)}")
         else:
             result.status = "passed"
-            for s in r.scores:
-                out(s.line())
+            emit_scores(r)
             if record is not None and r.last_pkg is not None:
                 info = {
                     "job": job,
@@ -636,18 +735,21 @@ def run_update(
                         "changed_keys": review["changed_keys"],
                     },
                 )
-                out(
+                r.emit_run(
+                    "human_wait",
+                    "human",
                     f"awaiting approval: {prod.app} {prod.version} -> {review['version_to']}, "
-                    f"sha256 {r.last_pkg.sha256}"
+                    f"sha256 {r.last_pkg.sha256}",
+                    {"for": "approval", "sha256": r.last_pkg.sha256},
                 )
     except (BudgetExhausted, IngestCapExceeded) as e:
         result.failed_stage = "budget"
-        out(f"budget: {e}")
+        r.emit_run("budget", "orchestrator", f"budget: {e}", {"reason": str(e)})
     finally:
         result.tokens, result.attempts = llm.used, r.attempts
         result.sourcetype, result.history, result.scores = r.st, r.history, r.scores
         splunk.uninstall(r.app)
         for p in r.built:
             p.unlink(missing_ok=True)
-    out(f"tokens used: {result.tokens}")
+    r.emit_run("info", "orchestrator", f"tokens used: {result.tokens}", {"tokens": result.tokens})
     return result

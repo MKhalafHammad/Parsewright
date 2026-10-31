@@ -580,7 +580,7 @@ Plain Python, no agent framework: the flow is fixed and small, and readable code
 
 Decision: a Python engine behind FastAPI, with a Next.js UI. The engine runs headless first (`parsewright run samples.log`); the UI is added once the loop works end to end.
 
-The UI only reads the ledger and sends two actions (confirm profile, approve or reject); it holds no logic. FastAPI streams ledger events to the browser as they happen.
+The UI only reads the ledger and sends two actions (confirm profile, approve or reject); it holds no logic. FastAPI streams ledger events to the browser as they happen. *(2026-10-31.)* Every ledger log event carries `stage`, `attempt`, `visit`, `actor` (the agent, the gate, the orchestrator, the Validator or the human), `kind` (proposal, guardrail block, deploy, ingest, check pass or fail, evidence, backtrack, human wait, budget, info) and a structured `detail` (proposed settings, check results), written by `orchestrator/events.py`; the UI reads these fields and never parses the text line, which stays for the CLI.
 
 | Screen | Shows | Actions |
 | --- | --- | --- |

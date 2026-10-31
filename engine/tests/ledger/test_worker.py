@@ -102,3 +102,43 @@ def test_model_calls_stop_when_the_kill_switch_flips_mid_run(env, tmp_path):
     pg.set_kill_switch(True)
     with pytest.raises(RunAborted, match="kill switch"), w.model_call_guard():
         pass
+
+
+def test_log_events_in_the_ledger_carry_structured_fields(env, tmp_path, manifest):
+    pg, s, sample = env
+    pg.enqueue("log00001", "l:1", "7" * 64, str(sample), {"auto_approve": True})
+    splunk = FakeSplunk([vpn_events(manifest, 3600), vpn_events(manifest)])
+    w = make_worker(s, "w1", splunk, fake_llm(tmp_path, [PROFILE, proposal(), proposal()]))
+    assert w.once()
+    w.log("log00001", "a line from older code")  # no metadata: defaults, still all fields
+    logs = [e["data"] for e in pg.events("log00001") if e["event"] == "log"]
+    keys = {"line", "stage", "attempt", "visit", "actor", "kind", "detail"}
+    assert logs and all(set(d) == keys for d in logs)
+    kinds = [(d["stage"], d["attempt"], d["kind"]) for d in logs]
+    for want in [
+        (None, None, "start"),
+        ("profile", None, "proposal"),
+        ("index-time", 1, "start"),
+        ("index-time", 1, "proposal"),
+        ("index-time", 1, "deploy"),
+        ("index-time", 1, "ingest"),
+        ("index-time", 1, "check_fail"),
+        ("index-time", 1, "evidence"),
+        ("index-time", 2, "check_pass"),
+    ]:
+        assert want in kinds
+    proposed = next(d for d in logs if d["kind"] == "proposal" and d["stage"] == "index-time")
+    assert isinstance(proposed["detail"]["settings"], dict) and proposed["actor"] == "index_time"
+    assert proposed["line"].startswith("  proposal: {")
+    report = next(d for d in logs if d["kind"] == "check_fail")
+    assert report["line"].startswith("  ") and "\n" in report["line"]  # one event per report
+    assert report["detail"]["checks"] and report["actor"] == "validator"
+    assert logs[-1] == {
+        "line": "a line from older code",
+        "stage": None,
+        "attempt": None,
+        "visit": None,
+        "actor": "orchestrator",
+        "kind": "info",
+        "detail": {},
+    }

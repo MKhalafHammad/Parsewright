@@ -20,7 +20,7 @@ from parsewright.agents.llm import LLMClient
 from parsewright.agents.profiler import clean_name
 from parsewright.config import Settings, database_url
 from parsewright.ledger import store as db
-from parsewright.orchestrator import promote
+from parsewright.orchestrator import events, promote
 from parsewright.orchestrator.caps import IngestCaps
 from parsewright.orchestrator.run import STAGES, RunAborted, run
 from parsewright.orchestrator.update import load_production, run_update
@@ -129,7 +129,7 @@ class Worker:
             self.splunk,
             self.settings.test_index,
             self.settings.packages_dir,
-            out=lambda line: self.log(jid, line),
+            out=self.logger(jid),
             timezone=form.get("tz"),
             vendor=form.get("vendor"),
             product=form.get("product"),
@@ -170,7 +170,7 @@ class Worker:
             self.settings.test_index,
             self.settings.packages_dir,
             jid,
-            out=lambda line: self.log(jid, line),
+            out=self.logger(jid),
             caps=IngestCaps(
                 self.settings.runs_dir, self.settings.job_ingest_mb, self.settings.daily_ingest_mb
             ),
@@ -213,13 +213,18 @@ class Worker:
             caps=IngestCaps(
                 self.settings.runs_dir, self.settings.job_ingest_mb, self.settings.daily_ingest_mb
             ),
-            out=lambda line: self.log(job["id"], line),
+            out=self.logger(job["id"]),
             start=promote.PROMOTING,
         )
         self.out(f"[{self.id}] {job['id']}: {record['status']}")
 
-    def log(self, job: str, line: str) -> None:
-        self.store.event(job, "log", {"line": line[:2000]})
+    def logger(self, job: str) -> events.Structured:
+        return events.Structured(lambda line, meta=None: self.log(job, line, meta))
+
+    def log(self, job: str, line: str, meta: dict | None = None) -> None:
+        """A ledger "log" event: the line plus stage, attempt, visit, actor, kind and detail
+        (defaults for a line without metadata), so the UI never parses the text."""
+        self.store.event(job, "log", events.record(line, meta))
         self.out(f"[{self.id}] {job}: {line}")
 
 

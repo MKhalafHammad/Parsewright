@@ -131,6 +131,16 @@ class FakeSplunk:
         return self.warnings
 
 
+def collect_events():
+    """An output that keeps (line, metadata) pairs, the metadata normalized as the worker
+    stores it in the ledger."""
+    from parsewright.orchestrator import events
+
+    got: list[tuple[str, dict]] = []
+    out = events.Structured(lambda line, meta=None: got.append((line, events.normalize(meta))))
+    return got, out
+
+
 def vpn_events(manifest: dict, shift: int = 0) -> list[tuple[int, str]]:
     """The VPN fixture's real lines with their epochs: the TIME_FORMAT check reads the raw."""
     lines = [ln for ln in (FIXTURES / "acme_vpn.json").read_text().splitlines() if ln]

@@ -10,7 +10,15 @@ import json
 import shutil
 
 import pytest
-from conftest import FIXTURES, PROFILE, FakeSplunk, fake_llm, proposal, vpn_events
+from conftest import (
+    FIXTURES,
+    PROFILE,
+    FakeSplunk,
+    collect_events,
+    fake_llm,
+    proposal,
+    vpn_events,
+)
 
 from parsewright.agents.cim_mapper import CimProposal, Eval, EventType
 from parsewright.agents.llm import as_data
@@ -370,8 +378,24 @@ def test_promotion_succeeds_with_real_names_both_hashes_and_smoke(awaiting):
     runs, pkgs, record = awaiting
     promote.approve(runs, JOB, record["sha256_test"])
     splunk = FakeSplunk([])
-    done = promote.promote(runs, JOB, splunk, pkgs, "pw_test", out=lambda _: None)
+    got, out = collect_events()
+    done = promote.promote(runs, JOB, splunk, pkgs, "pw_test", out=out)
     assert done["status"] == promote.DONE and done["smoke"].startswith("PASS")
+    (line, installed), (_, smoke) = got
+    assert line.startswith("installed TA-parsewright-acme-vpn 1.0.0 (sha256 ")
+    assert "\n  derived from approved test package " in line
+    assert (installed["stage"], installed["actor"], installed["kind"]) == (
+        "promotion",
+        "orchestrator",
+        "deploy",
+    )
+    assert installed["detail"] == {
+        "app": "TA-parsewright-acme-vpn",
+        "version": "1.0.0",
+        "sha256": done["sha256_promoted"],
+        "from_sha256": done["sha256_test"],
+    }
+    assert (smoke["kind"], smoke["detail"]) == ("check_pass", {"smoke": done["smoke"]})
     assert done["sha256_promoted"] != done["sha256_test"]
     promoted = (runs / JOB / "promoted.tgz").read_bytes()
     assert hashlib.sha256(promoted).hexdigest() == done["sha256_promoted"]

@@ -13,7 +13,7 @@ import shutil
 import tarfile
 
 import pytest
-from conftest import FIXTURES, FakeSplunk, fake_llm
+from conftest import FIXTURES, FakeSplunk, collect_events, fake_llm
 
 from parsewright.agents.profiler import LogProfile
 from parsewright.guardrails import conf_gate
@@ -25,6 +25,7 @@ from parsewright.orchestrator.update import (
     UpdateRun,
     anchor,
     bump,
+    conf_changes,
     overrides,
     profile_for,
     run_update,
@@ -151,7 +152,7 @@ def scripted(monkeypatch, index: list, search: dict[str, list]):
     )
 
 
-def go(tmp_path, pkgs, prod, splunk, replies, **kw):
+def go(tmp_path, pkgs, prod, splunk, replies, out=None, **kw):
     lines: list[str] = []
     llm = fake_llm(tmp_path, replies)
     recorded: dict = {}
@@ -163,7 +164,7 @@ def go(tmp_path, pkgs, prod, splunk, replies, **kw):
         "pw_test",
         pkgs,
         JOB,
-        out=lines.append,
+        out=out or lines.append,
         record=lambda j, pkg, **k: recorded.update(job=j, pkg=pkg, **k),
         **kw,
     )
@@ -230,6 +231,123 @@ def test_a_patch_that_breaks_the_old_format_is_rejected_with_evidence(
     assert "+version = 1.1.0" in review["diff"]["default/app.conf"]
     assert review["rollback"] == f"parsewright rollback {APP} 1.0.0"
     assert any("Index-time settings changed" in n for n in review["notes"])
+    # the same diff as rows, for the UI (one per setting, unchanged ones included)
+    rows = {(r["file"], r["stanza"], r["key"]): r for r in review["changes"]}
+    assert rows[("props.conf", ST, "TIME_FORMAT")] == {
+        "file": "props.conf",
+        "stanza": ST,
+        "key": "TIME_FORMAT",
+        "before": "%s%3N",
+        "after": None,
+        "change": "removed",
+    }
+    lookahead = rows[("props.conf", ST, "MAX_TIMESTAMP_LOOKAHEAD")]
+    assert (lookahead["before"], lookahead["after"], lookahead["change"]) == ("13", "30", "changed")
+    assert rows[("props.conf", ST, "KV_MODE")]["change"] == "unchanged"
+    version = rows[("app.conf", "launcher", "version")]
+    assert (version["before"], version["after"], version["change"]) == ("1.0.0", "1.1.0", "changed")
+    assert rows[("app.conf", "ui", "label")]["change"] == "unchanged"
+    tag = rows[("tags.conf", f"eventtype=parsewright_{OWNER}_traffic", "network")]
+    assert tag["change"] == "unchanged"  # renamed back to the TA's own names before the diff
+
+
+def test_update_log_events_are_structured(tmp_path, pkgs, prod, monkeypatch):
+    scripted(
+        monkeypatch,
+        [
+            verdicts(old=True, new=False),
+            verdicts(old=False, new=True),
+            verdicts(old=True, new=True),
+        ],
+        {
+            "extraction": [verdicts(old=True, new=True)],
+            "cim": [verdicts(old=True, new=True), verdicts(old=True, new=True)],
+        },
+    )
+    got, out = collect_events()
+    replies = [index_proposal() | {"time_format": "%Y-%m-%dT%H:%M:%S.%3NZ"}, index_proposal()]
+    result, *_ = go(tmp_path, pkgs, prod, UpdateSplunk(), replies, out=out)
+    assert result.status == "passed"
+    assert all(set(m) == {"stage", "attempt", "visit", "actor", "kind", "detail"} for _, m in got)
+    ev = [(m["stage"], m["attempt"], m["visit"], m["actor"], m["kind"]) for _, m in got]
+    st = "index-time"
+    assert ev[:4] == [
+        (None, None, None, "orchestrator", "start"),
+        ("diagnose", None, None, "orchestrator", "start"),
+        ("diagnose", None, None, "orchestrator", "deploy"),
+        ("diagnose", None, None, "orchestrator", "ingest"),
+    ]
+    first = got[0][1]["detail"]
+    assert first["job_type"] == "update" and first["app"] == APP and first["version"] == "1.0.0"
+    sets = got[3][1]["detail"]["sets"]
+    assert [s["source"] for s in sets] == ["parsewright_old_1", "parsewright_new"]
+    assert got[3][0].endswith("from 2 sample sets")
+    diagnosed = [m for _, m in got if m["stage"] == "diagnose" and m["actor"] == "validator"]
+    by_set = {m["detail"]["sample_set"]: m for m in diagnosed if "sample_set" in m["detail"]}
+    assert by_set[NEW]["kind"] == "check_fail" and by_set[OLD]["kind"] == "check_pass"
+    assert by_set[NEW]["detail"]["checked"] == st
+    drift = next(m for _, m in got if m["kind"] == "evidence" and m["stage"] == "diagnose")
+    assert drift["detail"]["stages"] == [st]
+    patch = [e for e in ev if e[0] == st]
+    assert patch[:8] == [
+        (st, None, 1, "orchestrator", "evidence"),  # the drift report, before attempt 1
+        (st, 1, 1, "index_time", "start"),
+        (st, 1, 1, "index_time", "proposal"),
+        (st, 1, 1, "orchestrator", "deploy"),
+        (st, 1, 1, "orchestrator", "ingest"),
+        (st, 1, 1, "validator", "check_fail"),  # the old samples
+        (st, 1, 1, "validator", "check_pass"),  # the new samples
+        (st, 1, 1, "orchestrator", "evidence"),
+    ]
+    regressed = next(m for _, m in got if m["kind"] == "evidence" and m["attempt"] == 1)
+    assert "REGRESSION, this change breaks the old format" in regressed["detail"]["text"]
+    proposed = next(m for _, m in got if m["kind"] == "proposal")
+    assert proposed["detail"]["settings"]["TIME_FORMAT"] == "%Y-%m-%dT%H:%M:%S.%3NZ"
+    assert proposed["detail"]["rationale"] == "v1 epoch ms and v2 ISO 8601 coexist"
+    lines = {line: m for line, m in got}
+    assert lines["index-time: patched, PASS on the new and the old samples"]["kind"] == "check_pass"
+    skipped = lines["extraction: passes as it is on every sample set, not patched"]
+    assert (skipped["stage"], skipped["actor"], skipped["kind"]) == (
+        "extraction",
+        "validator",
+        "check_pass",
+    )
+    assert any(m["stage"] == "regression" and m["kind"] == "start" for _, m in got)
+    regression = [m for _, m in got if m["stage"] == "regression" and m["actor"] == "validator"]
+    assert {m["detail"]["sample_set"] for m in regression} == {OLD, NEW}
+    wait = next(m for _, m in got if m["kind"] == "human_wait")
+    assert wait["detail"]["for"] == "approval" and len(wait["detail"]["sha256"]) == 64
+
+
+def test_conf_changes_rows_cover_every_setting_of_every_conf_file():
+    old = {
+        "default/props.conf": "[acme:fw]\nTIME_FORMAT = %s%3N\nKV_MODE = auto\n",
+        "default/app.conf": "[launcher]\nversion = 1.0.0\n",
+        "metadata/default.meta": "[]\nexport = system\n",
+    }
+    new = {
+        "default/props.conf": "[acme:fw]\nKV_MODE = auto\nEVAL-src = coalesce(src_ip, src)\n",
+        "default/app.conf": "[launcher]\nversion = 1.1.0\n",
+        "default/transforms.conf": "[parsewright_x_kv]\nREGEX = (\\w+)=(\\w+)\n",
+        "metadata/default.meta": "[]\nexport = none\n",
+    }
+    rows = conf_changes(old, new)
+    assert [(r["file"], r["key"], r["change"]) for r in rows] == [
+        ("app.conf", "version", "changed"),
+        ("props.conf", "TIME_FORMAT", "removed"),
+        ("props.conf", "KV_MODE", "unchanged"),
+        ("props.conf", "EVAL-src", "added"),
+        ("transforms.conf", "REGEX", "added"),
+    ]
+    added = rows[3]
+    assert added == {
+        "file": "props.conf",
+        "stanza": "acme:fw",
+        "key": "EVAL-src",
+        "before": None,
+        "after": "coalesce(src_ip, src)",
+        "change": "added",
+    }
 
 
 def test_production_failing_its_own_samples_stops_before_any_model_call(
@@ -424,8 +542,18 @@ def test_rollback_reinstalls_the_exact_version(tmp_path, pkgs):
     _kept(tmp_path, pkgs, OWNER, data)
     store = RegistryStore([{"version": "1.0.0", "job_id": OWNER, "sha256": v1.sha256}])
     splunk = UpdateSplunk()
-    out = promote.rollback(store, tmp_path / "runs", APP, "1.0.0", splunk, pkgs, out=lambda _: None)
+    got, log = collect_events()
+    out = promote.rollback(store, tmp_path / "runs", APP, "1.0.0", splunk, pkgs, out=log)
     assert out == "rolled back to 1.0.0" and store.current == "1.0.0" and store.locked
+    ((line, m),) = got
+    assert line == f"rolled back {APP} 1.1.0 -> 1.0.0 (sha256 {v1.sha256})"
+    assert (m["stage"], m["kind"]) == ("promotion", "deploy")
+    assert m["detail"] == {
+        "app": APP,
+        "version": "1.0.0",
+        "from_version": "1.1.0",
+        "sha256": v1.sha256,
+    }
     ((installed, expected),) = splunk.updated
     assert installed.sha256 == v1.sha256 and expected == "1.1.0"
     assert not list(pkgs.iterdir())  # the rebuilt package is removed after install

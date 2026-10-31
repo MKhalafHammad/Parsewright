@@ -32,6 +32,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 
 from parsewright.guardrails import conf_gate
+from parsewright.orchestrator import events
 from parsewright.orchestrator.caps import IngestCaps
 from parsewright.ta_builder import package
 from parsewright.ta_builder.naming import (
@@ -278,7 +279,7 @@ def promote(
     packages_dir: Path,
     test_index: str,
     caps: IngestCaps | None = None,
-    out: Callable[[str], None] = print,
+    out: Callable[..., None] = print,
     start: str = APPROVED,
 ) -> dict:
     """start=PROMOTING when a worker has already claimed the approved job (database mode).
@@ -287,7 +288,9 @@ def promote(
     rollback or another promotion of the same TA cannot interleave (appsec Phase 7 M2)."""
     app = require_real_app(load(runs_dir, job)["app"])
     with _ta_lock(runs_dir, app):
-        return _promote(runs_dir, job, splunk, packages_dir, test_index, caps, out, start)
+        return _promote(
+            runs_dir, job, splunk, packages_dir, test_index, caps, events.sink(out), start
+        )
 
 
 @contextmanager
@@ -353,8 +356,21 @@ def _promote(runs_dir, job, splunk, packages_dir, test_index, caps, out, start) 
     except Exception as e:
         _finish(runs_dir, job, FAILED, "promotion_failed", reason=type(e).__name__)
         raise
-    out(f"installed {record['app']} {version} (sha256 {real.sha256})")
-    out(f"  derived from approved test package {record['approved_sha256']}")
+    out(
+        f"installed {record['app']} {version} (sha256 {real.sha256})\n"
+        f"  derived from approved test package {record['approved_sha256']}",
+        events.meta(
+            "deploy",
+            "orchestrator",
+            stage="promotion",
+            detail={
+                "app": record["app"],
+                "version": version,
+                "sha256": real.sha256,
+                "from_sha256": record["approved_sha256"],
+            },
+        ),
+    )
 
     try:
         smoke = smoke_test(splunk, record, test_index, job, runs_dir, caps)
@@ -364,8 +380,12 @@ def _promote(runs_dir, job, splunk, packages_dir, test_index, caps, out, start) 
         hidden = _not_in_effect(splunk, record, confs)
         if hidden:  # e.g. a local/ value that equals the old default hid it from the review
             smoke = f"FAIL (overridden in local/ or another app: {', '.join(hidden)})"
-    out(f"smoke test: {smoke}")
     status = DONE if smoke.startswith("PASS") else SMOKE_FAILED
+    kind = "check_pass" if status == DONE else "check_fail"
+    out(
+        f"smoke test: {smoke}",
+        events.meta(kind, "validator", stage="promotion", detail={"smoke": smoke}),
+    )
     return _finish(
         runs_dir,
         job,
@@ -462,7 +482,7 @@ def rollback(
     version: str,
     splunk: SplunkClient,
     packages_dir: Path,
-    out: Callable[[str], None] = print,
+    out: Callable[..., None] = print,
 ) -> str:
     """Reinstall exactly an earlier registered version of a promoted TA, in place.
 
@@ -472,7 +492,7 @@ def rollback(
     install replaces default/ and keeps local/.
     """
     with store.ta_lock(require_real_app(app)):  # never alongside a promotion of this TA (M2)
-        return _rollback(store, runs_dir, app, version, splunk, packages_dir, out)
+        return _rollback(store, runs_dir, app, version, splunk, packages_dir, events.sink(out))
 
 
 def _rollback(store, runs_dir, app, version, splunk, packages_dir, out) -> str:
@@ -497,7 +517,20 @@ def _rollback(store, runs_dir, app, version, splunk, packages_dir, out) -> str:
     finally:
         pkg.path.unlink(missing_ok=True)
     store.set_current_version(app, ta["current_version"], version, "rolled_back")
-    out(f"rolled back {app} {ta['current_version']} -> {version} (sha256 {pkg.sha256})")
+    out(
+        f"rolled back {app} {ta['current_version']} -> {version} (sha256 {pkg.sha256})",
+        events.meta(
+            "deploy",
+            "orchestrator",
+            stage="promotion",
+            detail={
+                "app": app,
+                "version": version,
+                "from_version": ta["current_version"],
+                "sha256": pkg.sha256,
+            },
+        ),
+    )
     return f"rolled back to {version}"
 
 
@@ -506,18 +539,22 @@ def confs_from_files(files: dict[str, str]) -> dict[str, dict[str, dict[str, str
     confs: dict[str, dict[str, dict[str, str]]] = {}
     for rel, text in files.items():
         m = re.fullmatch(r"default/(props|transforms|eventtypes|tags)\.conf", rel)
-        if not m:
-            continue
-        stanzas: dict[str, dict[str, str]] = {}
-        current: dict[str, str] | None = None
-        for line in text.splitlines():
-            if line.startswith("[") and line.endswith("]"):
-                current = stanzas.setdefault(line[1:-1], {})
-            elif line and current is not None:
-                key, _, value = line.partition(" =")
-                current[key] = value.removeprefix(" ")
-        confs[m.group(1)] = stanzas
+        if m:
+            confs[m.group(1)] = parse_conf(text)
     return confs
+
+
+def parse_conf(text: str) -> dict[str, dict[str, str]]:
+    """One .conf file as the escaping writer wrote it: {stanza: {key: value}}."""
+    stanzas: dict[str, dict[str, str]] = {}
+    current: dict[str, str] | None = None
+    for line in text.splitlines():
+        if line.startswith("[") and line.endswith("]"):
+            current = stanzas.setdefault(line[1:-1], {})
+        elif line and current is not None:
+            key, _, value = line.partition(" =")
+            current[key] = value.removeprefix(" ")
+    return stanzas
 
 
 def smoke_test(

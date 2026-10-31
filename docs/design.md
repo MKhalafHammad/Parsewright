@@ -584,10 +584,12 @@ The UI only reads the ledger and sends two actions (confirm profile, approve or 
 
 | Screen | Shows | Actions |
 | --- | --- | --- |
-| New run | Upload or drop folder, board of all jobs and states | Start run |
-| Live run view | State stepper, attempt timeline with config diffs, check results and evidence, agent searches | None (watch) |
-| Profile review | Editable Log Profile: vendor, timezone, categories, CIM targets | Confirm |
-| Approval report | Raw vs parsed events with highlights, mapping table, CIM scores, iterations per stage, final configs | Approve, reject, correct a mapping, download `.tgz` |
+| Runs board | All jobs with the current phase, the agent at work, attempt x/5, tokens and status; "Needs you" jobs pinned; "New run" as a side sheet (new TA or update) | Start run |
+| Run workspace | Budget meters, a "Now" banner naming the acting agent, a clickable and deep-linkable phase rail (`?phase=&attempt=`), each attempt's proposal, gate verdict, Splunk checks and outcome, the diff from the previous attempt, backtracks, and the activity feed grouped by phase and attempt | None (watch) |
+| Profile review | The Profiler's findings with field coverage; inline corrections marked "you changed this" | Confirm |
+| Approval report | CIM meters, attempts per phase, holdout; raw vs parsed with one colour per field and a CIM view; configuration as readable rows; for an update, the row diff against production, `local/` overrides and the rollback command | Approve (SHA-256, second confirmation), reject, correct a mapping, download `.tgz` |
+
+*(2026-10-30.)* Every actor has one identity in the UI (`web/lib/actors.ts`): AI agents, code, Splunk and the human differ in avatar shape and badge, not only colour. Diffs are row-tinted with an icon and a word per row and never show unified-diff markers. Parser-update Diagnose is shown as Validator and Orchestrator work (no AI); the Drift Analyst identity exists for Phase 8.
 
 Budget about 2 days for the UI. Fallback if the engine runs late: a one-day Streamlit UI.
 

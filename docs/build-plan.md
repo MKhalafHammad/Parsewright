@@ -16,6 +16,7 @@ Updated at the end of every phase.
 | 5 | Job queue, workers, ledger, FastAPI, event stream | Nov 1 | Done (owner: `docker compose up` check pending) | Oct 28 |
 | 6 | Next.js UI (four screens) | Nov 2 | Done | Oct 28 |
 | 7 | Parser updates | Nov 3 (morning, only if ahead) | Done | Oct 28 (lab promotion and rollback Oct 30) |
+| 7b | UI redesign (agent-centred, readable, navigable) | Before Phase 8 | Done | Oct 30 |
 | 8 | Drift pipeline (stretch) | Unscheduled | Not started | |
 | 9 | Mixed-feed routing (stretch) | Unscheduled | Not started | |
 | 10 | Judges' Docker setup, README, demo preparation | Nov 3 (fixed) | Not started | |
@@ -544,6 +545,28 @@ This is the main appsec phase; review everything above, especially:
 
 ### If late, cut
 - The whole phase. It becomes a roadmap item in the README.
+
+---
+
+## Phase 7b — UI redesign (agent-centred, readable, navigable)
+
+**Goal:** a non-expert can tell within 5 seconds which agent is working and on what, which phase and attempt the job is in and how much budget is left, what each phase produced and why it passed or failed, how a parsed event compares with its raw line, and what changed in the config, in plain language. Runs before every remaining phase.
+**Owners:** `engine` (the event labels only), `frontend`, `qa`, `appsec` (rendering of untrusted text).
+
+### Deliverables
+- **Data contract (engine):** every ledger log event carries `stage`, `attempt`, `visit`, `actor`, `kind` and a structured `detail`; parser-update reviews carry structured `changes`. The text line is unchanged for the CLI.
+- **Actor identity system:** `web/lib/actors.ts`, one icon, accent, tagline and kind marker per actor, used on every screen.
+- **Screens:** runs board ("Needs you", new-run sheet); run workspace (meters, Now banner, phase rail, attempts, backtracks); live activity grouped by phase and attempt with filters and "Jump to latest"; readable config and row diffs; raw vs parsed with field colours and a CIM view; approval summary with a sticky decision bar; profile review with coverage bars and change markers; read-only TA registry.
+- **Tokens:** light and dark themes in `web/app/globals.css`, WCAG AA for every text and status pair.
+
+### Acceptance criteria
+- No diff anywhere shows `---`, `+++`, `@@` or a leading `+`/`-` (Playwright).
+- Each phase and attempt opens from `/runs/<job>?phase=<phase>&attempt=<n>`, during and after a run; back and forward work; arrow keys move along the phase rail (Playwright).
+- Log-derived text in the feed, phase view, diffs and config view renders as text (Playwright XSS tests).
+- `make lint`, `make test`, `make security` and the e2e suite pass; `appsec` has reviewed the rendering of untrusted text.
+
+### RECORD THIS
+- **The live workspace:** `demo/07_live_workspace.sh`, then open the printed workspace.
 
 ---
 

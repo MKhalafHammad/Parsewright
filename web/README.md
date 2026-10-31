@@ -1,6 +1,6 @@
 # web
 
-The Next.js + shadcn/ui interface: the job board with upload (a new TA, or an update of one Parsewright promoted), the live run view, profile review and the approval report (with the diff against production and `local/` override flags for an update). It only reads job state and the ledger (live, over server-sent events) and sends the allowed actions: upload, confirm profile, approve, reject. All logic lives in `engine/`. Conventions: [CLAUDE.md](CLAUDE.md).
+The Next.js + shadcn/ui interface, built around the actors (agents propose, code acts, Splunk judges, you approve): the runs board with "Needs you" pinned and a "New run" sheet (a new TA, or an update of one Parsewright promoted); the run workspace with budget meters, a "Now" banner, a clickable phase rail, each attempt's proposal, gate verdict and Splunk checks, and the live activity grouped by phase and attempt; profile review; the approval report (raw vs parsed with one colour per field and a CIM view, configuration as readable rows, and for an update a row diff against production with `local/` override flags); and a read-only TA registry. It only reads job state and the ledger (live, over server-sent events) and sends the allowed actions: upload, confirm profile, approve, reject. All logic lives in `engine/`. Conventions: [CLAUDE.md](CLAUDE.md).
 
 ## Run it
 
@@ -28,7 +28,7 @@ ENGINE_URL=http://127.0.0.1:8080 npm start   # http://localhost:3000
 
 ```bash
 npm run lint && npm run typecheck
-npm run test:e2e            # Playwright: XSS (incl. the parser-update review), keyboard flow, live view, proxy and headers
+npm run test:e2e            # Playwright: XSS (feed, phase view, diffs, config, update review), no diff markers, keyboard flow, deep links and back/forward, phase rail keys, live view, proxy and headers
 npm audit --audit-level=moderate
 ```
 

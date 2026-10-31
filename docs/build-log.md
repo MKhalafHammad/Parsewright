@@ -339,3 +339,43 @@ One entry per completed phase, appended at the end of the phase (see CLAUDE.md, 
 
 **RECORD THIS**
 - **Parser update:** with `parsewright serve` and the web UI running, run `demo/06_parser_update.sh`, then open the printed job page: Diagnose, the patch rejected for breaking v1, both formats passing, and the diff. Approve in the UI (a worker updates the TA in place to 1.1.0), then run `demo/06_parser_update.sh diagnose`: a new v2 batch ends at Diagnose with 0 tokens. Undo with `.venv/bin/parsewright rollback TA-parsewright-acme-fwdemo 1.0.0`.
+
+## 2026-10-30 — Phase 7b: UI redesign (agent-centred, readable, navigable)
+
+**Built**
+- **Event labels (engine, data only):** every ledger log event carries `stage`, `attempt`, `visit`, `actor`, `kind` and a structured `detail` (proposed settings, check results with expected vs actual, evidence, the parser-update review's `changes` rows). The text line the CLI prints is unchanged; each Validator report is now one event instead of one per line.
+- **Actor identity system** (`web/lib/actors.ts`): ten actors, each with one icon, accent, tagline and kind marker. AI agents are round with a sparkle, code is a rounded square with a gear, Splunk is a double-ringed square marked SPL, and you are a dashed circle with a hand. Light and dark tokens, with every text and status pair checked for WCAG AA.
+- **Screens:**
+  - runs board: "Needs you" pinned, the phase, the agent at work and attempt x/5 per job, "New run" as a side sheet;
+  - run workspace: budget meters, a "Now" banner, and a phase rail you can click, deep-link (`?phase=&attempt=`) and move along with arrow keys. Each attempt shows its proposal, the gate's verdict, the Splunk checks with up to 3 failing events, the outcome and the diff from the previous attempt. Backtracks are said in words;
+  - live activity: grouped by phase and attempt, with filters and "Jump to latest";
+  - config and diffs as rows with plain labels; raw vs parsed with one colour per field and a CIM view;
+  - approval summary and a sticky decision bar; profile review with coverage bars and "you changed this"; a read-only TA registry.
+- Parser-update Diagnose is shown as Validator and Orchestrator work (no AI); update jobs have their own rail (Diagnose → patched stages → Regression → Approval → Promoted).
+
+**Test results**
+- pytest: 418 passed (15 new for the event labels).
+- Playwright: 12 passed. New tests:
+  - no diff view shows `---`, `+++`, `@@` or a leading `+`/`-`;
+  - deep links with back and forward;
+  - arrow keys on the phase rail;
+  - XSS through the activity feed, the phase view (failing examples, evidence, rationale), the config view, the board's "Needs you" and the update's row diff;
+  - the keyboard flow now opens the new-run sheet, and the confirm dialog focuses Cancel.
+- ESLint, `tsc`, pre-commit, bandit and pip-audit clean.
+- `npm audit` fails on a moderate `minimatch` advisory in ESLint's dev dependencies. It was published after Phase 7; the only fixed release (11.0.1, Oct 27) is a major version and younger than the two-week pinning rule. It was left for the owner.
+- semgrep and gitleaks are not installed on the build host; gitleaks ran in pre-commit and the full `make security` runs in CI.
+- `appsec`: no High or Medium findings. Fixed:
+  - L1: board polling could stack up; it is now one round at a time, idle in a hidden tab, with a bounded history;
+  - L2: Approve is now offered only with a valid SHA-256;
+  - prototype-free lookup tables;
+  - stable keys for the override warnings;
+  - the confirmation focuses Cancel.
+
+**Cut or deferred**
+- No new UI package: dialogs and the sheet use the native `<dialog>` instead of the planned Radix Dialog.
+- The Profiler has no confidence field, so profile review shows coverage only.
+- The 15-minute meter measures from the latest run start (a resumed job gets a fresh 15 minutes, as the worker does).
+- Mapping corrections in the UI remain out of scope.
+
+**RECORD THIS**
+- **The live workspace:** with `parsewright serve` and the web UI running, run `demo/07_live_workspace.sh`, confirm the profile on the printed page, then watch the Now banner and the phase rail, and open an attempt's diff and checks.

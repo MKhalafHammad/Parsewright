@@ -14,6 +14,7 @@ for this loopback connection only.
 
 import base64
 import glob
+import http.client
 import json
 import os
 import re
@@ -22,11 +23,8 @@ import ssl
 import string
 import sys
 import time
-import urllib.error
 import urllib.parse
-import urllib.request
 
-BASE = "https://127.0.0.1:8089"
 INDEX = os.environ.get("PW_TEST_INDEX", "pw_test")
 # `make up` mints new tokens each time; a short life limits a leaked deploy token (T7.4).
 TOKEN_LIFETIME = "+7d"  # nosec B105 - a duration, not a secret
@@ -83,16 +81,24 @@ def call(method, path, data=None):
         else None
     )
     sep = "&" if "?" in path else "?"
-    req = urllib.request.Request(
-        BASE + path + sep + "output_mode=json", data=body, method=method
-    )
-    req.add_header("Authorization", AUTH)
+    headers = {"Authorization": AUTH}
+    if body is not None:
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+    # http.client speaks only HTTP(S) to this one host: no other scheme can be reached.
+    # The context is explicit (unverified on purpose: loopback to this container's splunkd).
+    # nosemgrep: python.lang.security.audit.httpsconnection-detected.httpsconnection-detected
+    conn = http.client.HTTPSConnection("127.0.0.1", 8089, timeout=60, context=CTX)
     try:
-        with urllib.request.urlopen(req, context=CTX, timeout=60) as r:  # nosec B310 - fixed https loopback URL
-            raw = r.read()
-            return r.status, (json.loads(raw) if raw else None)
-    except urllib.error.HTTPError as e:
-        return e.code, None
+        conn.request(
+            method, path + sep + "output_mode=json", body=body, headers=headers
+        )
+        r = conn.getresponse()
+        raw = r.read()
+        if r.status >= 300:
+            return r.status, None
+        return r.status, (json.loads(raw) if raw else None)
+    finally:
+        conn.close()
 
 
 def must(status, what):
@@ -107,7 +113,7 @@ def wait_ready(limit=600):
         try:
             if call("GET", "/services/server/info")[0] == 200:
                 return
-        except (urllib.error.URLError, OSError):
+        except OSError:
             pass
         time.sleep(5)
     log("FAILED: splunkd did not answer on 8089")

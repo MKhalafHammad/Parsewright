@@ -5,12 +5,12 @@ approval. Standard library only, so a judge needs no virtualenv.
 Usage: python3 scripts/first_run.py   (or `make first-run`)
 """
 
+import http.client
 import json
 import os
 import sys
 import time
-import urllib.error
-import urllib.request
+import urllib.parse
 import uuid
 from pathlib import Path
 
@@ -24,12 +24,24 @@ FINAL = {"awaiting_approval", "stage_failed", "error", "rejected", "done"}
 def request(
     method: str, path: str, body: bytes | None = None, ctype: str | None = None
 ) -> dict:
-    req = urllib.request.Request(API + path, data=body, method=method)
-    req.add_header("X-Parsewright", "1")
-    if ctype:
-        req.add_header("Content-Type", ctype)
-    with urllib.request.urlopen(req, timeout=60) as r:  # nosec B310 - http(s) checked in main
-        return json.loads(r.read())
+    """One call to the engine. http.client speaks only HTTP(S), so no other scheme is reachable."""
+    url = urllib.parse.urlsplit(API)
+    cls = (
+        http.client.HTTPSConnection
+        if url.scheme == "https"
+        else http.client.HTTPConnection
+    )
+    conn = cls(url.hostname or "127.0.0.1", url.port, timeout=60)
+    headers = {"X-Parsewright": "1", **({"Content-Type": ctype} if ctype else {})}
+    try:
+        conn.request(method, path, body=body, headers=headers)
+        r = conn.getresponse()
+        data = r.read()
+        if r.status >= 300:
+            raise RuntimeError(f"{method} {path}: HTTP {r.status}")
+        return json.loads(data)
+    finally:
+        conn.close()
 
 
 def multipart(fields: dict[str, str], files: dict[str, Path]) -> tuple[bytes, str]:
@@ -61,7 +73,7 @@ def main() -> int:
     )
     try:
         r = request("POST", "/uploads", body, ctype)
-    except urllib.error.URLError as e:
+    except OSError as e:
         print(
             f"the engine is not reachable at {API} ({e}); is `make up` finished?",
             file=sys.stderr,

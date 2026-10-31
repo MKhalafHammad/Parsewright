@@ -33,6 +33,7 @@ export const STATE_TEXT: Record<PhaseState, string> = {
 };
 
 const RUNNING = new Set(["queued", "running"]);
+const PAST_STAGES = new Set(["awaiting_approval", "approved", "promoting", "done", "smoke_failed", "promotion_failed", "rejected"]);
 const AFTER_APPROVAL = new Set(["approved", "promoting", "done", "smoke_failed", "promotion_failed"]);
 
 export function isUpdate(run: Pick<RunDetail, "form"> & { record?: RunDetail["record"] }, entries: Entry[]): boolean {
@@ -69,6 +70,7 @@ export function phases(run: RunDetail, entries: Entry[]): Phase[] {
   const failedRun = ["stage_failed", "error"].includes(run.status);
   const later = (id: PhaseId) => rail.slice(rail.indexOf(id) + 1).some((p) => entries.some((e) => e.phase === p));
 
+  const past = PAST_STAGES.has(run.status); // every phase before approval has finished
   return rail.map((id): Phase => {
     const es = entries.filter((e) => e.phase === id);
     const attempts = attemptsOf(entries, id).attempts.length;
@@ -100,7 +102,9 @@ export function phases(run: RunDetail, entries: Entry[]): Phase[] {
     if (v.some((e) => e.kind === "budget" || (e.stage === "regression" && e.kind === "check_fail"))) return { ...base, state: "failed" };
     if (id === now) return { ...base, state: RUNNING.has(run.status) ? "current" : failedRun ? "failed" : "done" };
     return { ...base, state: "done" };
-  });
+  }).map((p) =>
+    past && p.id !== "approval" && p.id !== "promoted" && (p.state === "todo" || p.state === "current") ? { ...p, state: "done" as const } : p,
+  );
 }
 
 // --- the "Now" banner and the budget meters -----------------------------------------------
@@ -144,7 +148,9 @@ export function describeNow(run: Pick<RunDetail, "status" | "form"> & { record?:
     case "promotion_failed":
       return stop("orchestrator", "Promotion failed. Nothing changed in production.");
     case "stage_failed":
-      return stop("orchestrator", `The run stopped: ${STAGE_LABEL[phase] ?? phase} ran out of attempts.`);
+      return entries.some((e) => e.phase === phase && e.kind === "budget")
+        ? stop("orchestrator", `The run stopped: ${STAGE_LABEL[phase] ?? phase} ran out of attempts.`)
+        : stop("orchestrator", `The run stopped during ${STAGE_LABEL[phase] ?? phase}. See the activity for details.`);
     case "error":
       return stop("orchestrator", "The run stopped with an error. See the activity for details.");
     case "queued":

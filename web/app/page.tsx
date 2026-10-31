@@ -10,15 +10,15 @@ import { Button } from "@/components/ui/button";
 import { StatusBadge } from "@/components/ui/status";
 import { Table, TBody, Td, Th, THead, Tr } from "@/components/ui/table";
 import { api, type Job, type LedgerEvent, type TA } from "@/lib/api";
-import { STAGE_LABEL, toEntry, type Entry } from "@/lib/events";
+import { STAGE_LABEL, toEntries, type Entry } from "@/lib/events";
 import { describeNow } from "@/lib/phases";
 
 const FINAL = new Set(["done", "rejected", "stage_failed", "error", "smoke_failed", "promotion_failed"]);
 const NEEDS_YOU = new Set(["profile_review", "awaiting_approval"]);
 const MAX_FOLLOWED = 30; // jobs whose ledger the board reads, newest first
-const KEEP = 200; // the board only needs each job's latest rows
+const KEEP = 2000; // rows kept per job (older runs are read in order, so not just the tail)
 
-type Ledger = { after: number; entries: Entry[]; final: boolean };
+type Ledger = { after: number; rows: LedgerEvent[]; entries: Entry[]; final: boolean };
 
 export default function Home() {
   const [jobs, setJobs] = useState<Job[]>([]);
@@ -39,8 +39,9 @@ export default function Home() {
         if (have?.final) return;
         try {
           const rows = await api<LedgerEvent[]>(`/runs/${j.job}/events?after=${have?.after ?? 0}`);
-          const entries = [...(have?.entries ?? []), ...rows.map(toEntry)].slice(-KEEP);
-          next[j.job] = { after: rows.length ? rows[rows.length - 1]!.id : (have?.after ?? 0), entries, final: FINAL.has(j.status) };
+          const all = rows.length ? [...(have?.rows ?? []), ...rows].slice(-KEEP) : (have?.rows ?? []);
+          const entries = rows.length || !have ? toEntries(all) : have.entries;
+          next[j.job] = { after: rows.length ? rows[rows.length - 1]!.id : (have?.after ?? 0), rows: all, entries, final: FINAL.has(j.status) };
         } catch {
           /* the board still shows the job's status */
         }
@@ -106,7 +107,7 @@ export default function Home() {
           </h2>
           <ul className="grid gap-2 md:grid-cols-2">
             {needsYou.map((j) => (
-              <li key={j.job} className="flex flex-wrap items-center gap-3 rounded-lg border border-l-4 border-line border-l-warn bg-surface p-3">
+              <li key={j.job} className="glass flex flex-wrap items-center gap-3 border-l-4 border-l-warn p-4">
                 <ActorAvatar id="human" />
                 <div className="min-w-0 flex-1">
                   <p className="text-sm font-medium">
@@ -125,7 +126,7 @@ export default function Home() {
         </section>
       )}
 
-      <section aria-labelledby="all-runs" className="rounded-lg border border-line bg-surface">
+      <section aria-labelledby="all-runs" className="glass overflow-hidden">
         <h2 id="all-runs" className="border-b border-line px-4 py-3 text-base font-semibold">
           All runs
         </h2>

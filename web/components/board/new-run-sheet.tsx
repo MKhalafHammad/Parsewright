@@ -54,7 +54,7 @@ export function NewRunSheet({ open, onClose, tas, onQueued }: { open: boolean; o
             name="update_of"
             value={updateOf}
             onChange={(e) => setUpdateOf(e.target.value)}
-            className="h-9 rounded-md border border-line-strong bg-surface px-2 text-sm text-fg"
+            className="h-9 rounded-md border border-line-strong bg-surface-2 px-2 text-sm text-fg"
           >
             <option value="">No: build a new TA</option>
             {tas.map((t) => (

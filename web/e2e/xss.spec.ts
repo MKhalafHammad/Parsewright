@@ -100,6 +100,8 @@ test("a parser update's diff, overrides and old event render as text, with no di
   await expect(diff.locator(".sr-only", { hasText: "Added" })).toHaveCount(1);
   await expect(diff.locator(".sr-only", { hasText: "Removed" })).toHaveCount(1);
   await expect(diff.locator(".sr-only", { hasText: "Changed, before" })).toHaveCount(2);
+  // The old-format event is in the same raw vs parsed view, behind the sample-set switch.
+  await page.getByRole("button", { name: "Old format (1.0.0 samples)" }).click();
   await expect(page.getByText(oldRaw)).toBeVisible();
 
   await page.getByRole("button", { name: "Approve…" }).click();
@@ -118,4 +120,19 @@ test("no diff view anywhere shows unified-diff markers", async ({ page }) => {
   }
   // The full page text never shows a unified-diff header either.
   expect(await page.locator("main").innerText()).not.toMatch(/---|\+\+\+|@@/);
+});
+
+test("an update recorded before structured changes shows its stored diff as rows, without markers", async ({ page }) => {
+  const base = run("awaiting_approval");
+  const update = {
+    app: "TA-parsewright-acme-fw", version_from: "1.0.0", version_to: "1.1.0", patched: ["index-time"],
+    diff: { "default/props.conf": "--- production/default/props.conf\n+++ update/default/props.conf\n@@ -1,4 +1,4 @@\n [acme:fw]\n-TIME_FORMAT = %s%3N\n TIME_PREFIX = ts=\n-MAX_TIMESTAMP_LOOKAHEAD = 20\n+MAX_TIMESTAMP_LOOKAHEAD = 30\n@@ -9,1 +9,2 @@\n+EVAL-src = coalesce(src,src_ip)" },
+    overrides: [], notes: [], old_event: null, rollback: "parsewright rollback TA-parsewright-acme-fw 1.0.0",
+  };
+  await mockRun(page, { ...base, record: { ...base.record, report: { ...base.record.report, update } } });
+  await page.goto("/runs/e2e00001?phase=approval");
+  const diff = page.getByRole("region", { name: "Changes against production" });
+  await expect(diff).toContainText("1 setting changed, 1 added, 1 removed");
+  await expect(diff).toContainText("coalesce(src,src_ip)");
+  expect(await diff.innerText()).not.toMatch(DIFF_MARKERS);
 });

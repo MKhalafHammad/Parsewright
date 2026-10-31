@@ -10,7 +10,7 @@ import { Meter, ToneIcon } from "@/components/ui/status";
 import { postJson, type Report, type RunDetail, type UpdateReview } from "@/lib/api";
 import { STAGE_LABEL } from "@/lib/events";
 import type { Phase } from "@/lib/phases";
-import { confRows } from "@/lib/settings-diff";
+import { changesFromUnified, confRows } from "@/lib/settings-diff";
 
 import { ConfigView, SettingsDiff } from "./config-view";
 import { EventCompare } from "./event-compare";
@@ -75,7 +75,7 @@ export function ApprovalSummary({ report, phases }: { report: Report; phases: Ph
   );
 }
 
-export function UpdateNotes({ update, fieldOrder }: { update: UpdateReview; fieldOrder: string[] }) {
+export function UpdateNotes({ update }: { update: UpdateReview }) {
   return (
     <section aria-labelledby="update" className="grid gap-3">
       <h3 id="update" className="scroll-mt-4 text-base font-semibold">
@@ -116,14 +116,10 @@ export function UpdateNotes({ update, fieldOrder }: { update: UpdateReview; fiel
       <h4 className="text-[13px] font-semibold text-muted">Changes against production</h4>
       {update.changes ? (
         <SettingsDiff label="Changes against production" changes={update.changes} />
+      ) : Object.keys(update.diff ?? {}).length ? (
+        <SettingsDiff label="Changes against production" changes={changesFromUnified(update.diff)} />
       ) : (
-        <p className="text-sm text-muted">This run predates the structured diff. Download the package to compare it with production.</p>
-      )}
-      {update.old_event && (
-        <>
-          <h4 className="text-[13px] font-semibold text-muted">An old-format event, parsed by the update</h4>
-          <EventCompare event={update.old_event} fieldOrder={fieldOrder} title="Old-format event" />
-        </>
+        <p className="text-sm text-muted">No changes were recorded for this update.</p>
       )}
       <p className="text-sm">
         To undo after promotion: <code className="rounded bg-surface-2 px-1 font-mono text-[13px]">{update.rollback}</code>
@@ -136,12 +132,17 @@ export function ApprovalView({ run, report, phases, fieldOrder, tzNote }: { run:
   return (
     <div className="grid gap-8">
       <ApprovalSummary report={report} phases={phases} />
-      {report.update && <UpdateNotes update={report.update} fieldOrder={fieldOrder} />}
+      {report.update && <UpdateNotes update={report.update} />}
       <section aria-labelledby="raw-parsed" className="grid gap-3">
         <h3 id="raw-parsed" className="scroll-mt-4 text-base font-semibold">
           Raw vs parsed
         </h3>
-        <EventCompare report={report} fieldOrder={fieldOrder} tzNote={tzNote} />
+        <EventCompare
+          report={report}
+          fieldOrder={fieldOrder}
+          tzNote={tzNote}
+          old={report.update?.old_event ? { label: `Old format (${report.update.version_from} samples)`, event: report.update.old_event } : undefined}
+        />
       </section>
       <section aria-labelledby="config" className="grid gap-3">
         <h3 id="config" className="scroll-mt-4 text-base font-semibold">
@@ -183,7 +184,7 @@ export function DecisionBar({ run, onDone }: { run: RunDetail; onDone: () => voi
   }
 
   return (
-    <section aria-labelledby="decide" className="sticky bottom-0 z-20 -mx-4 border-t border-line bg-surface/95 px-4 py-3 backdrop-blur sm:-mx-6 sm:px-6">
+    <section aria-labelledby="decide" className="glass-strong sticky bottom-3 z-20 rounded-2xl px-4 py-3 shadow-2xl">
       <div className="flex flex-wrap items-center gap-3">
         <div className="min-w-0 flex-1">
           <h2 id="decide" className="text-sm font-semibold">

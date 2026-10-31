@@ -45,8 +45,8 @@ export function Dialog({
         onClose();
       }}
       className={cn(
-        "border border-line bg-surface p-0 text-fg shadow-xl",
-        sheet ? "pw-sheet" : "m-auto w-[min(32rem,calc(100vw-2rem))] rounded-lg",
+        "glass-strong p-0 text-fg shadow-2xl",
+        sheet ? "pw-sheet" : "m-auto w-[min(32rem,calc(100vw-2rem))] rounded-2xl",
       )}
     >
       {open && (

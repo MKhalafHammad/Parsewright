@@ -4,6 +4,7 @@
 // shown verbatim in the technical detail. Everything in `detail` is untrusted (log-derived).
 import { actor, type ActorId } from "@/lib/actors";
 import type { LedgerEvent } from "@/lib/api";
+import { LegacyReader } from "@/lib/legacy";
 import { STATUS_TEXT } from "@/lib/status";
 
 export type Stage = "profile" | "index-time" | "extraction" | "cim" | "diagnose" | "regression" | "promotion";
@@ -109,7 +110,7 @@ function settingCount(settings: unknown): number {
   const s = obj(settings);
   let n = 0;
   for (const v of Object.values(s)) {
-    if (v && typeof v === "object") n += settingCount(v) || 1;
+    if (v && typeof v === "object") n += settingCount(v); // an empty section adds nothing
     else n += 1;
   }
   return n;
@@ -224,6 +225,7 @@ function fromLedger(e: LedgerEvent): Pick<Entry, "actor" | "kind" | "stage" | "s
   const base = { stage: null, phase: null, tone: "neutral" as Tone };
   if (e.event === "queued") return { ...base, actor: "orchestrator", kind: "info", sentence: "Job queued" };
   if (e.event === "claimed") return { ...base, actor: "orchestrator", kind: "info", sentence: "A worker picked up the job" };
+  if (e.event === "record") return { ...base, actor: "orchestrator", kind: "info", sentence: `Status: ${STATUS_TEXT[str(d.status)] ?? str(d.status)}` };
   if (e.event === "error")
     return { ...base, actor: "orchestrator", kind: "info", tone: "bad", sentence: `The worker stopped with an error: ${str(d.error)}` };
   if (e.event === "state") {
@@ -259,6 +261,45 @@ export function toEntry(e: LedgerEvent): Entry {
     detail: obj(d.detail),
   };
   return { ...base, phase: phaseOf(stage, kind, base.actor, base.detail), tone: toneOf(kind, base.detail), sentence: sentence(base) };
+}
+
+/** All rows in order. Rows written before the engine labelled its events are read by
+ *  LegacyReader; its check lines are merged into one Validator report per attempt, as the
+ *  engine now writes them. */
+export function toEntries(events: LedgerEvent[]): Entry[] {
+  const reader = new LegacyReader();
+  const out: Entry[] = [];
+  for (const e of events) {
+    const d = obj(e.data);
+    if (e.event !== "log" || "actor" in d) {
+      out.push(toEntry(e));
+      continue;
+    }
+    const line = str(d.line);
+    const l = reader.read(line);
+    const prev = out[out.length - 1];
+    if ((l.example !== undefined || l.continues) && prev) {
+      const checks = checksOf(prev);
+      const last = checks?.[checks.length - 1];
+      if (l.example !== undefined && last && !last.passed && last.examples.length < 3) last.examples.push(l.example);
+      const detail = checks ? { ...prev.detail, checks } : prev.detail;
+      out[out.length - 1] = { ...prev, detail, line: `${prev.line}\n${line}` };
+      continue;
+    }
+    const merging =
+      prev && Array.isArray(l.detail.checks) && (l.detail.checks as unknown[]).length === 1 && Array.isArray(prev.detail.checks) &&
+      prev.stage === l.stage && prev.attempt === l.attempt && prev.actor === "validator" && prev.detail.sample_set === l.detail.sample_set;
+    if (merging && prev) {
+      const checks = [...(checksOf(prev) ?? []), ...(checksOf({ ...prev, detail: l.detail }) ?? [])];
+      const kind: Kind = checks.every((c) => c.passed) && prev.kind !== "check_fail" ? "check_pass" : "check_fail";
+      const base = { ...prev, kind, detail: { ...prev.detail, checks }, line: `${prev.line}\n${line}` };
+      out[out.length - 1] = { ...base, tone: toneOf(kind, base.detail), sentence: sentence(base) };
+      continue;
+    }
+    const base = { id: e.id, at: String(e.at), stage: l.stage, attempt: l.attempt, visit: l.visit, actor: l.actor, kind: l.kind, line, detail: l.detail };
+    out.push({ ...base, phase: phaseOf(l.stage, l.kind, l.actor, l.detail), tone: toneOf(l.kind, l.detail), sentence: l.sentence ?? sentence(base) });
+  }
+  return out;
 }
 
 // --- grouping (display only) -------------------------------------------------------------

@@ -31,7 +31,7 @@ export function PhaseRail({ job, phases, selected }: { job: string; phases: Phas
     links[(next + links.length) % links.length]?.focus();
   }
   return (
-    <nav aria-label="Phases" className="overflow-x-auto rounded-lg border border-line bg-surface">
+    <nav aria-label="Phases" className="glass overflow-x-auto">
       <ol ref={list} onKeyDown={onKey} className="flex min-w-max items-stretch">
         {phases.map((p, i) => {
           const s = STATE_ICON[p.state];

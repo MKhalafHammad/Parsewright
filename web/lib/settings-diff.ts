@@ -103,3 +103,40 @@ export function groupRows<T extends { file: string; stanza: string }>(rows: T[])
   }
   return files;
 }
+
+/** Rows from a stored unified diff, for update runs recorded before the engine kept structured
+ *  `changes`. Only the lines the diff shows are known: shown context becomes "unchanged". */
+export function changesFromUnified(diff: Record<string, string>): Change[] {
+  const out: Change[] = [];
+  for (const [path, text] of Object.entries(diff)) {
+    const file = path.replace(/^default\//, "");
+    let stanza = "default";
+    const removed = new Map<string, number>(); // key -> index in out, within one stanza
+    for (const raw of text.split("\n")) {
+      if (raw.startsWith("---") || raw.startsWith("+++") || raw.startsWith("@@") || !raw) continue;
+      const sign = raw[0];
+      const line = raw.slice(1).trim();
+      const head = /^\[(.*)\]$/.exec(line);
+      if (head) {
+        stanza = head[1] ?? "";
+        removed.clear();
+        continue;
+      }
+      const eq = line.indexOf("=");
+      if (eq < 0 || line.startsWith("#")) continue;
+      const key = line.slice(0, eq).trim();
+      const value = line.slice(eq + 1).trim();
+      if (sign === "-") {
+        removed.set(key, out.length);
+        out.push({ file, stanza, key, before: value, after: null, change: "removed" });
+      } else if (sign === "+") {
+        const at = removed.get(key);
+        if (at !== undefined && out[at]) out[at] = { ...out[at]!, after: value, change: "changed" };
+        else out.push({ file, stanza, key, before: null, after: value, change: "added" });
+      } else {
+        out.push({ file, stanza, key, before: value, after: value, change: "unchanged" });
+      }
+    }
+  }
+  return out;
+}

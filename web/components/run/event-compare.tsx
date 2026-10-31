@@ -50,16 +50,18 @@ export function EventCompare({
   report,
   fieldOrder,
   tzNote,
-  event: single,
+  old,
   title = "Raw vs parsed",
 }: {
   report?: Report;
   fieldOrder: string[];
   tzNote?: string;
-  event?: ReportEvent;
+  /** A parser update's old-format event, shown through the same view. */
+  old?: { label: string; event: ReportEvent };
   title?: string;
 }) {
-  const events = useMemo(() => (single ? [single] : (report?.events ?? [])), [single, report]);
+  const [set, setSet] = useState<"new" | "old">("new");
+  const events = useMemo(() => (set === "old" && old ? [old.event] : (report?.events ?? [])), [set, old, report]);
   const [i, setI] = useState(0);
   const [view, setView] = useState<"parsed" | "cim">("parsed");
   const [field, setField] = useState<string | null>(null);
@@ -75,6 +77,24 @@ export function EventCompare({
 
   return (
     <section aria-label={title} className="grid gap-3">
+      {old && (
+        <div role="group" aria-label="Sample set" className="bubble flex w-fit rounded-full p-0.5">
+          {(["new", "old"] as const).map((v) => (
+            <button
+              key={v}
+              type="button"
+              aria-pressed={set === v}
+              onClick={() => {
+                setSet(v);
+                setI(0);
+              }}
+              className={cn("rounded-full px-3 py-1 text-sm", set === v ? "btn-primary" : "text-muted hover:text-fg")}
+            >
+              {v === "new" ? "New format" : old.label}
+            </button>
+          ))}
+        </div>
+      )}
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div className="flex items-center gap-2">
           <Button size="sm" variant="outline" aria-label="Previous event" disabled={i === 0} onClick={() => setI(i - 1)}>
@@ -88,14 +108,14 @@ export function EventCompare({
           </Button>
         </div>
         {mapping.length > 0 && (
-          <div role="group" aria-label="View" className="flex rounded-md border border-line p-0.5">
+          <div role="group" aria-label="View" className="bubble flex rounded-full p-0.5">
             {(["parsed", "cim"] as const).map((v) => (
               <button
                 key={v}
                 type="button"
                 aria-pressed={view === v}
                 onClick={() => setView(v)}
-                className={cn("rounded px-3 py-1 text-sm", view === v ? "bg-fg text-bg" : "text-muted hover:bg-surface-2")}
+                className={cn("rounded-full px-3 py-1 text-sm", view === v ? "btn-primary" : "text-muted hover:text-fg")}
               >
                 {v === "parsed" ? "Parsed fields" : "CIM view"}
               </button>

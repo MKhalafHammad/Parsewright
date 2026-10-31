@@ -25,7 +25,7 @@ export default function Registry() {
           {error}
         </p>
       )}
-      <section className="rounded-lg border border-line bg-surface">
+      <section className="glass overflow-hidden">
         {tas === null ? (
           <p className="p-4 text-sm text-muted">Loading…</p>
         ) : tas.length === 0 ? (

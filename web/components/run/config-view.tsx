@@ -1,12 +1,15 @@
+"use client";
+
 import { CircleMinus, CirclePlus, Pencil } from "lucide-react";
+import { useState } from "react";
 
 import { confKey, isCode } from "@/lib/conf-keys";
 import { groupRows, summary, type Change, type Row } from "@/lib/settings-diff";
 import { cn } from "@/lib/utils";
 
-// Configuration as readable rows: file, then stanza, then one row per setting with a plain
-// label, the raw key in small type and the value as wrapping text. Values are untrusted text
-// nodes; monospace only where exact characters matter (patterns and expressions).
+// Configuration as the .conf file itself, in an editor-style pane: line numbers, syntax
+// colours, a title bar and a status line. "Explain" adds a plain-language note under each
+// known setting. Values are untrusted: every piece is a text node.
 
 function KeyLabel({ k, brief = false }: { k: string; brief?: boolean }) {
   const info = confKey(k);
@@ -33,31 +36,96 @@ function StanzaHead({ file, stanza }: { file: string; stanza: string }) {
   );
 }
 
+type Line = { kind: "stanza" | "kv" | "comment" | "blank"; key?: string; text: string; no?: number };
+
+function linesOf(stanzas: { stanza: string; rows: Row[] }[]): Line[] {
+  const out: Line[] = [];
+  stanzas.forEach((s, i) => {
+    if (i > 0) out.push({ kind: "blank", text: "" });
+    out.push({ kind: "stanza", text: s.stanza });
+    for (const r of s.rows) out.push(r.key ? { kind: "kv", key: r.key, text: r.value } : { kind: "comment", text: r.value });
+  });
+  let n = 0;
+  return out.map((l) => (l.kind === "blank" ? l : { ...l, no: ++n }));
+}
+
+function Editor({ file, stanzas }: { file: string; stanzas: { stanza: string; rows: Row[] }[] }) {
+  const [explain, setExplain] = useState(false);
+  const lines = linesOf(stanzas);
+  const n = lines.filter((l) => l.no).length;
+  return (
+    <section aria-label={file} className="overflow-hidden rounded-xl border border-line shadow-[0_12px_40px_-16px_rgb(0_0_0/0.8)]" style={{ background: "var(--ed-bg)" }}>
+      <div className="flex items-center gap-3 border-b border-line bg-white/[0.04] px-3 py-2">
+        <span aria-hidden className="flex gap-1.5">
+          <span className="h-3 w-3 rounded-full bg-[#ff5f57]/80" />
+          <span className="h-3 w-3 rounded-full bg-[#febc2e]/80" />
+          <span className="h-3 w-3 rounded-full bg-[#28c840]/80" />
+        </span>
+        <h4 className="min-w-0 flex-1 truncate text-center font-mono text-[13px] text-muted">{file}</h4>
+        <button
+          type="button"
+          aria-pressed={explain}
+          onClick={() => setExplain(!explain)}
+          className={cn("bubble rounded-full px-3 py-0.5 text-[12px]", explain ? "text-fg" : "text-muted")}
+        >
+          {explain ? "Hide explanations" : "Explain settings"}
+        </button>
+      </div>
+      <div className="overflow-x-auto py-2 font-mono text-[13px] leading-6">
+        {lines.map((l, i) => {
+          const info = l.kind === "kv" ? confKey(l.key!) : null;
+          return (
+            <div key={i}>
+              <div className="grid grid-cols-[3.25rem_1fr] hover:bg-white/[0.03]">
+                <span aria-hidden className="select-none border-r border-line pr-3 text-right" style={{ color: "var(--ed-gutter)" }}>
+                  {l.no ?? ""}
+                </span>
+                <span className="min-w-0 whitespace-pre-wrap break-all pl-3 pr-3">
+                  {l.kind === "stanza" && (
+                    <span style={{ color: "var(--ed-stanza)" }}>
+                      [<span className="font-semibold">{l.text}</span>]
+                    </span>
+                  )}
+                  {l.kind === "comment" && <span className="italic" style={{ color: "var(--ed-comment)" }}># {l.text}</span>}
+                  {l.kind === "kv" && (
+                    <>
+                      <span title={info ? `${info.label}: ${info.description}` : undefined} style={{ color: "var(--ed-key)" }}>
+                        {l.key}
+                      </span>
+                      <span style={{ color: "var(--ed-op)" }}> = </span>
+                      <span style={{ color: "var(--ed-value)" }}>{l.text}</span>
+                    </>
+                  )}
+                </span>
+              </div>
+              {explain && info && (
+                <div className="grid grid-cols-[3.25rem_1fr]">
+                  <span aria-hidden className="border-r border-line" />
+                  <span className="pb-1 pl-3 pr-3 font-sans text-[12px] text-subtle">
+                    <span className="font-medium text-muted">{info.label}.</span> {info.description}
+                  </span>
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+      <div className="flex justify-between gap-3 border-t border-line bg-white/[0.04] px-3 py-1 font-mono text-[12px] text-subtle">
+        <span>-- READ ONLY --</span>
+        <span>
+          {n} {n === 1 ? "line" : "lines"} · {stanzas.length} {stanzas.length === 1 ? "stanza" : "stanzas"}
+        </span>
+      </div>
+    </section>
+  );
+}
+
 export function ConfigView({ rows, empty = "No settings." }: { rows: Row[]; empty?: string }) {
   if (!rows.length) return <p className="text-sm text-muted">{empty}</p>;
   return (
     <div className="grid gap-4">
       {groupRows(rows).map((f) => (
-        <section key={f.file} aria-label={f.file} className="grid gap-2">
-          <h4 className="font-mono text-sm font-semibold">{f.file}</h4>
-          {f.stanzas.map((s) => (
-            <div key={s.stanza} className="grid gap-1">
-              <StanzaHead file={f.file} stanza={s.stanza} />
-              <dl className="divide-y divide-line rounded-md border border-line">
-                {s.rows.map((r, i) => (
-                  <div key={`${r.key}-${i}`} className="grid gap-x-4 gap-y-1 px-3 py-2 text-sm md:grid-cols-[minmax(12rem,18rem)_1fr]">
-                    <dt>
-                      <KeyLabel k={r.key} />
-                    </dt>
-                    <dd className="min-w-0">
-                      <Value k={r.key} v={r.value} />
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
-          ))}
-        </section>
+        <Editor key={f.file} file={f.file} stanzas={f.stanzas} />
       ))}
     </div>
   );

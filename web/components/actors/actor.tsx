@@ -11,7 +11,7 @@ const SHAPE = {
 } as const;
 
 function Badge({ kind }: { kind: keyof typeof SHAPE }) {
-  const cls = "absolute -bottom-1 -right-1 flex items-center justify-center rounded-full border border-line bg-surface text-fg";
+  const cls = "absolute -bottom-1 -right-1 flex items-center justify-center rounded-full border border-line bg-surface-solid text-fg";
   if (kind === "ai") return <span className={cn(cls, "h-4 w-4")}><Sparkles aria-hidden className="h-2.5 w-2.5" /></span>;
   if (kind === "code") return <span className={cn(cls, "h-4 w-4")}><Cog aria-hidden className="h-2.5 w-2.5" /></span>;
   if (kind === "human") return <span className={cn(cls, "h-4 w-4")}><Hand aria-hidden className="h-2.5 w-2.5" /></span>;
@@ -28,7 +28,7 @@ export function ActorAvatar({ id, size = "md", active = false }: { id: ActorId |
     <span
       aria-hidden
       style={{ "--accent": a.accent, color: a.accent, borderColor: a.accent, outlineColor: a.accent } as React.CSSProperties}
-      className={cn("relative inline-flex shrink-0 items-center justify-center bg-surface", box, SHAPE[a.kind], active && "pw-pulse")}
+      className={cn("relative inline-flex shrink-0 items-center justify-center bg-surface-solid", box, SHAPE[a.kind], active ? "pw-pulse" : "pw-glow")}
     >
       <Icon className={icon} />
       {size !== "sm" && <Badge kind={a.kind} />}
@@ -36,10 +36,10 @@ export function ActorAvatar({ id, size = "md", active = false }: { id: ActorId |
   );
 }
 
-export function ActorName({ id, className }: { id: ActorId | string; className?: string }) {
+export function ActorName({ id, className, colored = false }: { id: ActorId | string; className?: string; colored?: boolean }) {
   const a = actor(id);
   return (
-    <span className={cn("font-medium", className)}>
+    <span className={cn("font-medium", className)} style={colored ? { color: a.accent } : undefined}>
       {a.name}
       <span className="sr-only"> ({KIND_LABEL[a.kind]})</span>
     </span>

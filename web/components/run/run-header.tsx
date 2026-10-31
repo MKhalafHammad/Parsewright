@@ -32,7 +32,7 @@ export function RunHeader({ run, entries, now, update }: { run: RunDetail; entri
   const elapsed = b.startedAt ? Math.max(0, (end - Date.parse(b.startedAt)) / 1000) : 0;
   const attemptText = now.attempt ? `${now.attempt} of ${now.max ?? "?"}` : "–";
   return (
-    <header className="grid gap-4 rounded-lg border border-line bg-surface p-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,32rem)]">
+    <header className="glass grid gap-4 p-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,32rem)]">
       <div className="grid min-w-0 gap-1">
         <Link href="/" className="text-[13px] text-muted underline-offset-2 hover:underline">
           ← All runs
@@ -55,12 +55,12 @@ export function RunHeader({ run, entries, now, update }: { run: RunDetail; entri
         <Meter label={`Attempts (${STAGE_LABEL[now.phase] ?? now.phase})`} value={now.attempt ?? 0} max={now.max ?? 5} text={attemptText} tone={now.attempt && now.max && now.attempt >= now.max ? "warn" : "run"} />
         <Meter
           label="Tokens"
-          value={run.tokens}
-          max={b.ceiling ?? Math.max(run.tokens, 1)}
+          value={b.ceiling ? run.tokens : 0}
+          max={b.ceiling ?? 1}
           text={b.ceiling ? `${run.tokens.toLocaleString()} of ${b.ceiling.toLocaleString()}` : run.tokens.toLocaleString()}
           tone={b.ceiling && run.tokens > b.ceiling * 0.8 ? "warn" : "run"}
         />
-        <Meter label="Wall clock" value={elapsed} max={b.wallS} text={`${clock(elapsed)} of ${clock(b.wallS)}`} tone={elapsed > b.wallS * 0.8 ? "warn" : "run"} />
+        <Meter label="Wall clock" value={elapsed} max={b.wallS} text={b.startedAt ? `${clock(elapsed)} of ${clock(b.wallS)}` : "–"} tone={elapsed > b.wallS * 0.8 ? "warn" : "run"} />
       </div>
     </header>
   );
@@ -74,7 +74,7 @@ export function NowBanner({ now, startedAt }: { now: Now; startedAt: string | nu
   return (
     <section
       aria-label="Now"
-      className="flex flex-wrap items-center gap-4 rounded-lg border-l-4 border border-line bg-surface p-4"
+      className="glass flex flex-wrap items-center gap-4 border-l-4 p-5"
       style={{ borderLeftColor: a.accent }}
     >
       <ActorAvatar id={a.id} size="lg" active={now.live} />

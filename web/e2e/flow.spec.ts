@@ -116,3 +116,49 @@ test("arrow keys move along the phase rail", async ({ page }) => {
   await page.keyboard.press("Enter");
   await expect(page).toHaveURL(/phase=profile$/);
 });
+
+test("runs recorded before the event labels still show their agents, phases and attempts", async ({ page }) => {
+  // The text lines the engine wrote before 2026-10-30, with no stage/actor/kind fields.
+  const lines = [
+    "job e2e00001: acme_vpn.json, 300 events in the manifest",
+    "profile: json, acme/vpn, sourcetype acme:vpn, timestamp '2026-10-20T08:00:52+00:00', tz in timestamp: True, fields 5, CIM ['Authentication']",
+    "profile review: auto-approved",
+    "index-time attempt 1: sourcetype acme:vpn__test_e2e00001_a1",
+    "  proposal: {'SHOULD_LINEMERGE': 'false', 'LINE_BREAKER': '([\\\\r\\\\n]+)', 'TIME_FORMAT': '%Y-%m-%dT%H:%M:%S%z'}",
+    "  PASS event count: expected 300, actual 300",
+    "  PASS timestamp accuracy: expected all _time = manifest, actual all match",
+    "index-time: PASS (event count 300/300, attempt 1)",
+    "extraction attempt 1",
+    "  proposal: {'props': {'KV_MODE': 'none'}, 'transforms': {}}",
+    "  FAIL field coverage: expected every profile field, actual user missing",
+    "    user=alice action=login",
+    "extraction attempt 2",
+    "  proposal: {'props': {'KV_MODE': 'json'}, 'transforms': {}}",
+    "  PASS field coverage: expected every profile field, actual all fields covered",
+    "extraction: PASS (attempt 2)",
+    "cim attempt 1: models Authentication",
+    "  proposal: {'props': {'FIELDALIAS-user': 'user AS user'}, 'eventtypes': {}, 'tags': {}}",
+    "  PASS Authentication: events in the data model: expected 300, actual 300",
+    "cim: PASS (attempt 1)",
+    "holdout: learned from 200 lines, passed on the full file (300 events)",
+    "CIM Authentication: required fields 4/4 passed, available fields mapped 4/4, not in source 1 (app)",
+    "awaiting approval: sha256 " + "a".repeat(64),
+  ];
+  await mockRun(page, run("awaiting_approval"), lines.map((line, i) => ({ id: i + 1, at: `2026-10-28T10:00:${String(i).padStart(2, "0")}Z`, event: "log", data: { line } })));
+  await page.goto("/runs/e2e00001");
+
+  const rail = page.getByRole("navigation", { name: "Phases" });
+  for (const phase of ["Profile", "Index-time", "Extraction", "CIM mapping"]) {
+    await expect(rail.getByRole("link", { name: new RegExp(`^${phase} Done`) })).toBeVisible();
+  }
+  await expect(rail.getByRole("link", { name: /^Extraction Done · 2 attempts/ })).toBeVisible();
+  const feed = page.getByLabel("Run activity");
+  await expect(feed).toContainText("Extraction (AI agent) proposed 1 setting");
+  await expect(feed).toContainText("Profiler (AI agent) described the log");
+  await expect(feed).toContainText("Splunk checks: 1 of 1 failed");
+
+  await page.goto("/runs/e2e00001?phase=extraction&attempt=2");
+  await expect(page.getByRole("region", { name: "Changes from the previous attempt" })).toContainText("1 setting changed, 0 added, 0 removed");
+  await page.goto("/runs/e2e00001?phase=extraction&attempt=1");
+  await expect(page.getByRole("main")).toContainText("user=alice action=login"); // the failing example
+});

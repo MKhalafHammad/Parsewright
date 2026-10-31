@@ -4,7 +4,7 @@ import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { api, type LedgerEvent, type RunDetail } from "@/lib/api";
-import { obj, str, toEntry, type Entry, type PhaseId } from "@/lib/events";
+import { obj, str, toEntries, type Entry, type PhaseId } from "@/lib/events";
 import { budget, currentPhase, describeNow, isUpdate, phases as phasesOf, railOf } from "@/lib/phases";
 
 import { ActivityFeed } from "./activity-feed";
@@ -57,7 +57,7 @@ export function RunWorkspace({ id }: { id: string }) {
     return () => source.close();
   }, [id, refresh]);
 
-  const entries = useMemo<Entry[]>(() => events.map(toEntry), [events]);
+  const entries = useMemo<Entry[]>(() => toEntries(events), [events]);
 
   if (error) return <p role="alert" className="text-bad">{error}</p>;
   if (!run) return <p>Loading…</p>;
@@ -72,7 +72,7 @@ export function RunWorkspace({ id }: { id: string }) {
   const now = describeNow(run, entries);
   const report = run.record.report?.events ? run.record.report : null;
   const fieldOrder = run.profile?.fields.map((f) => f.name) ?? [];
-  const stanza = run.profile?.sourcetype ? `${run.profile.sourcetype} (test copy)` : "this sourcetype";
+  const stanza = run.record.sourcetype ?? (run.profile?.sourcetype ? `${run.profile.sourcetype} (test copy)` : "this sourcetype");
 
   let view: React.ReactNode;
   if (selected === "profile_review" && run.status === "profile_review" && run.profile) {
@@ -95,7 +95,16 @@ export function RunWorkspace({ id }: { id: string }) {
         {selected === "approval" && report ? (
           <ApprovalView run={run} report={report} phases={list} fieldOrder={fieldOrder} tzNote={tzNoteOf(run)} />
         ) : null}
-        <EventSteps entries={own} />
+        {report && selected === "approval" && own.length > 0 ? (
+          <details className="text-sm">
+            <summary className="cursor-pointer text-muted">Events in this phase ({own.length})</summary>
+            <div className="pw-expand mt-3">
+              <EventSteps entries={own} />
+            </div>
+          </details>
+        ) : (
+          <EventSteps entries={own} />
+        )}
         {!own.length && !report && (
           <p className="text-sm text-muted">{selected === "approval" ? "The approval report appears when every phase has passed." : "Promotion starts after you approve."}</p>
         )}
@@ -111,7 +120,7 @@ export function RunWorkspace({ id }: { id: string }) {
       <NowBanner now={now} startedAt={budget(entries).startedAt} />
       <PhaseRail job={run.job} phases={list} selected={selected} />
       <div className="grid items-start gap-4 xl:grid-cols-[minmax(0,1fr)_28rem]">
-        <section aria-labelledby="phase-title" className="min-w-0 rounded-lg border border-line bg-surface p-4">
+        <section aria-labelledby="phase-title" className="glass min-w-0 p-5">
           {view}
         </section>
         <div className="xl:sticky xl:top-4">

@@ -108,7 +108,7 @@ function Step({ e, prev, stanza }: { e: Entry; prev: Record<string, unknown> | n
       <ActorAvatar id={e.actor} size="md" />
       <div className="grid min-w-0 gap-2 pb-4">
         <p className="flex flex-wrap items-baseline gap-x-2 text-sm">
-          <ActorName id={e.actor} />
+          <ActorName id={e.actor} colored />
           <ToneIcon tone={e.tone} className="self-center" label={e.tone === "good" ? "Pass" : e.tone === "bad" ? "Fail" : undefined} />
           <span>{said(e)}</span>
           <time dateTime={e.at} className="text-[12px] text-subtle">

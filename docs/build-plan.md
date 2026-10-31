@@ -19,7 +19,7 @@ Updated at the end of every phase.
 | 7b | UI redesign (agent-centred, readable, navigable) | Before Phase 8 | Done | Oct 30 |
 | 8 | Drift pipeline (stretch) | Unscheduled | Not started | |
 | 9 | Mixed-feed routing (stretch) | Unscheduled | Not started | |
-| 10 | Judges' Docker setup, README, demo preparation | Nov 3 (fixed) | Not started | |
+| 10 | Judges' Docker setup, README, demo preparation | Nov 3 (fixed) | In progress (owner: clean-VM test, image digests, rehearsal) | |
 | — | Demo video and submission only | Nov 4, before 9:00 PM ET | — | |
 
 ## How to read this plan

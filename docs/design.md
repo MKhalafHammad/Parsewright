@@ -619,11 +619,11 @@ parsewright/
 
 ### Hackathon compliance checklist
 
-- [ ] Claim the $150 Meta Model API credits (card on file, spend limit set)
-- [ ] Fresh public repo, first commit on Oct 27; all code written Oct 27 to Nov 4
-- [ ] Only synthetic or self-generated logs; no client data anywhere
-- [ ] Meta models do the core reasoning (Stage 1 pass/fail)
-- [ ] 3-minute demo video showing only hackathon-built features
+- [ ] Claim the $150 Meta Model API credits (card on file, spend limit set) *(credits claimed; owner to confirm the spend limit)*
+- [x] Fresh public repo, first commit on Oct 27; all code written Oct 27 to Nov 4
+- [x] Only synthetic or self-generated logs; no client data anywhere
+- [x] Meta models do the core reasoning (Stage 1 pass/fail)
+- [ ] 3-minute demo video showing only hackathon-built features (script: [demo-script.md](demo-script.md))
 - [ ] Submit by Nov 4, 9:00 PM ET (Thu Nov 5, 05:00 Qatar time)
 - [ ] Check the full judging rubric on the live guide page
 

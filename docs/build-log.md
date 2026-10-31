@@ -389,3 +389,29 @@ One entry per completed phase, appended at the end of the phase (see CLAUDE.md, 
   - a run past approval never shows an earlier phase as not started;
   - an update recorded before structured `changes` shows its stored diff as rows, without markers.
 - Playwright: 14 passed. New tests: an unlabelled older run, and an older update's diff.
+
+## 2026-10-31 — Phase 10: Docker setup for judges, README, demo preparation (in progress)
+
+**Built**
+- **One command (`make up`, `scripts/up.sh`):**
+  - `.env` is created from the template, and every placeholder password is replaced with a random one;
+  - Splunk and PostgreSQL start and become healthy;
+  - Splunk is then prepared from inside its own container (`scripts/splunk_bootstrap.py`, port 8089 stays unpublished): the `pw_test` index, the three no-inheritance roles and users from lab-findings Q9, the CIM add-on installed from `lab/` with its index macros set to `(index=pw_*)`, and one fresh 7-day token per account. The tokens are written into `.env` by `scripts/env_set.py` and never printed;
+  - the engine and the UI start, and the engine becomes healthy.
+- **`make first-run`:** uploads the bundled synthetic VPN log and follows it to the approval report, using only the standard library.
+- **Docs:**
+  - the README quick start rewritten for judges (Docker, `make` and Python 3 only); every stale "planned" label corrected; a screenshot from synthetic data;
+  - `docs/demo-script.md`, a timed 3-minute script built from the `demo/` scripts;
+  - the hackathon checklist ticked where verifiable.
+- **CI unblocked:** `npm audit` now covers the packages the UI ships (`--omit=dev`): 0 vulnerabilities. The ESLint `minimatch` advisory is residual risk R11, to be revisited on Nov 10.
+
+**Test results**
+- pytest: 427 passed (9 new for the two scripts that write `.env`, including refusals of every key other than the three tokens and of quoting or shell characters).
+- Playwright: 14 passed. pre-commit, bandit and pip-audit clean.
+- `appsec` final sweep: gitleaks over the full history (46 commits) clean, no internal names or private IPs, every port bound to 127.0.0.1. No High findings. Fixed:
+  - two Medium: a JWT-shaped literal in a test, and a 90-day token life;
+  - four Low.
+
+**Not verified yet**
+- The stack has not been run here: this host's user cannot reach Docker. The clean-VM test (`make env`, set `LLM_API_KEY`, CIM package in `lab/`, `make up`, `make first-run`, timed) is the owner's step, as planned.
+- Image digests and the CIM package checksum are not pinned (residual risk R12): the digests could not be fetched from this host.

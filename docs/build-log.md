@@ -379,3 +379,13 @@ One entry per completed phase, appended at the end of the phase (see CLAUDE.md, 
 
 **RECORD THIS**
 - **The live workspace:** with `parsewright serve` and the web UI running, run `demo/07_live_workspace.sh`, confirm the profile on the printed page, then watch the Now banner and the phase rail, and open an attempt's diff and checks.
+
+**Follow-up, Oct 31 (owner review of the first version)**
+- **Dark glass theme** replaces the light and dark pair. It has translucent panels over soft colour glows, a gradient primary button and glowing agent avatars. Every text and status pair was re-checked for WCAG AA against the lightest panel.
+- **Configuration as the .conf file:** an editor-style pane with a title bar, line numbers, syntax colours and a read-only status line. "Explain settings" adds a plain-language note under each known key.
+- **One raw vs parsed view:** a parser update's old-format event moved into it behind a "New format / Old format" switch. Before, it was a second, near-identical block.
+- **Older runs:**
+  - runs recorded before the event labels showed every line as Orchestrator and their phases as not started. `web/lib/legacy.ts` reads those text lines once, in order (display only), so they show the agents, attempts, proposals as settings and merged check reports;
+  - a run past approval never shows an earlier phase as not started;
+  - an update recorded before structured `changes` shows its stored diff as rows, without markers.
+- Playwright: 14 passed. New tests: an unlabelled older run, and an older update's diff.

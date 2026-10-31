@@ -23,5 +23,7 @@ Status: built (Phase 6, redesigned Oct 30): runs board, run workspace (phase rai
 ## UI conventions
 - Actors are defined once in `lib/actors.ts` and shown with `components/actors/actor.tsx`; never invent another icon or colour for an agent.
 - The UI reads the engine's event labels (`stage`, `attempt`, `visit`, `actor`, `kind`, `detail`) through `lib/events.ts`; it never parses the text line.
-- Colours come from the tokens in `app/globals.css` (light and dark). Status is always icon + word + colour.
+- Colours come from the tokens in `app/globals.css`: one dark glass theme (`.glass` panels, `.bubble` pills, `.btn-primary`), every text and status pair at WCAG AA. Status is always icon + word + colour.
+- Configuration is shown as the .conf file in an editor-style pane (line numbers, syntax colours, an "Explain settings" toggle); diffs stay as rows.
+- Runs recorded before the event labels are read by `lib/legacy.ts` (display only); never extend it for new events, which carry their own labels.
 - Diffs are rows (`components/run/config-view.tsx`): no `---`, `+++`, `@@` or leading `+`/`-`; `e2e/xss.spec.ts` asserts it.

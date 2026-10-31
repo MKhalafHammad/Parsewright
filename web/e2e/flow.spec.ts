@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-import { mockRun, run } from "./fixtures";
+import { LEDGER, mockRun, run } from "./fixtures";
 
 test("keyboard-only: upload, confirm the profile, approve", async ({ page }) => {
   const posts: { url: string; csrf: string | null }[] = [];
@@ -12,6 +12,7 @@ test("keyboard-only: upload, confirm the profile, approve", async ({ page }) => 
   });
 
   await page.goto("/");
+  await page.getByRole("button", { name: "New run" }).click();
   // A file chooser cannot be driven by keys in a headless browser; the file is attached, then
   // everything else is reached with Tab in document order.
   await page.getByLabel("Log file").setInputFiles({ name: "a.log", mimeType: "text/plain", buffer: Buffer.from("x\n".repeat(60)) });
@@ -59,17 +60,59 @@ test("keyboard-only: upload, confirm the profile, approve", async ({ page }) => 
   await page.getByRole("button", { name: "Approve…" }).focus();
   await page.keyboard.press("Enter");
   await expect(page.getByRole("alertdialog")).toContainText("Approve exactly this package");
-  await page.keyboard.press("Enter"); // "Yes, approve" has focus
+  await expect(page.getByRole("button", { name: "Cancel" })).toBeFocused(); // a reflexive Enter cancels
+  await page.keyboard.press("Tab");
+  await page.keyboard.press("Enter"); // "Yes, approve"
   await expect.poll(() => posts.map((p) => p.url.split("/").pop())).toEqual(["uploads", "profile", "approve"]);
   expect(posts.every((p) => p.csrf === "1")).toBe(true);
 });
 
 test("the live view shows a ledger event within 2 seconds", async ({ page }) => {
   await mockRun(page, run("running"), [
-    { id: 7, at: "2026-10-28T10:00:01Z", event: "log", data: { line: "index-time attempt 1: sourcetype acme:vpn__test_e2e00001_a1" } },
+    { id: 7, at: "2026-10-28T10:00:01Z", event: "log", data: { line: "index-time attempt 1: sourcetype acme:vpn__test_e2e00001_a1", stage: "index-time", attempt: 1, visit: 1, actor: "index_time", kind: "start", detail: { max_attempts: 5 } } },
   ]);
   const started = Date.now();
   await page.goto("/runs/e2e00001");
-  await expect(page.getByLabel("Run timeline")).toContainText("index-time attempt 1", { timeout: 2000 });
+  await expect(page.getByLabel("Run activity")).toContainText("started attempt 1 of 5", { timeout: 2000 });
   expect(Date.now() - started).toBeLessThan(5000);
+  // The Now banner names the agent at work and what it is doing.
+  await expect(page.getByRole("region", { name: "Now" })).toContainText("Index-time is writing attempt 1's settings");
+});
+
+test("phases and attempts are deep-linkable, with back and forward", async ({ page }) => {
+  await mockRun(page, run("awaiting_approval"), LEDGER);
+  await page.goto("/runs/e2e00001?phase=extraction&attempt=1");
+  await expect(page.getByRole("heading", { name: /^Attempt 1/ })).toContainText("Failed");
+  await expect(page.getByRole("main")).toContainText("Splunk checks: 1 of 1 failed");
+
+  await page.getByRole("link", { name: /Attempt 2/ }).click();
+  await expect(page).toHaveURL(/phase=extraction&attempt=2/);
+  await expect(page.getByRole("heading", { name: /^Attempt 2/ })).toContainText("Passed");
+  // Attempt 2 shows what changed since attempt 1, as rows.
+  await expect(page.getByRole("region", { name: "Changes from the previous attempt" })).toContainText("1 setting changed, 1 added, 0 removed");
+
+  await page.getByRole("navigation", { name: "Phases" }).getByRole("link", { name: /CIM mapping/ }).click();
+  await expect(page).toHaveURL(/phase=cim/);
+  await expect(page.getByRole("heading", { name: "CIM mapping", level: 2 })).toBeVisible();
+  await page.goBack();
+  await expect(page).toHaveURL(/phase=extraction&attempt=2/);
+  await page.goBack();
+  await expect(page).toHaveURL(/phase=extraction&attempt=1/);
+  await page.goForward();
+  await expect(page.getByRole("heading", { name: /^Attempt 2/ })).toBeVisible();
+});
+
+test("arrow keys move along the phase rail", async ({ page }) => {
+  await mockRun(page, run("awaiting_approval"), LEDGER);
+  await page.goto("/runs/e2e00001");
+  const rail = page.getByRole("navigation", { name: "Phases" });
+  await rail.getByRole("link", { name: /^Profile Done/ }).focus();
+  await page.keyboard.press("ArrowRight");
+  await expect(rail.getByRole("link", { name: /^Profile review/ })).toBeFocused();
+  await page.keyboard.press("End");
+  await expect(rail.getByRole("link", { name: /^Promoted/ })).toBeFocused();
+  await page.keyboard.press("ArrowRight"); // wraps
+  await expect(rail.getByRole("link", { name: /^Profile Done/ })).toBeFocused();
+  await page.keyboard.press("Enter");
+  await expect(page).toHaveURL(/phase=profile$/);
 });

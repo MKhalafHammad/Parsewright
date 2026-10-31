@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 
 // shadcn/ui Card.
 export function Card({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
-  return <div className={cn("rounded-lg border border-slate-200 bg-white shadow-sm", className)} {...props} />;
+  return <div className={cn("rounded-lg border border-line bg-surface", className)} {...props} />;
 }
 export function CardHeader({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
   return <div className={cn("flex flex-col gap-1 p-4 pb-2", className)} {...props} />;

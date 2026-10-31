@@ -14,18 +14,26 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="en">
       <body className="min-h-screen font-sans antialiased">
-        <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:p-2">
+        <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:rounded-md focus:bg-surface focus:p-2">
           Skip to content
         </a>
-        <header className="border-b border-slate-200 bg-white">
-          <nav aria-label="Main" className="mx-auto flex max-w-6xl items-center gap-6 px-4 py-3">
-            <Link href="/" className="font-semibold">
+        <header className="border-b border-line bg-surface">
+          <nav aria-label="Main" className="mx-auto flex max-w-[90rem] flex-wrap items-center gap-x-6 gap-y-1 px-4 py-3 sm:px-6">
+            <Link href="/" className="text-base font-semibold">
               Parsewright
             </Link>
-            <span className="text-sm text-slate-500">Agents propose, code acts, Splunk judges.</span>
+            <Link href="/" className="text-sm text-muted hover:text-fg">
+              Runs
+            </Link>
+            <Link href="/tas" className="text-sm text-muted hover:text-fg">
+              TA registry
+            </Link>
+            <span className="ml-auto hidden text-[13px] text-subtle md:inline">
+              Agents propose · code acts · Splunk judges · you approve
+            </span>
           </nav>
         </header>
-        <main id="main" className="mx-auto max-w-6xl px-4 py-6">
+        <main id="main" className="mx-auto max-w-[90rem] px-4 py-6 sm:px-6">
           {children}
         </main>
       </body>

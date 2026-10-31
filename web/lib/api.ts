@@ -21,10 +21,20 @@ export type UpdateReview = {
   version_to: string;
   patched: string[];
   diff: Record<string, string>;
+  changes?: ConfChange[]; // structured rows (newer runs); the unified diff is never shown
+  changed_keys?: string[];
   overrides: string[];
   notes: string[];
   old_event: ReportEvent | null;
   rollback: string;
+};
+export type ConfChange = {
+  file: string;
+  stanza: string;
+  key: string;
+  before: string | null;
+  after: string | null;
+  change: "added" | "removed" | "changed" | "unchanged";
 };
 export type Report = {
   events: ReportEvent[];

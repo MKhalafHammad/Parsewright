@@ -4,14 +4,14 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 // shadcn/ui Badge.
-const badgeVariants = cva("inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium", {
+const badgeVariants = cva("inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[13px] font-medium", {
   variants: {
     variant: {
-      default: "bg-slate-100 text-slate-800",
-      running: "bg-blue-100 text-blue-800",
-      waiting: "bg-amber-100 text-amber-900",
-      good: "bg-green-100 text-green-800",
-      bad: "bg-red-100 text-red-800",
+      default: "bg-surface-2 text-fg",
+      running: "bg-run-bg text-run",
+      waiting: "bg-warn-bg text-warn",
+      good: "bg-good-bg text-good",
+      bad: "bg-bad-bg text-bad",
     },
   },
   defaultVariants: { variant: "default" },

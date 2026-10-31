@@ -13,10 +13,10 @@ export function Table({ className, ...props }: React.TableHTMLAttributes<HTMLTab
 export const THead = (p: React.HTMLAttributes<HTMLTableSectionElement>) => <thead {...p} />;
 export const TBody = (p: React.HTMLAttributes<HTMLTableSectionElement>) => <tbody {...p} />;
 export function Tr({ className, ...props }: React.HTMLAttributes<HTMLTableRowElement>) {
-  return <tr className={cn("border-b border-slate-200", className)} {...props} />;
+  return <tr className={cn("border-b border-line", className)} {...props} />;
 }
 export function Th({ className, ...props }: React.ThHTMLAttributes<HTMLTableCellElement>) {
-  return <th className={cn("h-9 px-2 text-left font-medium text-slate-600", className)} {...props} />;
+  return <th className={cn("h-9 px-2 text-left font-medium text-muted", className)} {...props} />;
 }
 export function Td({ className, ...props }: React.TdHTMLAttributes<HTMLTableCellElement>) {
   return <td className={cn("p-2 align-top", className)} {...props} />;

@@ -1,5 +1,146 @@
 @import "tailwindcss";
 
-:root { color-scheme: light; }
-body { background: #f8fafc; color: #0f172a; }
-:focus-visible { outline: 2px solid #0f172a; outline-offset: 2px; }
+/* Design tokens. Every colour on screen comes from here, in light and dark mode.
+   Status colours always travel with an icon and a word (WCAG 1.4.1). */
+:root {
+  color-scheme: light;
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --surface-2: #f1f3f6;
+  --border: #e2e5ea;
+  --border-strong: #c9ced6;
+  --text: #111827;
+  --text-muted: #4b5563;
+  --text-subtle: #5f6672;
+  --focus: #1d4ed8;
+
+  --good: #15803d;
+  --good-bg: #ecfdf3;
+  --warn: #b45309;
+  --warn-bg: #fffbeb;
+  --bad: #b91c1c;
+  --bad-bg: #fef2f2;
+  --run: #1d4ed8;
+  --run-bg: #eff6ff;
+
+  /* Actor accents (web/lib/actors.ts). None is green or red. */
+  --a-profiler: #7c3aed;
+  --a-router: #0e7490;
+  --a-index-time: #0369a1;
+  --a-extraction: #4f46e5;
+  --a-cim-mapper: #a21caf;
+  --a-drift-analyst: #7e22ce;
+  --a-gate: #475569;
+  --a-orchestrator: #52525b;
+  --a-validator: #1d4ed8;
+  --a-human: #57534e;
+
+  /* Field colours for raw vs parsed (web/lib/field-colors.ts): a tint and a swatch. */
+  --f0: #fef08a; --f0-s: #a16207;
+  --f1: #bae6fd; --f1-s: #0369a1;
+  --f2: #ddd6fe; --f2-s: #6d28d9;
+  --f3: #fbcfe8; --f3-s: #be185d;
+  --f4: #fed7aa; --f4-s: #c2410c;
+  --f5: #a5f3fc; --f5-s: #0e7490;
+  --f6: #e9d5ff; --f6-s: #9333ea;
+  --f7: #c7d2fe; --f7-s: #4338ca;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --bg: #0d1117;
+    --surface: #151b23;
+    --surface-2: #1c232d;
+    --border: #2d3540;
+    --border-strong: #414b58;
+    --text: #e6e8eb;
+    --text-muted: #b3bac4;
+    --text-subtle: #959eaa;
+    --focus: #60a5fa;
+
+    --good: #4ade80;
+    --good-bg: #0f2a1a;
+    --warn: #fbbf24;
+    --warn-bg: #2a2110;
+    --bad: #f87171;
+    --bad-bg: #2d1414;
+    --run: #60a5fa;
+    --run-bg: #102038;
+
+    --a-profiler: #a78bfa;
+    --a-router: #22d3ee;
+    --a-index-time: #38bdf8;
+    --a-extraction: #818cf8;
+    --a-cim-mapper: #e879f9;
+    --a-drift-analyst: #c084fc;
+    --a-gate: #94a3b8;
+    --a-orchestrator: #a1a1aa;
+    --a-validator: #60a5fa;
+    --a-human: #d6d3d1;
+
+    --f0: #5c4a0b; --f0-s: #facc15;
+    --f1: #0c3f5e; --f1-s: #38bdf8;
+    --f2: #3b2a6b; --f2-s: #a78bfa;
+    --f3: #5e1a3d; --f3-s: #f472b6;
+    --f4: #5f2a0f; --f4-s: #fb923c;
+    --f5: #134652; --f5-s: #22d3ee;
+    --f6: #4a2470; --f6-s: #c084fc;
+    --f7: #2e3473; --f7-s: #818cf8;
+  }
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--border);
+  --color-line-strong: var(--border-strong);
+  --color-fg: var(--text);
+  --color-muted: var(--text-muted);
+  --color-subtle: var(--text-subtle);
+  --color-focus: var(--focus);
+  --color-good: var(--good);
+  --color-good-bg: var(--good-bg);
+  --color-warn: var(--warn);
+  --color-warn-bg: var(--warn-bg);
+  --color-bad: var(--bad);
+  --color-bad-bg: var(--bad-bg);
+  --color-run: var(--run);
+  --color-run-bg: var(--run-bg);
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.5;
+}
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* The active agent's avatar pulses gently; nothing moves for reduced motion. */
+@keyframes pw-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 45%, transparent); }
+  50% { box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 0%, transparent); }
+}
+.pw-pulse { animation: pw-pulse 1.8s ease-in-out infinite; }
+details > .pw-expand { animation: pw-open 160ms ease-out; }
+@keyframes pw-open { from { opacity: 0; transform: translateY(-2px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .pw-pulse, details > .pw-expand { animation: none; }
+  html { scroll-behavior: auto; }
+}
+
+/* Native <dialog>: a centred dialog, or a side sheet with .pw-sheet. */
+dialog::backdrop { background: rgb(0 0 0 / 0.45); }
+dialog.pw-sheet {
+  margin: 0 0 0 auto;
+  height: 100dvh;
+  max-height: 100dvh;
+  width: min(30rem, 100vw);
+  max-width: 100vw;
+}

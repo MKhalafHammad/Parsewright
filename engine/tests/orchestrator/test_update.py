@@ -106,6 +106,12 @@ class UpdateSplunk(FakeSplunk):
     def props_effective(self, app, sourcetype):
         return self.effective
 
+    def field_rows(self, index, sourcetype, source=None):
+        return []
+
+    def field_summary(self, index, sourcetype, first, source=None):
+        return []
+
     def reload_search_time(self):
         pass
 
@@ -750,3 +756,108 @@ def test_the_app_role_can_only_move_a_tas_version(pg, pg_dsn):
         conn.execute("UPDATE tas SET current_version = '1.0.0', updated_at = now()")
         with pytest.raises(psycopg.errors.InsufficientPrivilege):
             conn.execute("UPDATE tas SET owner_job = 'evil0001'")
+
+
+class SnapshotSplunk(UpdateSplunk):
+    """Splunk as seen per sample set: what the installed add-on gives each source."""
+
+    def __init__(self, per_source: dict[str, dict]):
+        super().__init__()
+        self.per_source = per_source
+
+    def events_with_indextime(self, index, sourcetype, source=None):
+        return [(t, t + 86400, "x") for t in self.per_source[source]["times"]]
+
+    def field_rows(self, index, sourcetype, source=None):
+        return self.per_source[source]["rows"]
+
+    def datamodel_rows(self, model, dataset, index, sourcetype, source=None):
+        return self.per_source[source]["models"].get(model, [])
+
+    def field_summary(self, index, sourcetype, first, source=None):
+        return []
+
+
+def test_old_samples_without_a_manifest_must_reproduce_production_exactly(prod, pkgs, tmp_path):
+    """No manifest for the registered samples: what production gave them at Diagnose is the
+    answer key, and a patch that changes any old event is a regression."""
+    from parsewright.validator import mechanical as mech
+
+    old = prod.old[0]
+    old.manifest = mech.manifest_for(old.text, "sample.log")
+    rows = [{"t": "1", "src": "192.0.2.1"}, {"t": "2", "src": "192.0.2.2"}]
+    traffic = [{"t": "1", "All_Traffic.src": "192.0.2.1"}]
+    splunk = SnapshotSplunk(
+        {
+            "parsewright_old_1": {
+                "times": [1, 2],
+                "rows": rows,
+                "models": {"Network_Traffic": traffic},
+            },
+            "parsewright_new": {"times": [3], "rows": [], "models": {}},
+        }
+    )
+    new = SampleSet(
+        NEW,
+        old.path,
+        old.text,
+        load_manifest(sample(tmp_path, "acme_fw_v2")),
+        old.profile,
+        "parsewright_new",
+    )
+    r = UpdateRun(new, prod, JOB, fake_llm(tmp_path, []), splunk, "pw_test", pkgs, print, 5, None)
+    r.st = f"{ST}__test_{JOB}_a1"
+    r.take_baselines(r.st)
+    assert old.baseline is not None and new.baseline is None
+    assert r.index_reports(r.st, 0, {})[OLD].passed
+    assert r.search_reports("cim")[OLD].passed
+    # a patch that changes one old event's src
+    splunk.per_source["parsewright_old_1"]["rows"] = [rows[0], {"t": "2", "src": "192.0.2.9"}]
+    report = r.search_reports("extraction")[OLD]
+    assert not report.passed and "same fields as production" in report.evidence()
+
+
+def test_an_update_with_zone_less_new_samples_pauses_for_a_human(tmp_path, pkgs, prod, monkeypatch):
+    """appsec H2: a guessed TZ for new zone-less samples never passes; the update waits in
+    profile review, and resumes with the zone a human stated."""
+    from parsewright.validator import index_time as iv
+    from parsewright.validator import mechanical as mech
+
+    monkeypatch.setattr(
+        iv,
+        "validate",
+        lambda *a, **k: Report([Check("timezone", False, "TZ stated", mech.UNCONFIRMED)]),
+    )
+    v2 = sample(tmp_path, "acme_fw_v2")
+    v2.with_suffix(".manifest.json").unlink()  # the new samples come without a manifest
+    checkpoints: list = []
+    lines: list[str] = []
+    result = run_update(
+        v2,
+        prod,
+        fake_llm(tmp_path, []),
+        UpdateSplunk(),
+        "pw_test",
+        pkgs,
+        JOB,
+        out=lines.append,
+        checkpoint=checkpoints.append,
+    )
+    assert result.status == "profile_review" and result.tokens == 0
+    assert checkpoints[-1]["needs_timezone"]
+    assert any("carry no timezone" in ln for ln in lines)
+
+
+def test_a_manifest_that_appears_for_a_version_kept_without_one_is_refused(tmp_path):
+    """appsec L4: the mode recorded at intake decides, not a file planted later."""
+    runs = tmp_path / "runs"
+    folder = runs / "uploads" / OWNER
+    folder.mkdir(parents=True, mode=0o700)
+    runs.chmod(0o700)
+    text = (FIXTURES / "acme_fw.log").read_text()
+    (folder / "sample.log").write_text(text)
+    version = _version(folder / "sample.log", text) | {"validation": "mechanical"}
+    update.kept_samples(runs, version)  # fine without a manifest
+    shutil.copy(FIXTURES / "acme_fw.manifest.json", folder / "sample.manifest.json")
+    with pytest.raises(promote.TransitionRefused, match="one has appeared"):
+        update.kept_samples(runs, version)

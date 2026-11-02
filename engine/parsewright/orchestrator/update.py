@@ -24,6 +24,7 @@ from contextlib import AbstractContextManager, nullcontext
 from dataclasses import dataclass
 from pathlib import Path
 
+from parsewright import cim_spec
 from parsewright.agents import cim_mapper, extraction, index_time
 from parsewright.agents.llm import LLMClient
 from parsewright.agents.profiler import FieldInfo, LogProfile
@@ -34,12 +35,14 @@ from parsewright.orchestrator import promote
 from parsewright.orchestrator.caps import IngestCapExceeded, IngestCaps
 from parsewright.orchestrator.run import (
     AGENT,
+    DEFAULT_FIELDS,
     MAX_ATTEMPTS,
     STAGES,
     BudgetExhausted,
     Run,
     RunResult,
     SampleSet,
+    TimezoneUnconfirmed,
     emit_scores,
     load_manifest,
     start_detail,
@@ -49,6 +52,7 @@ from parsewright.ta_builder.conf_writer import write_conf
 from parsewright.ta_builder.naming import require_job, require_pw_index, test_app, test_sourcetype
 from parsewright.tools.splunk_client import PROPS_SYSTEM_DEFAULTS, SplunkClient
 from parsewright.validator import index_time as index_validator
+from parsewright.validator import mechanical
 from parsewright.validator.index_time import Report
 
 NEW_SOURCE = "parsewright_new"
@@ -102,12 +106,17 @@ def load_production(store, runs_dir: Path, app: str) -> Production:
     old = []
     for i, v in enumerate(versions, 1):
         path, text = kept_samples(runs_dir, v)
+        manifest = (  # the mode recorded at intake, never a file that appeared since (L4)
+            {**mechanical.manifest_for(text, path.name), "_text": text}
+            if v.get("validation") == "mechanical"
+            else load_manifest(path)
+        )
         old.append(
             SampleSet(
                 f"v{v['version']} samples",
                 path,
                 text,
-                load_manifest(path),
+                manifest,
                 LogProfile.model_validate(v["profile"]),
                 f"parsewright_old_{i}",
             )
@@ -144,17 +153,23 @@ def kept_samples(runs_dir: Path, version: dict) -> tuple[Path, str]:
     data = _read_nofollow(path)
     if hashlib.sha256(data).hexdigest() != version["content_sha256"]:
         raise promote.TransitionRefused(f"v{version['version']} samples changed since intake")
-    manifest = _read_nofollow(path.with_suffix(".manifest.json"))
-    if version.get("manifest_sha256") and (
-        hashlib.sha256(manifest).hexdigest() != version["manifest_sha256"]
-    ):
-        raise promote.TransitionRefused(f"v{version['version']} manifest changed since intake")
+    if version.get("validation") == "mechanical" and path.with_suffix(".manifest.json").exists():
+        raise promote.TransitionRefused(
+            f"v{version['version']} was kept without a manifest, but one has appeared; refusing"
+        )
+    if version.get("manifest_sha256"):  # samples kept without a manifest have none to check
+        manifest = _read_nofollow(path.with_suffix(".manifest.json"))
+        if hashlib.sha256(manifest).hexdigest() != version["manifest_sha256"]:
+            raise promote.TransitionRefused(f"v{version['version']} manifest changed since intake")
     return path, data.decode("utf-8")
 
 
 def profile_for(base: LogProfile, manifest: dict) -> LogProfile:
     """The production profile with the new samples' field inventory, taken from their manifest's
-    field names by code (no AI): a renamed field is checked under its new name."""
+    field names by code (no AI): a renamed field is checked under its new name. Without a
+    manifest the inventory is completed at Diagnose from what Splunk extracts."""
+    if mechanical.is_mechanical(manifest):
+        return base.model_copy()
     n = max(manifest["event_count"], 1)
     counts = Counter(f for e in manifest["events"] for f in e["fields"])
     fields = [FieldInfo(name=f, coverage=round(c / n, 3)) for f, c in sorted(counts.items())]
@@ -286,7 +301,12 @@ class UpdateRun(Run):
         self.production = split_stages(prod.confs, prod.sourcetype, prod.owner_job, job)
         self.confs = {k: dict(v) for k, v in self.production.items()}
         self.drift: dict[str, str] = {}
+        self.pre_cim_st = ""
         self.old_lines = [ln for s in prod.old for ln in s.lines[:OLD_SAMPLES_SHOWN]]
+        if mechanical.is_mechanical(new.manifest):
+            # The production TZ was approved by a human with the TA; the new format keeps it.
+            new.manifest["confirmed_tz"] = self.production["index"].get("TZ")
+            new.manifest["multiline"] = new.profile.multiline
 
     # --- deploy, ingest, validate on every sample set -------------------------------------
 
@@ -304,20 +324,42 @@ class UpdateRun(Run):
         self.emit_ingest(st, [(s.source, s.text) for s in self.sets])
 
     def index_reports(self, st: str, since: float, settings: dict) -> dict[str, Report]:
-        return {
-            s.label: index_validator.validate(
-                self.splunk, self.index, st, s.manifest, since, self.app, s.source, settings
-            )
-            for s in self.sets
+        out = {}
+        for s in self.sets:
+            if s.baseline is not None:  # no manifest: production's own output is the answer
+                self.splunk.wait_stable(self.index, st, source=s.source)
+                out[s.label] = mechanical.compare(s.baseline, self.snapshot(s), "index-time")
+            else:
+                out[s.label] = index_validator.validate(
+                    self.splunk, self.index, st, s.manifest, since, self.app, s.source, settings
+                )
+        if mechanical.zone_unconfirmed(out[self.new.label]):  # a human states the zone (H2)
+            raise TimezoneUnconfirmed(f"{st}: the new samples carry no zone")
+        return out
+
+    def snapshot(self, s: SampleSet, cim: dict | None = None) -> dict:
+        """What the installed add-on gives sample set s, compared as multisets."""
+        times = [t for t, _, _ in self.splunk.events_with_indextime(self.index, self.st, s.source)]
+        rows = self.splunk.field_rows(self.index, self.st, s.source)
+        models = {
+            m: self.splunk.datamodel_rows(m, cim_spec.ROOT[m], self.index, self.st, s.source)
+            for m in mechanical.models_of(cim if cim is not None else self.confs["cim"])
         }
+        return mechanical.snapshot(times, rows, [f.name for f in s.profile.fields], models)
 
     def search_reports(self, stage: str, cim: dict | None = None) -> dict[str, Report]:
-        targets = cim_targets(cim if cim is not None else self.confs["cim"])
+        current = cim if cim is not None else self.confs["cim"]
+        targets = cim_targets(current)
+
+        def one(s: SampleSet) -> Report:
+            if s.baseline is not None:
+                return mechanical.compare(s.baseline, self.snapshot(s, current), stage)
+            if stage == "extraction":
+                return self.extraction_report(targets, s)
+            return self.cim_report(targets, s, cim=current)
 
         def make() -> dict[str, Report]:
-            if stage == "extraction":
-                return {s.label: self.extraction_report(targets, s) for s in self.sets}
-            return {s.label: self.cim_report(targets, s) for s in self.sets}
+            return {s.label: one(s) for s in self.sets}
 
         reports = make()
         if not passed(reports):  # reload search-time config once, as a new build does
@@ -371,6 +413,7 @@ class UpdateRun(Run):
         self.deploy_all(st)
         self.ingest_all(st)
         self.st = st
+        self.take_baselines(st)
         found = {"index-time": self.index_reports(st, since, self.confs["index"])}
         if passed(found["index-time"]):
             found["extraction"] = self.search_reports("extraction")
@@ -396,6 +439,30 @@ class UpdateRun(Run):
                 {"stages": list(self.drift), "drift": self.drift},
             )
         return first
+
+    def take_baselines(self, st: str) -> None:
+        """For sample sets without a manifest: production, as installed, defines the answer
+        (snapshot right after ingest); for new samples without one, the field inventory is
+        the profile's plus what production extracts from them (no AI)."""
+        for s in self.prod.old:
+            if mechanical.is_mechanical(s.manifest):
+                self.splunk.wait_stable(self.index, st, source=s.source)
+                s.baseline = self.snapshot(s)
+        if mechanical.is_mechanical(self.new.manifest):
+            self.splunk.wait_stable(self.index, st, source=NEW_SOURCE)
+            n = max(self.new.manifest["event_count"], 1)
+            known = {f.name for f in self.new.profile.fields}
+            extra = [
+                FieldInfo(name=r["field"], coverage=round(min(int(r.get("count") or 0) / n, 1), 3))
+                for r in self.splunk.field_summary(self.index, st, n, NEW_SOURCE)
+                if r.get("field")
+                and r["field"] not in known
+                and r["field"] not in DEFAULT_FIELDS
+                and not r["field"].startswith(("date_", "_", mechanical.RAW))
+            ]
+            self.new.profile = self.prof = self.new.profile.model_copy(
+                update={"fields": [*self.new.profile.fields, *extra]}
+            )
 
     def patch(self, first: int) -> str | None:
         """Patch mode from the first failing stage. A later stage that passes as it is is not
@@ -445,8 +512,21 @@ class UpdateRun(Run):
             )
         return cim
 
+    def ensure_pre_cim(self) -> None:
+        """Every event's fields without the CIM layer, for the constant check and the value
+        pairs (updates always install the full TA, so it is installed once without CIM)."""
+        if self.pre_cim and self.pre_cim_st == self.st:
+            return
+        self.deploy_all(self.st, cim={"props": {}, "eventtypes": {}, "tags": {}})
+        self.splunk.reload_search_time()
+        self.pre_cim, self.pre_cim_st = self.splunk.field_rows(self.index, self.st), self.st
+        self.deploy_all(self.st)
+        self.splunk.reload_search_time()
+
     def patch_stage(self, stage: str) -> bool:
         self.enter(stage)
+        if stage == "cim":
+            self.ensure_pre_cim()
         history = self.history[stage]
         self.add_evidence(
             stage,
@@ -546,6 +626,7 @@ class UpdateRun(Run):
 
     def update_review(self, record: dict) -> dict:
         """Diff against production, local/ overrides, notes, and one old event for the report."""
+        self.ensure_pre_cim()
         version_to = self.prod.next_version
         files = promote.renamed_files(self.last_pkg.path.read_bytes(), record)
         files["default/app.conf"] = write_conf(package.app_conf(self.prod.app, version_to))
@@ -670,6 +751,9 @@ def run_update(
     r.lock, r.abort = lock or nullcontext, abort or (lambda: None)
     r.checkpoint = checkpoint or (lambda s: None)
     r.attempts = (state or {}).get("attempts", 0)  # a resumed job never reuses a sourcetype
+    r.tz_confirmed = (state or {}).get("tz_confirmed")
+    if r.tz_confirmed and mechanical.is_mechanical(new.manifest):
+        new.manifest["confirmed_tz"] = r.tz_confirmed  # stated in profile review
     r.visits = dict((state or {}).get("visits", {}))  # log metadata: a resumed loop is a new visit
     r.emit_run(
         "start",
@@ -742,6 +826,15 @@ def run_update(
                     f"sha256 {r.last_pkg.sha256}",
                     {"for": "approval", "sha256": r.last_pkg.sha256},
                 )
+    except TimezoneUnconfirmed:
+        r.checkpoint({**r.state(), "needs_timezone": True})
+        r.emit_run(
+            "human_wait",
+            "human",
+            "profile review: the new samples carry no timezone; waiting for a human to state it",
+            {"for": "profile_review", "reason": "timezone"},
+        )
+        result.status = "profile_review"
     except (BudgetExhausted, IngestCapExceeded) as e:
         result.failed_stage = "budget"
         r.emit_run("budget", "orchestrator", f"budget: {e}", {"reason": str(e)})

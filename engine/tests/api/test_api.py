@@ -6,6 +6,7 @@ import dataclasses
 import gzip
 import io
 import json
+import pathlib
 import tarfile
 import threading
 import time
@@ -94,8 +95,7 @@ def test_upload_refusals(client, data, reason):
     assert r.status_code == 422 and reason in r.json()["detail"]
 
 
-def test_upload_needs_a_valid_manifest_and_safe_name(client):
-    assert "manifest" in upload(client, manifest=None).json()["detail"]
+def test_a_supplied_manifest_must_be_valid_and_names_safe(client):
     assert (
         "event count"
         in upload(
@@ -322,3 +322,64 @@ def test_updates_are_only_for_tas_in_the_registry(client, pg):
     )
     (ta,) = client.get("/tas").json()
     assert ta["current_version"] == "1.0.0" and ta["versions"] == ["1.0.0"]
+
+
+def test_a_log_alone_is_enough(client, pg, tmp_path):
+    """No manifest: a generator sample gets its own by content; any other log is validated
+    mechanically and keeps no manifest."""
+    fixture = upload(client, manifest=None).json()
+    row = pg.get(fixture["job"])
+    assert row["form"]["validation"] == "fixture" and row["form"]["manifest_sha256"]
+    assert pathlib.Path(row["sample_path"]).with_suffix(".manifest.json").is_file()
+
+    own = SAMPLE + b"ts=1792499999000 action=accept proto=tcp src=192.0.2.7 dport=53\n"
+    real = upload(client, data=own, name="fw01.log", manifest=None).json()
+    row = pg.get(real["job"])
+    assert row["form"]["validation"] == "mechanical" and "manifest_sha256" not in row["form"]
+    assert not pathlib.Path(row["sample_path"]).with_suffix(".manifest.json").exists()
+
+
+def test_a_run_without_a_zone_cannot_be_confirmed_without_one(client, pg):
+    real = SAMPLE + b"ts=1792499999000 action=accept src=192.0.2.7\n"
+    job = upload(client, data=real, name="fw01.log", manifest=None).json()["job"]
+    profile = {
+        "timezone_in_timestamp": False,
+        "timezone_hint": None,
+        "vendor": "acme",
+        "product": "fw",
+        "sourcetype": "acme:fw",
+    }
+    pg.transition(
+        job, "queued", "profile_review", state={"profile": profile, "needs_timezone": True}
+    )
+    r = client.post(f"/runs/{job}/profile", json={})
+    assert r.status_code == 422 and "timezone" in r.text
+    r = client.post(f"/runs/{job}/profile", json={"tz": "Asia/Tokyo"})
+    assert r.status_code == 200
+    state = pg.get(job)["state"]
+    assert (
+        state["profile"]["timezone_hint"] == "Asia/Tokyo" and state["tz_confirmed"] == "Asia/Tokyo"
+    )
+
+
+def test_an_ai_hint_never_counts_as_a_stated_timezone(client, pg):
+    """appsec M2: confirming with the Profiler's hint pre-filled but no tz sent is refused."""
+    real = SAMPLE + b"ts=1792499999000 action=accept src=192.0.2.8\n"
+    job = upload(client, data=real, name="fw02.log", manifest=None).json()["job"]
+    profile = {
+        "timezone_in_timestamp": True,
+        "timezone_hint": "America/New_York",
+        "vendor": "acme",
+        "product": "fw",
+        "sourcetype": "acme:fw",
+    }
+    pg.transition(
+        job, "queued", "profile_review", state={"profile": profile, "needs_timezone": True}
+    )
+    assert client.post(f"/runs/{job}/profile", json={}).status_code == 422
+    assert "tz_confirmed" not in pg.get(job)["state"]
+
+
+def test_an_uploaded_manifest_is_labelled_as_uploaded(client, pg):
+    job = upload(client).json()["job"]  # the fixture's manifest, sent with the upload
+    assert pg.get(job)["form"]["validation"] == "uploaded"

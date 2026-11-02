@@ -182,7 +182,9 @@ class Worker:
             ),
             record=lambda j, pkg, **kw: promote.record_passed_run(records, j, pkg, **kw),
         )
-        if result.status == "no_change":  # ended at Diagnose: nothing to approve or install
+        if result.status == "profile_review":  # the new samples need a stated timezone
+            self.store.transition(jid, "running", "profile_review", worker=self.id, worker_id=None)
+        elif result.status == "no_change":  # ended at Diagnose: nothing to approve or install
             outcome = {"kind": "update", "update_of": prod.app, "result": "no change needed"}
             self.store.transition(jid, "running", "done", worker=self.id, record=outcome)
         elif result.status != "passed":

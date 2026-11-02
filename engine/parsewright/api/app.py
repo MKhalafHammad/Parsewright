@@ -145,9 +145,15 @@ def create_app(
             raise HTTPException(422, f"upload refused: {e}") from None
         # Fixed names in a fresh per-job folder (appsec M2): no user-derived path, no reuse.
         job = uuid.uuid4().hex[:8]
-        path, form["manifest_sha256"] = intake.save(
-            uploads, job, sample, json.dumps(truth).encode("utf-8")
+        path, digest = intake.save(
+            uploads, job, sample, json.dumps(truth).encode("utf-8") if truth else None
         )
+        # fixture: the repo's own answer key; uploaded: an untrusted one, checked; mechanical: none
+        form["validation"] = (
+            ("uploaded" if manifest is not None else "fixture") if truth else "mechanical"
+        )
+        if digest:
+            form["manifest_sha256"] = digest
         if form.get("update_of"):
             key = f"update:{form['update_of']}"  # one active update per TA
         elif form.get("vendor") and form.get("product"):
@@ -193,7 +199,14 @@ def create_app(
             state["profile"] = apply_corrections(state["profile"], body.model_dump())
         except ValueError as e:
             raise HTTPException(422, str(e)) from None
+        # The run found timestamps with no zone (decided by code, recorded in its state): only a
+        # timezone the human sends here counts; the AI's hint never does (appsec M2).
+        if state.get("needs_timezone") and not body.tz:
+            raise HTTPException(422, "choose the timezone the timestamps are written in")
+        if body.tz:
+            state["tz_confirmed"] = state["profile"]["timezone_hint"]  # validated just above
         state["profile_confirmed"] = True
+        state.pop("needs_timezone", None)
         if not store.transition(job, "profile_review", "queued", state=state):
             raise HTTPException(409, "the run changed state; reload and try again")
         return {"job": job, "status": "queued"}
@@ -336,14 +349,16 @@ async def _sse(dsn: str, job: str, after: int, request: Request) -> AsyncIterato
         conn.close()
 
 
-async def _manifest(upload: UploadFile | None, sample: intake.Sample) -> dict:
-    """The generator's truth manifest (this build validates against it): untrusted, checked."""
-    if upload is None:
-        raise intake.UploadRefused(
-            "a truth manifest (.manifest.json) is required in this build; "
-            "manifest-free validation is planned"
-        )
-    raw = await upload.read(20 * 1024 * 1024 + 1)
+async def _manifest(upload: UploadFile | None, sample: intake.Sample) -> dict | None:
+    """A truth manifest, if there is one: uploaded, or found for a generator sample by its
+    content. Untrusted either way, so checked. None: the log is validated mechanically."""
+    raw = (
+        await upload.read(20 * 1024 * 1024 + 1)
+        if upload is not None
+        else intake.fixture_manifest(sample)
+    )
+    if raw is None:
+        return None
     try:
         truth = json.loads(raw)
     except (ValueError, RecursionError):
@@ -419,6 +434,7 @@ def _public(row: dict, detail: bool = False) -> dict:
         state, record = row.get("state") or {}, row.get("record") or {}
         out["profile"] = state.get("profile")
         out["stage_index"] = state.get("stage_index")
+        out["needs_timezone"] = bool(state.get("needs_timezone"))
         out["record"] = {
             k: v
             for k, v in record.items()

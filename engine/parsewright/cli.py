@@ -203,7 +203,8 @@ def queued_run(args, settings: Settings, store: db.Store, update_of: str | None 
     from parsewright.orchestrator.worker import Worker
 
     sample = intake.check(args.file.read_bytes())
-    manifest = args.file.with_suffix(".manifest.json").read_bytes()
+    beside = args.file.with_suffix(".manifest.json")
+    manifest = beside.read_bytes() if beside.is_file() else intake.fixture_manifest(sample)
     form: dict = {"auto_approve": True}
     if update_of:
         if store.ta(update_of) is None:
@@ -224,7 +225,12 @@ def queued_run(args, settings: Settings, store: db.Store, update_of: str | None 
     # and a path outside the runs folder could be swapped for a link (appsec Phase 7 M1).
     uploads = promote.runs_root(settings.runs_dir) / "uploads"
     uploads.mkdir(mode=0o700, exist_ok=True)
-    path, form["manifest_sha256"] = intake.save(uploads, job, sample, manifest)
+    path, digest = intake.save(uploads, job, sample, manifest)
+    form["validation"] = (
+        ("uploaded" if beside.is_file() else "fixture") if manifest else "mechanical"
+    )
+    if digest:
+        form["manifest_sha256"] = digest
     job, duplicate = store.enqueue(job, key, sample.sha256, str(path), form)
     if duplicate:
         row = store.get(job)

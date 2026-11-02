@@ -246,11 +246,23 @@ class SplunkClient:
         return [(int(r["t"]), int(r.get("it") or 0), r.get("_raw", "")) for r in rows]
 
     def field_rows(self, index: str, sourcetype: str, source: str | None = None) -> list[dict]:
-        """Every search-time field of every event, keyed by epoch t (the manifest key)."""
+        """Every search-time field of every event, keyed by epoch t (the manifest key), with the
+        raw line as pw_raw (the no-manifest checks compare each value with its own line)."""
         return self._rows(
             f"search index={require_pw_index(index)} sourcetype={spl_name(sourcetype)}"
-            f"{_by_source(source)} | eval t=floor(_time) | fields - _* | table t *"
+            f"{_by_source(source)} | eval t=floor(_time), pw_raw=_raw | fields - _* | table t *"
         )
+
+    def value_pairs(
+        self, index: str, sourcetype: str, field: str, cim_field: str, source: str | None = None
+    ) -> list[dict]:
+        """How often each source value became each CIM value (e.g. drop -> blocked x100)."""
+        a, b = spl_name(field), spl_name(cim_field)
+        rows = self._rows(
+            f"search index={require_pw_index(index)} sourcetype={spl_name(sourcetype)}"
+            f"{_by_source(source)} | stats count by {a} {b} | sort - count | head 20"
+        )
+        return [{"from": r.get(a), "to": r.get(b), "count": int(r.get("count", 0))} for r in rows]
 
     def report_rows(
         self, index: str, sourcetype: str, first: int, source: str | None = None

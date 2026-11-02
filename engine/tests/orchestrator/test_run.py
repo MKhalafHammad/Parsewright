@@ -232,3 +232,157 @@ def test_profile_review_waits_for_a_human(sample, pkgs, tmp_path):
     assert line == "profile review: waiting for a human"
     assert where(m) == ("profile", None, None, "human", "human_wait")
     assert m["detail"] == {"for": "profile_review"}
+
+
+# --- a log without a truth manifest (validated mechanically) ---------------------------------
+
+
+@pytest.fixture
+def no_manifest(tmp_path):
+    """The Tokyo-time VPN log with no manifest beside it: what a real upload looks like."""
+    work = tmp_path / "real"
+    work.mkdir()
+    shutil.copy(FIXTURES / "acme_vpn_notz.json", work / "vpn.json")
+    return work / "vpn.json"
+
+
+NOTZ = PROFILE | {"timezone_in_timestamp": False, "timezone_hint": "Asia/Tokyo"}
+
+
+def notz_proposal(tz: str | None) -> dict:
+    return proposal(tz=tz) | {"time_format": "%Y-%m-%d %H:%M:%S", "max_timestamp_lookahead": 19}
+
+
+def notz_events(shift: int = 0) -> list[tuple[int, str]]:
+    import json
+
+    lines = [ln for ln in (FIXTURES / "acme_vpn_notz.json").read_text().splitlines() if ln]
+    epochs = json.loads((FIXTURES / "acme_vpn_notz.manifest.json").read_text())["epochs"]
+    return [(e + shift, raw) for e, raw in zip(epochs, lines, strict=True)]
+
+
+def test_a_log_without_a_zone_waits_for_a_human_even_when_review_is_skipped(
+    no_manifest, pkgs, tmp_path
+):
+    """Nothing in the file says which zone 2026-10-20 17:00:46 is in; the AI's hint is only a
+    suggestion, so the run pauses before building (no Splunk work, one model call)."""
+    got, out = collect_events()
+    splunk = FakeSplunk([])
+    llm = fake_llm(tmp_path, [NOTZ])
+    result = run(no_manifest, llm, splunk, "pw_test", pkgs, out=out, stages=("index-time",))
+    assert result.status == "profile_review" and not splunk.installed
+    line, m = got[-1]
+    assert "carry no timezone" in line and m["detail"]["reason"] == "timezone"
+    assert len(llm._client.requests) == 1
+
+
+def test_epoch_or_offset_timestamps_need_no_timezone_whatever_the_profile_says(
+    no_manifest, pkgs, tmp_path
+):
+    """Code reads the example: an epoch is UTC by definition (the lab's Profiler said "no zone"
+    for 1792483254000 and the run paused for nothing)."""
+    from parsewright.validator.mechanical import example_has_zone
+
+    text = (
+        'ts=1792483254000 a=1\n{"time":"2026-10-20T08:00:46+00:00"}\n{"time":"2026-10-20 17:00:45"}'
+    )
+    assert example_has_zone("1792483254000", text, profile_says=False)
+    assert example_has_zone("2026-10-20T08:00:46+00:00", text, profile_says=False)
+    assert not example_has_zone("2026-10-20 17:00:45", text, profile_says=True)
+    assert example_has_zone("made up", text, profile_says=True)  # not in the file: the flag
+
+
+def test_a_stated_timezone_is_the_one_the_add_on_must_use(no_manifest, pkgs, tmp_path):
+    """The form said Asia/Tokyo: a proposal with TZ=UTC fails (every event 9 h off, read by
+    code from the raw line), the evidence goes back, and TZ=Asia/Tokyo passes."""
+    splunk = FakeSplunk([notz_events(shift=32400), notz_events()])
+    llm = fake_llm(tmp_path, [NOTZ, notz_proposal("UTC"), notz_proposal("Asia/Tokyo")])
+    result, log = go(no_manifest, pkgs, llm, splunk, timezone="Asia/Tokyo")
+    assert result.status == "passed" and result.attempts == 2, log
+    # Splunk's times agree with a UTC reading, so only the stated zone exposes the guess.
+    first = log.split("index-time attempt 2")[0]
+    assert "PASS timestamp accuracy" in first and "FAIL timezone" in first
+    second = llm._client.requests[2]["messages"][1]["content"]
+    assert "confirmed timezone is Asia/Tokyo" in second
+
+
+def test_code_not_the_profile_decides_whether_timestamps_carry_a_zone(no_manifest, pkgs, tmp_path):
+    """Adversarial: the profile wrongly says the timestamps carry a zone, and the agent's
+    TZ=UTC makes every check pass. Code reads the lines, finds no zone, and the run goes
+    back to profile review instead of shipping a guessed timezone."""
+    wrong = NOTZ | {"timezone_in_timestamp": True, "timezone_hint": None}
+    checkpoints: list[dict] = []
+    splunk = FakeSplunk([notz_events(shift=32400)])
+    llm = fake_llm(tmp_path, [wrong, notz_proposal("UTC")])
+    result, log = go(no_manifest, pkgs, llm, splunk, checkpoint=checkpoints.append)
+    assert result.status == "profile_review", log
+    assert checkpoints[-1]["needs_timezone"] and checkpoints[-1]["stage_index"] == 0
+    assert "carry no timezone" in log
+
+
+def test_a_generator_sample_keeps_its_answer_key(sample, pkgs, tmp_path, manifest):
+    """With its manifest beside it, the run validates against the truth as before."""
+    splunk = FakeSplunk([truth(manifest)])
+    result, log = go(sample, pkgs, fake_llm(tmp_path, [PROFILE, proposal()]), splunk)
+    assert result.status == "passed" and "FAIL timezone" not in log
+    assert "timestamp accuracy: expected all _time = manifest" in log
+
+
+def test_value_pairs_match_events_across_the_cim_layer(sample, pkgs, tmp_path):
+    """action=accept becomes action=allowed under the same name; and an EVAL reading two
+    fields shows each event's own source value (lab: logins use result, sessions verdict)."""
+    from parsewright.orchestrator.caps import IngestCaps
+    from parsewright.validator.mechanical import RAW
+
+    class Rows(FakeSplunk):
+        def field_rows(self, index, sourcetype, source=None):
+            return [
+                {RAW: "a", "action": "allowed"},
+                {RAW: "b", "action": "failure"},
+                {RAW: "c", "action": "failure"},
+            ]
+
+    r = Run(
+        sample,
+        fake_llm(tmp_path, []),
+        Rows([]),
+        "pw_test",
+        pkgs,
+        print,
+        5,
+        IngestCaps(None, 20, 500),
+    )
+    r.pre_cim = [
+        {RAW: "a", "action": "accept"},
+        {RAW: "b", "result": "failure"},
+        {RAW: "c", "result": "failure"},
+    ]
+    single = r.value_pairs(["action"], "action", None)
+    assert {"from": "accept", "to": "allowed", "count": 1} in single
+    pairs = r.value_pairs(["action", "result"], "action", None)
+    assert {"from": "result=failure", "to": "failure", "count": 2} in pairs
+
+
+def test_source_variety_is_read_before_the_cim_layer(sample, pkgs, tmp_path):
+    """appsec H1: EVAL-action = case(action=="accept","allowed",true(),"allowed") rewrites
+    its own source, so variety must come from the pre-CIM snapshot; an enumerated field is
+    judged even when its EVAL reads two fields."""
+    from parsewright.agents.profiler import LogProfile
+    from parsewright.orchestrator.caps import IngestCaps
+
+    r = Run(
+        sample,
+        fake_llm(tmp_path, []),
+        FakeSplunk([]),
+        "pw_test",
+        pkgs,
+        print,
+        5,
+        IngestCaps(None, 20, 500),
+    )
+    r.pre_cim = [{"action": a, "src": "x", "dest": "y"} for a in ("accept", "drop", "reset")]
+    prof = LogProfile(**PROFILE | {"fields": [{"name": "action", "coverage": 1.0}]})
+    faked = {"props": {"EVAL-action": 'case(action=="accept","allowed",true(),"allowed")'}}
+    assert r.source_distinct(faked, prof, None)["action"] == 3
+    two = {"props": {"EVAL-action": 'if(len(src)>0 AND len(action)>0,"allowed","allowed")'}}
+    assert r.source_distinct(two, prof, None)["action"] == 3

@@ -266,6 +266,7 @@ class Store:
         return self.conn.execute(
             "SELECT v.version, v.job_id, v.sha256, v.created_at, j.sample_path,"
             " j.content_sha256, j.form->>'manifest_sha256' AS manifest_sha256,"
+            " j.form->>'validation' AS validation,"
             " j.state->'profile' AS profile FROM ta_versions v JOIN jobs j ON j.id = v.job_id"
             " WHERE v.app = %s ORDER BY v.created_at, v.version",
             (app,),

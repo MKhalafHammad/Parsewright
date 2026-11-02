@@ -30,6 +30,7 @@ from parsewright.tools.splunk_client import SplunkClient, ingest_source
 from parsewright.validator import cim as cim_validator
 from parsewright.validator import extraction as extraction_validator
 from parsewright.validator import index_time as index_validator
+from parsewright.validator import mechanical
 from parsewright.validator.index_time import Report
 
 MAX_ATTEMPTS = 5
@@ -57,6 +58,11 @@ DEFAULT_FIELDS = {
 
 class BudgetExhausted(Exception):
     pass
+
+
+class TimezoneUnconfirmed(Exception):
+    """The timestamps carry no zone and no human has said which one they are in: the run waits
+    in profile review (a log without a truth manifest has no other source for it)."""
 
 
 class RunAborted(Exception):
@@ -89,6 +95,7 @@ class SampleSet:
     manifest: dict
     profile: LogProfile
     source: str
+    baseline: dict | None = None  # production's own output, for a set without a manifest
 
     @property
     def lines(self) -> list[str]:
@@ -96,7 +103,13 @@ class SampleSet:
 
 
 def load_manifest(path: Path) -> dict:
-    manifest = json.loads(path.with_suffix(".manifest.json").read_text(encoding="utf-8"))
+    """The truth manifest beside the sample (generator samples), or for any other log the
+    mechanical stand-in: then the Validator checks only what the file and Splunk can prove."""
+    beside = path.with_suffix(".manifest.json")
+    if not beside.exists():
+        text = path.read_text(encoding="utf-8")
+        return {**mechanical.manifest_for(text, path.name), "_text": text}
+    manifest = json.loads(beside.read_text(encoding="utf-8"))
     if manifest["event_count"] != len(manifest["epochs"]):
         raise ValueError("manifest event_count does not match its epochs")
     return manifest
@@ -135,6 +148,8 @@ class Run:
         self.stage_index = 0
         # Where the run is, for the structured log events (metadata only, never a decision).
         self.ctx: dict = {"stage": None, "attempt": None, "visit": None}
+        self.pre_cim: list[dict] = []
+        self.tz_confirmed: str | None = None
         self.visits: dict[str, int] = {}  # entries into each stage loop
 
     def state(self) -> dict:
@@ -148,6 +163,7 @@ class Run:
             "history": self.history,
             "version": self.version,
             "visits": self.visits,  # a resumed stage loop is a new visit in the log
+            "tz_confirmed": self.tz_confirmed,  # a zone a human stated survives a resume
         }
 
     def restore(self, state: dict) -> None:
@@ -311,6 +327,8 @@ class Run:
                 self.splunk, self.index, st, self.manifest, since, self.app, settings=settings
             )
             self.show_report(report)
+            if mechanical.zone_unconfirmed(report):  # no zone, none stated: ask a human
+                raise TimezoneUnconfirmed(f"{st}: timestamps carry no zone")
             if report.passed:
                 self.st, self.confs["index"] = st, settings
                 n = self.manifest["event_count"]
@@ -322,6 +340,23 @@ class Run:
                 return True
             self.add_evidence("index-time", settings, report.evidence())
         return False
+
+    def settle(self, confirmed_tz: str | None) -> None:
+        """Facts a log without a manifest gets from its confirmed profile."""
+        if mechanical.is_mechanical(self.manifest):
+            self.manifest["multiline"] = self.prof.multiline
+            self.manifest["confirmed_tz"] = confirmed_tz
+
+    def needs_timezone(self, stated: str | None) -> bool:
+        """Pause for a human before building: no manifest, no zone in the timestamps (decided
+        by code from the example), and nobody has stated the timezone."""
+        return (
+            mechanical.is_mechanical(self.manifest)
+            and not stated
+            and not mechanical.example_has_zone(
+                self.prof.timestamp_example, self.text, self.prof.timezone_in_timestamp
+            )
+        )
 
     def emit_ingest(self, st: str, sets: list[tuple[str, str]]) -> None:
         counts = [(src, len([ln for ln in text.splitlines() if ln.strip()])) for src, text in sets]
@@ -370,6 +405,9 @@ class Run:
         # Provenance uses the field names Splunk actually extracted, not the model's profile
         # (a profile could declare a field named "if" and make a constant look sourced).
         extracted = {line.split(" (", 1)[0] for line in fields.splitlines()}
+        # Each event's fields before the CIM layer, for the report's value pairs (an EVAL may
+        # overwrite its own source field: action=accept becomes action=allowed).
+        self.pre_cim = self.splunk.field_rows(self.index, self.st)
         self.enter("cim")
         for attempt in range(1, self.max_attempts + 1):
             self.ctx["attempt"] = attempt
@@ -395,7 +433,9 @@ class Run:
             targets = {
                 k.split("-", 1)[1] for k in cim["props"] if k.startswith(("EVAL-", "FIELDALIAS-"))
             }
-            report = self.check_search_time(lambda targets=targets: self.cim_report(targets))
+            report = self.check_search_time(
+                lambda targets=targets, cim=cim: self.cim_report(targets, cim=cim)
+            )
             if report.passed:
                 self.confs["cim"] = cim
                 self.emit("check_pass", "validator", f"cim: PASS (attempt {attempt})")
@@ -420,13 +460,27 @@ class Run:
     def extraction_report(self, skip: set[str], s: SampleSet | None = None) -> Report:
         manifest, prof, source = self._set(s)
         rows = self.splunk.field_rows(self.index, self.st, source)
-        report = extraction_validator.validate(rows, manifest, prof, skip)
-        regress = index_validator.regression(self.splunk, self.index, self.st, manifest, source)
+        if mechanical.is_mechanical(manifest):
+            report = mechanical.validate_extraction(rows, prof, skip)
+        else:
+            report = extraction_validator.validate(rows, manifest, prof, skip)
+            # A manifest checks only the fields it lists; every other value must still be
+            # exactly in its own line (appsec M4).
+            exact = mechanical.validate_extraction(rows, prof, skip).checks[1]
+            report = Report([*report.checks, dataclasses.replace(exact, name="values in line")])
+        regress = index_validator.regression(
+            self.splunk, self.index, self.st, manifest, source, self.confs["index"]
+        )
         return Report(report.checks + [_regressed(c, "index-time") for c in regress.checks])
 
-    def cim_report(self, targets: set[str], s: SampleSet | None = None) -> Report:
-        """Sets self.scores to this sample set's scores."""
-        manifest, _, source = self._set(s)
+    def cim_report(
+        self, targets: set[str], s: SampleSet | None = None, cim: dict | None = None
+    ) -> Report:
+        """Sets self.scores to this sample set's scores. cim: the settings under test (a log
+        without a manifest takes its data models from their tags)."""
+        manifest, prof, source = self._set(s)
+        if mechanical.is_mechanical(manifest):
+            return self.cim_report_mechanical(targets, s, cim or self.confs["cim"])
         rows, children = {}, {}
         for model in cim_validator.expected_by_model(manifest):
             root = cim_spec.ROOT[model]
@@ -436,8 +490,81 @@ class Run:
                 for ds, _, _ in cim_spec.CHILDREN[model]
             }
         report, self.scores = cim_validator.validate(rows, children, manifest)
+        guards = self.meaning_guards(cim or self.confs["cim"], prof, source, list(rows))
         earlier = self.extraction_report(skip=targets, s=s)
-        return Report(report.checks + [_regressed(c, "extraction") for c in earlier.checks])
+        return Report(
+            report.checks + guards + [_regressed(c, "extraction") for c in earlier.checks]
+        )
+
+    def meaning_guards(
+        self, cim: dict, prof: LogProfile, source: str | None, models: list[str]
+    ) -> list:
+        """No invented CIM values, no source field mapped to both ends (both modes: a manifest
+        covers only the fields it lists)."""
+        props = {
+            k: v for k, v in cim.get("props", {}).items() if k.startswith(("EVAL-", "FIELDALIAS-"))
+        }
+        rows = self.splunk.field_rows(self.index, self.st, source)
+        extracted = {f.name for f in prof.fields}
+        return [
+            mechanical.check_directions(props, extracted),
+            mechanical.check_invented(rows, props, models),
+        ]
+
+    def cim_report_mechanical(self, targets: set[str], s: SampleSet | None, cim: dict) -> Report:
+        manifest, prof, source = self._set(s)
+        rows, children = {}, {}
+        for model in mechanical.models_of(cim):
+            root = cim_spec.ROOT[model]
+            rows[model] = self.splunk.datamodel_rows(model, root, self.index, self.st, source)
+            children[model] = {
+                ds: len(self.splunk.datamodel_rows(model, ds, self.index, self.st, source))
+                for ds, _, _ in cim_spec.CHILDREN[model]
+            }
+        mapped = targets | {f.name for f in prof.fields}
+        report, self.scores = mechanical.validate_cim(
+            rows, children, mapped, self.source_distinct(cim, prof, source), manifest["event_count"]
+        )
+        guards = self.meaning_guards(cim, prof, source, list(rows))
+        earlier = self.extraction_report(skip=targets, s=s)
+        return Report(
+            report.checks + guards + [_regressed(c, "extraction") for c in earlier.checks]
+        )
+
+    def source_distinct(self, cim: dict, prof: LogProfile, source: str | None) -> dict[str, int]:
+        """Distinct values of the source field(s) behind each CIM field: a CIM field that is
+        constant while its source varies has been faked (the no-manifest constant check)."""
+        if self.pre_cim:  # before the CIM layer: an EVAL may overwrite its own source field
+            values: dict[str, set] = {}
+            for r in self.pre_cim:
+                if source is None or r.get("source") == source:
+                    for k, v in r.items():
+                        values.setdefault(k, set()).add(json.dumps(v, sort_keys=True))
+            distinct = {k: len(v) for k, v in values.items()}
+        else:
+            summary = self.splunk.field_summary(
+                self.index, self.st, self.manifest["event_count"], source
+            )
+            distinct = {r.get("field", ""): int(r.get("distinct_count") or 0) for r in summary}
+        enumerated = {f for m in cim_spec.ROOT for f in cim_spec.expected_values(m)}
+        out = {f.name: distinct.get(f.name, 0) for f in prof.fields}
+        for key, value in cim.get("props", {}).items():
+            if key.startswith("FIELDALIAS-"):
+                src, _, dest = value.partition(" AS ")
+                out[dest.strip()] = distinct.get(src.strip(), 0)
+            elif key.startswith("EVAL-"):
+                refs = search_time._references(value) & set(distinct)
+                # Only a single-source EVAL can be judged: with several sources, the one each
+                # event uses may be constant (dest = gateway on every login, found in the lab);
+                # invented constants are caught by "CIM values from the event" instead.
+                # A field with an allowed-value list (action) is judged however many fields it
+                # reads: pinned to one allowed value while a source varies is faked (appsec H1).
+                target = key.split("-", 1)[1]
+                if len(refs) == 1 or (refs and target in enumerated):
+                    out[target] = max(distinct[r] for r in refs)
+                else:
+                    out[target] = 0
+        return out
 
     def report(self, s: SampleSet | None = None) -> dict:
         """The approval report's data, from the passing attempt's indexed events."""
@@ -457,7 +584,7 @@ class Run:
                 f"report: could not read events ({type(e).__name__}); recorded without one",
             )
             return {}
-        return report_mod.build(
+        built = report_mod.build(
             rows,
             list(dict.fromkeys(extracted)),
             cim_props,
@@ -466,6 +593,76 @@ class Run:
             len(self.samples),
             manifest["event_count"],
         )
+        built["validation"] = "mechanical" if mechanical.is_mechanical(manifest) else "manifest"
+        built["decisions"] = self.decisions(rows, cim_props, source, manifest)
+        return built
+
+    def decisions(self, rows: list[dict], cim_props: dict, source, manifest: dict) -> dict:
+        """What the agents decided, in plain values, for the human who approves: how the
+        timestamp is read (with the first event's result) and how values map to the CIM."""
+        settings = self.confs["index"]
+        first = rows[0] if rows else {}
+        values = []
+        for key, expr in cim_props.items():
+            if not key.startswith("EVAL-"):
+                continue
+            target = key.split("-", 1)[1]
+            refs = sorted(search_time._references(expr) & {f.name for f in self.prof.fields})
+            if not refs or (len(refs) > 1 and not (self.pre_cim and source is None)):
+                continue
+            try:
+                pairs = self.value_pairs(refs, target, source)
+            except Exception as e:  # noqa: BLE001 - a missing table must not fail a passing run
+                values.append(
+                    {
+                        "cim_field": target,
+                        "from": ", ".join(refs),
+                        "pairs": [],
+                        "unavailable": type(e).__name__,
+                    }
+                )
+                continue
+            entry = {"cim_field": target, "from": ", ".join(refs), "pairs": pairs}
+            if pairs and all(p["from"] == p["to"] for p in pairs):  # copied unchanged
+                entry = {**entry, "pairs": [], "identity": True, "distinct": len(pairs)}
+            values.append(entry)
+        return {
+            "timestamp": {
+                "time_prefix": settings.get("TIME_PREFIX"),
+                "time_format": settings.get("TIME_FORMAT") or "recognised by Splunk",
+                "tz": settings.get("TZ"),
+                "confirmed_tz": manifest.get("confirmed_tz"),
+                "first_raw": str(first.get("_raw", ""))[:300],
+                "first_time": int(first.get("t", 0) or 0),
+            },
+            "values": values,
+        }
+
+    def value_pairs(self, fields: list[str], target: str, source: str | None) -> list[dict]:
+        """Source value -> CIM value with counts. Events are matched by their raw line between
+        the fields before the CIM layer and after it; without that snapshot (parser updates),
+        Splunk counts them, which works when the CIM field has its own name. With several
+        source fields, each event shows the ones it has (result=failure, verdict=deny)."""
+        from collections import Counter
+
+        def label(r: dict) -> str:
+            if len(fields) == 1:
+                return str(r.get(fields[0]))
+            have = [f"{f}={r[f]}" for f in fields if r.get(f) not in (None, "", [])]
+            return ", ".join(have) or "(none)"
+
+        if self.pre_cim and source is None:
+            before = {r.get(mechanical.RAW): label(r) for r in self.pre_cim}
+            after = self.splunk.field_rows(self.index, self.st)
+            counts = Counter(
+                (before[r.get(mechanical.RAW)], str(r.get(target)))
+                for r in after
+                if r.get(mechanical.RAW) in before
+            )
+            return [{"from": a, "to": b, "count": n} for (a, b), n in counts.most_common(20)]
+        if fields[0] == target:
+            raise ValueError("no pre-CIM snapshot for a field that overwrites itself")
+        return self.splunk.value_pairs(self.index, self.st, fields[0], target, source)
 
     def field_values(self, source: str | None = None) -> str:
         """Extracted fields with real values from the sample events, for the CIM mapper."""
@@ -509,7 +706,8 @@ def run(
     record: Callable[..., None] | None = None,
 ) -> RunResult:
     """review=True pauses after profiling (status "profile_review") until a human confirms;
-    state resumes a checkpointed run; record replaces the file run record (database mode).
+    so does a log without a manifest whose timestamps carry no zone that nobody stated. state
+    resumes a checkpointed run; record replaces the file run record (database mode).
     out takes each log line; an events.Structured out also gets the line's metadata."""
     caps = caps or IngestCaps(runs_dir, job_mb=20, daily_mb=500)
     r = Run(path, llm, splunk, require_pw_index(test_index), packages_dir, out, max_attempts, caps)
@@ -523,10 +721,18 @@ def run(
         start_detail("build", path, r.manifest, max_attempts, llm),
     )
     waiting = {"for": "profile_review"}
+    stated = timezone or (state or {}).get("tz_confirmed")  # typed by a human, never a hint
+    r.tz_confirmed = (state or {}).get("tz_confirmed")
+    tz_wait = {"for": "profile_review", "reason": "timezone"}
+    tz_line = "profile review: the timestamps carry no timezone; waiting for a human to confirm it"
     if state and state.get("profile"):
         r.restore(state)
         if review:  # crashed between the profile checkpoint and the review pause (appsec L4)
             r.emit("human_wait", "human", "profile review: waiting for a human", waiting, **PROFILE)
+            return RunResult(job=r.job, status="profile_review", attempts=0, tokens=llm.used)
+        if r.needs_timezone(stated):
+            r.checkpoint({**r.state(), "needs_timezone": True})
+            r.emit("human_wait", "human", tz_line, tz_wait, **PROFILE)
             return RunResult(job=r.job, status="profile_review", attempts=0, tokens=llm.used)
         r.emit_run(
             "info",
@@ -545,11 +751,18 @@ def run(
             {"profile": r.prof.model_dump(mode="json")},
             **PROFILE,
         )
-        r.checkpoint(r.state())
+        # Decided now, so a normal review pause also asks for the zone (appsec M2).
+        r.checkpoint({**r.state(), "needs_timezone": r.needs_timezone(stated)})
         if review:
             r.emit("human_wait", "human", "profile review: waiting for a human", waiting, **PROFILE)
             return RunResult(job=r.job, status="profile_review", attempts=0, tokens=llm.used)
+        if r.needs_timezone(stated):
+            r.checkpoint({**r.state(), "needs_timezone": True})
+            r.emit("human_wait", "human", tz_line, tz_wait, **PROFILE)
+            return RunResult(job=r.job, status="profile_review", attempts=0, tokens=llm.used)
         r.emit("info", "orchestrator", "profile review: auto-approved", **PROFILE)
+    # A stated timezone (upload form or profile review) is the one the add-on must use.
+    r.settle(stated)
     r.app = test_app(r.prof.vendor, r.prof.product, r.job)
     if state and state.get("profile"):
         with r.lock():  # a crashed attempt may have left this job's own test app installed
@@ -636,6 +849,13 @@ def run(
                     f"awaiting approval: parsewright approve {r.job} --sha256 {r.last_pkg.sha256}",
                     {"for": "approval", "sha256": r.last_pkg.sha256},
                 )
+    except TimezoneUnconfirmed:
+        # Back to profile review with everything else kept; the index-time stage starts again
+        # once a human has stated the zone (new attempts, so never a reused sourcetype).
+        r.stage_index = 0
+        r.checkpoint({**r.state(), "needs_timezone": True})
+        r.emit("human_wait", "human", tz_line, tz_wait, **PROFILE)
+        result.status = "profile_review"
     except (BudgetExhausted, IngestCapExceeded) as e:
         result.failed_stage = "budget"
         r.emit_run("budget", "orchestrator", f"budget: {e}", {"reason": str(e)})

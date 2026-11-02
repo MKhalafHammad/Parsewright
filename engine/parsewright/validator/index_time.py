@@ -251,8 +251,7 @@ def validate(
         warnings = None
     return Report(
         [
-            check_count(count, manifest["event_count"], events),
-            check_times(events, manifest["epochs"]),
+            *data_checks(manifest, events, count, settings),
             check_fallback(timed),
             check_warnings(warnings),
             check_time_format(settings, events),
@@ -260,15 +259,41 @@ def validate(
     )
 
 
+def data_checks(
+    manifest: dict, events: list[tuple[int, str]], count: int, settings: dict[str, str] | None
+) -> list[Check]:
+    """Count and time checks: against the truth manifest, or with no manifest (a real log)
+    against the file itself and the time written in each event (validator/mechanical.py)."""
+    from parsewright.validator import mechanical
+
+    if not mechanical.is_mechanical(manifest):
+        return [
+            check_count(count, manifest["event_count"], events),
+            check_times(events, manifest["epochs"]),
+        ]
+    records = (
+        mechanical.expected_records(
+            manifest.get("_text", ""), bool(manifest.get("multiline")), settings
+        )
+        if manifest.get("_text")
+        else manifest["event_count"]
+    )
+    return [
+        check_count(count, records, events),
+        mechanical.check_times_from_raw(events, settings),
+        mechanical.check_zone(settings, manifest.get("confirmed_tz"), events),
+    ]
+
+
 def regression(
-    splunk: SplunkClient, index: str, sourcetype: str, manifest: dict, source: str | None = None
+    splunk: SplunkClient,
+    index: str,
+    sourcetype: str,
+    manifest: dict,
+    source: str | None = None,
+    settings: dict[str, str] | None = None,
 ) -> Report:
     """Re-run the data-only index-time checks after a later stage changed search-time config."""
     timed = splunk.events_with_indextime(index, sourcetype, source)
     events = [(t, raw) for t, _, raw in timed]
-    return Report(
-        [
-            check_count(len(events), manifest["event_count"], events),
-            check_times(events, manifest["epochs"]),
-        ]
-    )
+    return Report(data_checks(manifest, events, len(events), settings))

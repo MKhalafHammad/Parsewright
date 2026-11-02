@@ -137,3 +137,11 @@ def test_item_counts_are_capped():
     evals = [Eval(cim_field="user", expression="lower(user)")] * 21
     with pytest.raises(GuardrailBlock, match="at most 20"):
         cim(cimp(evals=evals), ST, JOB)
+
+
+def test_the_validators_own_column_name_cannot_be_extracted():
+    """appsec L8: a field named pw_raw would hide behind the raw-line column."""
+    from parsewright.guardrails.search_time import _field
+
+    with pytest.raises(GuardrailBlock):
+        _field("pw_raw", "EXTRACT-x group")

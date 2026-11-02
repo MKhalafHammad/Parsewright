@@ -14,6 +14,8 @@ from parsewright.tools.regex_test import test_regex
 NAME = re.compile(r"[a-z][a-z0-9_]{0,39}")
 FIELD = re.compile(r"[A-Za-z][A-Za-z0-9_]{0,63}")
 CORE = {"index", "host", "source", "sourcetype", "_time", "_raw", "eventtype", "tag", "linecount"}
+# Names the Validator uses for its own columns (field_rows): an extraction may not take them.
+RESERVED = {"pw_raw"}
 KV_MODES = {"none", "auto", "json", "xml"}
 DELIMS = {",", "\\t", "|", ";"}
 # Eventtype filters: field comparisons only. No pipes, subsearches, macros, re-scoping, or
@@ -60,7 +62,7 @@ def _name(value: str, what: str) -> str:
 
 
 def _field(value: str, what: str) -> str:
-    if not FIELD.fullmatch(value) or value in CORE:
+    if not FIELD.fullmatch(value) or value in CORE or value in RESERVED:
         raise GuardrailBlock(f"{what} {value!r} is not an allowed field name")
     return value
 

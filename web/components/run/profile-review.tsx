@@ -1,6 +1,6 @@
 "use client";
 
-import { PenLine, Undo2 } from "lucide-react";
+import { PenLine, TriangleAlert, Undo2 } from "lucide-react";
 import { useState } from "react";
 
 import { ActorChip } from "@/components/actors/actor";
@@ -43,7 +43,7 @@ export function ProfileFindings({ profile }: { profile: Profile }) {
 
 type Form = { vendor: string; product: string; sourcetype: string; tz: string };
 
-export function ProfileReview({ job, profile, onDone }: { job: string; profile: Profile; onDone: () => void }) {
+export function ProfileReview({ job, profile, onDone, needsTimezone = false }: { job: string; profile: Profile; onDone: () => void; needsTimezone?: boolean }) {
   const original: Form = { vendor: profile.vendor, product: profile.product, sourcetype: profile.sourcetype, tz: profile.timezone_hint ?? "" };
   const [form, setForm] = useState<Form>(original);
   const [error, setError] = useState("");
@@ -51,6 +51,10 @@ export function ProfileReview({ job, profile, onDone }: { job: string; profile: 
 
   async function confirm(e: React.FormEvent) {
     e.preventDefault();
+    if (needsTimezone && !form.tz.trim()) {
+      setError("Choose the timezone the timestamps are written in.");
+      return;
+    }
     setBusy(true);
     setError("");
     try {
@@ -102,12 +106,33 @@ export function ProfileReview({ job, profile, onDone }: { job: string; profile: 
         </h3>
         <p className="text-sm text-muted">The Profiler read the samples. Check what it found, correct anything wrong, then confirm. The run continues from here.</p>
       </div>
+      {needsTimezone && (
+        <div role="alert" className="flex gap-2 rounded-md border border-warn bg-warn-bg p-3 text-sm">
+          <TriangleAlert aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-warn" />
+          <div>
+            <p className="font-semibold">Which timezone are these timestamps in?</p>
+            <p>
+              They carry no zone, and nothing in the file can prove one. The add-on will use exactly the timezone you confirm here
+              {profile.timezone_hint ? (
+                <>
+                  ; the Profiler suggests <span className="font-mono">{profile.timezone_hint}</span>
+                </>
+              ) : null}
+              .
+            </p>
+          </div>
+        </div>
+      )}
       <ProfileFindings profile={profile} />
       <form onSubmit={confirm} className="grid gap-2 sm:grid-cols-2">
         {field("vendor", "Vendor")}
         {field("product", "Product")}
         {field("sourcetype", "Sourcetype", "vendor:product or vendor:product:type")}
-        {field("tz", "Timezone", profile.timezone_in_timestamp ? "Not needed: timestamps carry an offset" : "IANA name, e.g. UTC or Asia/Tokyo")}
+        {field(
+          "tz",
+          needsTimezone ? "Timezone (required)" : "Timezone",
+          needsTimezone || !profile.timezone_in_timestamp ? "IANA name, e.g. UTC or Asia/Tokyo" : "Not needed: timestamps carry an offset",
+        )}
         <div className="p-2 sm:col-span-2">
           <Button type="submit" disabled={busy}>
             {busy ? "Confirming…" : "Confirm profile"}

@@ -17,8 +17,8 @@ test("keyboard-only: upload, confirm the profile, approve", async ({ page }) => 
   // everything else is reached with Tab in document order.
   await page.getByLabel("Log file").setInputFiles({ name: "a.log", mimeType: "text/plain", buffer: Buffer.from("x\n".repeat(60)) });
   await page.getByLabel("Log file").focus();
-  await page.keyboard.press("Tab"); // manifest
-  await page.keyboard.press("Tab"); // update an existing TA (no: a new build)
+  await page.keyboard.press("Tab"); // update an existing TA (no: a new build); no manifest field
+  await expect(page.getByLabel(/manifest/i)).toHaveCount(0);
   await expect(page.getByLabel("Update an existing TA (new log format)")).toBeFocused();
   await page.keyboard.press("Tab"); // vendor
   await expect(page.getByLabel("Vendor")).toBeFocused();

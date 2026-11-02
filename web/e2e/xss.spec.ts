@@ -136,3 +136,45 @@ test("an update recorded before structured changes shows its stored diff as rows
   await expect(diff).toContainText("coalesce(src,src_ip)");
   expect(await diff.innerText()).not.toMatch(DIFF_MARKERS);
 });
+
+test("a run without a manifest shows the agents' decisions as text and asks for a missing timezone", async ({ page }) => {
+  const dialogs = watchDialogs(page);
+  const base = run("awaiting_approval");
+  const decisions = {
+    timestamp: { time_prefix: "ts=", time_format: "%s%3N", tz: "UTC", confirmed_tz: "UTC", first_raw: `ts=1792483219000 action=${XSS}`, first_time: 1792483219 },
+    values: [{ cim_field: "action", from: "action", pairs: [{ from: XSS, to: "blocked", count: 3 }, { from: "accept", to: "allowed", count: 7 }] }],
+  };
+  const report = { ...base.record.report, validation: "mechanical", decisions };
+  await mockRun(page, { ...base, form: { validation: "mechanical" }, record: { ...base.record, report } });
+  await page.goto("/runs/e2e00001");
+
+  await expect(page.getByText("Checked on every event, with no answer key:")).toBeVisible();
+  const section = page.getByRole("region", { name: "Decisions the agents made" });
+  await expect(section).toContainText(`ts=1792483219000 action=${XSS}`);
+  await expect(section).toContainText("2026-10-20T08:00:19Z");
+  await expect(section).toContainText("(confirmed by you)");
+  await expect(page.getByRole("list", { name: "action values" })).toContainText(`${XSS} → blocked · 3 events`);
+  await nothingInjected(page, dialogs);
+
+  // Paused because the timestamps carry no zone: confirming without one is refused in the UI.
+  const review = run("profile_review");
+  await mockRun(page, {
+    ...review,
+    form: { validation: "mechanical" },
+    needs_timezone: true,
+    profile: { ...review.profile, timezone_in_timestamp: false, timezone_hint: null },
+  });
+  let posted = false;
+  await page.route("**/api/engine/runs/e2e00001/profile", (r) => {
+    posted = true;
+    return r.fulfill({ json: { job: "e2e00001", status: "queued" } });
+  });
+  await page.goto("/runs/e2e00001");
+  await expect(page.getByText("Which timezone are these timestamps in?")).toBeVisible();
+  await page.getByRole("button", { name: "Confirm profile" }).click();
+  await expect(page.getByRole("alert").filter({ hasText: "Choose the timezone" })).toBeVisible();
+  expect(posted).toBe(false);
+  await page.getByLabel("Timezone (required)").fill("Asia/Tokyo");
+  await page.getByRole("button", { name: "Confirm profile" }).click();
+  await expect.poll(() => posted).toBe(true);
+});

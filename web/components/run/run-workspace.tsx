@@ -76,7 +76,7 @@ export function RunWorkspace({ id }: { id: string }) {
 
   let view: React.ReactNode;
   if (selected === "profile_review" && run.status === "profile_review" && run.profile) {
-    view = <ProfileReview job={run.job} profile={run.profile} onDone={refresh} />;
+    view = <ProfileReview job={run.job} profile={run.profile} onDone={refresh} needsTimezone={Boolean(run.needs_timezone)} />;
   } else if (selected === "profile" || selected === "profile_review") {
     const own = entries.filter((e) => e.phase === selected);
     view = (

@@ -36,6 +36,17 @@ export type ConfChange = {
   after: string | null;
   change: "added" | "removed" | "changed" | "unchanged";
 };
+export type Decisions = {
+  timestamp: {
+    time_prefix: string | null;
+    time_format: string;
+    tz: string | null;
+    confirmed_tz: string | null;
+    first_raw: string;
+    first_time: number;
+  };
+  values: { cim_field: string; from: string; pairs: { from: string; to: string; count: number }[]; identity?: boolean; distinct?: number; unavailable?: string }[];
+};
 export type Report = {
   events: ReportEvent[];
   mapping: { cim_field: string; kind: string; from: string; example: string }[];
@@ -43,6 +54,9 @@ export type Report = {
   confs: Record<string, string>;
   holdout: { learned_from: number; validated_on: number };
   update?: UpdateReview;
+  /** "manifest": checked against a known answer (generator samples); "mechanical": any other log. */
+  validation?: "manifest" | "mechanical";
+  decisions?: Decisions;
 };
 export type TA = { app: string; sourcetype: string; current_version: string; versions: string[] };
 export type Profile = {
@@ -58,6 +72,7 @@ export type Profile = {
   cim_targets: string[];
 };
 export type RunDetail = Job & {
+  needs_timezone?: boolean;
   profile: Profile | null;
   stage_index: number | null;
   record: {

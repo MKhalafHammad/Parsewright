@@ -19,7 +19,6 @@ export function NewRunSheet({ open, onClose, tas, onQueued }: { open: boolean; o
     setError("");
     try {
       const form = new FormData(e.currentTarget);
-      if (!(form.get("manifest") as File | null)?.size) form.delete("manifest");
       if (!form.get("update_of")) form.delete("update_of");
       const r = await api<{ job: string; duplicate: boolean; events: number; estimated_tokens: number }>("/uploads", { method: "POST", body: form });
       onQueued(
@@ -42,10 +41,6 @@ export function NewRunSheet({ open, onClose, tas, onQueued }: { open: boolean; o
         <div className="grid gap-1">
           <Label htmlFor="file">Log file</Label>
           <Input id="file" name="file" type="file" required accept=".log,.txt,.json,.csv,.gz" />
-        </div>
-        <div className="grid gap-1">
-          <Label htmlFor="manifest">Truth manifest (.manifest.json)</Label>
-          <Input id="manifest" name="manifest" type="file" accept=".json" />
         </div>
         <div className="grid gap-1">
           <Label htmlFor="update_of">Update an existing TA (new log format)</Label>
@@ -85,7 +80,7 @@ export function NewRunSheet({ open, onClose, tas, onQueued }: { open: boolean; o
           </div>
         </fieldset>
         <p id="upload-help" className="text-[13px] text-subtle">
-          Checked before anything is stored: text, UTF-8, at least 50 events, at most 10 MB. An update keeps the TA&apos;s names and profile, and must pass on its old samples too.
+          Only the log is needed. Checked before anything is stored: text, UTF-8, at least 50 events, at most 10 MB. An update keeps the TA&apos;s names and profile, and must pass on its old samples too.
         </p>
         <Button type="submit" disabled={busy}>
           {busy ? "Uploading…" : updateOf ? "Start update" : "Start run"}

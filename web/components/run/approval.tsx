@@ -15,7 +15,7 @@ import { changesFromUnified, confRows } from "@/lib/settings-diff";
 import { ConfigView, SettingsDiff } from "./config-view";
 import { EventCompare } from "./event-compare";
 
-export function ApprovalSummary({ report, phases }: { report: Report; phases: Phase[] }) {
+export function ApprovalSummary({ report, phases, source }: { report: Report; phases: Phase[]; source?: string }) {
   const worked = phases.filter((p) => p.attempts > 0);
   return (
     <section aria-labelledby="summary-title" className="grid gap-4">
@@ -24,6 +24,22 @@ export function ApprovalSummary({ report, phases }: { report: Report; phases: Ph
       </h3>
       <p className="text-sm">
         Learned from <strong>{report.holdout.learned_from}</strong> lines, passed on <strong>{report.holdout.validated_on}</strong> events (the full file). Every check ran in Splunk.
+      </p>
+      <p className="flex items-start gap-2 text-sm">
+        <ToneIcon tone="good" />
+        {report.validation === "mechanical" ? (
+          <span>
+            <strong>Checked on every event, with no answer key:</strong> one event per record; each time read by code from its own line; every extracted value exactly as written in its line; CIM values traced to the event or from the allowed lists. What it cannot prove is meaning: the decisions below are the agents&apos;, so check them before approving.
+          </span>
+        ) : source === "uploaded" ? (
+          <span>
+            <strong>Checked against the uploaded manifest:</strong> an answer key supplied with the log, not verified by Parsewright; values it does not list were checked against their own lines.
+          </span>
+        ) : (
+          <span>
+            <strong>Verified against known answers:</strong> a generator sample, checked against its own truth manifest from the repository.
+          </span>
+        )}
       </p>
       <div className="grid gap-4 md:grid-cols-2">
         <div className="grid content-start gap-3">
@@ -57,6 +73,11 @@ export function ApprovalSummary({ report, phases }: { report: Report; phases: Ph
             ))}
           </ul>
           <nav aria-label="Report sections" className="mt-2 flex flex-wrap gap-3 text-sm">
+            {report.decisions && (
+              <a href="#decisions" className="underline underline-offset-2">
+                Decisions the agents made
+              </a>
+            )}
             <a href="#raw-parsed" className="underline underline-offset-2">
               Raw vs parsed
             </a>
@@ -71,6 +92,81 @@ export function ApprovalSummary({ report, phases }: { report: Report; phases: Ph
           </nav>
         </div>
       </div>
+    </section>
+  );
+}
+
+/** What the agents decided, in plain values: how the timestamp is read and how values map. */
+export function Decisions({ report }: { report: Report }) {
+  const d = report.decisions;
+  if (!d) return null;
+  const ts = d.timestamp;
+  const first = ts.first_time ? new Date(ts.first_time * 1000).toISOString().replace(".000Z", "Z") : "";
+  const aliases = report.mapping.filter((m) => m.kind === "FIELDALIAS");
+  return (
+    <section aria-labelledby="decisions" className="grid gap-3">
+      <h3 id="decisions" className="scroll-mt-4 text-base font-semibold">
+        Decisions the agents made
+      </h3>
+      <dl className="grid gap-x-6 gap-y-2 text-sm sm:grid-cols-[auto_1fr]">
+        <dt className="text-subtle">Timestamp</dt>
+        <dd>
+          <span className="font-mono text-[13px]">{ts.time_format}</span>
+          {ts.time_prefix ? (
+            <>
+              {" "}
+              after <span className="font-mono text-[13px]">{ts.time_prefix}</span>
+            </>
+          ) : null}
+        </dd>
+        <dt className="text-subtle">Timezone</dt>
+        <dd>
+          {ts.tz ?? "from each timestamp"}
+          {ts.confirmed_tz ? " (confirmed by you)" : ""}
+        </dd>
+        {first && (
+          <>
+            <dt className="text-subtle">First event</dt>
+            <dd className="grid gap-1">
+              <span className="break-all font-mono text-[13px]">{ts.first_raw}</span>
+              <span>
+                read as <strong className="tabular-nums">{first}</strong>
+              </span>
+            </dd>
+          </>
+        )}
+      </dl>
+      {aliases.length > 0 && (
+        <ul aria-label="Field meanings" className="grid gap-1 text-sm">
+          {aliases.map((m) => (
+            <li key={m.cim_field}>
+              <span className="font-mono">{m.cim_field}</span> ← <span className="font-mono">{m.from}</span>
+              {m.example ? <span className="text-subtle"> · e.g. {m.example}</span> : null}
+            </li>
+          ))}
+        </ul>
+      )}
+      {d.values.map((v) => (
+        <div key={v.cim_field} className="grid gap-1">
+          <h4 className="text-[13px] font-semibold text-muted">
+            <span className="font-mono">{v.cim_field}</span> from <span className="font-mono">{v.from}</span>
+          </h4>
+          {v.identity ? (
+            <p className="text-sm text-muted">Copied unchanged ({v.distinct} distinct values).</p>
+          ) : v.pairs.length ? (
+            <ul aria-label={`${v.cim_field} values`} className="flex flex-wrap gap-2 text-sm">
+              {v.pairs.map((p, i) => (
+                <li key={`${i}-${p.from}`} className="rounded-md bg-surface-2 px-2 py-1">
+                  <span className="font-mono">{p.from}</span> → <span className="font-mono">{p.to}</span>
+                  <span className="text-subtle"> · {p.count} events</span>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="text-sm text-subtle">Counts unavailable for this field.</p>
+          )}
+        </div>
+      ))}
     </section>
   );
 }
@@ -131,7 +227,8 @@ export function UpdateNotes({ update }: { update: UpdateReview }) {
 export function ApprovalView({ run, report, phases, fieldOrder, tzNote }: { run: RunDetail; report: Report; phases: Phase[]; fieldOrder: string[]; tzNote?: string }) {
   return (
     <div className="grid gap-8">
-      <ApprovalSummary report={report} phases={phases} />
+      <ApprovalSummary report={report} phases={phases} source={typeof run.form.validation === "string" ? run.form.validation : undefined} />
+      <Decisions report={report} />
       {report.update && <UpdateNotes update={report.update} />}
       <section aria-labelledby="raw-parsed" className="grid gap-3">
         <h3 id="raw-parsed" className="scroll-mt-4 text-base font-semibold">

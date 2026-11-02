@@ -5,7 +5,7 @@ From raw sample logs to a tested, CIM-compliant Splunk add-on, verified by Splun
 [![CI](https://github.com/MKhalafHammad/Parsewright/actions/workflows/ci.yml/badge.svg)](https://github.com/MKhalafHammad/Parsewright/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-> **Status:** hackathon build. This README separates what is **built** from what is **planned**. Built: the full loop (three agent stages, each checked by a real Splunk, on JSON, key=value, syslog and CSV logs), the job queue with parallel workers, the agent-centred web UI, hash-bound approval and promotion, parser updates of promoted TAs, and a one-command Docker setup that prepares its own Splunk. Planned: drift monitoring and shared-feed routing.
+> **Status:** hackathon build. This README separates what is **built** from what is **planned**. Built: the full loop (three agent stages, each checked by a real Splunk, on JSON, key=value, syslog and CSV logs), the job queue with parallel workers, the agent-centred web UI, hash-bound approval and promotion, parser updates of promoted TAs, any log uploaded on its own (no answer key needed), and a one-command Docker setup that prepares its own Splunk. Planned: drift monitoring and shared-feed routing.
 
 ## Demo
 
@@ -67,6 +67,7 @@ The model is set only through environment variables (`LLM_BASE_URL`, `LLM_MODEL`
 | Guardrails: stage gates plus a final gate over the whole package (allowlisted keys after Unicode normalisation, no forbidden keys, no foreign stanzas, eventtype anchoring, CIM provenance, environment-independent EVALs), with an adversarial suite of 87 tests | **Built** |
 | Validator: index-time checks (event count, timestamp accuracy, fallback, parser warnings, `TIME_FORMAT` really matching every event) | **Built** |
 | Validator: extraction and CIM checks (Authentication, Network_Traffic, Web) with the three-number CIM score | **Built** |
+| Logs without a truth manifest: upload just the log. Generator samples are recognised and checked against their known answers; any other log is checked mechanically on every event (each time equal to the time written in its line, read by code; every value exactly as written in its line; CIM gaming rules), the run asks a human for the timezone only when the timestamps carry none, and the approval report lists the agents' decisions (timestamp reading, field meanings, value → CIM value with counts) | **Built** |
 | TA builder: escaping conf writer, test identity, reproducible `.tgz` packaging with a file allowlist and SHA-256 | **Built** |
 | Approval and promotion: `parsewright approve <job> --sha256 …` (hash-bound, replay-safe), `parsewright promote <job>` (deterministic rename to real names, both hashes linked, refuses existing TAs and sourcetypes, smoke test) | **Built** |
 | CLI: `parsewright run <file>` (all three stages) | **Built** |
@@ -135,10 +136,10 @@ Nothing else changes, and sample logs never leave your network.
 ## Usage
 
 **Web UI** (http://localhost:3000)
-1. **New run:** upload sample logs from one source (JSON, key=value, syslog or CSV; at least 50 events, at most 10 MB), with an optional truth manifest, vendor, product and timezone. Or choose a promoted TA to update it for a new log format.
-2. **Profile review:** confirm or correct what the Profiler found (vendor, product, sourcetype, timezone), with field coverage shown.
+1. **New run:** upload a sample log from one source (JSON, key=value, syslog or CSV; at least 50 events, at most 10 MB). That is all that is needed; vendor, product and timezone are optional. Or choose a promoted TA to update it for a new log format.
+2. **Profile review:** confirm or correct what the Profiler found (vendor, product, sourcetype, timezone), with field coverage shown. Skippable, except when the timestamps carry no timezone and none was given: nothing in the file can prove which zone they are in, so the run asks.
 3. **Run workspace:** the "Now" banner names the agent at work; the phase rail opens any phase and attempt (`/runs/<job>?phase=extraction&attempt=2`). Each attempt shows the proposal, the guardrail gate's verdict, Splunk's checks (expected vs actual, failing events) and what changed since the previous attempt. The activity feed is grouped by phase and attempt.
-4. **Approval report:** CIM scores, attempts per phase and holdout; raw vs parsed with one colour per field and a CIM view; the configuration as the `.conf` files themselves. Approve (bound to the package's SHA-256, with a second confirmation), reject, or download the `.tgz`.
+4. **Approval report:** CIM scores, attempts per phase and holdout; how the run was validated (against known answers, or mechanically); the decisions the agents made (how the timestamp is read, with the first event's result; field meanings; each source value → CIM value with its count), which are what you vouch for when you approve; raw vs parsed with one colour per field and a CIM view; the configuration as the `.conf` files themselves. Approve (bound to the package's SHA-256, with a second confirmation), reject, or download the `.tgz`.
 
 **CLI**
 ```bash
@@ -232,6 +233,8 @@ Progress per phase is tracked in the Status table of [docs/build-plan.md](docs/b
 - One standalone Splunk Enterprise instance.
 - Four formats: JSON, key=value, syslog, CSV.
 - Three CIM data models: Authentication, Network_Traffic, Web.
+
+**What a log without a truth manifest cannot prove:** meaning. Everything mechanical is proven on every event, but a wrongly stated timezone, or a value mapped to the wrong but allowed CIM value, passes the checks. The approval report lists those decisions for the human who approves (threat model R13).
 
 **Out of scope for now:**
 - Splunk Cloud, clusters and forwarders.

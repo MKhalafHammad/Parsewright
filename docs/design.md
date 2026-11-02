@@ -30,7 +30,7 @@ The hackathon build targets one standalone Splunk Enterprise instance, four log 
 | Formats: JSON, key=value, syslog, CSV | XML, binary, exotic vendor formats |
 | CIM: Authentication, Network_Traffic, Web | Other data models |
 | TA in `/opt/splunk/etc/apps/TA-parsewright-<vendor>-<product>` | Production rollout across a fleet |
-| Synthetic logs with a truth manifest | Client or real customer logs |
+| Any log as uploaded: synthetic generator samples (checked against their truth manifest) and logs without one (checked mechanically, meaning approved by a human) *(changed 2026-11-02: the owner needs to drop in real logs with no manual answer key)* | Committing real or customer logs to this public repo (only synthetic fixtures live here) |
 | Logs supplied by upload or drop folder | Automatic discovery of unparsed data inside Splunk (dropped: damaged samples, production data exposure) |
 | Dedicated inputs and shared syslog feeds (routing by index-time sourcetype rename) | Writing inputs.conf (left to the input owner) |
 | Parser updates and drift monitoring for TAs built by Parsewright | Updating TAs not built by Parsewright (needs an overlay TA and app precedence handling) |
@@ -225,7 +225,7 @@ Each job takes sample logs from one log source, raw as the source writes them, p
 
 **Going live.** For a dedicated input, the approval report ends with the exact `inputs.conf` change (e.g. `sourcetype = fortinet:fortigate:traffic` on the input now sending `fw01-2`). Parsewright never writes inputs itself.
 
-**Hackathon:** all uploads come from the synthetic generator, which also writes the truth manifest.
+**Only the log is uploaded** *(2026-11-02)*. A generator sample is recognised by its content hash and validated against its own truth manifest from the repo (a manifest can also be uploaded, and is checked like any input). Any other log has no answer key and is validated mechanically (see "Validation without a manifest"). The demo uses synthetic logs only; the repo never holds real ones.
 
 ## Concurrency and continuous operation
 
@@ -421,7 +421,32 @@ The Validator is code plus fixed SPL, no AI: it runs searches through the Splunk
 
 - Wait for indexing: poll `| tstats count where index=<test_index>` until two consecutive polls match.
 - Always search `earliest=0`, because samples carry historical timestamps.
-- Ground truth comes from the synthetic generator's truth manifest (event count, true epoch per event, true field values). For real logs without a manifest, Splunk's own warnings and consistency checks stand in.
+- Ground truth comes from the synthetic generator's truth manifest (event count, true epoch per event, true field values). For logs without a manifest, the mechanical checks below stand in.
+
+### Validation without a manifest *(added 2026-11-02)*
+
+The agents still do all the work, and the Validator still runs on every event of every attempt, in Splunk; only the answer key changes. Code (never the AI) proves what can be proven from the file itself, and the approval report lists what only meaning can settle.
+
+| Stage | Check | Pass when |
+| --- | --- | --- |
+| Index-time | Event count | One event per record of the file (non-empty lines; for multi-line logs, lines where a timestamp starts) |
+| | Timestamp accuracy | `_time` equals the time written in each event's own line, read by code with the add-on's `TIME_PREFIX`, `TIME_FORMAT` and `TZ` (epoch and ISO 8601 when Splunk recognises the timestamp itself) |
+| | Timezone | When the timestamps carry no zone (decided by code: an epoch or a trailing `Z`/offset carries one), `TZ` is the zone a human stated, on the upload form or in profile review. With none stated, the run pauses in profile review, even when review was skipped |
+| | Fallback, parser warnings, `TIME_FORMAT` matches | As with a manifest |
+| Extraction | Values | Every value appears exactly in its own raw line, trimmed, and does not run into another field (`key=`/`"key":` inside a value) |
+| | Coverage, duplicates | Each profile field at its stated coverage; single-valued |
+| CIM | Membership | Events reach every data model the add-on tags (no tag: fail) |
+| | Required fields, allowed values | Every required field the add-on maps is filled on every event, with only allowed values |
+| | Constants | No CIM field fixed to one value while its source field varies |
+| | Child datasets | `Failed_Authentication`, `Blocked_Traffic`, … agree with the `action` values |
+| CIM (both modes) | Values from the event | Every value the add-on writes into a CIM field occurs in its own raw line, or is one of the field's allowed CIM values (`action=blocked`); only fields constant by design (`vendor_product`, `vendor`, `product`, `app`) are exempt |
+| | Directions | No source field feeds both ends of a pair (`src`/`dest`, `src_port`/`dest_port`, `bytes_in`/`bytes_out`, …) |
+
+The last two rows run with a manifest too: a manifest only lists the CIM fields its source has, so a required field filled with the wrong meaning (found in the lab: `src_port` read from `dest_port`, an invented `rule=vpn-access`) passed both modes before.
+
+Parser updates without a manifest: Diagnose snapshots what production gives each registered sample set, and every later check on those sets is exact equality with that snapshot (times, fields, CIM values, matched as multisets so repeated timestamps are fine). New samples without a manifest get the mechanical checks and inherit production's `TZ`.
+
+**What it cannot prove: meaning.** A plausible but wrong timezone that nobody stated, a field mapped to the wrong CIM field, `drop` mapped to `allowed`. The approval report therefore shows "Decisions the agents made" (how the timestamp is read with the first event's result, field meanings, and each source value → CIM value with its count), and approval is where a human vouches for them. The report states which validation ran.
 
 ### Index-time checks
 

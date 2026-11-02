@@ -415,3 +415,59 @@ One entry per completed phase, appended at the end of the phase (see CLAUDE.md, 
 **Not verified yet**
 - The stack has not been run here: this host's user cannot reach Docker. The clean-VM test (`make env`, set `LLM_API_KEY`, CIM package in `lab/`, `make up`, `make first-run`, timed) is the owner's step, as planned.
 - Image digests and the CIM package checksum are not pinned (residual risk R12): the digests could not be fetched from this host.
+
+## 2026-11-02 — Phase 7c: Logs without a truth manifest
+
+**Why:** the owner pointed out that requiring a hand-made answer key for every upload contradicts the product: drop in raw logs, and the agents do all the work. The manifest was only ever the Validator's answer key, so the agents are unchanged and only the judge gained a second mode.
+
+**Built**
+- **Upload just the log** (UI, API, CLI). A generator sample is recognised by its content hash and checked against its own manifest from the repo; any other log is validated mechanically. The upload form has no manifest field.
+- **Mechanical Validator** (`validator/mechanical.py`), on every event in Splunk:
+  - the count equals the records in the file;
+  - each `_time` equals the time written in its own raw line, read by code with the add-on's `TIME_PREFIX`, `TIME_FORMAT` and `TZ`;
+  - a timestamp's zone is decided by code (an epoch or a trailing `Z`/offset carries one), and a zone-less one must use the zone a human stated on the upload form or in profile review. The run pauses for it, even with review skipped, and also mid-build if code finds no zone where the profile claimed one;
+  - every value appears exactly in its own line and does not run into another field;
+  - CIM: membership by the add-on's tags, required fields filled, allowed values, constants (single-source fields only), child datasets;
+  - parser updates: production's output on the registered samples is snapshotted at Diagnose, and the patch must reproduce it exactly.
+- **CIM meaning guards, in both modes:** every CIM value must occur in its own event or be an allowed CIM value; no source field may feed both ends of a pair (`src`/`dest`, `*_in`/`*_out`). A manifest only lists the fields its source has, so these were unchecked before.
+- **Approval report:**
+  - it says how the run was validated;
+  - it lists the agents' decisions: how the timestamp is read, with the first event's result; field meanings; each source value → CIM value with counts;
+  - the counts are matched per event across the CIM layer, so `action=accept → allowed` shows even though `action` is overwritten, and a two-source EVAL shows `result=failure`, `verdict=deny` per event.
+
+**Test results**
+- `pytest`: 479 passed (69 new):
+  - code reads every fixture's timestamps exactly as generated;
+  - a wrong timezone shows as the exact 9-hour offset;
+  - greedy, invented and untrimmed values refused;
+  - CIM gaming caught with no manifest;
+  - the zone decided by code, not the profile (the run goes back to review);
+  - the stated timezone enforced;
+  - updates without a manifest must reproduce production exactly;
+  - fixture auto-match;
+  - a profile can't be confirmed without a zone when one is needed;
+  - the two meaning guards on the lab's own bad proposal.
+- Playwright: 15 passed. New: the decisions section and timezone prompt render log text as text, and confirm is refused without a zone.
+- **`appsec`: two High, six Medium and nine Low, all fixed with tests except where noted.**
+  - H1: a faked constant `action` passed, because variety was read after the CIM layer. It now comes from a pre-CIM snapshot.
+  - H2: parser updates never paused for a timezone. An unstated zone now fails, and runs turn that into the pause.
+  - The rest are in the threat model's review history. L8 is only partly fixed: a log field named `t` is residual.
+- **Lab, on fresh synthetic logs uploaded with no manifest.** The generator's truth was kept aside, unseen by Parsewright, and compared afterwards:
+  - **`e9d88e5d` (firewall) and `99d2999e` (VPN, Tokyo time):** both paused for a timezone. Right for the VPN log, wrong for the firewall: the Profiler said "no zone" for the epoch `1792483254000`. Fixed: code reads the example.
+  - **`3a25cb6a` (firewall, 51k tokens):** passed; every time exact. It showed that the value pairs were empty when `action` overwrites itself (fixed with the per-event match).
+  - **`8a4e3c10` (VPN, zone stated, 69k):** passed with exact times, but the truth comparison found wrong meanings: `src_port ← dest_port`, `bytes_in ← bytes_out` and an invented `rule=vpn-access`. These would also have passed with a manifest, which doesn't list those fields. That is the two new guards. **Do not approve this job.**
+  - **`22ffab37` (VPN, 103k):** failed. The mechanical constant check called the correct `dest = gateway` on logins faked, because the EVAL also reads `dest_ip` for sessions. Fixed: constants are judged only for single-source fields.
+  - **`67d6aa0e` (firewall, 66k):** passed; times and mappings match the truth; `accept → allowed` ×171 and `drop → blocked` ×69.
+  - **`cb9e11fc` (VPN, Asia/Tokyo stated, 51k):** passed CIM on attempt 2; every time exact in Tokyo time; every mapping matches the truth (`dest = coalesce(dest_ip,gateway)`, `src ← src_ip`, `transport ← proto`).
+- **The demo with the CIM mapper's sharper instruction:**
+  - `demo/08_log_only.sh` run before that instruction (`d9996834`): it passed every check, yet its decisions showed `user ← rule`, `bytes_out ← ts` and a constant "unknown firewall". These are mechanically clean but meaningless, so the mapper is now told to leave a CIM field unmapped rather than fill it from an unrelated field.
+  - Run again (`12e87e98`, 48k tokens): the mapping equals the hidden truth exactly (`action`, `transport`, `src`, `src_port`, `dest`, `dest_port`, `bytes`, `rule`, `dvc`), with `bytes_in`, `bytes_out` and `user` reported as not in source, and `accept → allowed` ×161, `drop → blocked` ×79.
+
+**Cut or deferred**
+- What a log without a manifest cannot prove is meaning: a wrongly stated timezone, or a value mapped to the wrong but allowed CIM value (threat model R13). The approval report lists those decisions for the approver.
+- Multi-line logs count records as lines where a timestamp starts; no multi-line fixture exists to run it in the lab.
+- An update's new samples without a manifest inherit production's `TZ` and are not asked again.
+- Jobs from before the fixes are left for the owner to reject in the UI: `e9d88e5d` and `99d2999e` (profile review), `3a25cb6a`, `8a4e3c10` and `d9996834` (awaiting approval, superseded or wrong meanings). `67d6aa0e`, `cb9e11fc` and `12e87e98` are the good ones.
+
+**RECORD THIS**
+- **Just the log:** with the engine and UI running, `demo/08_log_only.sh`. A fresh firewall log alone is built and proven on every event; the report shows the agents' decisions. Then `demo/08_log_only.sh timezone`: a VPN log in local time pauses in profile review and asks which zone it is in.

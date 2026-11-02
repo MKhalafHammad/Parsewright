@@ -17,6 +17,7 @@ Updated at the end of every phase.
 | 6 | Next.js UI (four screens) | Nov 2 | Done | Oct 28 |
 | 7 | Parser updates | Nov 3 (morning, only if ahead) | Done | Oct 28 (lab promotion and rollback Oct 30) |
 | 7b | UI redesign (agent-centred, readable, navigable) | Before Phase 8 | Done | Oct 30 |
+| 7c | Logs without a truth manifest (upload just the log) | Before Phase 10 ends | Done | Nov 2 |
 | 8 | Drift pipeline (stretch) | Unscheduled | Not started | |
 | 9 | Mixed-feed routing (stretch) | Unscheduled | Not started | |
 | 10 | Judges' Docker setup, README, demo preparation | Nov 3 (fixed) | In progress (owner: clean-VM test, image digests, rehearsal) | |

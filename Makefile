@@ -39,7 +39,7 @@ lint:
 	$(BIN)/pre-commit run --all-files
 	cd web && npm run lint && npm run typecheck
 
-# Needs semgrep and gitleaks on PATH (see README, "Running tests and security checks").
+# Needs semgrep and gitleaks on PATH (see docs/setup.md, "Running tests and security checks").
 security:
 	$(BIN)/bandit -c engine/pyproject.toml -r engine scripts
 	semgrep scan --config p/default --error --metrics=off --quiet

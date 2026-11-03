@@ -20,7 +20,7 @@ Updated at the end of every phase.
 | 7c | Logs without a truth manifest (upload just the log) | Before Phase 10 ends | Done | Nov 2 |
 | 8 | Drift pipeline (stretch) | Unscheduled | Not started | |
 | 9 | Mixed-feed routing (stretch) | Unscheduled | Not started | |
-| 10 | Judges' Docker setup, README, demo preparation | Nov 3 (fixed) | In progress (owner: clean-VM test, image digests, rehearsal) | |
+| 10 | Judges' Docker setup, README, demo preparation | Nov 3 (fixed) | In progress (demo video recorded Nov 3; owner: clean-VM test, image digests) | |
 | — | Demo video and submission only | Nov 4, before 9:00 PM ET | — | |
 
 ## How to read this plan

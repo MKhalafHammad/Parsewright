@@ -17,7 +17,7 @@ Parsewright turns raw sample logs into a tested, CIM-compliant Splunk add-on (TA
 engine/parsewright/  api orchestrator agents tools guardrails validator ta_builder ledger cim_spec generator
 engine/tests/        engine tests
 web/                 Next.js UI
-docs/                design.md, build-plan.md (phases + status), threat-model.md, lab-findings.md
+docs/                design.md, setup.md, features.md, build-plan.md (phases + status), build-log.md, threat-model.md, lab-findings.md, demo-script.md
 scripts/             repo tooling (commit-msg hook)
 tests/               repo tooling tests
 .claude/agents/      subagents: engine, agents-ai, splunk, frontend, qa, appsec (read-only)
@@ -67,7 +67,7 @@ A change is done when:
 2. `make lint`, `make test` and `make security` pass locally, and CI is green.
 3. New logic has tests; guardrail changes have an adversarial test.
 4. No secret, real log or internal name is added (gitleaks clean, reviewed by the `appsec` subagent for security-relevant changes).
-5. README marks anything not yet built as "planned".
+5. README and docs/features.md mark anything not yet built as "planned".
 6. The commit follows the commit rules above.
 
 ## Build log and demo moments

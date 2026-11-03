@@ -49,34 +49,31 @@ The hackathon build targets one standalone Splunk Enterprise instance, four log 
 
 Three layers: a web UI, a FastAPI backend holding the orchestrator, agents and actions, and a standalone Splunk Enterprise instance reached only over REST.
 
+```mermaid
+flowchart TB
+    UI["<b>Web UI</b> (Next.js)<br/>upload · live activity · profile review · approve / reject"]
+    subgraph backend["Backend (FastAPI)"]
+        direction TB
+        ORCH["<b>Orchestrator</b> (deterministic code)<br/>worker pool · one state machine per job<br/>routes each failure to the owning agent"]
+        DB[("Jobs + ledger<br/>PostgreSQL")]
+        agents["<b>Muse Spark agents</b> (propose only)<br/>Profiler · Index-time · Extraction · CIM mapper"]
+        subgraph actions["Orchestrator-only actions"]
+            direction LR
+            GATE[Guardrail gate] --> BUILD["TA builder ·<br/>deploy · ingest"] --> VAL["Validator<br/>fixed SPL, no AI"]
+        end
+        ORCH <--> DB
+        ORCH --> agents
+        ORCH --> actions
+    end
+    SPLUNK["<b>Splunk Enterprise</b> (standalone)<br/>TA-parsewright-* apps · pw_* test index<br/>REST :8089, scoped tokens"]
+    LLM["Meta Model API<br/>or self-hosted Muse Spark Open"]
+    UI <-->|"HTTP + server-sent events"| ORCH
+    agents -->|"model calls"| LLM
+    agents -.->|"read-only search"| SPLUNK
+    actions -->|"deploy · ingest · validate"| SPLUNK
 ```
-┌──────────────────────────────────────────────────────────────────┐
-│ Web UI (Next.js)                                                 │
-│ Upload samples · live ledger · profile review · approve/reject   │
-└───────────────────────────────┬──────────────────────────────────┘
-                                │ HTTP + server-sent events
-┌───────────────────────────────▼──────────────────────────────────┐
-│ Backend (FastAPI)                                                │
-│                                                                  │
-│  Orchestrator (deterministic code)  ◄──►  Jobs + ledger          │
-│  Worker pool · one state machine per job  (PostgreSQL)           │
-│  Routes failures back to the owning agent                        │
-│        │                         │                               │
-│        ▼                         ▼                               │
-│  Muse Spark agents          Orchestrator-only actions            │
-│  Profiler · Index-time      Guardrail gate                       │
-│  Extraction · CIM mapper    TA builder · deploy · ingest         │
-│  (+ Router, Drift Analyst)  Validator (fixed SPL, no AI)         │
-│  Tools: run_search,                                              │
-│         test_regex                                               │
-└────────┬─────────────────────────┬───────────────────────────────┘
-         │ read-only search        │ deploy · ingest · validate
-┌────────▼─────────────────────────▼───────────────────────────────┐
-│ Splunk Enterprise standalone                                     │
-│ /opt/splunk/etc/apps/TA-parsewright-* · pw_* test indexes        │
-│ REST :8089 with scoped tokens (search, deploy, drift)            │
-└──────────────────────────────────────────────────────────────────┘
-```
+
+Router and Drift Analyst agents are planned (stretch); see Mixed feeds and Drift pipeline.
 
 Agents only reason and search read-only; every write to Splunk goes through orchestrator code and the guardrail gate. The LLM endpoint is the Meta Model API by default, or a self-hosted Muse Spark Open by changing `LLM_BASE_URL`.
 
@@ -90,6 +87,30 @@ Four core Muse Spark agents, plus an optional Router for shared feeds and a Drif
 | Index-time | Split events and timestamp them | `LINE_BREAKER`, `SHOULD_LINEMERGE`, `TIME_PREFIX`, `TIME_FORMAT`, `MAX_TIMESTAMP_LOOKAHEAD`, `TZ`, `TRUNCATE` | Index-time stanza | Event count, parser warnings, `_time` accuracy |
 | Extraction | Get the fields out | `KV_MODE`, `EXTRACT-`, `REPORT-` + `transforms.conf` | Search-time stanza | Field coverage, greedy-regex and duplicate checks |
 | CIM mapper | Normalize to CIM | `FIELDALIAS`, `EVAL`, lookups, `eventtypes.conf`, `tags.conf` | CIM config | Required fields, allowed values, child datasets |
+
+How one run moves through the agents, with each proposal gated by code and judged by Splunk:
+
+```mermaid
+flowchart TB
+    LOG[/"Sample log"/] --> PROF["<b>Profiler</b> agent<br/>format, timestamp, fields, CIM targets"]
+    PROF --> REV{{"Human: profile review"}}
+    REV --> AGENT
+
+    subgraph LOOP["Stage loop"]
+        direction LR
+        AGENT["<b>Stage agent</b> (Muse Spark)<br/>Index-time, then Extraction,<br/>then CIM mapper:<br/>proposes config"]
+        GATE["<b>Guardrail gate</b><br/>code: allowlisted keys,<br/>regex and scope checks"]
+        DEPLOY["<b>Deploy + ingest</b><br/>code: test copy of the<br/>add-on, pw_test index"]
+        VAL["<b>Validator</b><br/>Splunk: fixed SPL<br/>checks, no AI"]
+        AGENT --> GATE
+        GATE -- "allowed" --> DEPLOY --> VAL
+        GATE -. "blocked + reason" .-> AGENT
+        VAL -. "fail + evidence" .-> AGENT
+    end
+
+    VAL -- "all three stages pass" --> APPROVE{{"Human: approve the exact package (SHA-256)"}}
+    APPROVE --> TA[/"TA-parsewright-#lt;vendor#gt;-#lt;product#gt;.tgz"/]
+```
 
 **LogProfile contents:** format, multiline flag, timestamp example and format candidates, timezone hints, vendor/product guess, sourcetype name, field inventory with coverage, event categories, target CIM models. Every later stage builds on it, and its field inventory defines what CIM fields are achievable.
 
@@ -122,19 +143,21 @@ The TA files on disk are the source of truth: each attempt reads them fresh rath
 
 A run moves through eight states in a fixed order; the agent stages each loop until their checks pass, and every transition is saved to PostgreSQL before the next step.
 
+```mermaid
+flowchart LR
+    P["Profiling<br/>(agent)"] --> R{{"Profile review<br/>(human or auto)"}} --> S
+    subgraph S["Agent stages (≤5 tries each)"]
+        direction LR
+        I[Index-time] --> E[Extraction] --> C[CIM mapping]
+        E -. "backtrack, once per run" .-> I
+    end
+    S --> A{{"Awaiting approval<br/>(human)"}}
+    A -- "approve (SHA-256)" --> PR[Promoting] --> D(["Done"])
+    A -- "reject" --> RJ(["Rejected"])
+    S -. "budget spent" .-> F(["Stage failed"])
 ```
-Created ─► Profiling ─► Profile review ─► [Routing*] ─► Index-time ─► Extraction ─► CIM mapping ─► Awaiting approval ─► Promoting ─► Done
-           (agent)      (human)           (agent)       (agent,       (agent,       (agent,         (human)              (.tgz)
-                                                         retry ≤5)     retry ≤5)     retry ≤5)
 
-* Routing runs only for shared feeds.
-
-End states:
-  Done           TA ready
-  Stage failed   any agent stage spent its budget; honest report
-  Rejected       human rejected; TA rolled back
-  Error          from any state; unrecoverable infrastructure failure
-```
+End states: **Done** (TA ready), **Stage failed** (an agent stage spent its budget; honest report), **Rejected** (a human rejected it; TA rolled back) and **Error** (from any state; an unrecoverable infrastructure failure).
 
 For shared feeds, an optional Routing state runs between Profile review and Index-time. Any agent stage that spends its budget goes to Stage failed. Two extra rules apply inside the stages: after a pass, earlier stages' checks re-run to catch regressions, and a later stage may send the run back to an earlier one once per run (for example, missing fields caused by merged events go back to Index-time).
 

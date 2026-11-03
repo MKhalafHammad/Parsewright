@@ -471,3 +471,21 @@ One entry per completed phase, appended at the end of the phase (see CLAUDE.md, 
 
 **RECORD THIS**
 - **Just the log:** with the engine and UI running, `demo/08_log_only.sh`. A fresh firewall log alone is built and proven on every event; the report shows the agents' decisions. Then `demo/08_log_only.sh timezone`: a VPN log in local time pauses in profile review and asks which zone it is in.
+
+## 2026-11-03 — Release check before merging to main
+
+**Done**
+- Final checks on `dev` at `644222e`, with no code changes since Phase 7c.
+- Demo video recorded (2:50, 1920x1080) from the web UI on the lab runs listed under Phase 7c and Phase 7: the fix loop, the guardrail gate, the injected log, a log uploaded alone with its decisions, the timezone pause, a parser update and the TA registry. Captions only; the approval dialog is opened and cancelled, so no job was promoted for the video. The link goes into the README at submission.
+
+**Test results**
+- pytest: 479 passed. Playwright: 15 passed.
+- pre-commit (ruff, gitleaks, file checks), ESLint and `tsc`: clean.
+- bandit: no findings. pip-audit: no known vulnerabilities. `npm audit --omit=dev`: 0 vulnerabilities.
+- gitleaks over the full history: no leaks.
+- semgrep was not run locally (not installed on this host); it runs in CI.
+
+**Still open (owner)**
+- CI green on `dev`, then the pull request `dev` → `main`.
+- The clean-VM test of `make up` and `make first-run` (Phase 10).
+- The video link in the README, and the submission by Nov 4, 9:00 PM ET.

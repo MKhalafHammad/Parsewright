@@ -109,7 +109,7 @@ Each threat lists the controls from design.md that stop it, their priority (Must
 | T2.12 | Bypass by normalization tricks: key case (`sedcmd-`), whitespace, unicode look-alikes, `TRANSFORMS-`/`REPORT-` chaining into a transform with a forbidden `DEST_KEY` | Gate normalizes keys before checking and inspects every referenced transform | Must | 4 |
 | T2.14 | Agent-proposed field names or aliases are interpolated into the Validator's SPL and inject commands | Identifiers in Validator SPL must match an allowlist regex before use; never interpolate free text | Must | 3 |
 | T2.15 | SQL or OS command injection from job data | Parameterized SQL only; subprocess with argument lists, never `shell=True` | Must | 2, 5 |
-| T2.13 | Routing rule on a shared stanza (`[syslog]`) steals other vendors' events | Narrow exception (`TRANSFORMS-` only with `DEST_KEY = MetaData:Sourcetype`), negative routing test = 0 misrouted | Must | 9 (stretch) |
+| T2.13 | Routing rule on a shared stanza (`[syslog]`) steals other vendors' events | Narrow exception (`TRANSFORMS-` only with `DEST_KEY = MetaData:Sourcetype`), negative routing test = 0 misrouted | Must | 9 (future enhancement) |
 
 ### T3. Path traversal and package tampering
 
@@ -240,7 +240,7 @@ Every Must row of design.md "Guardrails and security", with the test that proves
 | `EVAL-`/`FIELDALIAS-` may not target core fields | Adv. `test_conf_gate_blocks_forbidden_props`, `test_final_gate_rechecks_values` (every `AS`/`ASNEW` target); `guardrails/test_gate_search_time.py::test_cim_blocks` | Built |
 | No `[default]`, broad `[source::]`, `[host::*]` | Adv. `test_conf_gate_blocks_broad_or_foreign_stanzas`, `test_default_or_non_sourcetype_stanzas_never_promote`, `test_promotion_refuses_an_existing_sourcetype` (no merging into `syslog`, `json` or another app's sourcetype) | Built |
 | CSV lookups inside the TA only | Adv. `test_conf_gate_blocks_forbidden_props` (`LOOKUP-` refused: Parsewright writes no lookups yet, so none can point outside the TA) | Built (stricter) |
-| Routing exception on generic stanzas | — | Phase 9 (stretch); `TRANSFORMS-` refused outright until then |
+| Routing exception on generic stanzas | — | Phase 9 (future enhancement); `TRANSFORMS-` refused outright until then |
 | Key allowlist with typed values + fail-closed post-install warning check (replaces btool) | `guardrails/test_gate_index_time.py`; `validator/test_validator_index_time.py::test_warning_check_fails_closed`, `test_warning_check_error_fails_the_attempt` | Built |
 | Regex catastrophic-backtracking test | `guardrails/test_gate_index_time.py::test_catastrophic_backtracking_is_blocked`; `guardrails/test_gate_search_time.py::test_extraction_blocks`; `tools/test_search_guard_and_regex.py::test_regex_tool_times_out_instead_of_hanging` | Built |
 | Reject newlines; one escaping writer | Adv. `test_newline_injection_cannot_add_a_stanza`; `ta_builder/test_ta_builder.py::test_writer_rejects_*` | Built |

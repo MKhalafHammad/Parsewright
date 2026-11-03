@@ -18,15 +18,15 @@ Updated at the end of every phase.
 | 7 | Parser updates | Nov 3 (morning, only if ahead) | Done | Oct 28 (lab promotion and rollback Oct 30) |
 | 7b | UI redesign (agent-centred, readable, navigable) | Before Phase 8 | Done | Oct 30 |
 | 7c | Logs without a truth manifest (upload just the log) | Before Phase 10 ends | Done | Nov 2 |
-| 8 | Drift pipeline (stretch) | Unscheduled | Not started | |
-| 9 | Mixed-feed routing (stretch) | Unscheduled | Not started | |
+| 8 | Drift pipeline | After the hackathon | Future enhancement (not in the submission) | |
+| 9 | Mixed-feed routing | After the hackathon | Future enhancement (not in the submission) | |
 | 10 | Judges' Docker setup, README, demo preparation | Nov 3 (fixed) | In progress (demo video recorded Nov 3; owner: clean-VM test, image digests) | |
 | — | Demo video and submission only | Nov 4, before 9:00 PM ET | — | |
 
 ## How to read this plan
 
 - **Order is priority.** A working product exists after Phase 2; each later phase is an addition. If time runs out, cut from the bottom, except Phase 10, which is fixed on Nov 3 and is never cut.
-- **Phases 8 and 9 have no date.** They run only if an earlier phase finishes a day early.
+- **Phases 8 and 9 are future enhancements** (decided Nov 3): there is not enough time before the deadline to build and test them safely, so they are not part of the submission. Their plans below stay as the roadmap.
 - **Nov 4 is reserved.** The only work that day is the demo video and the submission form. No code changes after Nov 3 except a fix for a demo-breaking bug.
 - **One phase = one pull request from `dev` into `main`.** CI must be green. The owner merges, and the Status table is updated in the same PR.
 - **Non-negotiables apply from Phase 2, not Phase 4.** CLAUDE.md requires them from the first deploy, so Phase 2 already contains minimal versions of:
@@ -571,10 +571,10 @@ This is the main appsec phase; review everything above, especially:
 
 ---
 
-## Phase 8 — Drift pipeline (stretch)
+## Phase 8 — Drift pipeline (future enhancement)
 
 **Goal:** Splunk alerts detect a format change, code collects masked samples, the Drift Analyst confirms it, and an update job is created automatically.
-**Target date:** unscheduled; only if a full day is freed.
+**Target date:** after the hackathon (not in the submission).
 **Owners:**
 - `splunk`: alert templates and the collector.
 - `agents-ai`: the Drift Analyst.
@@ -616,10 +616,10 @@ This is the main appsec phase; review everything above, especially:
 
 ---
 
-## Phase 9 — Mixed-feed routing (stretch)
+## Phase 9 — Mixed-feed routing (future enhancement)
 
 **Goal:** split one shared syslog feed into vendor sourcetypes, proving that 0 events were misrouted.
-**Target date:** unscheduled; only if a full day is freed.
+**Target date:** after the hackathon (not in the submission).
 **Owners:**
 - `agents-ai`: the Router.
 - `splunk`: the routing guardrail exception and the positive and negative tests.

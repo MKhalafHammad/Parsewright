@@ -21,9 +21,9 @@ What is built and what is planned. The README summarises this table.
 | Web UI (Next.js): runs board with "Needs you" and a new-run sheet; run workspace with a clickable, deep-linkable phase rail, every attempt's proposal, gate verdict and Splunk checks, and a live activity feed showing which agent is acting; profile review; approval report (raw vs parsed with field colours and a CIM view, readable config and row diffs, approve/reject, `.tgz` download); TA registry | **Built** |
 | Parallel jobs: PostgreSQL queue (`FOR UPDATE SKIP LOCKED`, leases, heartbeats, crash resume), append-only ledger, worker pool with a global Splunk-write lock, LLM slots, daily token budget and kill switch | **Built** |
 | HTTP API: upload (content checks, duplicates), runs, profile review, approve/reject, `.tgz` download, live server-sent events; `parsewright serve` | **Built** (no login: localhost only, residual risk R1) |
-| Routing for shared syslog feeds | Planned (stretch) |
+| Routing for shared syslog feeds | Future enhancement |
 | Parser updates: TA registry (versions, samples, baseline); `parsewright update <TA> <file>` or the upload form; Diagnose with no model call (0 tokens if the TA already parses the new format); only failing stages patched; every attempt checked on the old and the new samples; diff against production and `local/` override flags in the review; in-place promotion with a version bump that keeps `local/`; exact-version `parsewright rollback` | **Built** |
-| Drift monitoring with automatic update jobs | Planned (stretch) |
+| Drift monitoring with automatic update jobs | Future enhancement |
 | Drop folder intake (a watched folder, one job per subfolder) | Planned (the symlink-refusing intake helper is built) |
 | Correcting a mapping from the approval report, sent back to the owning stage as evidence | Planned |
 | Login with an approver role | Planned (localhost only today, residual risk R1) |

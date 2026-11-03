@@ -88,7 +88,7 @@ More in [docs/design.md](docs/design.md): the [run states](docs/design.md#orches
 - **Parser updates:** when a log format changes, Parsewright finds what broke with no AI call, patches only that, proves the old format still parses, and keeps every version for rollback.
 - **One-command setup** (`make up`) that starts and prepares its own Splunk.
 
-**Planned:** drift monitoring with automatic update jobs, and routing for shared syslog feeds. The full list is in [docs/features.md](docs/features.md).
+**Future enhancements:** drift monitoring with automatic update jobs, and routing for shared syslog feeds. The full list is in [docs/features.md](docs/features.md).
 
 ## Quick start
 

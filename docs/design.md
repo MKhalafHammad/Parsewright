@@ -73,7 +73,7 @@ flowchart TB
     actions -->|"deploy · ingest · validate"| SPLUNK
 ```
 
-Router and Drift Analyst agents are planned (stretch); see Mixed feeds and Drift pipeline.
+Router and Drift Analyst agents are future enhancements; see Mixed feeds and Drift pipeline.
 
 Agents only reason and search read-only; every write to Splunk goes through orchestrator code and the guardrail gate. The LLM endpoint is the Meta Model API by default, or a self-hosted Muse Spark Open by changing `LLM_BASE_URL`.
 
@@ -294,9 +294,9 @@ Credits are spent only on jobs someone started, and always inside hard budgets.
 
 In the lab, four uploads at once ran on four workers in parallel, one pausing for review while the others continued (`demo/04_parallel_jobs.sh`).
 
-## Mixed feeds and sourcetype assignment (planned)
+## Mixed feeds and sourcetype assignment (future enhancement)
 
-> Not built (Phase 9, stretch). The design is kept for the next step.
+> Not built: a future enhancement after the hackathon (Phase 9). The design is kept as the roadmap.
 
 Parsing only works once events carry the right sourcetype, so Parsewright also handles how events get it, including shared feeds where many vendors arrive under one generic sourcetype such as `syslog`.
 
@@ -376,9 +376,9 @@ When a log format changes, an update job patches the existing TA with the smalle
 
 **Out of scope:** updating TAs not built by Parsewright. Editing a Splunkbase vendor TA directly is lost on the vendor's next upgrade; the right approach, a separate overlay TA, depends on Splunk app precedence and is left for later.
 
-## Drift pipeline (planned)
+## Drift pipeline (future enhancement)
 
-> Not built (Phase 8, stretch). Parser updates, which it would trigger, are built; today a person starts them with a new sample.
+> Not built: a future enhancement after the hackathon (Phase 8). Parser updates, which it would trigger, are built; today a person starts them with a new sample.
 
 Parsewright watches the parsers it built: Splunk alerts detect a format change for free, code collects masked samples, a Drift Analyst agent decides whether the change is real, and an update job is created automatically, so the only manual step is approving the fix.
 

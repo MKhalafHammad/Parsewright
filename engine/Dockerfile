@@ -1,6 +1,6 @@
 # Parsewright engine: the API and its worker pool (`parsewright serve`).
 # Non-root, slim, no Docker socket (threat T7.5): the engine reaches Splunk over REST only.
-# Digest pinning is planned with the judges' setup (Phase 10, threat T9.3).
+# Pinned by tag, not digest: residual risk R12 in docs/threat-model.md.
 FROM python:3.12-slim
 
 ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 PIP_NO_CACHE_DIR=1

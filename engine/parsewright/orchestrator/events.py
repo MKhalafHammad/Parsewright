@@ -43,7 +43,6 @@ KINDS = frozenset(
         "info",
     }
 )
-FIELDS = ("stage", "attempt", "visit", "actor", "kind", "detail")
 LINE_CAP = 2000  # per physical line, as before
 TEXT_CAP = 20_000  # a whole multi-line event (one Validator report)
 DETAIL_CAP = 20_000

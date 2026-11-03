@@ -47,7 +47,7 @@ ROLES = {
         "srchIndexesAllowed": ["pw_*"],
         "srchIndexesDefault": ["pw_*"],
     },
-    # Read-only (Phase 8 adds a search filter).
+    # Read-only (the planned drift pipeline adds a search filter).
     "parsewright_drift": {
         "capabilities": ["search"],
         "srchIndexesAllowed": ["pw_*"],

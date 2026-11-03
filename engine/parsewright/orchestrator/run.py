@@ -1,9 +1,9 @@
-"""Orchestrator: Profile -> (auto-approved review) -> Index-time -> Extraction -> CIM mapping.
+"""Orchestrator: Profile -> profile review -> Index-time -> Extraction -> CIM mapping.
 
 Agents propose, code acts, Splunk judges: only this module deploys and ingests, and only the
 Validator's reports move the run forward. Index-time attempts each ingest under a new
 sourcetype; the search-time stages reuse the indexed events and only reinstall the add-on.
-State is in memory (PostgreSQL arrives in Phase 5).
+The run's state is checkpointed to PostgreSQL by the worker (worker.py), so a crashed run resumes.
 """
 
 import dataclasses

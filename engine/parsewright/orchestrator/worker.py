@@ -11,7 +11,6 @@
 """
 
 import threading
-import time
 from collections.abc import Callable
 from contextlib import contextmanager
 from pathlib import Path
@@ -28,10 +27,6 @@ from parsewright.tools.splunk_client import SplunkClient
 
 HEARTBEAT_S = 30
 LLM_SLOTS = 2
-
-
-class BudgetStop(RuntimeError):
-    pass
 
 
 class Worker:
@@ -242,15 +237,3 @@ def apply_corrections(profile: dict, corrections: dict) -> dict:
         ALLOWED["TZ"](str(corrections["tz"]))
         out["timezone_hint"] = str(corrections["tz"])
     return out
-
-
-def wait_for_db(dsn: str, seconds: float = 60) -> None:
-    end = time.monotonic() + seconds
-    while True:
-        try:
-            db.connect(dsn).close()
-            return
-        except Exception:  # keep trying until the deadline
-            if time.monotonic() > end:
-                raise
-            time.sleep(2)

@@ -4,7 +4,6 @@ Every query is parameterised. Every state change is `UPDATE ... WHERE status = <
 with the row count checked, so a replayed or racing request changes nothing.
 """
 
-import json
 from collections.abc import Iterator
 from contextlib import contextmanager
 from datetime import UTC, datetime
@@ -353,7 +352,3 @@ class Store:
                         self.conn.execute("SELECT pg_advisory_unlock(%s)", (k,))
                     return
             self.conn.execute("SELECT pg_sleep(0.5)")
-
-
-def as_json(row: dict) -> str:
-    return json.dumps(row, default=str)

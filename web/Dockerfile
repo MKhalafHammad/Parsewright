@@ -1,6 +1,6 @@
 # Parsewright web UI: the Next.js standalone server. Non-root; no secrets at build time; the
 # engine URL is a server-side runtime variable (ENGINE_URL), never exposed to the browser.
-# Digest pinning is planned with the judges' setup (Phase 10, threat T9.3).
+# Pinned by tag, not digest: residual risk R12 in docs/threat-model.md.
 FROM node:24-slim AS build
 WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED=1

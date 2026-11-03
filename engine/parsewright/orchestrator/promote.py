@@ -7,15 +7,14 @@ identity back to the real names by code from those same bytes, refuses an existi
 sourcetype, installs the real TA (Splunk itself refuses to overwrite an app), records both hashes
 linked and runs a smoke test.
 
-A parser update (Phase 7) is promoted in place instead: only over a TA in the registry, at the
+A parser update is promoted in place instead: only over a TA in the registry, at the
 version the registry expects, with update=true so the TA's local/ is kept. Rollback reinstalls an
 exact earlier version, rebuilt by the writer from its kept package and checked against its hash.
 
-State lives in run records under PARSEWRIGHT_RUNS_DIR until PostgreSQL arrives (Phase 5). The
-runs folder must be private to the engine user; every write is O_NOFOLLOW and atomic, and
-transitions are checked and written under an exclusive lock, so the same rule holds as the
-database's `UPDATE ... WHERE status = '<expected>'`. A process running as the engine user can
-still forge a record (residual risk R9 until the database holds state).
+Records live in PostgreSQL (PgRecords): every transition is an `UPDATE ... WHERE status =
+<allowed previous>` with the row count checked; artifacts stay in the private runs folder. The
+same functions also accept a plain runs folder, where a record is a JSON file written O_NOFOLLOW
+and atomically under an exclusive lock; the tests use that mode to run without a database.
 """
 
 import fcntl
@@ -79,7 +78,6 @@ class PgRecords:
 
     def __init__(self, conn, runs_dir: Path, worker: str | None = None):
         self.conn, self.runs_dir, self.worker = conn, runs_dir, worker
-        self._tx: list = []
 
     def dir(self, job: str) -> Path:
         d = runs_root(self.runs_dir) / require_job(job)

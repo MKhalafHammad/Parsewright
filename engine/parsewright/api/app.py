@@ -9,7 +9,6 @@ carries security headers. All SQL goes through the parameterised Store.
 import asyncio
 import json
 import os
-import re
 import uuid
 from collections.abc import AsyncIterator, Iterator
 from contextlib import contextmanager
@@ -29,7 +28,6 @@ from parsewright.orchestrator import promote
 from parsewright.orchestrator.worker import apply_corrections
 
 JobId = Annotated[str, PathParam(pattern=r"^[a-z0-9]{4,16}$")]
-SHA = re.compile(r"[0-9a-f]{64}")
 CSRF_HEADER = "X-Parsewright"
 MAX_BODY = 31 * 1024 * 1024  # 10 MB sample + 20 MB manifest + form overhead
 MAX_STREAMS = 20

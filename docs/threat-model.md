@@ -204,7 +204,6 @@ Each threat lists the controls from design.md that stop it, their priority (Must
 | ID | Threat | Controls | Priority | Phase |
 | --- | --- | --- | --- | --- |
 | T10.1 | A secret, real log, internal hostname or IP is pushed | gitleaks (pre-commit and CI full history); appsec review before merge; synthetic data only | Must | All |
-| T10.2 | Personal data in commit metadata | Accepted by the owner (Nov 3): commits from Nov 3 on use the owner's public GitHub email; earlier commits keep the GitHub noreply address, since rewriting public history would need a force-push. No other personal data is committed | Should | 1 (owner setting) |
 | T10.3 | Security reports filed publicly with secrets | SECURITY.md routes to private vulnerability reporting | Must | 1 (owner setting) |
 
 ## Mitigations and guardrail mapping
@@ -214,7 +213,7 @@ The tables above are the mapping: every design.md Must row appears with its phas
 | Phase | Threats it closes |
 | --- | --- |
 | 0 (done) | T7.1, T9.1, T9.2 (Python), T9.5 |
-| 1 | Decisions for T2.11, T7.5; scoped accounts T7.4; owner settings T10.2, T10.3 |
+| 1 | Decisions for T2.11, T7.5; scoped accounts T7.4; owner setting T10.3 |
 | 2 | T1.1 (framing), T2.1, T2.15, T3.1, T4.3, T4.4, T5.1, T5.4 (naming), T5.6 (timeouts), T6.6 (per-run ceiling), T7.2, T7.4 (token placement) |
 | 3 | T1.2, T1.3, T1.5, T2.10 (`test_regex`), T2.14, T4.2 |
 | 4 | T1.1 (gate), T2.2–T2.12, T3.2–T3.5, T4.1, T4.5, T5.2–T5.5, T6.2 |
@@ -287,8 +286,6 @@ Every Must row of design.md "Guardrails and security", with the test that proves
 | R1 | No login or roles in the hackathon build (Should only); anyone on the host can use the UI | Ports bind to `127.0.0.1`; single trusted operator (A1, A2) | Before any shared or networked deployment |
 | R2 | TLS verification to Splunk REST is off in the lab (self-signed), so a man-in-the-middle on the lab LAN could capture tokens, including the deploy token, which is effectively admin (T7.4) | Deferred by design; traffic stays on the Docker network or an isolated lab LAN | Before production use, or any shared network |
 | R3 | Prompt injection can still make an agent propose bad config | The gate checks every value deterministically, and Splunk judges; injection can waste credits but not reach Splunk unchecked | Ongoing; adversarial suite grows with each bypass found |
-| R4 | Read deny rules in `.claude/settings.json` do not stop a shell command from printing `.env` | Developer-tooling guard only; `.env` is git-ignored and gitleaks scans every commit | If agent tooling gains broader shell access |
-| R5 | `git commit --no-verify` skips the commit-msg and gitleaks hooks locally | CI runs gitleaks over full history; CLAUDE.md forbids `--no-verify` | If contributors join |
 | R6 | Python regex differs from Splunk PCRE, so `test_regex` can pass a regex Splunk handles differently | Splunk's own Validator run stays the real proof | — |
 | R7 | Hosted model sees sample content | Synthetic logs only in the hackathon; on-prem mode and masking for real logs | When real logs are used |
 | R8 | The deploy role needs `admin_all_objects` to install apps from a path (lab-findings Q9), so the deploy token is near-admin: a stolen token means code execution as the splunk user on the Splunk host (any app install, scripted inputs), writes into any index and deletion of any app | Token lives only in the orchestrator process, never with an agent, prompt, web process or ledger; short token expiry; these limit what the engine does, not what a stolen token can do. Code validates every app name and package path (T7.4, T5.9) and `pw_` ingest target before each call; the engine never creates or deletes indexes; lab-only account | Before any non-lab Splunk; look for a narrower install path |

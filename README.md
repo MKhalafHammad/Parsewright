@@ -82,7 +82,7 @@ The model is set only through environment variables (`LLM_BASE_URL`, `LLM_MODEL`
 
 - **OS:** Linux or macOS. On Windows, use WSL2.
 - **Docker Engine 24+** with **Docker Compose v2.20+** (`docker compose version`).
-- **Memory and disk for Splunk:** at least 8 GB of RAM free for Docker (4 GB is the bare minimum), and at least 20 GB of free disk. Splunk pauses indexing when free disk drops below 5 GB.
+- **Memory and disk for Splunk:** at least 8 GB of RAM free for Docker (4 GB is the bare minimum), and at least 30 GB of free disk (35 GB recommended): the images, Splunk's data and the builds. Splunk pauses indexing when free disk drops below 5 GB.
 - **Architecture:** the Splunk image is x86-64. On Apple Silicon it runs under emulation and is slower.
 - **`make` and Python 3.10+** on the host (the setup scripts use the standard library only).
 - **A Meta Model API key.**

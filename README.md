@@ -46,7 +46,37 @@ flowchart TB
     APPROVE --> TA[/"TA-parsewright-#lt;vendor#gt;-#lt;product#gt;.tgz"/]
 ```
 
-Each stage gets at most 5 attempts within a token and time budget; if it runs out, the run stops with an honest report. The system architecture and every design decision are in [docs/design.md](docs/design.md).
+Each stage gets at most 5 attempts within a token and time budget; if it runs out, the run stops with an honest report.
+
+### Architecture
+
+The web UI talks only to the backend. Agents reason and may search read-only; every write to Splunk goes through orchestrator code and the guardrail gate.
+
+```mermaid
+flowchart TB
+    UI["<b>Web UI</b> (Next.js)<br/>upload · live activity · profile review · approve / reject"]
+    subgraph backend["Backend (FastAPI)"]
+        direction TB
+        ORCH["<b>Orchestrator</b> (deterministic code)<br/>worker pool · one state machine per job<br/>routes each failure to the owning agent"]
+        DB[("Jobs + ledger<br/>PostgreSQL")]
+        agents["<b>Muse Spark agents</b> (propose only)<br/>Profiler · Index-time · Extraction · CIM mapper"]
+        subgraph actions["Orchestrator-only actions"]
+            direction LR
+            GATE[Guardrail gate] --> BUILD["TA builder ·<br/>deploy · ingest"] --> VAL["Validator<br/>fixed SPL, no AI"]
+        end
+        ORCH <--> DB
+        ORCH --> agents
+        ORCH --> actions
+    end
+    SPLUNK["<b>Splunk Enterprise</b> (standalone)<br/>TA-parsewright-* apps · pw_* test index<br/>REST :8089, scoped tokens"]
+    LLM["Meta Model API<br/>or self-hosted Muse Spark Open"]
+    UI <-->|"HTTP + server-sent events"| ORCH
+    agents -->|"model calls"| LLM
+    agents -.->|"read-only search"| SPLUNK
+    actions -->|"deploy · ingest · validate"| SPLUNK
+```
+
+More in [docs/design.md](docs/design.md): the [run states](docs/design.md#orchestrator-state-machine), the [agents' context and tools](docs/design.md#ai-agent-architecture), validation and guardrails.
 
 ## What is built
 

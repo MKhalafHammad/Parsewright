@@ -9,14 +9,18 @@ Node 24 LTS. With the engine running (`.venv/bin/parsewright serve`):
 ```bash
 npm ci
 npm run build
-ENGINE_URL=http://127.0.0.1:8080 npm start   # http://localhost:3000
+cp -r .next/static .next/standalone/.next/   # the standalone server serves these
+ENGINE_URL=http://127.0.0.1:8080 node .next/standalone/server.js   # http://localhost:3000
 ```
+
+The build uses Next.js `output: "standalone"` (as the Docker image does), so start it with `server.js`, not `next start`.
 
 | Variable | Default | What it is |
 | --- | --- | --- |
 | `ENGINE_URL` | `http://127.0.0.1:8080` | Engine API, server-side only (never sent to the browser) |
 | `ALLOWED_HOSTS` | `localhost:3000,127.0.0.1:3000` | Host names the UI answers to (DNS-rebinding guard) |
 | `WEB_ORIGINS` | `http://localhost:3000,http://127.0.0.1:3000` | Origins allowed to send actions (CSRF guard) |
+| `PORT`, `HOSTNAME` | `3000`, all addresses | Where the server listens. Set `HOSTNAME=127.0.0.1` to keep it on this machine; to use it from another machine, add that address to `ALLOWED_HOSTS` and `WEB_ORIGINS`, which refuse every other name |
 
 ## Safety
 

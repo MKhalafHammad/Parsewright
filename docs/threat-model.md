@@ -1,6 +1,6 @@
 # Parsewright threat model
 
-> Phase 1. Source of the controls: [design.md](design.md), "Guardrails and security". The phase numbers refer to [build-plan.md](build-plan.md). Last updated Oct 27, 2026.
+> Written in Phase 1 and kept current. Source of the controls: [design.md](design.md), "Guardrails and security". The Phase column says which build phase delivered each control ([build-plan.md](build-plan.md)); controls that are not built say so. Last updated Nov 3, 2026.
 
 ## Scope and assumptions
 
@@ -41,7 +41,7 @@
 | --- | --- | --- | --- |
 | AC1 | Operator / approver (the owner) | Trusted | UI, CLI, `.env`, Splunk Web |
 | AC2 | Log author: any device, user or attacker that can get text into a sample | **Untrusted** | Sample content only |
-| AC3 | Muse Spark agents | **Untrusted output** | Their prompt; read-only `run_search` and `test_regex` |
+| AC3 | Muse Spark agents | **Untrusted output** | Their prompt only: agents make no tool calls (code runs `test_regex` in the gate; `run_search` is built but not given to agents) |
 | AC4 | A local network or browser attacker | Untrusted | Ports bound on the host; the operator's browser via XSS/CSRF |
 | AC5 | Public-repo visitors and contributors | Untrusted | The repository, issues and PRs (CI runs on PRs) |
 | AC6 | Third-party dependencies and actions (PyPI, npm, Docker images, GitHub Actions) | Partially trusted | Code execution in builds, CI and containers |
@@ -50,11 +50,11 @@
 
 | ID | Boundary | Crossing |
 | --- | --- | --- |
-| TB1 | Upload / drop folder → engine | Files and form fields from AC1, carrying AC2's content |
+| TB1 | Upload → engine (a drop folder is planned) | Files and form fields from AC1, carrying AC2's content |
 | TB2 | Engine → model API | Prompts built from samples; responses come back as proposals |
-| TB3 | Model output → orchestrator | Proposed config, tool-call arguments (`run_search`, `test_regex`) |
+| TB3 | Model output → orchestrator | Proposed config as a schema-validated object |
 | TB4 | Orchestrator → Splunk REST | Deploy, reload and ingest (deploy token); searches (search token) |
-| TB5 | Splunk → engine | Search results (contain log text), the drift webhook (stretch) |
+| TB5 | Splunk → engine | Search results (contain log text); the drift webhook is planned |
 | TB6 | Browser ↔ FastAPI | UI actions, SSE stream rendering log text |
 | TB7 | Developer machine / CI ↔ public GitHub | Commits, PRs, CI runs, pulled dependencies |
 
@@ -71,7 +71,7 @@ AC1 ──upload──► [TB1] API ──► PostgreSQL (job, samples, ledger)
                  ├── guardrail gate ──► TA builder (escaping writer) ──► .tgz + SHA-256
                  │
                  ├──[TB4 deploy token]──► Splunk: install TA__test_<job>, ingest pw_test as <st>__test_<job>_a<n>
-                 ├──[TB4 search token]──► Splunk: Validator fixed SPL, agent run_search (guarded)
+                 ├──[TB4 search token]──► Splunk: Validator fixed SPL
                  │◄─[TB5]─── results (log text = data)
                  │
                  └──► ledger ──SSE──[TB6]──► UI (escaped text) ──approve(hash)──► promote
@@ -145,7 +145,7 @@ Each threat lists the controls from design.md that stop it, their priority (Must
 | T5.3 | Test data fills the disk; cleanup deletes resources that existed before | One shared test index, created by an admin with a size cap (`maxTotalDataSizeMB`, not age-based retention: samples carry historical timestamps). The engine creates and deletes no indexes or data; test events roll out by size. License use is covered by T5.2 | Must | 1 (decision), 10 (bootstrap) |
 | T5.4 | Untested config parses production data during testing | Test identity: `__test_<job>` app and `__test_<job>_a<attempt>` sourcetype; real names restored by code at promotion; both hashes linked; smoke test | Must | 2 (naming), 4 (rename + smoke) |
 | T5.5 | A leftover routing transform keeps affecting production after reject | Rollback removes every TA file and re-runs the negative routing test | Must | 4, 9 |
-| T5.6 | Hung workers or agents searching in circles | Timeouts on every Splunk and model call; max 10 tool calls per attempt | Must | 2, 4 |
+| T5.6 | Hung workers or runs that never end | Timeouts on every Splunk and model call; per-run wall clock (15 min) and token ceiling | Must | 2, 4 |
 | T5.7 | Splunk writes from parallel jobs interfere | One global lock for app install and reload | Must | 5 |
 | T5.8 | One job's config reaches another job's events in the shared test index: an eventtype or tag exported system-wide matches `index=pw_test`, or a routing transform relabels events into another job's sourcetype | Code, not the agent, writes every props stanza name (the job's own test sourcetype), every transform and eventtype name (`parsewright_<job>_` prefix) and every tag (from `cim_spec`). Each eventtype search is `sourcetype=<own attempt sourcetype> (<filter>)`; the filter must have balanced parentheses and no pipe, subsearch, macro, backslash (an escaped quote would desync quote tracking, appsec H1), or `index`/`sourcetype`/`source`/`host`/`eventtype`/`tag` term, so an `OR` inside it cannot escape the anchor (2026-10-28, Phase 3). A routing `FORMAT` must be `sourcetype::<own attempt sourcetype>`. Adversarial test per rule | Must | 3 (eventtypes, built), 9 (routing) |
 | T5.9 | Someone with write access to the packages folder swaps the `.tgz` between build and install, and the near-admin deploy token installs their app | The packages folder must not be a symlink, must be owned by the engine user and not group/world-writable (checked in code); packages are created with `O_EXCL|O_NOFOLLOW` under a unique per-job/attempt name; the SHA-256 is re-checked just before install (T3.5). In Docker the volume is read-only in `splunk`; the VM copy step re-checks the hash | Must | 2 |
@@ -159,10 +159,10 @@ Each threat lists the controls from design.md that stop it, their priority (Must
 | ID | Threat | Controls | Priority | Phase |
 | --- | --- | --- | --- | --- |
 | T6.1 | Skipping validation or approval; replaying approve or promote | Transitions enforced in SQL (`UPDATE … WHERE status = 'awaiting_approval'`), row count checked | Must | 5 |
-| T6.2 | Acting on an ambiguous deploy after a crash | On resume, read the installed TA version from Splunk and compare hashes before redeploying | Must | 4, 5 |
+| T6.2 | Acting on an ambiguous deploy after a crash | On resume, the job's own test app is uninstalled and redeployed under a new attempt sourcetype; the lease fences off the crashed worker | Must | 4, 5 |
 | T6.3 | Two workers processing the same job | `FOR UPDATE SKIP LOCKED` claim, lease and heartbeat; unique source key and content hash | Must | 5 |
 | T6.4 | Audit history edited after the fact | Append-only ledger | Should | 5 |
-| T6.5 | Results that cannot be reproduced | Ledger records model version, Validator version, CIM spec hash and artifact hash | Should | 5 |
+| T6.5 | Results that cannot be reproduced | Ledger records model version, Validator version, CIM spec hash and artifact hash. **Not built**: package hashes are recorded, the rest is planned | Should | — |
 | T6.6 | Runaway credit spend | Per-run token ceiling, LLM concurrency cap, global daily budget and kill switch, Meta billing spend limit | Must | 2, 5 |
 
 ### T7. Secrets and sensitive data exposure
@@ -171,7 +171,7 @@ Each threat lists the controls from design.md that stop it, their priority (Must
 | --- | --- | --- | --- | --- |
 | T7.1 | Tokens or the API key committed to the public repo | `.env` git-ignored, `.env.example` placeholders, gitleaks in pre-commit and over full history in CI | Must | 0 (done) |
 | T7.2 | Credentials in prompts, logs or the ledger | No credentials in prompts; redaction in logs and ledger; probes and CLI never print tokens | Must | 1 (probes), 2 |
-| T7.3 | Secrets inside sample logs reach a hosted model | Secret scan of samples; warning banner and masking option; on-prem mode | Should | 5 |
+| T7.3 | Secrets inside sample logs reach a hosted model | Secret scan of samples; warning banner and masking option; on-prem mode. **Not built** except on-prem mode and the README warning (R7) | Should | — |
 | T7.4 | A token with more power than needed is stolen | Three scoped accounts: search (only `pw_*`, `_internal`), deploy (orchestrator only), drift (read-only, registered sourcetypes). The deploy token is near-admin (`admin_all_objects` + `install_apps`, Q9): stolen, it can install any app from any path splunkd can read or write a scripted input, which is **code execution as the splunk user on the Splunk host**; it can also write to any index and delete any app. So it lives only in the orchestrator process and never reaches agents, prompts, the web process or the ledger; it is created with a short expiry; the install and delete helpers assert the app name matches `^TA-parsewright-[a-z0-9_:-]+__test_[a-z0-9_]+$` and the package path resolves inside `PARSEWRIGHT_PACKAGES_DIR` before every call | Must | 1 (create), 2 |
 | T7.5 | The engine gets the Docker socket to run `btool` and becomes a host-root path | Never mount the Docker socket into engine or web; see Q7 | Must | 1 (decision) |
 | T7.6 | Real logs or internal names committed to the repo | Only synthetic fixtures; documentation IP ranges and `example.com`; appsec review of every PR | Must | All |
@@ -181,7 +181,7 @@ Each threat lists the controls from design.md that stop it, their priority (Must
 | ID | Threat | Controls | Priority | Phase |
 | --- | --- | --- | --- | --- |
 | T8.1 | `<script>` in a log line runs in the approver's browser (raw vs parsed view) | Log text only ever React text nodes; highlights built as React elements from engine-computed UTF-16 offsets; lint fails on `dangerouslySetInnerHTML`, `innerHTML`, `insertAdjacentHTML`, `document.write`, `srcDoc`, `eval`, `new Function`; per-request CSP nonce, no `'unsafe-inline'` scripts (`web/e2e/xss.spec.ts`) | Must | 6 (built) |
-| T8.2 | Anyone reaching the API approves or promotes | Bind to `127.0.0.1` (A1); login and approver role | Should | 5 |
+| T8.2 | Anyone reaching the API approves or promotes | Bind to `127.0.0.1` (A1, built); login and approver role **not built** (R1) | Should | 5 (binding) |
 | T8.3 | A malicious page makes the operator's browser call approve (CSRF) | CORS restricted to the UI origin; every non-GET request needs the `X-Parsewright: 1` header (only sendable cross-site after a preflight CORS refuses) and is refused with a foreign `Origin`; a cross-site multipart upload is refused (`api/test_api.py::test_cross_site_requests_are_refused`) | Must | 5 (built), 6 |
 | T8.5 | DNS rebinding: a malicious page rebinds its domain to `127.0.0.1`; the browser then treats it as same-origin, so CORS and custom headers do not stop it | Host allowlist in `web/proxy.ts` for every page and API request (421 otherwise) and again in the `/api/engine` route; Origin checked against a fixed list, never derived from Host; TrustedHost on the engine (`web/e2e/proxy.spec.ts`) | Must | 5 (engine), 6 (UI, built) |
 | T8.6 | Clickjacking the approve button; exfiltration via images if agent text is ever rendered as markdown | CSP with `frame-ancestors 'none'` and `img-src 'self'` | Must | 6 |
@@ -218,12 +218,13 @@ The tables above are the mapping: every design.md Must row appears with its phas
 | 2 | T1.1 (framing), T2.1, T2.15, T3.1, T4.3, T4.4, T5.1, T5.4 (naming), T5.6 (timeouts), T6.6 (per-run ceiling), T7.2, T7.4 (token placement) |
 | 3 | T1.2, T1.3, T1.5, T2.10 (`test_regex`), T2.14, T4.2 |
 | 4 | T1.1 (gate), T2.2–T2.12, T3.2–T3.5, T4.1, T4.5, T5.2–T5.5, T6.2 |
-| 5 | T1.4, T2.15, T3.6, T3.7, T5.7, T6.1, T6.3–T6.6, T7.3, T8.2, T8.3, T8.5, T9.4 (engine) |
+| 5 | T1.4, T2.15, T3.6, T3.7, T5.7, T6.1, T6.3, T6.4, T6.6, T8.3, T8.5, T9.4 (engine), T8.2 (localhost binding only) |
 | 6 | T8.1, T8.3–T8.6, T9.2 (npm), T9.4 (web) |
 | 7 | T4.6, T5.10–T5.13 |
 | post-7 (no manifest) | T4.7, T4.8 |
 | 9 | T2.13, T5.5 (routing) |
 | 10 | T9.3, T9.6, T9.7: not done, see R12 |
+| Not built | T6.5 (partly), T7.3 (partly), T8.2 login (R1), T2.13 and T5.5 routing (Phase 9) |
 
 ### Must rows and their tests (Phase 4 acceptance)
 
@@ -248,7 +249,7 @@ Every Must row of design.md "Guardrails and security", with the test that proves
 | Transform prefix `parsewright_<job>_` + collision check over REST | Adv. `test_report_cannot_chain_…`, `test_transform_collision_stops_the_deploy` | Built |
 | Refuse an existing TA name | Adv. `test_existing_ta_name_is_never_overwritten`; promotion installs with `update=false`, so Splunk itself refuses an existing app even under concurrent promotions | Built |
 | Constant CIM value flag; CIM fields trace to a source field or approved constant | Adv. `test_constant_action_is_blocked`, `test_cim_value_must_trace_to_a_source_field`, `test_eval_cannot_detect_the_test_environment`; `validator/test_validator_search_time.py::test_constant_gaming_is_flagged_even_past_the_gate` | Built |
-| Manifest value checks and provenance in review | `validator/test_validator_search_time.py` (per-event values against the manifest) | Built (review display: Phase 6) |
+| Manifest value checks and provenance in review | `validator/test_validator_search_time.py` (per-event values against the manifest); the approval report's decisions and CIM view | Built |
 | Agents have no file tools; builder writes only inside the TA | `ta_builder/test_ta_builder.py::test_package_contents_and_hash` (fixed member names); agents return schema objects only | Built |
 | Logs, form fields, search results passed as data | Adv. `test_injected_instruction_stays_inside_the_data_block`, `test_what_an_injected_model_would_propose_is_blocked`; `agents/test_agents.py::test_samples_are_delimited_data`, `test_timezone_form_field_cannot_carry_instructions`; `validator/…::test_raw_splunkd_lines_never_reach_the_agent` | Built |
 | Schema validation of every tool-call argument | `agents/test_agents.py::test_malformed_output_is_retried_then_rejected` (every agent reply is a strict schema) | Built (no agent tool calls yet) |
@@ -264,7 +265,7 @@ Every Must row of design.md "Guardrails and security", with the test that proves
 | Sourcetype has 0 events before ingest; never reused | `orchestrator/test_run.py::test_leftover_events_are_never_reused`, `test_fix_loop_feeds_evidence_back` | Built |
 | On resume, compare installed and recorded hashes | `ledger/test_worker.py::test_crashed_worker_is_resumed_from_its_checkpoint`: a resumed run never trusts an ambiguous deploy. It uninstalls its own test app, redeploys from the checkpoint and uses a new attempt sourcetype; the lease fences off the crashed worker | Built (stricter: redeploy, not compare) |
 | Adversarial suite on every change | This table; `engine/tests/adversarial/` in `make test` and CI | Built |
-| Timeouts everywhere; max 10 tool calls per attempt | `agents/llm.py` and `splunk_client.connect` timeouts; per-run wall clock (`orchestrator/test_run.py`) | Built (agents make no tool calls yet, so the 10-call cap has nothing to count) |
+| Timeouts everywhere | `agents/llm.py` and `splunk_client.connect` timeouts; per-run wall clock (`orchestrator/test_run.py`) | Built (agents make no tool calls, so there is no tool-call cap to enforce) |
 | Test identity; rename at promotion with both hashes and a smoke test | Adv. `test_rename_restores_real_names_only`, `test_promotion_succeeds_with_real_names_both_hashes_and_smoke` | Built |
 | Secrets: `.env` ignored, `.env.example`, secret scan | pre-commit and CI gitleaks | Built (Phase 0) |
 | No credentials in prompts; redaction | `tools/test_probes.py::test_failure_output_redacts_api_key`; `Settings.__repr__`; tokens never passed to agents | Built |

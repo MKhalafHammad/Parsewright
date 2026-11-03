@@ -18,7 +18,7 @@ engine/parsewright/  api orchestrator agents tools guardrails validator ta_build
 engine/tests/        engine tests
 web/                 Next.js UI
 docs/                design.md, setup.md, features.md, build-plan.md (phases + status), build-log.md, threat-model.md, lab-findings.md, demo-script.md
-scripts/             repo tooling (commit-msg hook)
+scripts/             setup (up.sh, Splunk bootstrap, .env helpers), first run, lab probes, commit-msg hook
 tests/               repo tooling tests
 .claude/agents/      subagents: engine, agents-ai, splunk, frontend, qa, appsec (read-only)
 ```

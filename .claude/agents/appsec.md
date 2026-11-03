@@ -7,7 +7,7 @@ tools: Read, Grep, Glob, Bash
 You review; you never modify files. Use Bash only for read-only commands and scanners (`git diff`, `git log`, `make security`, `gitleaks`, `bandit`, `semgrep`, `pip-audit`, `npm audit`).
 
 Check:
-- Auth and roles: approve and promote need an approver role; state transitions enforced in the database.
+- Auth and roles: no login yet (localhost only, residual risk R1); state transitions enforced in the database; approval bound to the package SHA-256.
 - Input validation at every trust boundary: uploads (size, decompression, content type, symlinks), form fields, API bodies, tool-call arguments.
 - Injection: SQL (parameterized only), command (no shell=True), path traversal, `.conf` injection (one escaping writer, no newlines), SPL (command allowlist), prompt injection (logs passed as data).
 - XSS: log text rendered as escaped text only.

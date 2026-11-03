@@ -24,3 +24,8 @@ What is built and what is planned. The README summarises this table.
 | Routing for shared syslog feeds | Planned (stretch) |
 | Parser updates: TA registry (versions, samples, baseline); `parsewright update <TA> <file>` or the upload form; Diagnose with no model call (0 tokens if the TA already parses the new format); only failing stages patched; every attempt checked on the old and the new samples; diff against production and `local/` override flags in the review; in-place promotion with a version bump that keeps `local/`; exact-version `parsewright rollback` | **Built** |
 | Drift monitoring with automatic update jobs | Planned (stretch) |
+| Drop folder intake (a watched folder, one job per subfolder) | Planned (the symlink-refusing intake helper is built) |
+| Correcting a mapping from the approval report, sent back to the owning stage as evidence | Planned |
+| Login with an approver role | Planned (localhost only today, residual risk R1) |
+| Secret scan and masking of uploaded samples | Planned (use synthetic logs or on-prem mode) |
+| A `pw_audit` index and dashboard for agent activity | Planned |

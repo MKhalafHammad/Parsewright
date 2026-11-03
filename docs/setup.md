@@ -57,7 +57,7 @@ LLM_API_KEY=<key your server expects, or any placeholder if none>
 
 Nothing else changes, and sample logs never leave your network.
 
-**Opening the UI from another machine.** Docker binds every port to `127.0.0.1`, so the UI is reachable only on the machine running it. To use it from another machine, the simplest way is an SSH tunnel from that machine: `ssh -L 3000:localhost:3000 <user>@<server>`, then open http://localhost:3000. To serve it on the network instead (outside Docker), start the UI with `HOSTNAME=0.0.0.0` and add the server's address to `ALLOWED_HOSTS` and `WEB_ORIGINS` (see the note at the end of [.env.example](../.env.example)), then open the port in the server's firewall. With firewalld, `sudo firewall-cmd --add-port=3000/tcp --permanent` changes only the saved rules: run `sudo firewall-cmd --reload` to apply them.
+**Opening the UI from another machine.** Docker binds every port to `127.0.0.1`, so the UI is reachable only on the machine running it. To use it from another machine, the simplest way is an SSH tunnel from that machine: `ssh -L 3000:localhost:3000 <user>@<server>`, then open http://localhost:3000. To serve it on the network instead (outside Docker), start the UI with `HOSTNAME=0.0.0.0` (set it explicitly: shells often set `HOSTNAME` to the machine's name) and add the server's address to `ALLOWED_HOSTS` and `WEB_ORIGINS` (see the note at the end of [.env.example](../.env.example)), then open the port in the server's firewall. With firewalld, `sudo firewall-cmd --add-port=3000/tcp --permanent` changes only the saved rules: run `sudo firewall-cmd --reload` to apply them.
 
 ## Usage
 

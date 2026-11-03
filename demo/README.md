@@ -6,10 +6,10 @@ Repeatable scripts for the moments shown in the 3-minute demo video. Each "RECOR
 
 - One script per moment, numbered in demo order: `NN_short_name.sh`, for example `01_fix_loop.sh`.
 - Each script:
-  - uses only synthetic fixtures from `engine/parsewright/generator/fixtures/`;
-  - reads all configuration from `.env`;
+  - uses only synthetic logs: the fixtures in `engine/parsewright/generator/fixtures/`, or fresh ones from the generator;
+  - reads its configuration from `.env` and, for the API scripts, `PARSEWRIGHT_API` and `PARSEWRIGHT_UI` (defaults: the local engine and UI);
   - never prints tokens or keys.
-- Scripts write only to `pw_` test indexes and `__test_<job>` apps, like the rest of Parsewright, and clean up what they create.
+- Scripts write only to the `pw_` test index and `__test_<job>` apps, like the rest of Parsewright; the engine removes each run's test add-on when the run ends. Nothing is promoted unless you approve it.
 - The top of each script states what it shows, its prerequisites (lab running, tokens set) and roughly how long it takes.
 
 ## Moments
@@ -24,5 +24,3 @@ Repeatable scripts for the moments shown in the 3-minute demo video. Each "RECOR
 | `06_parser_update.sh [patch\|diagnose]` | Parser update: firmware v2 samples (renamed field, ISO timestamps) against a promoted firewall TA. Diagnose finds the drift with no model call, only the failing stages are patched, a patch that breaks the old format is rejected with evidence, both formats pass, diff against production. `diagnose` after promotion: a new v2 batch ends at Diagnose with 0 tokens | 7 | Run in the lab: patch Oct 28 (job `866b4273`, 37k tokens), approved and promoted in place to 1.1.0 on Oct 30 (smoke 20/20); `diagnose` Oct 30 (job `1a0521ec`, 0 tokens); rolled back to 1.0.0 on Oct 30, so a new recording starts from v1 (the update becomes 1.2.0) |
 | `07_live_workspace.sh` | The agent-centred run workspace: "Needs you" on the board, profile review with change markers, then the Now banner, the clickable phase rail, each attempt's proposal, gate verdict, Splunk checks and diff from the previous attempt, and the activity grouped by phase and attempt | 7b | Script added Oct 30; screens checked with synthetic fixtures, not yet recorded in the lab |
 | `08_log_only.sh [fw\|timezone]` | Just the log, no answer key: a fresh firewall log is built and proven on every event with no manifest, and the report lists the agents' decisions (timestamp reading, field meanings, value → CIM value with counts). `timezone`: a VPN log in local time pauses in profile review and asks for its zone | post-7 | `fw` run in the lab, Nov 2 (job `12e87e98`: mapping equal to the hidden truth, 48k tokens); `timezone` pause seen in the lab on job `99d2999e` |
-
-The likely moments for the remaining phases are marked "RECORD THIS (likely)" in [docs/build-plan.md](../docs/build-plan.md). They are added to this table when the phase produces them.

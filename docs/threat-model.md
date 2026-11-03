@@ -204,7 +204,7 @@ Each threat lists the controls from design.md that stop it, their priority (Must
 | ID | Threat | Controls | Priority | Phase |
 | --- | --- | --- | --- | --- |
 | T10.1 | A secret, real log, internal hostname or IP is pushed | gitleaks (pre-commit and CI full history); appsec review before merge; synthetic data only | Must | All |
-| T10.2 | Personal data in commit metadata | Commits use the GitHub noreply address. *Note: merges done in the GitHub UI use the account's primary email unless "Keep my email addresses private" is on* | Should | 1 (owner setting) |
+| T10.2 | Personal data in commit metadata | Accepted by the owner (Nov 3): commits from Nov 3 on use the owner's public GitHub email; earlier commits keep the GitHub noreply address, since rewriting public history would need a force-push. No other personal data is committed | Should | 1 (owner setting) |
 | T10.3 | Security reports filed publicly with secrets | SECURITY.md routes to private vulnerability reporting | Must | 1 (owner setting) |
 
 ## Mitigations and guardrail mapping

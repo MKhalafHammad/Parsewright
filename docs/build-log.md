@@ -489,3 +489,24 @@ One entry per completed phase, appended at the end of the phase (see CLAUDE.md, 
 - CI green on `dev`, then the pull request `dev` → `main`.
 - The clean-VM test of `make up` and `make first-run` (Phase 10).
 - The video link in the README, and the submission by Nov 4, 9:00 PM ET.
+
+## 2026-11-04 — Clean-VM test (Phases 5 and 10 closed)
+
+**Done**
+- Ran the judges' path from a clean clone of `main` on a fresh Ubuntu 26.04 VM: `make env`, `make up`, `make first-run`, then approval through the engine API.
+- `make up` finished, `make first-run` reached `awaiting_approval`, and approving run `7d97662d` ended `done`: smoke test PASS (20/20 events), `TA-parsewright-acme-vpn` 1.0.0 in the registry and installed in Splunk, UI answering HTTP 200.
+- The test found bugs that only a clean install shows, all fixed:
+  - the engine image did not copy `README.md`, which `pyproject.toml` names, so the image could not build;
+  - the Splunk roles made by the bootstrap lacked `list_all_objects`, so `_reload` failed with a 403 (lab-findings Q9); the search role needs it too, for the config reads at promotion;
+  - the bootstrap could ask for tokens before the KV store was ready (HTTP 503), and now waits for it;
+  - `up.sh` gave up at the first `unhealthy` reading, and now waits until its timeout and checks Splunk again after the CIM restart;
+  - `sudo make up` left `.env` owned by root, and is now refused with a pointer to `DOCKER="sudo docker"`.
+- Free disk requirement raised to 40 GB.
+
+**Test results**
+- pytest: 483 passed. Playwright was not re-run: nothing under `web/` changed.
+- pre-commit on every changed file: clean.
+
+**Cut or deferred**
+- Approval was run through the engine API, the same endpoint the UI's Approve button uses; the UI was checked by HTTP status only, not in a browser, on the VM.
+- Pinning images by digest stays open (threat model R12).

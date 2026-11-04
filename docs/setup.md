@@ -12,6 +12,7 @@ Every step from an empty machine to an approved add-on, then configuration, usag
 - [Step 5: Start everything](#step-5-start-everything)
 - [Step 6: Start the first run](#step-6-start-the-first-run)
 - [Step 7: Review and approve](#step-7-review-and-approve)
+- [Optional: a server with no browser](#optional-a-server-with-no-browser)
 - [Messages that are safe to ignore](#messages-that-are-safe-to-ignore)
 - [Stop, restart or reset](#stop-restart-or-reset)
 - [Configuration](#configuration)
@@ -169,11 +170,21 @@ This uploads a bundled synthetic VPN log and follows it through the Profiler, In
 
 ## Step 7: Review and approve
 
-A human approves every add-on before it is promoted, so this last step is yours. You can do it in the browser or from the terminal.
+A human approves every add-on before it is promoted, so this last step is yours.
 
-**In the browser.** Open the run's page, review raw vs parsed events and the configuration, then click **Approve** and confirm. The run ends as `done`, and the add-on appears in the TA registry.
+1. Open the run's page from Step 6, or start at http://localhost:3000.
+2. Review raw vs parsed events and the configuration.
+3. Click **Approve** and confirm.
 
-Every port is bound to `127.0.0.1`, because the web UI has no login. So the UI opens only on the machine running it. If that machine has no browser, open an SSH tunnel **from the machine that has one**, and leave that window open:
+The run ends as `done`, and the add-on appears in the TA registry.
+
+Splunk Web is at http://localhost:8000 (user `admin`, password `SPLUNK_PASSWORD` from `.env`).
+
+## Optional: a server with no browser
+
+Skip this section if the machine running Parsewright has a browser. Every port is bound to `127.0.0.1`, because the web UI has no login, so the UI opens only on that machine. Without a browser there, use either option below.
+
+**Option 1: an SSH tunnel.** Run this **from a machine that has a browser**, and leave that window open:
 
 ```bash
 ssh -L 3000:localhost:3000 -L 8000:localhost:8000 <user>@<server>
@@ -181,7 +192,7 @@ ssh -L 3000:localhost:3000 -L 8000:localhost:8000 <user>@<server>
 
 Then open http://localhost:3000 in that machine's browser. Use `localhost`, not the server's address: the tunnel carries the traffic to the server, and the UI accepts only `localhost:3000` and `127.0.0.1:3000`. The server needs an SSH server running (`sudo apt install -y openssh-server`).
 
-**In the terminal, with no browser.** Run this on the server, with your job id:
+**Option 2: approve from the terminal.** Run this on the server, with your job id:
 
 ```bash
 JOB=<job>
@@ -197,8 +208,6 @@ curl -s http://127.0.0.1:8080/tas | python3 -m json.tool
 ```
 
 You should see `done`, a passing smoke test, and `TA-parsewright-acme-vpn` in the registry.
-
-Splunk Web is at http://localhost:8000 (user `admin`, password `SPLUNK_PASSWORD` from `.env`).
 
 ## Messages that are safe to ignore
 

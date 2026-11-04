@@ -10,7 +10,7 @@ Parsewright turns raw sample logs into a tested, CIM-compliant Splunk add-on (TA
 
 **Solution.** A team of Muse Spark agents studies the logs, writes the TA stage by stage, deploys it to a standalone Splunk Enterprise instance, ingests the samples into a test index, and fixes its own work until fixed validation searches pass. A human approves before anything is promoted.
 
-**Hackathon fit.** Meta Global AI Developer Hackathon, "Build for Your World" track: a problem known firsthand from daily Splunk and SOC work.
+**Hackathon fit.** Meta Global AI Developer Hackathon, Indie Developer Track, "Build for Your World" problem statement: a problem known firsthand from daily Splunk and SOC work.
 
 **Meta models.**
 

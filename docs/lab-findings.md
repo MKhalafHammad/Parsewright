@@ -14,7 +14,7 @@
 | Q6 | Deploy path: install a package, or write stanzas over REST? | `probe_install` + decision | Answered 2026-10-27 | A: package install via `apps/local`; `update=true` is a full replace |
 | Q7 | How to run `btool check` without shell access to Splunk | Decision | Decided 2026-10-27 | Option 1: allowlist + typed values before deploy, fail on any splunkd warning after install |
 | Q8 | Ingest path: does `receivers/simple` apply line breaking and timestamps? | `probe_splunk` + `probe_install` | Answered 2026-10-27 | `receivers/simple` |
-| Q9 | Which capabilities does the deploy role need? | `probe_splunk` + `probe_install` | Answered 2026-10-27 | `admin_all_objects`, `edit_tcp`, `install_apps`; one shared test index, no `indexes_edit` |
+| Q9 | Which capabilities does the deploy role need? | `probe_splunk` + `probe_install` | Answered 2026-10-27 | `admin_all_objects`, `edit_tcp`, `install_apps`, `list_all_objects`; one shared test index, no `indexes_edit` |
 | Q10 | CIM add-on installed, `pw_*` in the CIM index macros | Manual lab step + search-token check | Done 2026-10-27 | Lab prerequisite met |
 | Q11 | Does an in-place update (`update=true`) keep an admin's `local/`, and can the review see overrides? | `probe_update` | Answered 2026-10-28 | Yes: promote updates in place; flag overrides from the effective settings, with system defaults in code |
 
@@ -276,7 +276,8 @@ The design says to "write the new TA version to `/opt/splunk/etc/apps/TA-*/defau
     - Every Validator search filters on that exact sourcetype. Phase 4 adds an adversarial test that fails if any Validator search lacks the filter.
     - Code still rejects any ingest target that isn't a `pw_` index.
   - **Size, not age, limits the index.** Set a size cap (`maxTotalDataSizeMB`), not an age-based retention (`frozenTimePeriodInSecs`). Sample events carry historical timestamps, so an age-based limit could freeze them before the Validator reads them.
-  - **Final deploy role:** `admin_all_objects`, `edit_tcp`, `install_apps`, with allowed indexes `pw_*`. It is near-admin, as the warning above expected, and accepted for the lab because:
+  - **`list_all_objects` (found 2026-11-04, on a clean install):** the configuration endpoints need it: `configs/conf-*/_reload` for deploy, and `configs/conf-props` and `conf-transforms` reads for search. Splunk's `[default]` role settings turn it on, and the lab roles made in Splunk Web worked without naming it, but the deploy role made over REST was refused (403). `scripts/splunk_bootstrap.py` names it on both roles. Agents gain nothing from it: the search guard refuses `| rest`.
+  - **Final deploy role:** `admin_all_objects`, `edit_tcp`, `install_apps`, `list_all_objects`, with allowed indexes `pw_*`. It is near-admin, as the warning above expected, and accepted for the lab because:
     - the token lives only in the orchestrator process;
     - code checks every app name (`TA-parsewright-…__test_…`) and every ingest target (`pw_`) before any call;
     - the threat model lists it as a residual risk.

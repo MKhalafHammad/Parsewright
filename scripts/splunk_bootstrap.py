@@ -34,16 +34,24 @@ CIM_MODELS = (
     "Network_Traffic",
     "Web",
 )  # engine/parsewright/cim_spec ROOT
+# list_all_objects: read configs/conf-* (collision checks, effective props, _reload). Roles made
+# in Splunk Web inherit it from authorize.conf [default]; roles made here must name it.
 ROLES = {
-    # Search only pw_* and _internal (agents' searches and the Validator).
+    # Search only pw_* and _internal (agents' searches and the Validator). Agents still cannot
+    # read config: the search guard refuses `| rest`.
     "parsewright_search": {
-        "capabilities": ["search"],
+        "capabilities": ["list_all_objects", "search"],
         "srchIndexesAllowed": ["pw_*", "_internal"],
         "srchIndexesDefault": ["pw_*"],
     },
     # Install apps and ingest: the final deploy role from lab-findings Q9.
     "parsewright_deploy": {
-        "capabilities": ["admin_all_objects", "edit_tcp", "install_apps"],
+        "capabilities": [
+            "admin_all_objects",
+            "edit_tcp",
+            "install_apps",
+            "list_all_objects",
+        ],
         "srchIndexesAllowed": ["pw_*"],
         "srchIndexesDefault": ["pw_*"],
     },

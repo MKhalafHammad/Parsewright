@@ -28,6 +28,7 @@ INTERESTING = {
     "edit_monitor",
     "edit_tcp",
     "edit_token_http",
+    "list_all_objects",
 }
 
 

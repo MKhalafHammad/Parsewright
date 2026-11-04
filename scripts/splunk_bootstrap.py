@@ -120,6 +120,20 @@ def wait_ready(limit=600):
     sys.exit(1)
 
 
+def wait_tokens(limit=300):
+    """Tokens live in the KV store, which starts after splunkd answers: 503 until it is ready."""
+    start = time.time()
+    while time.time() - start < limit:
+        try:
+            if call("GET", "/services/authorization/tokens?count=1")[0] != 503:
+                return
+        except OSError:
+            pass
+        time.sleep(5)
+    log("FAILED: the KV store is not ready, so tokens cannot be created (HTTP 503)")
+    sys.exit(1)
+
+
 def password():
     alphabet = string.ascii_letters + string.digits
     return "".join(
@@ -216,6 +230,7 @@ def main():
         must(call("POST", path, {"definition": "(index=pw_*)"})[0], "macro " + macro)
     log("CIM index macros: (index=pw_*) for {}".format(", ".join(CIM_MODELS)))
 
+    wait_tokens()
     # One fresh token per service user; earlier ones are deleted, so a rebuilt .env never
     # leaves a valid old token behind.
     lines = []

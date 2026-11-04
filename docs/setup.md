@@ -128,6 +128,7 @@ CI runs `make lint`, `make test` and `make security` on every pull request (not 
 - **Splunk is slow to start.** The first start takes several minutes while the container provisions itself. Follow it with `make logs` (or `docker compose logs -f splunk`). Wait for `docker compose ps` to show `healthy`.
 - **Splunk exits right away mentioning the license or general terms.** `SPLUNK_START_ARGS=--accept-license` and `SPLUNK_GENERAL_TERMS=--accept-sgt-current-at-splunk-com` must both be set in `.env`. Setting them means you accept the Splunk license and terms.
 - **Splunk rejects the admin password.** `SPLUNK_PASSWORD` needs at least 8 characters. If you change it after the first start, the old password stays in the `splunk-etc` volume. Run `docker compose down -v` to reset, which **deletes all Splunk and PostgreSQL data**.
+- **`the KV store is not ready`.** Splunk's tokens need its KV store. `make up` waits 5 minutes for it; run `make up` again, and if it repeats, read `docker compose logs splunk`.
 - **Port already in use.** Change `SPLUNK_WEB_PORT` or `WEB_PORT` in `.env`, then run `make down && make up`.
 - **`required variable ... is missing a value`.** A required `.env` value is empty or missing. Compare your `.env` with `.env.example`.
 - **`make up` stops at "preparing Splunk" with "no package is in lab/".** Download the CIM add-on into `lab/` (step 3), then run `make up` again; every step is safe to repeat.

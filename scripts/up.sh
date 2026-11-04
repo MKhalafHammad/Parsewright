@@ -8,6 +8,10 @@
 # No secret is printed. Set DOCKER="sudo docker" if your user cannot reach the Docker socket.
 set -euo pipefail
 cd "$(dirname "$0")/.."
+if [ -n "${SUDO_USER:-}" ]; then # as root, .env would end up owned by root
+  echo 'Run this without sudo. If Docker needs sudo: DOCKER="sudo docker" make up' >&2
+  exit 1
+fi
 DOCKER=${DOCKER:-docker}
 compose() { $DOCKER compose "$@"; }
 
@@ -24,7 +28,7 @@ wait_healthy() { # service, seconds
     s=$(health "$1")
     [ "$s" = healthy ] && return 0
     [ "$s" = running ] && return 0 # no healthcheck defined: readiness is checked later
-    [ "$s" = unhealthy ] && break
+    [ "$s" = exited ] && break # "unhealthy" can clear: Splunk is slow to start and restart
     sleep 5
   done
   echo "$1 is not healthy ($(health "$1")): see '$DOCKER compose logs $1'" >&2
@@ -47,6 +51,7 @@ tokens=$(compose exec -T -e PW_TEST_INDEX="${TEST_INDEX:-pw_test}" splunk \
   < scripts/splunk_bootstrap.py)
 printf '%s\n' "$tokens" | python3 scripts/env_set.py
 unset tokens
+wait_healthy splunk 300 # the CIM install restarts splunkd, and the engine depends on its health
 
 echo "starting the engine and the web UI"
 compose up -d --build

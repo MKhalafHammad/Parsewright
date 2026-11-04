@@ -1,6 +1,6 @@
 # Demo script (3 minutes)
 
-The video shows only features built during the hackathon (Oct 27 – Nov 4, 2026), all on synthetic Acme logs, in the real web UI against the lab Splunk. Every moment has a repeatable script in [demo/](../demo/README.md). Runs that take minutes are run beforehand and opened when they are in the state to show; two fresh uploads run live during the take.
+The video shows only features built during the hackathon (Oct 26 – Nov 4, 2026), all on synthetic Acme logs, in the real web UI against the lab Splunk. Every moment has a repeatable script in [demo/](../demo/README.md). Runs that take minutes are run beforehand and opened when they are in the state to show; two fresh uploads run live during the take.
 
 The recorded take is 2:50, 1920×1080, with on-screen captions. The "Say" column is the matching narration for a voice-over.
 

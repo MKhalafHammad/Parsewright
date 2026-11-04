@@ -1,6 +1,6 @@
 # Parsewright
 
-Parsewright turns raw sample logs into a tested, CIM-compliant Splunk add-on (TA). Muse Spark agents study the logs and write the TA stage by stage (index-time, extraction, CIM mapping); deterministic code deploys each attempt to a standalone Splunk Enterprise instance, ingests the samples into a test index, and fixed SPL checks decide pass or fail. A human approves before anything is promoted. Built for the Meta Global AI Developer Hackathon (Oct 27 – Nov 4, 2026).
+Parsewright turns raw sample logs into a tested, CIM-compliant Splunk add-on (TA). Muse Spark agents study the logs and write the TA stage by stage (index-time, extraction, CIM mapping); deterministic code deploys each attempt to a standalone Splunk Enterprise instance, ingests the samples into a test index, and fixed SPL checks decide pass or fail. A human approves before anything is promoted. Built for the Meta Global AI Developer Hackathon (Oct 26 – Nov 4, 2026).
 
 **Source of truth: [docs/design.md](docs/design.md).** Read the relevant section before any change. If a request conflicts with it, the design doc wins; raise the conflict instead of guessing.
 

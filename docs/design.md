@@ -665,7 +665,7 @@ docker-compose.yml    Splunk Enterprise, PostgreSQL, engine, web
 - [x] Only synthetic or self-generated logs; no client data anywhere
 - [x] Meta models do the core reasoning (Muse Spark runs every agent)
 - [x] 3-minute demo video showing only hackathon-built features, recorded Nov 3 (script: [demo-script.md](demo-script.md))
-- [ ] Video link in the README
+- [x] Video link in the README
 - [ ] Submit by Nov 4, 9:00 PM ET
 
 ### Decisions from the lab

@@ -5,7 +5,7 @@ From raw sample logs to a tested, CIM-compliant Splunk add-on, verified by Splun
 [![CI](https://github.com/MKhalafHammad/Parsewright/actions/workflows/ci.yml/badge.svg)](https://github.com/MKhalafHammad/Parsewright/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-- **Demo video:** _planned (link added at submission)_
+- **Demo video:** [watch the 3-minute demo on YouTube](https://www.youtube.com/watch?v=WsxSCXF_JRs)
 - Built for the **Meta Global AI Developer Hackathon** (Oct 27 – Nov 4, 2026), "Build for Your World" track. All code was written during the event, from the first commit on Oct 27; only synthetic logs are used, and the demo shows only features built during the event. Progress per phase: [docs/build-plan.md](docs/build-plan.md).
 
 ![Parsewright run workspace](docs/img/run-workspace.png)

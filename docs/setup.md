@@ -12,7 +12,6 @@ Every step from an empty machine to an approved add-on, then configuration, usag
 - [Step 5: Start everything](#step-5-start-everything)
 - [Step 6: Start the first run](#step-6-start-the-first-run)
 - [Step 7: Review and approve](#step-7-review-and-approve)
-- [Optional: a server with no browser](#optional-a-server-with-no-browser)
 - [Messages that are safe to ignore](#messages-that-are-safe-to-ignore)
 - [Stop, restart or reset](#stop-restart-or-reset)
 - [Configuration](#configuration)
@@ -180,34 +179,8 @@ The run ends as `done`, and the add-on appears in the TA registry.
 
 Splunk Web is at http://localhost:8000 (user `admin`, password `SPLUNK_PASSWORD` from `.env`).
 
-## Optional: a server with no browser
-
-Skip this section if the machine running Parsewright has a browser. Every port is bound to `127.0.0.1`, because the web UI has no login, so the UI opens only on that machine. Without a browser there, use either option below.
-
-**Option 1: an SSH tunnel.** Run this **from a machine that has a browser**, and leave that window open:
-
-```bash
-ssh -L 3000:localhost:3000 -L 8000:localhost:8000 <user>@<server>
-```
-
-Then open http://localhost:3000 in that machine's browser. Use `localhost`, not the server's address: the tunnel carries the traffic to the server, and the UI accepts only `localhost:3000` and `127.0.0.1:3000`. The server needs an SSH server running (`sudo apt install -y openssh-server`).
-
-**Option 2: approve from the terminal.** Run this on the server, with your job id:
-
-```bash
-JOB=<job>
-SHA=$(curl -s http://127.0.0.1:8080/runs/$JOB | python3 -c 'import json,sys; print(json.load(sys.stdin)["record"]["sha256_test"])')
-curl -s -X POST -H 'X-Parsewright: 1' -H 'Content-Type: application/json' -d "{\"sha256\":\"$SHA\"}" http://127.0.0.1:8080/runs/$JOB/approve; echo
-```
-
-It prints `approved` and the hash. Wait about 30 seconds for the promotion, then check the result:
-
-```bash
-curl -s http://127.0.0.1:8080/runs/$JOB | python3 -c 'import json,sys; d=json.load(sys.stdin); print(d["status"], d["record"].get("smoke"))'
-curl -s http://127.0.0.1:8080/tas | python3 -m json.tool
-```
-
-You should see `done`, a passing smoke test, and `TA-parsewright-acme-vpn` in the registry.
+> [!IMPORTANT]
+> **The web UI and Splunk Web open only on the machine running Parsewright, not from another machine.** This is a security choice: the UI has no login, so every port is bound to `127.0.0.1`, and the UI accepts only `localhost:3000` and `127.0.0.1:3000`. Use a browser on that same machine.
 
 ## Messages that are safe to ignore
 
@@ -322,7 +295,6 @@ CI runs `make lint`, `make test` and `make security` on every pull request (not 
 - **`FAILED: the CIM add-on is not installed`.** `lab/` has no CIM package, or more than one. See [Step 4](#step-4-add-the-splunk-cim-add-on), then run `make up` again.
 - **`permission denied while trying to connect to the docker API`.** Your user can't reach Docker yet. See [Step 2](#step-2-let-your-user-run-docker), and remember to log out and back in.
 - **`open .env: permission denied`.** `.env` is owned by root, usually from an older `sudo make up`. Run `sudo chown "$USER":"$USER" .env`.
-- **`bind: Address already in use` when you open the SSH tunnel.** Those ports are already taken on the machine you ran it from. Run the tunnel from the machine with the browser, not on the server.
 - **`make first-run` ends with `error`.** Read the reason with `docker compose logs --tail=40 engine`. Running `make first-run` again starts a new run.
 - **The engine logs 401 from Splunk.** The service tokens last 7 days. Run `make up` again: it replaces all three.
 - **Meta API errors:**

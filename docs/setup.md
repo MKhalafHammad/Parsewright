@@ -157,15 +157,23 @@ First run:     make first-run
 
 ## Step 6: Start the first run
 
-```bash
-make first-run
-```
+Sample logs come with the repository, in `engine/parsewright/generator/fixtures/`. All of them are synthetic, with 300 events each:
 
-This uploads a bundled synthetic VPN log and follows it through the Profiler, Index-time, Extraction and CIM stages, checking each attempt in Splunk. It takes a few minutes, and success ends with:
+| File | Format |
+| --- | --- |
+| `acme_vpn.json` | JSON (a good first run) |
+| `acme_fw.log` | key=value |
+| `acme_ssh.log` | syslog |
+| `acme_proxy.csv` | CSV |
 
-```text
-<job>: awaiting_approval. Open http://localhost:3000/runs/<job> to review and approve.
-```
+Ignore the `.manifest.json` files: they are answer keys, and you don't need to upload them.
+
+1. Open http://localhost:3000 and click **New run**.
+2. Choose `engine/parsewright/generator/fixtures/acme_vpn.json` as the log file, then click **Start run**. Vendor, product and timezone are optional.
+3. Check what the Profiler found on the profile review screen, then click **Confirm profile**.
+4. Watch the agents work. Each attempt is deployed to Splunk and checked. The run takes a few minutes and stops at **Awaiting approval**.
+
+**Or from the terminal:** `make first-run` uploads the same VPN log, skips the profile review and follows the run. If you use it, choose a different file for your next run in the UI, because uploading the same log opens the existing run.
 
 ## Step 7: Review and approve
 

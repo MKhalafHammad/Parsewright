@@ -11,3 +11,5 @@ It is free but licensed by Splunk, so it is not redistributed here:
 2. Save the `.tgz` in this folder, keeping its name
    (`splunk-common-information-model-cim_<version>.tgz`).
 3. Run `make up`. The bootstrap installs it once and points its index macros at `pw_*`.
+
+Without it, `make up` stops at "preparing Splunk". See Step 4 of [docs/setup.md](../docs/setup.md#step-4-add-the-splunk-cim-add-on).

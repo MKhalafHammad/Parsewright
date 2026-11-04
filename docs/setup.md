@@ -1,45 +1,224 @@
-# Setup, configuration and operations
+# Setup
 
-The README has the short version. This page has every detail: what you need, each setup step, running without Docker, configuration, the CLI, tests, the project layout and troubleshooting.
+Every step from an empty machine to an approved add-on, then configuration, usage, tests and troubleshooting. These steps were tested on a fresh Ubuntu 26.04 VM. The commands are for Ubuntu; on other systems, install the same tools your usual way.
 
-## Prerequisites
+**Contents**
 
-- **OS:** Linux or macOS. On Windows, use WSL2.
-- **Docker Engine 24+** with **Docker Compose v2.20+** (`docker compose version`).
-- **Memory and disk for Splunk:** at least 8 GB of RAM free for Docker (4 GB is the bare minimum), and at least 40 GB of free disk: the images, Splunk's data and the builds. Splunk pauses indexing when free disk drops below 5 GB.
-- **Architecture:** the Splunk image is x86-64. On Apple Silicon it runs under emulation and is slower.
-- **`make` and Python 3.10+** on the host (the setup scripts use the standard library only).
-- **A Meta Model API key.**
-- **The Splunk Common Information Model add-on** `.tgz` from Splunkbase (free account; it is licensed by Splunk, so it is not bundled). See [lab/README.md](../lab/README.md).
-- For development: Python 3.12+ and Node 24, plus [gitleaks](https://github.com/gitleaks/gitleaks) and [semgrep](https://semgrep.dev/) for `make security`.
+- [What you need](#what-you-need)
+- [Step 1: Install the tools](#step-1-install-the-tools)
+- [Step 2: Let your user run Docker](#step-2-let-your-user-run-docker)
+- [Step 3: Get the code and create `.env`](#step-3-get-the-code-and-create-env)
+- [Step 4: Add the Splunk CIM add-on](#step-4-add-the-splunk-cim-add-on)
+- [Step 5: Start everything](#step-5-start-everything)
+- [Step 6: Start the first run](#step-6-start-the-first-run)
+- [Step 7: Review and approve](#step-7-review-and-approve)
+- [Messages that are safe to ignore](#messages-that-are-safe-to-ignore)
+- [Stop, restart or reset](#stop-restart-or-reset)
+- [Configuration](#configuration)
+- [Usage](#usage)
+- [Running tests and security checks](#running-tests-and-security-checks)
+- [Project structure](#project-structure)
+- [Troubleshooting](#troubleshooting)
 
-## Quick start
+## What you need
 
-About 15 minutes on a fresh machine, most of it Splunk's first start.
+| Item | Requirement |
+| --- | --- |
+| Operating system | Linux or macOS. On Windows, use WSL2 |
+| CPU | x86-64, 4 cores recommended. The Splunk image is x86-64, so on Apple Silicon it runs under emulation and is slower |
+| Memory | At least 8 GB of RAM free for Docker (4 GB is the bare minimum) |
+| Disk | At least 40 GB free, for the images, Splunk's data and the builds. Splunk pauses indexing when free disk drops below 5 GB |
+| Tools | Docker Engine 24+, Docker Compose v2.20+, `git`, `make`, `curl`, Python 3.10+ ([Step 1](#step-1-install-the-tools)) |
+| Meta Model API key | From your Meta developer account. One run uses about 50k tokens |
+| Splunkbase account | Free, to download the CIM add-on ([Step 4](#step-4-add-the-splunk-cim-add-on)) |
+| Internet access | To download the images and to reach the Meta Model API |
 
-1. Clone the repository:
+For development you also need Python 3.12+ and Node 24, plus [gitleaks](https://github.com/gitleaks/gitleaks) and [semgrep](https://semgrep.dev/) for `make security`.
+
+If you added disk to a VM, check that the system can use it: `df -h /` should show the new size.
+
+## Step 1: Install the tools
+
+Skip this step if `docker --version` and `docker compose version` already show the versions above.
+
+```bash
+sudo apt update
+sudo apt install -y git make python3 curl
+curl -fsSL https://get.docker.com | sudo sh
+```
+
+For other systems, see [Install Docker Engine](https://docs.docker.com/engine/install/); on macOS or Windows, Docker Desktop includes Compose.
+
+Check the versions:
+
+```bash
+docker --version          # 24 or later
+docker compose version    # v2.20 or later
+python3 --version         # 3.10 or later
+```
+
+## Step 2: Let your user run Docker
+
+Run this once, then **log out and back in** so the change applies:
+
+```bash
+sudo usermod -aG docker $USER
+```
+
+Check it with `docker ps`, which must work without `sudo`.
+
+**Why this matters:** the app itself doesn't depend on this group, but every `make` command that calls Docker does. Without it, `make up` stops with `permission denied while trying to connect to the docker API`.
+
+If you can't change the group, use this form of the command in Step 5, which runs only Docker through `sudo`:
+
+```bash
+DOCKER="sudo docker" make up
+```
+
+`make down` and `make logs` always use plain `docker`, so in that case run `sudo docker compose down` and `sudo docker compose logs -f` instead.
+
+> [!WARNING]
+> Never run `sudo make up`. It stops with a message, because running the setup as root would leave `.env` owned by root, and your own commands would then fail with `open .env: permission denied`.
+
+Members of the `docker` group have root-level access to the machine, so add only users you trust.
+
+## Step 3: Get the code and create `.env`
+
+```bash
+git clone https://github.com/MKhalafHammad/Parsewright.git
+cd Parsewright
+make env
+```
+
+`make env` creates `.env` and generates every password. **It then ends with an error, and that is expected at this point:**
+
+```text
+created .env from .env.example
+generated: SPLUNK_PASSWORD, POSTGRES_PASSWORD, POSTGRES_APP_PASSWORD
+LLM_API_KEY is still a placeholder: set your Meta Model API key in .env
+make: *** [Makefile:18: env] Error 1
+```
+
+`.env` was created correctly. The message is only a reminder to add your key, so open `.env` and set it:
+
+```bash
+nano .env        # set LLM_API_KEY=<your key>, then save
+```
+
+Nothing else needs a value: the passwords are generated, and the Splunk tokens are created in Step 5. Never commit `.env`.
+
+## Step 4: Add the Splunk CIM add-on
+
+The CIM stage checks events against Splunk's Common Information Model data models, so Splunk needs this add-on. It is free, but Splunk licenses it, so it can't be included in this repository.
+
+1. Sign in to Splunkbase with a free account and download [Splunk Common Information Model (CIM)](https://splunkbase.splunk.com/app/1621). Parsewright's checks are pinned to version **8.7.0**.
+2. Copy the `.tgz` into `lab/`, keeping its name:
    ```bash
-   git clone https://github.com/MKhalafHammad/Parsewright.git
-   cd Parsewright
+   cp ~/splunk-common-information-model-cim_870.tgz lab/
+   chmod 644 lab/*.tgz
    ```
-2. Create `.env` and put your Meta Model API key in it:
+   If you downloaded it on another computer, copy it to the server first:
    ```bash
-   make env        # creates .env from .env.example and generates every password
+   scp splunk-common-information-model-cim_870.tgz <user>@<server>:~/Parsewright/lab/
    ```
-   Then edit `.env` and set `LLM_API_KEY`. Nothing else needs a value: the passwords are generated, and the Splunk tokens are created in step 4. Never commit `.env`.
-3. Put the CIM add-on in `lab/`: download "Splunk Common Information Model (CIM)" from Splunkbase and save the `.tgz` there, keeping its name ([lab/README.md](../lab/README.md)).
-4. Start everything:
-   ```bash
-   make up         # DOCKER="sudo docker" make up   if your user cannot reach Docker
-   ```
-   Always start the stack with `make up`, not `docker compose up` directly: `make up` replaces the placeholder passwords first. It starts Splunk and PostgreSQL, then prepares Splunk inside its own container: the `pw_test` index, three service accounts with least-privilege roles (search, deploy, drift), the CIM add-on with its index macros pointed at `pw_*`, and one fresh token per account, written into `.env` and never printed. Then it starts the engine and the web UI. Every port is bound to `127.0.0.1`.
-5. Start the first run with the bundled synthetic VPN log:
-   ```bash
-   make first-run
-   ```
-   It prints the run's page. Open http://localhost:3000 and watch the agents work: Profiler, then Index-time, Extraction and CIM mapping, each attempt checked in Splunk. When it reaches "Awaiting approval", review raw vs parsed and the configuration, then approve or download the `.tgz`.
+3. Check that `ls lab/*.tgz` shows exactly one file. It must be a regular file, not a link.
 
-Splunk Web is at http://localhost:8000 (user `admin`, password `SPLUNK_PASSWORD` from `.env`). `make down` stops the stack; `docker compose down -v` also deletes its data.
+> [!WARNING]
+> **If you skip this step, setup stops partway.** `make up` starts Splunk and PostgreSQL, then fails at "preparing Splunk" with:
+>
+> `FAILED: the CIM add-on is not installed; put exactly one CIM package (a regular file, not a link) in lab/`
+>
+> The engine and the web UI don't start, and no Splunk tokens are created. To recover, add the file and run `make up` again. You don't need to wipe anything. The same message appears if `lab/` holds two packages.
+
+## Step 5: Start everything
+
+```bash
+make up
+```
+
+This takes about 15 minutes the first time, mostly Splunk's first start. Always use `make up` rather than `docker compose up`, because it also prepares Splunk:
+
+1. It starts Splunk and PostgreSQL and waits until they are healthy.
+2. It creates the `pw_test` index and three least-privilege service accounts (search, deploy, drift).
+3. It installs the CIM add-on, restarts Splunk, and points the add-on's index macros at `pw_*`.
+4. It creates one fresh token per account and writes them to `.env` without printing them.
+5. It builds and starts the engine and the web UI.
+
+Success ends with:
+
+```text
+Parsewright is up.
+  UI:          http://localhost:3000
+  Splunk Web:  http://localhost:8000  (user admin, password SPLUNK_PASSWORD in .env)
+First run:     make first-run
+```
+
+`make up` is safe to run again at any point, and it continues from where it stopped.
+
+## Step 6: Start the first run
+
+```bash
+make first-run
+```
+
+This uploads a bundled synthetic VPN log and follows it through the Profiler, Index-time, Extraction and CIM stages, checking each attempt in Splunk. It takes a few minutes, and success ends with:
+
+```text
+<job>: awaiting_approval. Open http://localhost:3000/runs/<job> to review and approve.
+```
+
+## Step 7: Review and approve
+
+A human approves every add-on before it is promoted, so this last step is yours. You can do it in the browser or from the terminal.
+
+**In the browser.** Open the run's page, review raw vs parsed events and the configuration, then click **Approve** and confirm. The run ends as `done`, and the add-on appears in the TA registry.
+
+Every port is bound to `127.0.0.1`, because the web UI has no login. So the UI opens only on the machine running it. If that machine has no browser, open an SSH tunnel **from the machine that has one**, and leave that window open:
+
+```bash
+ssh -L 3000:localhost:3000 -L 8000:localhost:8000 <user>@<server>
+```
+
+Then open http://localhost:3000 in that machine's browser. Use `localhost`, not the server's address: the tunnel carries the traffic to the server, and the UI accepts only `localhost:3000` and `127.0.0.1:3000`. The server needs an SSH server running (`sudo apt install -y openssh-server`).
+
+**In the terminal, with no browser.** Run this on the server, with your job id:
+
+```bash
+JOB=<job>
+SHA=$(curl -s http://127.0.0.1:8080/runs/$JOB | python3 -c 'import json,sys; print(json.load(sys.stdin)["record"]["sha256_test"])')
+curl -s -X POST -H 'X-Parsewright: 1' -H 'Content-Type: application/json' -d "{\"sha256\":\"$SHA\"}" http://127.0.0.1:8080/runs/$JOB/approve; echo
+```
+
+It prints `approved` and the hash. Wait about 30 seconds for the promotion, then check the result:
+
+```bash
+curl -s http://127.0.0.1:8080/runs/$JOB | python3 -c 'import json,sys; d=json.load(sys.stdin); print(d["status"], d["record"].get("smoke"))'
+curl -s http://127.0.0.1:8080/tas | python3 -m json.tool
+```
+
+You should see `done`, a passing smoke test, and `TA-parsewright-acme-vpn` in the registry.
+
+Splunk Web is at http://localhost:8000 (user `admin`, password `SPLUNK_PASSWORD` from `.env`).
+
+## Messages that are safe to ignore
+
+| Message | When | Why it's fine |
+| --- | --- | --- |
+| `LLM_API_KEY is still a placeholder` and `make: *** [Makefile:18: env] Error 1` | `make env`, before you set the key | `.env` was created. Set the key ([Step 3](#step-3-get-the-code-and-create-env)) |
+| `unhealthy` in `docker compose ps` | While Splunk starts or restarts | `make up` keeps waiting, and it clears once Splunk is ready. It's a problem only if it lasts more than 15 minutes |
+| A failed attempt in a run | During a run | That is the fix loop: Splunk's evidence goes back to the agent, which tries again. Each stage gets up to 5 attempts |
+| `(already known)` after the job id | `make first-run` again | The same log already has a run, so the script follows that run instead of starting another |
+
+## Stop, restart or reset
+
+```bash
+make down                # stop the stack; all data is kept
+make up                  # start it again
+make logs                # follow the logs
+docker compose down -v   # stop and DELETE all Splunk and PostgreSQL data
+```
+
+To start from nothing, run `docker compose down -v`, delete the folder, and go back to [Step 3](#step-3-get-the-code-and-create-env). Save your CIM `.tgz` first.
 
 **Without Docker, against your own Splunk** (the lab setup): follow [docs/lab-findings.md](lab-findings.md), "Lab setup", set `SPLUNK_HOST`, `SPLUNK_PORT` and the three tokens in `.env`, then `make setup` and `.venv/bin/parsewright serve`.
 
@@ -57,7 +236,7 @@ LLM_API_KEY=<key your server expects, or any placeholder if none>
 
 Nothing else changes, and sample logs never leave your network.
 
-**Opening the UI from another machine.** Docker binds every port to `127.0.0.1`, so the UI is reachable only on the machine running it. To use it from another machine, the simplest way is an SSH tunnel from that machine: `ssh -L 3000:localhost:3000 <user>@<server>`, then open http://localhost:3000. To serve it on the network instead (outside Docker), start the UI with `HOSTNAME=0.0.0.0` (set it explicitly: shells often set `HOSTNAME` to the machine's name) and add the server's address to `ALLOWED_HOSTS` and `WEB_ORIGINS` (see the note at the end of [.env.example](../.env.example)), then open the port in the server's firewall. With firewalld, `sudo firewall-cmd --add-port=3000/tcp --permanent` changes only the saved rules: run `sudo firewall-cmd --reload` to apply them.
+**Serving the UI on the network, outside Docker.** Start the UI with `HOSTNAME=0.0.0.0` (set it explicitly: shells often set `HOSTNAME` to the machine's name) and add the server's address to `ALLOWED_HOSTS` and `WEB_ORIGINS` (see the note at the end of [.env.example](../.env.example)), then open the port in the server's firewall. With firewalld, `sudo firewall-cmd --add-port=3000/tcp --permanent` changes only the saved rules: run `sudo firewall-cmd --reload` to apply them. The UI has no login, so anyone who can reach that port can use it.
 
 ## Usage
 
@@ -131,7 +310,11 @@ CI runs `make lint`, `make test` and `make security` on every pull request (not 
 - **`the KV store is not ready`.** Splunk's tokens need its KV store. `make up` waits 5 minutes for it; run `make up` again, and if it repeats, read `docker compose logs splunk`.
 - **Port already in use.** Change `SPLUNK_WEB_PORT` or `WEB_PORT` in `.env`, then run `make down && make up`.
 - **`required variable ... is missing a value`.** A required `.env` value is empty or missing. Compare your `.env` with `.env.example`.
-- **`make up` stops at "preparing Splunk" with "no package is in lab/".** Download the CIM add-on into `lab/` (step 3), then run `make up` again; every step is safe to repeat.
+- **`FAILED: the CIM add-on is not installed`.** `lab/` has no CIM package, or more than one. See [Step 4](#step-4-add-the-splunk-cim-add-on), then run `make up` again.
+- **`permission denied while trying to connect to the docker API`.** Your user can't reach Docker yet. See [Step 2](#step-2-let-your-user-run-docker), and remember to log out and back in.
+- **`open .env: permission denied`.** `.env` is owned by root, usually from an older `sudo make up`. Run `sudo chown "$USER":"$USER" .env`.
+- **`bind: Address already in use` when you open the SSH tunnel.** Those ports are already taken on the machine you ran it from. Run the tunnel from the machine with the browser, not on the server.
+- **`make first-run` ends with `error`.** Read the reason with `docker compose logs --tail=40 engine`. Running `make first-run` again starts a new run.
 - **The engine logs 401 from Splunk.** The service tokens last 7 days. Run `make up` again: it replaces all three.
 - **Meta API errors:**
   - 401/403: check `LLM_API_KEY`.

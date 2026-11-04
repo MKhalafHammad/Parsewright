@@ -6,6 +6,7 @@ From raw sample logs to a tested, CIM-compliant Splunk add-on, verified by Splun
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 - **Demo video:** [watch the 3-minute demo on YouTube](https://www.youtube.com/watch?v=WsxSCXF_JRs)
+- **Setup:** [step-by-step guide](docs/setup.md)
 - Built for the **Meta Global AI Developer Hackathon** (Oct 26 – Nov 4, 2026), "Build for Your World" track. All code was written during the event, from the first commit on Oct 27; only synthetic logs are used, and the demo shows only features built during the event. Progress per phase: [docs/build-plan.md](docs/build-plan.md).
 
 ![Parsewright run workspace](docs/img/run-workspace.png)
@@ -90,25 +91,9 @@ More in [docs/design.md](docs/design.md): the [run states](docs/design.md#orches
 
 **Future enhancements:** drift monitoring with automatic update jobs, and routing for shared syslog feeds. The full list is in [docs/features.md](docs/features.md).
 
-## Quick start
+## Setup
 
-You need Docker, `make`, Python 3, 8 GB of free RAM, 40 GB of free disk, and a Meta Model API key. About 15 minutes, mostly Splunk's first start.
-
-```bash
-git clone https://github.com/MKhalafHammad/Parsewright.git && cd Parsewright
-make env          # creates .env and generates every password; then set LLM_API_KEY in .env
-```
-
-Download the free **Splunk Common Information Model (CIM)** add-on `.tgz` from Splunkbase into `lab/` ([why](lab/README.md)), then:
-
-```bash
-make up           # starts Splunk, PostgreSQL, the engine and the UI, and prepares Splunk
-make first-run    # uploads a bundled synthetic log and follows it
-```
-
-Open http://localhost:3000 and watch the agents work. Splunk Web is at http://localhost:8000 (user `admin`, password `SPLUNK_PASSWORD` from `.env`).
-
-Details, running against your own Splunk, the CLI, tests and troubleshooting: [docs/setup.md](docs/setup.md).
+Every step, from installing Docker to approving your first add-on, is in **[docs/setup.md](docs/setup.md)**. Setup takes about 15 minutes, most of it Splunk's first start.
 
 ## Meta models used
 
@@ -137,7 +122,7 @@ The model is set only through environment variables (`LLM_BASE_URL`, `LLM_MODEL`
 
 | Document | What it covers |
 | --- | --- |
-| [docs/setup.md](docs/setup.md) | Prerequisites, setup, configuration, CLI, tests, troubleshooting |
+| [docs/setup.md](docs/setup.md) | Prerequisites, step-by-step setup, configuration, CLI, tests, troubleshooting |
 | [docs/features.md](docs/features.md) | Every feature, built or planned |
 | [docs/design.md](docs/design.md) | Architecture, agents, validation, guardrails (source of truth) |
 | [docs/threat-model.md](docs/threat-model.md) | Threats, mitigations and residual risks |

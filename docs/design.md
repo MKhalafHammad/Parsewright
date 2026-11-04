@@ -16,7 +16,6 @@ Parsewright turns raw sample logs into a tested, CIM-compliant Splunk add-on (TA
 
 - Muse Spark (`muse-spark-1.3`, standard mode) via the Meta Model API for all agent reasoning
 - Muse Spark Open for an on-prem mode: same code, a different `LLM_BASE_URL`, so logs never leave the network
-- Muse Code to speed up the build
 
 **One-line pitch:** from raw log to CIM-compliant add-on in minutes instead of hours, verified by Splunk, not by the model.
 

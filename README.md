@@ -101,7 +101,6 @@ Every step, from installing Docker to approving your first add-on, is in **[docs
 | --- | --- |
 | Muse Spark (`muse-spark-1.3`) via the Meta Model API | All agent reasoning: profiling, index-time settings, field extraction, CIM mapping |
 | Muse Spark Open | **On-prem mode:** the same code with a different `LLM_BASE_URL`, so logs never leave your network |
-| Muse Code | Speeding up development of this project |
 
 The model is set only through environment variables (`LLM_BASE_URL`, `LLM_MODEL`, `LLM_API_KEY`), never in code.
 

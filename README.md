@@ -92,7 +92,7 @@ More in [docs/design.md](docs/design.md): the [run states](docs/design.md#orches
 
 ## Quick start
 
-You need Docker, `make`, Python 3, 8 GB of free RAM, 30 GB of free disk, and a Meta Model API key. About 15 minutes, mostly Splunk's first start.
+You need Docker, `make`, Python 3, 8 GB of free RAM, 40 GB of free disk, and a Meta Model API key. About 15 minutes, mostly Splunk's first start.
 
 ```bash
 git clone https://github.com/MKhalafHammad/Parsewright.git && cd Parsewright
